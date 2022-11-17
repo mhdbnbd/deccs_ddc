@@ -7,6 +7,11 @@ This is the accompanying code to reproduce the main results of our DECCS algorit
 The code has been implemented in Python 3.9.7 and tested on Ubuntu 18.04.2 LTS.
 We implemented the autoencoders and DECCS in Pytorch 1.10.1 with cuda support.
 
+## Tutorial - Notebook
+
+In [synthetic-example.ipynb](synthetic-example.ipynb) we provide a step by step jupyter notebook of how DECCS is applied to the SYNTH data set described in the paper. It has many comments and plots. We hope it helps to understand the main steps of the algorithm.
+
+
 ## Installation
 
 You can install the environment via:
@@ -36,10 +41,6 @@ To run DECCS for the different data sets you can use the predefined experiment s
 > python run_deccs.py --json "experiment_setups/deccs_images.json"
 
 This will save the results under results/{data set name}/{deccs-version}. In the json files in the experiment_setup directory the setting with the reconstruction loss is set to the default. If you want to run the experiment without the reconstruction loss, then you need to set ```use_rec:false``` in the corresponding json file.
-
-## Tutorial - Notebook
-
-In [synthetic-example.ipynb](synthetic-example.ipynb) we provide a step by step jupyter notebook of how DECCS is applied to the SYNTH data set described in the paper. It has many comments and plots. We hope it helps to understand the main steps of the algorithm.
 
 # Citation (will be replaced with ICDM citation)
 ```
