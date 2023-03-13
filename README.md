@@ -1,6 +1,6 @@
 # Deep Clustering With Consensus Representations (DECCS) - ICDM 2022
 
-The paper is available online here: [arxiv](https://arxiv.org/abs/2210.07063), icdm (as soon as proceedings are online)
+The paper is available online here: [arxiv](https://arxiv.org/abs/2210.07063), [icdm](https://ieeexplore.ieee.org/document/10027597)
 
 This is the accompanying code to reproduce the main results of our DECCS algorithm published at ICDM 2022.  
 
@@ -44,18 +44,31 @@ This will save the results under results/{data set name}/{deccs-version}. In the
 
 # Citation (will be replaced with ICDM citation)
 ```
-@article{miklautz2022deep,
-  title={Deep Clustering With Consensus Representations},
-  author={Miklautz, Lukas and 
-          Teuffenbach, Martin and 
-          Weber, Pascal and 
-          Perjuci, Rona and 
-          Durani, Walid and 
-          B{\"o}hm, Christian and
-          Plant, Claudia},
-  journal={arXiv preprint arXiv:2210.07063},
-  year={2022}
+@inproceedings{MiklautzTWPDBP22,
+  author    = {Lukas Miklautz and
+               Martin Teuffenbach and
+               Pascal Weber and
+               Rona Perjuci and
+               Walid Durani and
+               Christian B{\"{o}}hm and
+               Claudia Plant},
+  editor    = {Xingquan Zhu and
+               Sanjay Ranka and
+               My T. Thai and
+               Takashi Washio and
+               Xindong Wu},
+  title     = {Deep Clustering With Consensus Representations},
+  booktitle = {{IEEE} International Conference on Data Mining, {ICDM} 2022, Orlando,
+               FL, USA, November 28 - Dec. 1, 2022},
+  pages     = {1119--1124},
+  publisher = {{IEEE}},
+  year      = {2022},
+  url       = {https://doi.org/10.1109/ICDM54844.2022.00141},
+  doi       = {10.1109/ICDM54844.2022.00141},
 }
+
+
+
 ```
 
 
