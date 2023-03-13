@@ -42,7 +42,7 @@ To run DECCS for the different data sets you can use the predefined experiment s
 
 This will save the results under results/{data set name}/{deccs-version}. In the json files in the experiment_setup directory the setting with the reconstruction loss is set to the default. If you want to run the experiment without the reconstruction loss, then you need to set ```use_rec:false``` in the corresponding json file.
 
-# Citation (will be replaced with ICDM citation)
+# Citation
 ```
 @inproceedings{MiklautzTWPDBP22,
   author    = {Lukas Miklautz and
