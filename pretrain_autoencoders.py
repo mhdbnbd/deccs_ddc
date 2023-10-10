@@ -17,6 +17,8 @@ from utils.train import validate_autoencoder
 from copy import deepcopy
 from utils.utils import random_seed
 
+# comments to test git push from vs code 
+
 def pretrain(flags):
     try:
         setting = flags.json
