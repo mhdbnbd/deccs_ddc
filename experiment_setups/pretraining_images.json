@@ -1,0 +1,21 @@
+{
+    "results_dir": "results",
+    "hp_dir": null,
+    "data": "DatasetsImages",
+    "model_type": "stacked_ae",
+    "device": "cuda:0",
+    "ae_layers": [
+        500,
+        500,
+        2000,
+        null
+    ],
+    "dropout": null,
+    "nr_aes": 10,
+    "lr": 1e-4,
+    "train_split": 0.8,
+    "batch_size": 256,
+    "patience": 20,
+    "weight_decay": 0,
+    "max_iterations": 50000
+}
