@@ -24,6 +24,8 @@ from sklearn.metrics import normalized_mutual_info_score, adjusted_rand_score
 from utils.clustering import ClustererEnsembles
 from utils.utils import write_json, cluster_accuracy
 
+# remote test 
+
 def main(flags):
     if flags.json is not None:
         setting = flags.json
