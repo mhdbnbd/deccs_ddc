@@ -16,10 +16,8 @@ from model.stacked_ae import StackedAE
 from utils.train import validate_autoencoder
 from copy import deepcopy
 from utils.utils import random_seed
-#test luke connection 3
 
-
-# comments to test git push from vs code 
+# testing change from luke
 
 def pretrain(flags):
     try:
