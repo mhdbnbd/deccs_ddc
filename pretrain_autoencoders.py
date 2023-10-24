@@ -19,6 +19,8 @@ from utils.utils import random_seed
 #test luke connection 3
 
 
+# comments to test git push from vs code 
+
 def pretrain(flags):
     try:
         setting = flags.json
