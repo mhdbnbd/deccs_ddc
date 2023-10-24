@@ -70,5 +70,3 @@ This will save the results under results/{data set name}/{deccs-version}. In the
 
 
 ```
-
-
