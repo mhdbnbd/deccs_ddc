@@ -16,7 +16,7 @@ from model.stacked_ae import StackedAE
 from utils.train import validate_autoencoder
 from copy import deepcopy
 from utils.utils import random_seed
-#test luke connection
+#test luke connection 2
 
 
 def pretrain(flags):
