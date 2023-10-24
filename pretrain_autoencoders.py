@@ -17,7 +17,9 @@ from utils.train import validate_autoencoder
 from copy import deepcopy
 from utils.utils import random_seed
 
-# testing change from luke
+# undoing luke change from local
+
+# making a change locally
 
 def pretrain(flags):
     try:
