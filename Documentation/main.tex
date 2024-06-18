@@ -1,0 +1,252 @@
+% LLNCS macro package for Springer Computer Science proceedings;
+% Version 2.20 of 2017/10/04
+%
+\documentclass[runningheads]{llncs}
+%
+\usepackage{graphicx}
+\usepackage{physics}
+\usepackage{float}
+\usepackage{dirtytalk}
+\usepackage{dsfont}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+% Used for displaying a sample figure. If possible, figure files should
+% be included in EPS format.
+%
+% If you use the hyperref package, please uncomment the following line
+% to display URLs in blue roman font according to Springer's eBook style:
+% \renewcommand\UrlFont{\color{blue}\rmfamily}
+
+\begin{document}
+%
+\title{Master Seminar: Interpreting Deep Clustering Results}
+%
+%\titlerunning{Abbreviated paper title}
+% If the paper title is too long for the running head, you can set
+% an abbreviated paper title here
+%
+
+\author{Mehdi Benabed\\{\small Supervised by Pascal Weber - Data Mining and Machine Learning}}
+
+
+%
+% First names are abbreviated in the running head.
+% If there are more than two authors, 'et al.' is used.
+%
+\institute{Faculty of Computer Science, University of Vienna}
+%
+\maketitle              % typeset the header of the contribution
+%
+
+%
+%
+%
+
+\section*{Research topic}
+The goal of this project is to develop an interactive visualization tool for exploring the predictions of deep clustering algorithms and helping to understand their decision making process.
+This includes a literature review of existing visualization techniques developed for (supervised) deep learning, e.g. feature visualizations, that could be applicable to interpreting deep clustering algorithms. 
+
+Some research questions of interest that are considered during the project would be: How suitable are existing visualization techniques to interpret deep clustering results? How do the different parts of the multi-objective loss of deep clustering techniques relate to each other?
+
+\section*{Deep Clustering}
+
+In a supervised learning context, most machine learning methods will experience a drop in performance when the testing data differs in distribution from the training data, may it be a difference in image processing related properties (e.g. lightning) or semantic properties (e.g.  real vs. synthetic), these properties abstract an aggregation of features which depicts a representation, namely a domain. Unsupervised Domain Adaptation (UDA) tries to tackle the above mentioned drop in performance by leveraging domain-invariant features from the labeled source domain and learning a classifier for an unlabeled target domain. More formally, given labeled source data and unlabeled target data whose distributions are shifted (e.g. derived from different domains) and sharing common labels space, UDA aims, under the assumption of structural domain similarity, to learn aligned features from the overlapping distribution such that a classifier trained on the source data can predict target data labels. Being a subclass of unsupervised and transfer learning, UDA brings great benefits in reusing pretrained models to offset for the lack of labeled data across different domains. Structural domain similarity is assumed through the notions of domain-wise discrimination and class-wise closeness \cite{3} where the former holds when data in an individual domain can be clustered accordingly with the label space while the latter when each of the label based clusters are geometrically close across the different domains.
+
+\section*{Related works}
+Built upon the improved clustering performance achieved by better representation learning and deeper networks, the line of research involving \cite{7,15} literature defines frameworks for joint optimization of embedded features learning and clustering by means of deep neural networks (DNN).
+
+
+\subsubsection{Unsupervised Deep Embedding for Clustering Analysis.}
+Deep Embedded Clustering (DEC) \cite{7} improves upon regular clustering algorithms by learning a non-linear mapping $f_\theta$ -parameterized by a Deep Neural Network (DNN)- from the input space $\mathcal{X}$ to an embedded feature space $\mathcal{Z}$. The unsupervised learning is resolved by soft cluster assignments which derives an auxiliary target distribution instead of the straightforward use of labels as in the supervised learning context. DEC alternates -after parameters initialization via autoencoder- between:
+\begin{itemize}
+  \item Computing the auxiliary target distribution: Given an initialized non-linear mapping $f_\theta$ and cluster centroids $\mu_j$, where $z_i = f_\theta(x_i)$ is the embedding of the input $x_i$ on a feature space (that is typically with a much smaller dimensionality than that of the input space) and using the Student's t-distribution as a kernel \eqref{eq_1} to measure $q_i$ (i.e. the similarity between ${z}_i$ and $\mu_j$) which is also the probability of assigning sample $i$ to cluster $j$, the auxiliary target distribution $P$ is computed by raising $q_i$ to the second power and then normalizing by frequency per cluster \eqref{eq_2}.
+\begin{equation}
+q_{i,j} = \frac{(1 + ||z_i - \mu_j||^2/\alpha)^{-\frac{\alpha+1}{2}}}{\sum_{j'}(1 + ||z_i - \mu_{j'}||^2/\alpha)^{-\frac{\alpha+1}{2}}} 
+\label{eq_1}
+\end{equation}
+where $z_i = f_\theta(x_i) \in \mathcal{Z}$ and $\alpha$ are the degrees of freedom of the Student's t-distribution taken as $\alpha=1$.
+\begin{equation}
+p_{i,j} = \frac{\frac{q^2_{i j}}{f_j}}{\Sigma_{j'} \frac{q^2_{ij'}}{f_{j'}}}
+\label{eq_2}
+\end{equation}
+  \item Minimizing the clustering objective while refining the clusters and putting more emphasis on data points (softly) assigned with high confidence yields to minimizing the KL divergence \eqref{KL_DivergenceDEC} (i.e. relative entropy) between the distribution $Q$ as the soft assignments $q_i$ and that of $P$ as the computed auxiliary targets $p_i$.
+\begin{equation}
+\mathcal{L} = KL(P||Q) = \Sigma_i\ \Sigma_j\ p_{i,j}\ \log\frac{p_{i,j}}{q_{i,j}}
+\label{KL_DivergenceDEC}
+\end{equation}
+\end{itemize}
+The parameters $\theta$ and the cluster centers $\mu_j$ then jointly learn the mapping by use of Stochastic Gradient Descent (SGD) and backpropagation. DEC additionally benefits from a parameters initialization that facilitates the learning of clustering representations with the help of a Stacked Autoencoder (SAE) consisting of two layers of denoising autoencoders\footnote{a denoising autoencoder consists itself of two layers of an activation function preceded by a $Dropout(\cdot)$ that reduces the dimensionality of the input.}.
+
+\subsubsection{Deep Clustering via Joint Convolutional Autoencoder Embedding and Relative Entropy Minimization.}
+In a similar fashion to the previously discussed DEC, Deep Embedded Regularized Clustering (DEPICT) \cite{15} performs by learning first an embedded space where data can be better clustered by means of a joint optimization framework. However, while DEC uses a Student's t-distribution to softly predict its clusters assignments, DEPICT outputs predictions with a multinomial logisitc function (softmax) layer then generates an auxiliary target distribution\footnote{the auxiliary target distribution in DEC is referred to by P, whereas on DEPICT by Q.} ${P}$ using \eqref{eq_3}.
+\begin{equation}
+q_{i,k} = \frac{\frac{p_{i k}}{(\Sigma_{i'}p_{i' k})^{1/2}}}{\frac{\Sigma_{k'}p_{i k'}}{(\Sigma_{i'}p_{i' k'})^{1/2}}}
+\label{eq_3}
+\end{equation}
+Additionally, DEPICT comes with a regularization term in its overall objective that balances cluster assignment (e.g. against outlier clusters), it is the second term in \eqref{KL_DEPICT}.
+\begin{equation}
+\mathcal{L} = KL(\boldsymbol{Q}||\boldsymbol{P}) + KL(\boldsymbol{f}||\boldsymbol{u}) = \frac{1}{N}\Sigma_i\Sigma_k q_{i,k} \log\frac{q_{i,k}}{p_{i,k}} + q_{i,k}\log\frac{f_{k}}{u_{k}}
+\label{KL_DEPICT}
+\end{equation}
+where $f_k = P(\boldsymbol{y} = k) = \frac{1}{N} \Sigma_i\ q_{i,k}$ is the soft frequency of cluster assignments in the target distribution and $\boldsymbol{u}$ is the uniform prior for the empirical label distribution.
+
+Experiments shown in table 1 shows an example of the better performance of DEPICT over DEC.
+\begin{table}[h!]
+\centering
+ \begin{tabular}{|c | c | c |} 
+ \hline
+ Dataset & MNIST-full & MNIST-test \\ [0.ex] 
+ \hline
+  \hline
+   & NMI | ACC & NMI | ACC \\ [0.7ex] 
+ \hline\hline
+ DEC\cite{15} & 0.816 | 0.844 & 0.827 | 0.859 \\ 
+ \hline
+ DEPICT\cite{15} & 0.917 | 0.965 & 0.915 | 0.963 \\
+ \hline
+\end{tabular}
+\caption{Clustering performance of DEC vs DEPICT on MNIST-full and MNIST-test based on accuracy (ACC) and normalized mutual information (NMI)}
+\end{table}
+
+\subsection*{UDA via Structurally Regularized Deep Clustering}
+In spite of its proven successful results, UDA comes with a potential risk of damaging the intrinsic discrimination of target data \cite{2,3,4}
+which has yet to be alleviated. Motivated by the assumption of structural domain similarity between the source and target domains, the work of \cite{5} propose a method that directly uncovers the intrinsic data discrimination of the target domain via deep discriminative target clustering and structural source regularization, this method is termed Structurally Regularized Deep Clustering (SRDC).
+
+\subsubsection*{Deep Discriminative Target Clustering} 
+\underline{Setting} : a network with a feature embedding function $\varphi(\cdot;\boldsymbol{\theta})$ and a classifier $f(\cdot;\boldsymbol{\vartheta})$, where $\{\boldsymbol{\theta},\boldsymbol{\vartheta}\}$ collects the network parameters. For an input instance $\boldsymbol{x}$, the network $f\circ\varphi$ computes feature representation $\boldsymbol{z} = \varphi(\boldsymbol{x})$ and outputs a probability vector $\boldsymbol{p} = softmax(f(\boldsymbol{z})) \in [0,1]^K$, where $K$ are the classes of interest.
+Given unlabeled target data $\{\boldsymbol{x}^t_i\}^{n_t}_{i=1}$ as input, $f \circ \varphi$ outputs $\{\boldsymbol{p}^t_i\}^{n_t}_{i=1}$ approximating the predictive label distribution of samples of $\mathcal{T}$. 
+
+Deep discriminative target clustering aims at uncovering the intrinsic discrimination of the target domain by using the previously discussed deep discriminative clustering framework DEPICT \cite{15} which minimizes the KL divergence between the predictive label distribution (softmax output) and an introduced auxiliary one \eqref{auxi}. Thus by following the steps established by DEPICT, deep discriminative target clustering alternates between:
+
+\begin{itemize}
+  \item Expectation step: updating an introduced auxiliary distribution $\boldsymbol{Q}^t$ such that:
+\begin{equation}
+q^t_{i,k} = \frac{{p^t_{i,k}}/({\sum_{i'=1}^{n_t} p^t_{i',k})^{1/2}}}{{\sum_{k'=1}^{K} p^t_{i,k'}}/{(\sum_{i'=1}^{n_t} p^t_{i',k'})^{1/2}}}
+\label{auxi}
+\end{equation}
+Unlike in supervised learning, the network cannot be trained on labeled data, instead, an auxiliary target distribution derived from the soft cluster assignment is generated using \eqref{auxi}.
+  
+  \item Optimization step: updating parameters $\{\boldsymbol{\theta},\boldsymbol{\vartheta}\}$ by training the network with the updated $\boldsymbol{Q}^t$ as labels, equivalently optimizing the cross-entropy loss:
+\begin{equation}
+\min\limits_{\boldsymbol{\theta}, \boldsymbol{\vartheta}}- \frac{1}{n^t}\sum_{i=1}^{n_t}\sum_{k=1}^{K}q^t_{i,k}\log{p}^t_{i,k}
+\label{ce_loss}
+\end{equation}
+Here, minimizing the cross-entropy loss is equivalent to finding the parameters for which $\boldsymbol{P}^t$ and $\boldsymbol{Q}^t$ would converge and therefore refining the clustering model.
+\end{itemize}
+Alternating between the expectation step and the optimization step yields to optimization of the loss function:
+\begin{equation}
+\min\limits_{\boldsymbol{Q}^t,\{{\boldsymbol{\theta}, \boldsymbol{\vartheta}\}}}\mathcal{L}_{f \circ \varphi}^t = KL(\boldsymbol{Q}^t||\boldsymbol{P}^t) + \sum_{k=1}^{K} \varrho_k^t \log\varrho_k^t
+\label{dc_loss}
+\end{equation}
+with $\varrho_k^t = \frac{1}{n^t} \sum_{i=1}^{n^t} q_{i,k}^t$, where the first term computes the  $KL$ divergence between discrete probability distributions $\boldsymbol{P}^t$ and $\boldsymbol{Q}^t$:
+\begin{equation}
+KL(\boldsymbol{Q}^t||\boldsymbol{P}^t) = \frac{1}{n^t}\sum_{i=1}^{n^t}\sum_{k=1}^{K}q_{i,k}^t \log \frac{q_{i,k}^t}{p_{i,k}^t}
+\label{kl_loss}
+\end{equation}
+and the second term is a regularization term that balances cluster assignment by setting cluster boundaries similar to the one used by DEPICT in \eqref{KL_DEPICT}. Indeed, \eqref{auxi} can be obtained by approximating the gradient of \eqref{kl_loss} and setting it equal to zero\cite{15}. Thus deep discriminative target clustering minimizes $\mathcal{L}_{f \circ \varphi}^t$ defined by \eqref{dc_loss} by alternating between the aforementioned expectation and optimization step.
+
+\subsubsection*{Deep Embedded Clustering} 
+As mentioned before, one of the differences between DEC and DEPICT is the output probability vector, while DEPICT uses a softmax function DEC uses a Student's t-distribution function. SRDC on the other hand jointly uses a softmax in its deep discriminative target clustering and a Student's t-distribution function in the deep embedded clustering described in this section. Actually, deep embedded clustering as a component of SRDC is used to enhance target discrimination in the feature space $\mathcal{Z}$. The need for enhancing discrimination could be justified by the fact that $\boldsymbol{Q}^t$ is arbitrary and \eqref{dc_loss} is not guaranteed to have sensible solutions.
+
+Let $\{\boldsymbol{\mu}_k\}^{K}_{k=1}$ be the learnable cluster centers of both source and target data in the feature space $\mathcal{Z}$, the probability vector $\tilde{\boldsymbol{p}}^t_{i}$ of the soft cluster assignments (i.e. the similarity measure between the cluster j centroid and the embedded point i), given $\boldsymbol{z}_i^t = \varphi(\boldsymbol{x}_i^t)$ (i.e. $x_i$ after embedding), is:
+\begin{equation}
+\tilde{p}^t_{i,k} = \frac{\exp((1 + ||\boldsymbol{z}^t_i - \boldsymbol{\mu}_k||^2)^{-1})}{\sum_{k'=1}^{K}\exp((1 + ||\boldsymbol{z}^t_i - \boldsymbol{\mu}_{k'}||^2)^{-1})}
+\label{student}
+\end{equation}
+Then, following the framework established by DEC, an auxiliary distribution $\tilde{\boldsymbol{Q}}$ is introduced out of $\tilde{\boldsymbol{P}}$, nevertheless, using \eqref{auxi} instead\footnote{\eqref{eq_2} is the squared form of \eqref{auxi} or \eqref{eq_3}.} of \eqref{eq_2}. Then alternating\footnote{$\{\boldsymbol{\mu}_k\}^{K}_{k=1}$ are re-initialized at the start of each training epoch based on the current cluster assignments of $\{\boldsymbol{z}^t_i\}^{n_t}_{i=1}$.} between optimization and expectation steps as described before yields to optimization of the loss function:
+\begin{equation}
+\min\limits_{\tilde{\boldsymbol{Q}^t},{\boldsymbol{\theta}},\{\boldsymbol{\mu}^t_k\}^{K}_{k=1}}\mathcal{L}_{\varphi}^t = KL(\tilde{\boldsymbol{Q}}^t||\tilde{\boldsymbol{P}}^t) + \sum_{k=1}^{K} \tilde{\varrho_k}^t \log \tilde{\varrho_k}^t
+\end{equation}
+Finally, the loss function for optimization of the deep discriminative target clustering is given by the combination of (3) and (6):
+\begin{equation}
+\min\limits_{\boldsymbol{Q}^t, \boldsymbol{\tilde{Q}}^t, \{{\boldsymbol{\theta}, \boldsymbol{\vartheta}\}}, \{{\boldsymbol{\mu}_k\}}_{k=1}^K}\mathcal{L}_{SRDC}^t = \mathcal{L}_{{f \circ \varphi}}^t + \mathcal{L}_\varphi^t
+\label{target_loss}
+\end{equation}
+Thus applying deep discriminative target clustering in order to directly uncover and enhance the target domain discrimination is to be reached by \eqref{target_loss} as a first term of the overall SRDC objective.
+
+
+%
+% ---- Bibliography ----
+%
+% BibTeX users should specify bibliography style 'splncs04'.
+% References will then be sorted and formatted in the correct style.
+%
+% \bibliographystyle{splncs04}
+% \bibliography{mybibliography}
+%
+
+
+\begin{thebibliography}{8}
+
+
+\bibitem{2}
+Zhang, Wen \& Wu, Dongrui. (2019). Transferability versus Discriminability: Joint Probability Distribution Adaptation (JPDA). 
+
+\bibitem{3}
+Shi, Yuan \& Sha, Fei. (2012). Information-Theoretical Learning of Discriminative Clusters for
+Unsupervised Domain Adaptation. Proceedings of the 29th International Conference on Machine Learning, ICML 2012. 2. 
+
+\bibitem{4}
+Zhao et al. (2019). On Learning Invariant Representation for Domain Adaptation. 
+
+\bibitem{5}
+Tang et al. (2020). Unsupervised Domain Adaptation via Structurally Regularized Deep Clustering. 
+
+\bibitem{6}
+ComputerVisionFoundation Videos. (2020, July 17). Unsupervised Domain Adaptation via Structurally Regularized Deep Clustering [Video file]. Retrieved from
+\url{https://www.youtube.com/watch?v=eEnxOLUI3iM\&t=164s}
+
+\bibitem{7}
+Xie et al. Ali. (2015). Unsupervised Deep Embedding for Clustering Analysis.
+
+\bibitem{8}
+Sener et al. (2016). Unsupervised Transductive Domain Adaptation. 
+
+\bibitem{9}
+He et al. (2015). Deep Residual Learning for Image Recognition. 7. 
+
+\bibitem{10}
+Ganin et al. (2017). Domain-Adversarial Training of Neural Networks.
+
+\bibitem{11}
+Saito et al. (2017). Maximum Classifier Discrepancy for Unsupervised Domain Adaptation.
+
+\bibitem{12}
+Lamb et al. (2020). SketchTransfer: A Challenging New Task for Exploring Detail-Invariance and the Abstractions Learned by Deep Networks. 952-961. 10.1109/WACV45572.2020.9093327. 
+
+\bibitem{13}
+Tzeng et al.(2017). Adversarial Discriminative Domain Adaptation. 2962-2971. 10.1109/CVPR.2017.316.
+
+\bibitem{14}
+He et al. (2015). Deep Residual Learning for Image Recognition. 7.
+
+\bibitem{15}
+Dizaji et al. (2017). Deep Clustering via Joint Convolutional Autoencoder Embedding and Relative Entropy Minimization. 5747-5756. 10.1109/ICCV.2017.612. 
+
+\bibitem{16}
+Zhang et al. (2019). Consistency Regularization for Generative Adversarial Networks. 
+
+\bibitem{17}
+Miyato et al. (2017). Virtual Adversarial Training: A Regularization Method for Supervised and Semi-Supervised Learning. IEEE Transactions on Pattern Analysis and Machine Intelligence. PP. 10.1109/TPAMI.2018.2858821.
+
+\bibitem{18}
+Shu et al. (2018). A DIRT-T Approach to Unsupervised Domain Adaptation. 
+
+\bibitem{19}
+Zhang et al. (2017). mixup: Beyond Empirical Risk Minimization.
+
+\bibitem{20}
+Mao et al. (2019). Virtual Mixup Training for Unsupervised Domain Adaptation. 
+
+\bibitem{21}
+Fenf et al. (2019). Self-Supervised Representation Learning by Rotation Feature Decoupling. 10356-10366. 10.1109/CVPR.2019.01061. 
+
+\bibitem{22}
+Hoffman et al. (2017). CyCADA: Cycle-Consistent Adversarial Domain Adaptation.
+
+\bibitem{23}
+Zhu, Jun-Yan & Park, Taesung & Isola, Phillip & Efros, Alexei. (2017). Unpaired Image-to-Image Translation Using Cycle-Consistent Adversarial Networks. 2242-2251. 10.1109/ICCV.2017.244. 
+ 
+\end{thebibliography}
+\end{document}
