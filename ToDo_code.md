@@ -1,0 +1,1 @@
+# ssh to uni and git fetch

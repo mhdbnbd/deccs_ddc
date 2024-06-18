@@ -1,5 +1,9 @@
 # Thesis Development Plan
 
+## 0. Research and literature review
+
+- Done, to review and improve accordingly
+
 ## 1. Methodology Development
 
 ### Design the Integrated Algorithm
