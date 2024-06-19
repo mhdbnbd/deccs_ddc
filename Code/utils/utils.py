@@ -9,7 +9,7 @@ import random
 from math import prod
 from itertools import islice
 from scipy.optimize import linear_sum_assignment
-
+import pandas as pd
 
 def flatten_tensor(x):
     return x.reshape(-1, prod(x.shape[1:]))
@@ -233,3 +233,19 @@ def cluster_accuracy(y_true, y_pred):
     ind = linear_sum_assignment(w.max() - w)
     ind = np.array(ind).transpose()
     return sum([w[i, j] for i, j in ind]) * 1.0 / y_pred.size
+
+# ddc utils
+
+def load_data(data_path):
+    # Load the dataset
+    data = pd.read_csv(data_path)
+    return data.values
+
+def load_tags(tags_path):
+    # Load the tags dataset
+    tags = pd.read_csv(tags_path)
+    return tags.values
+
+def evaluate_clustering(data, clusters, explanations, pairwise_loss):
+    # Implement evaluation logic
+    pass
