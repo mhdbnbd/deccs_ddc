@@ -1,7 +1,11 @@
 """
-creating a sample dataset,
+main.py
+
+This script processes the AwA2 dataset by creating a sample dataset,
 training an autoencoder model, extracting embeddings, and performing
-KMeans clustering on the embeddings.
+KMeans clustering on the embeddings. It includes functionality to
+run the script with or without GPU support and the option to use a
+sample dataset or the full dataset.
 
 Functions:
     generate_labels_file(img_dir, labels_file): Generates a labels file for the dataset.
@@ -138,18 +142,18 @@ def custom_collate(batch):
 
 def main(use_gpu, use_sample):
     """
+    Main function to orchestrate the dataset processing, model training, and clustering.
+
     Parameters:
     use_gpu (bool): Flag to indicate whether to use GPU if available.
     use_sample (bool): Flag to indicate whether to use a sample dataset or the full dataset.
-
-    This function creates a sample dataset if specified, defines image transformations,
-    creates the dataset and dataloader, initializes and trains the autoencoder,
-    extracts embeddings, and performs KMeans clustering on the embeddings.
     """
     # Directory of the existing AwA2 dataset
     source_dir = "data/AwA2-data/Animals_with_Attributes2"
     # Directory to save the sample dataset
     dataset_dir = "AwA2-data-sample"
+
+    pred_file = "data/AwA2-data/Animals_with_Attributes2/predicate-matrix-continuous.txt"
 
     if use_sample:
         # Create a sample dataset
@@ -176,7 +180,7 @@ def main(use_gpu, use_sample):
     # Create dataset and dataloader
     logging.info("Creating dataset and dataloader")
     try:
-        awa2_dataset = AwA2Dataset(img_dir=img_dir, attr_file=attr_file, transform=transform)
+        awa2_dataset = AwA2Dataset(img_dir=img_dir, attr_file=attr_file, pred_file=pred_file, transform=transform)
         dataloader = DataLoader(awa2_dataset, batch_size=32, shuffle=True, collate_fn=custom_collate)
         logging.info(f"Dataset and dataloader created with {len(awa2_dataset)} samples")
     except Exception as e:
@@ -218,6 +222,5 @@ if __name__ == "__main__":
     parser.add_argument('--use_sample', action='store_true', help='Use sample dataset instead of full dataset.')
     args = parser.parse_args()
     main(args.use_gpu, args.use_sample)
-
 
 # python3 main.py --use_gpu --use_sample
