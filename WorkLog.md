@@ -9,4 +9,5 @@ https://wakatime.com/dashboard
 1907 6h --"return symbolig tags"  
 2007 6h --"jointly learn symbolic attributes"  
 2207 4h --"init validate_clusters and update methodology chapter"  
-2307
+2307 4h --"review, init presentation_notes"  
+2407 ToDo --"review, presentation_notes, fix table of content"
