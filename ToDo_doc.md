@@ -15,6 +15,7 @@
 - **DECCS Implementation**: Implement or adapt the DECCS algorithm using an autoencoder to learn consensus representations.
 - **DDC Integration**: Develop methods to incorporate symbolic-level representations from DDC into DECCS.
 - **Algorithm Testing**: Create a testing experiments to evaluate the integrated algorithm on AwA and aPY datasets.
+**Include some pseudo-code and/or schema to clarify steps.**
 
 ## 2. Data Preparation
 
