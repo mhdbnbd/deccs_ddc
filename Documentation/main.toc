@@ -1,0 +1,46 @@
+\contentsline {chapter}{Abstract}{1}{Doc-Start}%
+\contentsline {chapter}{Contents}{1}{chapter*.1}%
+\contentsline {chapter}{List of Figures}{2}{chapter*.2}%
+\contentsline {chapter}{List of Tables}{3}{chapter*.3}%
+\contentsline {chapter}{\numberline {1}Introduction}{4}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Background}{4}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Research Objectives}{5}{section.1.2}%
+\contentsline {chapter}{\numberline {2}Literature Review}{6}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Deep Embedded Clustering with Consensus Representations (DECCS)}{6}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Related Work in Consensus Clustering and Deep Clustering}{6}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Methodology of DECCS}{7}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.1.3}Experimental Evaluation}{8}{subsection.2.1.3}%
+\contentsline {section}{\numberline {2.2}Deep Descriptive Clustering (DDC)}{8}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Key Aspects of Deep Descriptive Clustering (DDC)}{9}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Experiments and Findings}{9}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}Conclusion and Future Directions}{10}{subsection.2.2.3}%
+\contentsline {section}{\numberline {2.3}Related Works}{10}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Deep Embedded Clustering: A General Approach to Clustering Arbitrary Similarity Measures by J. Xie, R. Girshick, and A. Farhadi (2016)}{10}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Auto-Encoding Variational Bayes by D. P. Kingma and M. Welling (2014)}{10}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Explainable-by-Design Algorithms}{11}{subsection.2.3.3}%
+\contentsline {subsection}{\numberline {2.3.4}Post-processing Explanation Methods}{11}{subsection.2.3.4}%
+\contentsline {subsection}{\numberline {2.3.5}Other Related Works}{12}{subsection.2.3.5}%
+\contentsline {chapter}{\numberline {3}Methodology}{13}{chapter.3}%
+\contentsline {chapter}{\numberline {4}Methodology}{14}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Overview}{14}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Initial Clustering with DECCS}{14}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Generating Explanations with DDC}{14}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Dataset Preparation}{15}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}AwA2 Dataset}{15}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Data Preprocessing}{15}{subsection.4.4.2}%
+\contentsline {section}{\numberline {4.5}Model Training}{15}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Autoencoder}{15}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}Embedding Extraction}{16}{subsection.4.5.2}%
+\contentsline {section}{\numberline {4.6}Clustering}{16}{section.4.6}%
+\contentsline {subsection}{\numberline {4.6.1}K-Means Clustering}{16}{subsection.4.6.1}%
+\contentsline {subsection}{\numberline {4.6.2}Validation and Analysis}{17}{subsection.4.6.2}%
+\contentsline {section}{\numberline {4.7}Integration of Pairwise Loss Function}{17}{section.4.7}%
+\contentsline {section}{\numberline {4.8}Balancing Loss Components}{17}{section.4.8}%
+\contentsline {section}{\numberline {4.9}Iterative Optimization and Refinement}{18}{section.4.9}%
+\contentsline {section}{\numberline {4.10}Finalization of the Model}{18}{section.4.10}%
+\contentsline {section}{\numberline {4.11}Performance and Interpretability Evaluation}{18}{section.4.11}%
+\contentsline {chapter}{\numberline {5}Results}{19}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Discussion}{20}{chapter.6}%
+\contentsline {chapter}{\numberline {7}Conclusion}{21}{chapter.7}%
+\contentsline {chapter}{\numberline {A}Appendix A}{22}{appendix.A}%
+\contentsline {chapter}{\numberline {B}Appendix B}{23}{appendix.B}%
