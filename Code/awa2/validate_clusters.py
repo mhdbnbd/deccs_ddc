@@ -61,7 +61,7 @@ def compute_silhouette_score(embeddings, clusters):
 def main():
     clusters = load_clusters_from_json(CLUSTER_RESULTS_FILE)
 
-    # Replace these with your actual data
+    # Replace these with actual data
     embeddings = np.random.rand(100, 2)  # Example 2D embeddings, replace with your actual embeddings
     true_labels = np.random.randint(0, 5, size=100)  # Example true labels, replace with your actual labels
 
@@ -69,7 +69,7 @@ def main():
     plot_clusters(embeddings, clusters)
     analyze_centroids(embeddings, clusters)
     compute_homogeneity(true_labels, clusters)
-    data = np.random.rand(100, 10)  # Example data, replace with your actual data
+    data = np.random.rand(100, 10)  # Example data, replace with actual data
     inspect_clusters(data, clusters)
     compute_silhouette_score(embeddings, clusters)
 

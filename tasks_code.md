@@ -1,7 +1,8 @@
 ToDo:  
 
 - fix ssh to luke disk error.
-- Adapt the Autoencoder to include DDC functionalities.
+- apply different clustering methods and consensus
+- Adapt the Autoencoder to include DDC functionalities: Integrating symbolic tags more tightly into the clustering process by using them as additional features or constraints.
 - Data preprocessing : AwA, APY .
 - Add DDC Modules and Functions: Cluster-level explanations, Pairwise loss integration.
 - Utility Functions for loading tags, evaluating results.
@@ -13,6 +14,8 @@ ToDo:
 
 Ongoing/done:  
 
+- main_tags (tags in autoencoder)
+- main_tags2 (tags in clustering)
 - Can Processes the AwA2 dataset.
 - Can train an autoencoder to extract embeddings.
 - Can apply KMeans clustering to embeddings.
