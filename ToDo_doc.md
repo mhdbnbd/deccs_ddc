@@ -4,6 +4,7 @@
 
 - review seminar feedbacks
 - fix citations and references
+- fix table of content
 - shorten abstract
 - include tables
 - proofread
