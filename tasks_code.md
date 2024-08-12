@@ -9,6 +9,8 @@ ToDo:
 
 Ongoing/done:  
 
+- improve data portability, several local Downloads ?
+
 - Include some pseudo-code and/or schema to clarify steps.
 - Adapt the Autoencoder to include DDC functionalities: Integrating symbolic tags more tightly into the clustering process by using them as additional features or constraints.
 - main_tags (tags in autoencoder)

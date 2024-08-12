@@ -22,4 +22,4 @@ https://wakatime.com/dashboard
 0608 6h --"major refactor"
 0708 6h --"major refactor"
 1008 4h --"update documentation readme/notes"
-2008 4h --"setup env for lap2"
+1208 4h --"setup env for lap2"
