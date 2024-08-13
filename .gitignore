@@ -1,0 +1,9 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+.idea/
+.ipynb_checkpoints/
+__pycache__/
+Code/awa2/AwA2-data-sample
+Code/awa2/data/AwA2-data
+*.pyc
