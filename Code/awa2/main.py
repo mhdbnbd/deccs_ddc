@@ -97,5 +97,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
     main(args.use_gpu, args.use_sample)
 
-
 # python3 main.py --use_gpu --use_sample
