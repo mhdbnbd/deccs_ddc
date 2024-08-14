@@ -4,7 +4,7 @@ import torch.optim as optim
 import torch.nn.functional as F
 
 
-def train_autoencoder(dataloader, model, use_gpu, num_epochs=10):
+def train_autoencoder(dataloader, model, use_gpu, num_epochs=100):
     """
     Train the autoencoder model.
 
@@ -39,7 +39,7 @@ def train_autoencoder(dataloader, model, use_gpu, num_epochs=10):
         epoch_loss = running_loss / len(dataloader)
         print(f'Epoch [{epoch + 1}/{num_epochs}], Loss: {epoch_loss:.4f}')
 
-def train_constrained_autoencoder(dataloader, model, use_gpu, num_epochs=10):
+def train_constrained_autoencoder(dataloader, model, use_gpu, num_epochs=100):
     device = torch.device('cuda' if use_gpu and torch.cuda.is_available() else 'cpu')
     model.to(device)
     criterion = nn.MSELoss()
