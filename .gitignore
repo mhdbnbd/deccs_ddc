@@ -1,3 +1,10 @@
 Code/awa2/AwA2-data-sample/
-Code/awa2/data/Code/awa2/awa2-venv/
-__pychache__/
+Code/awa2/data/
+__pycache__/
+developper_guide.md
+.idea
+*.xml
+*.iml
+Code/awa2/__pycache__
+.ipynb_checkpoints
+Code/awa2/clustering_results.json
