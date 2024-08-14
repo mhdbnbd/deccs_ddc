@@ -1,2 +1,8 @@
 Code/awa2/AwA2-data-sample/
 Code/awa2/data/
+__pycache__/
+developper_guide.md
+.idea
+*.xml
+*.iml
+Code/awa2/__pycache__
