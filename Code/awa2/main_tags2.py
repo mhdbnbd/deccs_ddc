@@ -1,69 +1,65 @@
 import torch
-import torch.nn.functional as F
+import argparse
+from model import Autoencoder
+from train import train_constrained_autoencoder
+from dataset import AwA2Dataset
+from utils import create_sample_dataset, custom_collate
+from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import KMeans
+from torchvision import transforms
+from torch.utils.data import DataLoader
+import os
+import json
+import logging
 
+def main(use_gpu, use_sample):
+    # Setup paths and create sample dataset if needed
+    source_dir = "data/AwA2-data/Animals_with_Attributes2"
+    dataset_dir = "AwA2-data-sample"
+    pred_file = "data/AwA2-data/Animals_with_Attributes2/predicate-matrix-continuous.txt"
 
-class ConstrainedAutoencoder(nn.Module):
-    def __init__(self):
-        super(ConstrainedAutoencoder, self).__init__()
-        self.encoder = nn.Sequential(
-            nn.Conv2d(3, 16, 3, stride=2, padding=1),
-            nn.ReLU(),
-            nn.Conv2d(16, 32, 3, stride=2, padding=1),
-            nn.ReLU(),
-            nn.Conv2d(32, 64, 3, stride=2, padding=1),
-            nn.ReLU(),
-            nn.Conv2d(64, 128, 3, stride=2, padding=1),
-            nn.ReLU(),
-        )
-        self.decoder = nn.Sequential(
-            nn.ConvTranspose2d(128, 64, 3, stride=2, padding=1, output_padding=1),
-            nn.ReLU(),
-            nn.ConvTranspose2d(64, 32, 3, stride=2, padding=1, output_padding=1),
-            nn.ReLU(),
-            nn.ConvTranspose2d(32, 16, 3, stride=2, padding=1, output_padding=1),
-            nn.ReLU(),
-            nn.ConvTranspose2d(16, 3, 3, stride=2, padding=1, output_padding=1),
-            nn.Sigmoid(),
-        )
+    if use_sample:
+        create_sample_dataset(source_dir, dataset_dir, sample_size=100)
+        img_dir = os.path.join(dataset_dir, "JPEGImages")
+        attr_file = os.path.join(dataset_dir, "AwA2-labels.txt")
+    else:
+        img_dir = os.path.join(source_dir, "JPEGImages")
+        attr_file = os.path.join(source_dir, "AwA2-labels.txt")
 
-    def forward(self, x):
-        x = self.encoder(x)
-        x = self.decoder(x)
-        return x
+    transform = transforms.Compose([
+        transforms.Resize((128, 128)),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+    ])
 
+    # Create the dataset and dataloader
+    awa2_dataset = AwA2Dataset(img_dir=img_dir, attr_file=attr_file, pred_file=pred_file, transform=transform)
+    dataloader = DataLoader(awa2_dataset, batch_size=32, shuffle=True, collate_fn=custom_collate)
 
-def train_constrained_autoencoder(dataloader, model, use_gpu, num_epochs=10):
-    device = torch.device('cuda' if use_gpu and torch.cuda.is_available() else 'cpu')
-    model.to(device)
-    criterion = nn.MSELoss()
-    optimizer = optim.Adam(model.parameters(), lr=1e-3)
+    # Initialize and train the constrained autoencoder
+    model = Autoencoder()
+    train_constrained_autoencoder(dataloader, model, use_gpu)
 
-    for epoch in range(num_epochs):
-        model.train()
-        running_loss = 0.0
-        for images, _, _, symbolic_tags in dataloader:
-            images = images.to(device)
-            symbolic_tags = symbolic_tags.to(device)
+    # Extract embeddings using the trained constrained autoencoder
+    embeddings = torch.tensor(awa2_dataset.symbolic_tags)  # Using symbolic tags directly as embeddings
 
-            # Forward pass
-            outputs = model(images)
-            loss = criterion(outputs, images)
+    # Concatenate embeddings with symbolic tags
+    combined_features = torch.cat((embeddings, embeddings), dim=1)
 
-            # Additional loss term for symbolic tags
-            tag_loss = F.mse_loss(symbolic_tags, symbolic_tags)  # Example term, should be refined
+    # Standardize features
+    scaler = StandardScaler()
+    combined_features = scaler.fit_transform(combined_features.cpu().detach().numpy())
 
-            # Total loss
-            total_loss = loss + tag_loss
+    # Apply KMeans clustering on combined features
+    n_clusters = 5  # to be adjusted
+    kmeans = KMeans(n_clusters=n_clusters)
+    clusters = kmeans.fit_predict(combined_features)
 
-            # Backward pass
-            optimizer.zero_grad()
-            total_loss.backward()
-            optimizer.step()
-
-            running_loss += total_loss.item()
-
-        epoch_loss = running_loss / len(dataloader)
-        print(f'Epoch [{epoch + 1}/{num_epochs}], Loss: {epoch_loss:.4f}')
+    # Save the clustering results
+    results = {f"Image_{i}": int(cluster) for i, cluster in enumerate(clusters)}
+    with open("clustering_results.json", "w") as f:
+        json.dump(results, f, indent=4)
+    logging.info("Clustering results saved to clustering_results.json")
 
 
 if __name__ == "__main__":
@@ -72,3 +68,5 @@ if __name__ == "__main__":
     parser.add_argument('--use_sample', action='store_true', help='Use sample dataset instead of full dataset.')
     args = parser.parse_args()
     main(args.use_gpu, args.use_sample)
+
+

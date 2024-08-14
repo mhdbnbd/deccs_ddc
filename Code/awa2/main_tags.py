@@ -1,4 +1,16 @@
+import os
+import logging
+import argparse
+import json
+import torch
 from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import KMeans
+from torchvision import transforms
+from torch.utils.data import DataLoader
+from dataset import AwA2Dataset
+from model import Autoencoder
+from train import train_autoencoder
+from utils import extract_embeddings, create_sample_dataset, custom_collate
 
 
 def main(use_gpu, use_sample):
@@ -21,11 +33,15 @@ def main(use_gpu, use_sample):
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
     ])
 
+    # Create the dataset and dataloader
     awa2_dataset = AwA2Dataset(img_dir=img_dir, attr_file=attr_file, pred_file=pred_file, transform=transform)
     dataloader = DataLoader(awa2_dataset, batch_size=32, shuffle=True, collate_fn=custom_collate)
 
+    # Initialize and train the autoencoder
     autoencoder = Autoencoder()
     train_autoencoder(dataloader, autoencoder, use_gpu)
+
+    # Extract embeddings using the trained autoencoder
     embeddings = extract_embeddings(dataloader, autoencoder, use_gpu)
 
     # Concatenate embeddings with symbolic tags
@@ -37,7 +53,7 @@ def main(use_gpu, use_sample):
     combined_features = scaler.fit_transform(combined_features.cpu().detach().numpy())
 
     # Apply KMeans clustering on combined features
-    n_clusters = 5  # Adjust this based on your specific requirements
+    n_clusters = 5  # to be adjusted
     kmeans = KMeans(n_clusters=n_clusters)
     clusters = kmeans.fit_predict(combined_features)
 

@@ -88,3 +88,23 @@ performing clustering. This approach ensures that the clustering algorithm consi
 - (main_tags2) Another approach is to use symbolic tags to guide the clustering process by enforcing constraints. This can be done by modifying the clustering objective to include a term that penalizes the clustering algorithm for assigning different clusters to data points with similar symbolic tags.
 To achieve this, we can implement a custom clustering algorithm or modify the loss function used in the autoencoder 
 training to include a term that considers the symbolic tags.
+
+
+**main.py**
+
+Method : processes the AwA2 dataset by creating a sample dataset, training a standard autoencoder, extracting embeddings, and performing KMeans clustering on the embeddings.  
+Interpretability: The script focuses purely on the unsupervised learning aspect of the data. It does not integrate symbolic tags, which limits the interpretability of the clusters.
+Baseline Approach: main.py serves as a baseline model, showcasing standard autoencoder-based clustering without additional semantic information.
+
+**main_tags.py**
+
+Method : After extracting em beddings, they are concatenated with the symbolic tags associated with each image to form 
+combined features. Then KMeans clustering is applied on the combined features (embeddings + symbolic tags). 
+The combined features are standardized before clustering to ensure that all features contribute equally to the distance
+metrics used in KMeans.
+
+**main_tags.py**
+
+An advanced integration of symbolic tags, not just in clustering but also in training, with an autoencoder 
+(train_constrained_autoencoder) that includes an additional loss term that considers the symbolic tags during training. 
+
