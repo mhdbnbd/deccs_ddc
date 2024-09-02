@@ -23,15 +23,15 @@ def main(use_gpu, use_sample):
     use_sample (bool): Flag to indicate whether to use a sample dataset or the full dataset.
     """
     # Directory of the existing AwA2 dataset
-    source_dir = "data/AwA2-data/Animals_with_Attributes2"
+    source_dir = "data/Animals_with_Attributes2"
     # Directory to save the sample dataset
     dataset_dir = "AwA2-data-sample"
 
-    pred_file = "data/AwA2-data/Animals_with_Attributes2/predicate-matrix-continuous.txt"
+    pred_file = "data/Animals_with_Attributes2/predicate-matrix-continuous.txt"
 
     if use_sample:
         # Create a sample dataset
-        create_sample_dataset(source_dir, dataset_dir, sample_size=100)
+        create_sample_dataset(source_dir, dataset_dir, sample_size=500)
         img_dir = os.path.join(dataset_dir, "JPEGImages")
         attr_file = os.path.join(dataset_dir, "AwA2-labels.txt")
     else:
@@ -61,10 +61,10 @@ def main(use_gpu, use_sample):
         logging.error(f"Error creating dataset and dataloader: {e}")
         return
 
+    # Check if DataLoader has valid samples
     if len(dataloader) == 0:
-    logging.error("No valid samples available in the DataLoader. Exiting.")
-    return
-
+        logging.error("No valid samples available in the DataLoader. Exiting.")
+        return
     # Initialize the autoencoder
     logging.info("Initializing the autoencoder")
     autoencoder = Autoencoder()

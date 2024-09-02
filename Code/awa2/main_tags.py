@@ -15,9 +15,9 @@ from utils import extract_embeddings, create_sample_dataset, custom_collate
 
 def main(use_gpu, use_sample):
     # Setup paths and create sample dataset if needed
-    source_dir = "data/AwA2-data/Animals_with_Attributes2"
+    source_dir = "data/Animals_with_Attributes2"
     dataset_dir = "AwA2-data-sample"
-    pred_file = "data/AwA2-data/Animals_with_Attributes2/predicate-matrix-continuous.txt"
+    pred_file = "data/Animals_with_Attributes2/predicate-matrix-continuous.txt"
 
     if use_sample:
         create_sample_dataset(source_dir, dataset_dir, sample_size=100)
