@@ -1,7 +1,8 @@
 import os
 import pandas as pd
 from torch.utils.data import Dataset
-from PIL import Image
+import logging
+from PIL import Image, UnidentifiedImageError
 import numpy as np
 
 

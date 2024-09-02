@@ -61,6 +61,10 @@ def main(use_gpu, use_sample):
         logging.error(f"Error creating dataset and dataloader: {e}")
         return
 
+    if len(dataloader) == 0:
+    logging.error("No valid samples available in the DataLoader. Exiting.")
+    return
+
     # Initialize the autoencoder
     logging.info("Initializing the autoencoder")
     autoencoder = Autoencoder()
