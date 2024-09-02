@@ -31,7 +31,7 @@ def main(use_gpu, use_sample):
 
     if use_sample:
         # Create a sample dataset
-        create_sample_dataset(source_dir, dataset_dir, sample_size=100)
+        create_sample_dataset(source_dir, dataset_dir, sample_size=15)
         img_dir = os.path.join(dataset_dir, "JPEGImages")
         attr_file = os.path.join(dataset_dir, "AwA2-labels.txt")
     else:
