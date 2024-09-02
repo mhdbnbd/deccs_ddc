@@ -1,7 +1,8 @@
 import os
 import pandas as pd
 from torch.utils.data import Dataset
-from PIL import Image
+import logging
+from PIL import Image, UnidentifiedImageError
 import numpy as np
 
 
@@ -79,7 +80,13 @@ class AwA2Dataset(Dataset):
         - tuple: (image, label, attribute, symbolic_tags)
         """
         image_path = os.path.join(self.img_dir, self.image_paths[idx])
-        image = Image.open(image_path).convert('RGB')
+
+        try:
+            image = Image.open(image_path).convert('RGB')
+        except UnidentifiedImageError:
+            logging.error(f"Cannot identify image file {image_path}. It may be corrupted or not a valid image.")
+            return None, None, None, None
+
         if self.transform:
             image = self.transform(image)
         label = self.labels[idx]

@@ -4,7 +4,7 @@ import torch.optim as optim
 import torch.nn.functional as F
 
 
-def train_autoencoder(dataloader, model, use_gpu, num_epochs=8):
+def train_autoencoder(dataloader, model, use_gpu, num_epochs=2):
     """
     Train the autoencoder model.
 
