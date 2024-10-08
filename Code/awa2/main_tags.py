@@ -61,7 +61,7 @@ def main(use_gpu, use_sample):
     results = {f"Image_{i}": int(cluster) for i, cluster in enumerate(clusters)}
     with open("clustering_results_tags.json", "w") as f:
         json.dump(results, f, indent=4)
-    logging.info("Clustering results saved to clustering_results.json")
+    logging.info("Clustering results saved to clustering_results_tags.json")
 
 
 if __name__ == "__main__":
