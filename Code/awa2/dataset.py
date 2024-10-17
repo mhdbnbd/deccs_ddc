@@ -72,24 +72,26 @@ class AwA2Dataset(Dataset):
         return len(self.image_paths)
 
     def __getitem__(self, idx):
-        """
-        Args:
-        - idx (int): Index
+    """
+    Args:
+    - idx (int): Index
 
-        Returns:
-        - tuple: (image, label, attribute, symbolic_tags)
-        """
-        image_path = os.path.join(self.img_dir, self.image_paths[idx])
+    Returns:
+    - tuple: (image, label, attribute, symbolic_tags)
+    """
+    image_path = os.path.join(self.img_dir, self.image_paths[idx])
 
-        try:
-            image = Image.open(image_path).convert('RGB')
-        except UnidentifiedImageError:
-            logging.error(f"Cannot identify image file {image_path}. It may be corrupted or not a valid image.")
-            return None, None, None, None
+    try:
+        image = Image.open(image_path).convert('RGB')
+    except UnidentifiedImageError:
+        logging.error(f"Cannot identify image file {image_path}. It may be corrupted or not a valid image.")
+        return None, None, None, None
 
-        if self.transform:
-            image = self.transform(image)
-        label = self.labels[idx]
-        attribute = self.attributes[idx]
-        symbolic_tag = self.symbolic_tags[idx]
-        return image, label, attribute, symbolic_tag
+    if self.transform:
+        image = self.transform(image)
+
+    label = torch.tensor(self.labels[idx], dtype=torch.long)  # Convert label to tensor
+    attribute = torch.tensor(self.attributes[idx], dtype=torch.float32)  # Convert attributes to tensor
+    symbolic_tag = torch.tensor(self.symbolic_tags[idx], dtype=torch.float32)  # Convert symbolic_tag to tensor
+
+    return image, label, attribute, symbolic_tag
