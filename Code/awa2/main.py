@@ -16,7 +16,7 @@ logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %
 
 def main(use_gpu, use_sample):
     """
-    Main function to orchestrate the dataset processing, model training, and clustering.
+    Main function for dataset processing, model training, and clustering.
 
     Parameters:
     use_gpu (bool): Flag to indicate whether to use GPU if available.
@@ -89,7 +89,7 @@ def main(use_gpu, use_sample):
     logging.info(f"Clustering completed. Clusters: {clusters}")
 
     # Save the clustering results
-    results = {f"Image_{i}": int(cluster) for i, cluster in enumerate(clusters)}
+    results = {self.image_paths[i]: int(cluster) for i, cluster in enumerate(clusters)}
     with open("clustering_results_main.json", "w") as f:
         json.dump(results, f, indent=4)
     logging.info("Clustering results saved to clustering_results.json")

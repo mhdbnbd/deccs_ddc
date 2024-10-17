@@ -13,7 +13,7 @@ import json
 import logging
 
 def main(use_gpu, use_sample):
-    # Setup paths and create sample dataset if needed
+    # Setup paths and create sample dataset
     source_dir = "data/Animals_with_Attributes2"
     dataset_dir = "AwA2-data-sample"
     pred_file = "data/Animals_with_Attributes2/predicate-matrix-continuous.txt"
@@ -44,7 +44,9 @@ def main(use_gpu, use_sample):
     embeddings = torch.tensor(awa2_dataset.symbolic_tags)  # Using symbolic tags directly as embeddings
 
     # Concatenate embeddings with symbolic tags
-    combined_features = torch.cat((embeddings, embeddings), dim=1)
+    autoencoder_embeddings = extract_embeddings(dataloader, model, use_gpu)
+    combined_features = torch.cat((autoencoder_embeddings, embeddings), dim=1)
+
 
     # Standardize features
     scaler = StandardScaler()
@@ -53,10 +55,10 @@ def main(use_gpu, use_sample):
     # Apply KMeans clustering on combined features
     n_clusters = 5  # to be adjusted
     kmeans = KMeans(n_clusters=n_clusters)
-    clusters = kmeans.fit_predict(combined_features)
+    clusters = kmeans.fit_predict(combined_features.cpu().detach().numpy())
 
     # Save the clustering results
-    results = {f"Image_{i}": int(cluster) for i, cluster in enumerate(clusters)}
+    results = {self.image_paths[i]: int(cluster) for i, cluster in enumerate(clusters)}
     with open("clustering_results_tags2.json", "w") as f:
         json.dump(results, f, indent=4)
     logging.info("Clustering results saved to clustering_results_tags2.json")

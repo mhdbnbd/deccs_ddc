@@ -4,6 +4,7 @@ from torch.utils.data import Dataset
 import logging
 from PIL import Image, UnidentifiedImageError
 import numpy as np
+import torch
 
 
 class AwA2Dataset(Dataset):
