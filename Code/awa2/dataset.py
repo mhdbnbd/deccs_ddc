@@ -39,24 +39,40 @@ class AwA2Dataset(Dataset):
         self.match_symbolic_tags()
 
     def load_predicates(self, pred_file):
-        # Read the file and ensure the correct number of columns
-        with open(pred_file, 'r') as file:
-            lines = file.readlines()
+    """
+    Load predicate matrix from file and ensure it is numeric.
+    
+    Args:
+    - pred_file (str): Path to the predicate file.
+    
+    Returns:
+    - np.ndarray: Predicate matrix as a numpy array of floats.
+    """
+    with open(pred_file, 'r') as file:
+        lines = file.readlines()
 
-        # Determine the number of columns (fields) expected
-        num_columns = max(len(line.strip().split()) for line in lines)
+    # Initialize a list to store valid rows
+    data = []
+    
+    for line_num, line in enumerate(lines):
+        parts = line.strip().split()
 
-        # Create a list to store the rows with the correct number of columns
-        data = []
-        for line in lines:
-            parts = line.strip().split()
-            if len(parts) != num_columns:
-                parts = parts[:num_columns]  # Trim extra fields
-            data.append(parts)
+        try:
+            # Convert each part to float; if it fails, skip this row
+            numeric_parts = list(map(float, parts))
+            data.append(numeric_parts)
+        except ValueError as e:
+            logging.error(f"Error converting line {line_num + 1} to float: {line.strip()}. Error: {e}")
+            continue
 
-        # Convert the list to a pandas DataFrame
-        df = pd.DataFrame(data).astype(float)
-        return df.values
+    # Convert the cleaned data list into a DataFrame
+    if len(data) == 0:
+        raise ValueError("No valid rows found in the predicate file.")
+    
+    df = pd.DataFrame(data)
+
+    return df.values
+
 
     def match_symbolic_tags(self):
         num_images = len(self.image_paths)
@@ -72,24 +88,26 @@ class AwA2Dataset(Dataset):
         return len(self.image_paths)
 
     def __getitem__(self, idx):
-        """
-        Args:
-        - idx (int): Index
+    """
+    Args:
+    - idx (int): Index
 
-        Returns:
-        - tuple: (image, label, attribute, symbolic_tags)
-        """
-        image_path = os.path.join(self.img_dir, self.image_paths[idx])
+    Returns:
+    - tuple: (image, label, attribute, symbolic_tags)
+    """
+    image_path = os.path.join(self.img_dir, self.image_paths[idx])
 
-        try:
-            image = Image.open(image_path).convert('RGB')
-        except UnidentifiedImageError:
-            logging.error(f"Cannot identify image file {image_path}. It may be corrupted or not a valid image.")
-            return None, None, None, None
+    try:
+        image = Image.open(image_path).convert('RGB')
+    except UnidentifiedImageError:
+        logging.error(f"Cannot identify image file {image_path}. It may be corrupted or not a valid image.")
+        return None, None, None, None
 
-        if self.transform:
-            image = self.transform(image)
-        label = self.labels[idx]
-        attribute = self.attributes[idx]
-        symbolic_tag = self.symbolic_tags[idx]
-        return image, label, attribute, symbolic_tag
+    if self.transform:
+        image = self.transform(image)
+
+    label = torch.tensor(self.labels[idx], dtype=torch.long)  # Convert label to tensor
+    attribute = torch.tensor(self.attributes[idx], dtype=torch.float32)  # Convert attributes to tensor
+    symbolic_tag = torch.tensor(self.symbolic_tags[idx], dtype=torch.float32)  # Convert symbolic_tag to tensor
+
+    return image, label, attribute, symbolic_tag
