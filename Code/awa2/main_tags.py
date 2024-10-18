@@ -14,6 +14,42 @@ from utils import extract_embeddings, create_sample_dataset, custom_collate, set
 
 setup_logging()
 
+def save_detailed_results(output_path, image_paths, clusters, embeddings, labels, symbolic_tags, losses, epochs):
+    """
+    Saves detailed results to a JSON file, including embeddings, clusters, labels, and tags.
+
+    Args:
+    - output_path (str): Path to save the results.
+    - image_paths (list): List of image paths.
+    - clusters (list): Cluster assignments for each image.
+    - embeddings (list): Embeddings for each image.
+    - labels (list): Labels for each image.
+    - symbolic_tags (list): Symbolic tags for each image.
+    - losses (list): Training losses per epoch.
+    - epochs (int): Number of epochs.
+    """
+    results = []
+    for i in range(len(image_paths)):
+        result = {
+            'image_path': image_paths[i],
+            'cluster': int(clusters[i]),
+            'embedding': embeddings[i].tolist(),
+            'label': int(labels[i]),
+            'symbolic_tag': symbolic_tags[i].tolist()
+        }
+        results.append(result)
+
+    output = {
+        'epochs': epochs,
+        'training_losses': losses,
+        'results': results
+    }
+
+    with open(output_path, 'w') as f:
+        json.dump(output, f, indent=4)
+
+    logging.info(f"Results saved to {output_path}")
+
 def main(use_gpu, use_sample):
     source_dir = "data/Animals_with_Attributes2"
     dataset_dir = "AwA2-data-sample"
@@ -43,14 +79,23 @@ def main(use_gpu, use_sample):
 
     # Initialize and train the autoencoder
     autoencoder = Autoencoder()
-    train_autoencoder(dataloader, autoencoder, use_gpu)
+
+    # Training
+    losses = []
+    num_epochs = 10  # Adjust as needed
+
+    for epoch in range(num_epochs):
+        logging.info(f"Starting epoch {epoch + 1}/{num_epochs}")
+        epoch_loss = train_autoencoder(dataloader, autoencoder, use_gpu)
+        losses.append(epoch_loss)
+        logging.info(f"Epoch {epoch + 1} completed with loss: {epoch_loss}")
 
     # Save the trained autoencoder model
     model_save_path = "autoencoder_tags.pth"
     torch.save(autoencoder.state_dict(), model_save_path)
     logging.info(f"Trained autoencoder model saved at {model_save_path}")
 
-    # Extract embeddings using the trained autoencoder
+    # Extract embeddings
     embeddings = extract_embeddings(dataloader, autoencoder, use_gpu)
 
     # Concatenate embeddings with symbolic tags
@@ -61,16 +106,21 @@ def main(use_gpu, use_sample):
     scaler = StandardScaler()
     combined_features = scaler.fit_transform(combined_features.cpu().detach().numpy())
 
-    # Apply KMeans clustering
-    n_clusters = 5  # Adjust if necessary
+    # Apply KMeans clustering on combined features
+    n_clusters = 5  # Could be dynamic based on silhouette scoring
     kmeans = KMeans(n_clusters=n_clusters)
     clusters = kmeans.fit_predict(combined_features)
 
-    # Save the clustering results
-    results = {awa2_dataset.image_paths[i]: int(cluster) for i, cluster in enumerate(clusters)}
-    with open("clustering_results_tags.json", "w") as f:
-        json.dump(results, f, indent=4)
-    logging.info("Clustering results saved to clustering_results_tags.json")
+    # Save detailed results
+    output_results_path = "detailed_results_tags.json"
+    save_detailed_results(output_results_path,
+                          awa2_dataset.image_paths,
+                          clusters,
+                          embeddings.cpu().detach().numpy(),
+                          awa2_dataset.labels,
+                          awa2_dataset.symbolic_tags,
+                          losses,
+                          num_epochs)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Run the AwA2 dataset processing.')
