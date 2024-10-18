@@ -1,5 +1,3 @@
-#main_tags.py
-
 import os
 import logging
 import argparse
@@ -22,7 +20,7 @@ def main(use_gpu, use_sample):
     pred_file = "data/Animals_with_Attributes2/predicate-matrix-continuous.txt"
 
     if use_sample:
-        create_sample_dataset(source_dir, dataset_dir, sample_size=1000)
+        create_sample_dataset(source_dir, dataset_dir, sample_size=50)
         img_dir = os.path.join(dataset_dir, "JPEGImages")
         attr_file = os.path.join(dataset_dir, "AwA2-labels.txt")
     else:
@@ -47,6 +45,11 @@ def main(use_gpu, use_sample):
     autoencoder = Autoencoder()
     train_autoencoder(dataloader, autoencoder, use_gpu)
 
+    # Save the trained autoencoder model
+    model_save_path = "autoencoder_tags.pth"
+    torch.save(autoencoder.state_dict(), model_save_path)
+    logging.info(f"Trained autoencoder model saved at {model_save_path}")
+
     # Extract embeddings using the trained autoencoder
     embeddings = extract_embeddings(dataloader, autoencoder, use_gpu)
 
@@ -58,8 +61,8 @@ def main(use_gpu, use_sample):
     scaler = StandardScaler()
     combined_features = scaler.fit_transform(combined_features.cpu().detach().numpy())
 
-    # Apply KMeans clustering on combined features
-    n_clusters = 5  # Could be dynamic based on silhouette scoring
+    # Apply KMeans clustering
+    n_clusters = 5  # Adjust if necessary
     kmeans = KMeans(n_clusters=n_clusters)
     clusters = kmeans.fit_predict(combined_features)
 
@@ -68,7 +71,6 @@ def main(use_gpu, use_sample):
     with open("clustering_results_tags.json", "w") as f:
         json.dump(results, f, indent=4)
     logging.info("Clustering results saved to clustering_results_tags.json")
-
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Run the AwA2 dataset processing.')

@@ -1,5 +1,3 @@
-#main.py
-
 import os
 import logging
 import argparse
@@ -7,40 +5,30 @@ import json
 from dataset import AwA2Dataset
 from model import Autoencoder
 from train import train_autoencoder
-from utils import extract_embeddings, create_sample_dataset, generate_labels_file, custom_collate
+from utils import extract_embeddings, create_sample_dataset, custom_collate, setup_logging
 from sklearn.cluster import KMeans
 import torch
 from torchvision import transforms
 from torch.utils.data import DataLoader
-from utils import setup_logging
 
 setup_logging()
 
 def main(use_gpu, use_sample):
     """
     Main function for dataset processing, model training, and clustering.
-
-    Parameters:
-    use_gpu (bool): Flag to indicate whether to use GPU if available.
-    use_sample (bool): Flag to indicate whether to use a sample dataset or the full dataset.
     """
-    # Directory of the existing AwA2 dataset
     source_dir = "data/Animals_with_Attributes2"
-    # Directory to save the sample dataset
     dataset_dir = "AwA2-data-sample"
-
     pred_file = "data/Animals_with_Attributes2/predicate-matrix-continuous.txt"
 
     if use_sample:
-        # Create a sample dataset
-        create_sample_dataset(source_dir, dataset_dir, sample_size=1000)
+        create_sample_dataset(source_dir, dataset_dir, sample_size=50)
         img_dir = os.path.join(dataset_dir, "JPEGImages")
         attr_file = os.path.join(dataset_dir, "AwA2-labels.txt")
     else:
         img_dir = os.path.join(source_dir, "JPEGImages")
         attr_file = os.path.join(source_dir, "AwA2-labels.txt")
 
-    # Define image transformations
     transform = transforms.Compose([
         transforms.Resize((128, 128)),
         transforms.ToTensor(),
@@ -48,29 +36,24 @@ def main(use_gpu, use_sample):
     ])
     logging.info("Image transformations defined")
 
-    # Check if the labels file is empty
+    # Check if labels file exists
     if os.stat(attr_file).st_size == 0:
-        logging.error("The labels file is empty. Ensure that the labels file is generated correctly and contains data.")
+        logging.error("The labels file is empty.")
         return
 
-    # Create dataset and dataloader
     logging.info("Creating dataset and dataloader")
     try:
         awa2_dataset = AwA2Dataset(img_dir=img_dir, attr_file=attr_file, pred_file=pred_file, transform=transform)
         dataloader = DataLoader(awa2_dataset, batch_size=32, shuffle=True, collate_fn=custom_collate)
-        logging.info(f"Dataset created with {len(awa2_dataset)} samples.")
-        logging.info(f"Dataloader created with {len(dataloader)} batches.")
     except Exception as e:
         logging.error(f"Error creating dataset and dataloader: {e}")
         return
 
-
-
-    # Check if DataLoader has valid samples
     if len(dataloader) == 0:
-        logging.error("No valid samples available in the DataLoader. Exiting.")
+        logging.error("No valid samples in DataLoader.")
         return
-    # Initialize the autoencoder
+
+    # Initialize autoencoder
     logging.info("Initializing the autoencoder")
     autoencoder = Autoencoder()
 
@@ -78,26 +61,29 @@ def main(use_gpu, use_sample):
     logging.info("Training the autoencoder")
     train_autoencoder(dataloader, autoencoder, use_gpu)
 
-    # Extract embeddings
-    logging.info("Extracting embeddings using the trained autoencoder")
-    embeddings = extract_embeddings(dataloader, autoencoder, use_gpu)
-    logging.info(f"Extracted embeddings with shape {embeddings.shape}")
+    # Save the trained autoencoder model
+    model_save_path = "autoencoder_main.pth"
+    torch.save(autoencoder.state_dict(), model_save_path)
+    logging.info(f"Trained autoencoder model saved at {model_save_path}")
 
-    # Reshape embeddings for KMeans
+    # Extract embeddings
+    logging.info("Extracting embeddings")
+    embeddings = extract_embeddings(dataloader, autoencoder, use_gpu)
+
+    # Reshape embeddings for clustering
     embeddings = embeddings.view(embeddings.size(0), -1)
 
-    # Apply KMeans clustering on embeddings
-    logging.info("Applying KMeans clustering on embeddings")
-    n_clusters = 5  # to be adjusted
+    # Apply KMeans clustering
+    logging.info("Applying KMeans clustering")
+    n_clusters = 5  # Adjust if necessary
     kmeans = KMeans(n_clusters=n_clusters)
     clusters = kmeans.fit_predict(embeddings.cpu().detach().numpy())
-    logging.info(f"Clustering completed. Clusters: {clusters}")
 
-    # Save the clustering results
-    results = {self.image_paths[i]: int(cluster) for i, cluster in enumerate(clusters)}
+    # Save clustering results
+    results = {awa2_dataset.image_paths[i]: int(cluster) for i, cluster in enumerate(clusters)}
     with open("clustering_results_main.json", "w") as f:
         json.dump(results, f, indent=4)
-    logging.info("Clustering results saved to clustering_results.json")
+    logging.info("Clustering results saved to clustering_results_main.json")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Run the AwA2 dataset processing.')
@@ -105,5 +91,3 @@ if __name__ == "__main__":
     parser.add_argument('--use_sample', action='store_true', help='Use sample dataset instead of full dataset.')
     args = parser.parse_args()
     main(args.use_gpu, args.use_sample)
-
-# python3 main.py --use_gpu --use_sample
