@@ -1,11 +1,11 @@
-#utils.py
-
 import torch
 import os
 import logging
 import shutil
 import random
-import logging
+import nbformat as nbf
+import matplotlib.pyplot as plt
+import json
 
 def setup_logging():
     logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -113,6 +113,157 @@ def custom_collate(batch):
     
     if len(batch) == 0:
         logging.warning("All samples in the batch are None. Skipping this batch.")
-        raise StopIteration  # This prevents the training loop from crashing
+        return []  # Instead of raising StopIteration, return an empty batch
 
     return torch.utils.data.default_collate(batch)
+
+def save_detailed_results(output_path, image_paths, clusters, embeddings, labels, symbolic_tags=None, losses=None, accuracy=None, epochs=None):
+    """
+    Saves detailed results to a JSON file, including embeddings, clusters, labels, and tags.
+
+    Args:
+    - output_path (str): Path to save the results.
+    - image_paths (list): List of image paths.
+    - clusters (list): Cluster assignments for each image.
+    - embeddings (list): Embeddings for each image.
+    - labels (list): Labels for each image.
+    - symbolic_tags (list or None): Symbolic tags for each image. Can be None if not available.
+    - losses (list or None): Training losses per epoch. Can be None if not applicable.
+    - accuracy (float or None): Final accuracy after clustering. Can be None if not available.
+    - epochs (int or None): Number of epochs. Can be None if not applicable.
+    """
+    results = []
+    for i in range(len(image_paths)):
+        result = {
+            'image_path': image_paths[i],
+            'cluster': int(clusters[i]),
+            'embedding': embeddings[i].tolist(),
+            'label': int(labels[i])
+        }
+        # Add symbolic tag information if provided
+        if symbolic_tags is not None:
+            result['symbolic_tag'] = symbolic_tags[i].tolist()
+        results.append(result)
+    
+    output = {
+        'epochs': epochs if epochs is not None else "Not provided",
+        'training_losses': losses if losses is not None else "Not provided",
+        'final_accuracy': accuracy if accuracy is not None else "Not provided",
+        'results': results
+    }
+
+    with open(output_path, 'w') as f:
+        json.dump(output, f, indent=4)
+
+    logging.info(f"Results saved to {output_path}")
+
+def generate_notebook(results_file, output_notebook):
+    """
+    Generates a Jupyter notebook to present the results and the steps taken to achieve them.
+    
+    Args:
+    - results_file (str): Path to the JSON file containing the results (e.g., clustering results, embeddings, etc.).
+    - output_notebook (str): Path to save the generated notebook.
+    """
+    logging.info(f"Generating notebook at {output_notebook}")
+    
+    nb = nbf.v4.new_notebook()
+
+    # 1. Add introduction markdown cell
+    intro_text = """# Results Notebook
+
+This notebook presents the results of the clustering process performed on the AwA2 dataset using autoencoders and KMeans clustering.
+
+## Table of Contents:
+1. Data Loading
+2. Model Training
+3. Clustering and Embeddings
+4. Visualization of Results
+    """
+    nb['cells'].append(nbf.v4.new_markdown_cell(intro_text))
+
+    # 2. Add a code cell for loading data
+    data_loading_code = """
+import json
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Load the results file
+results_file = '{}'
+with open(results_file, 'r') as f:
+    results = json.load(f)
+
+print("Results loaded successfully")
+""".format(results_file)
+    nb['cells'].append(nbf.v4.new_code_cell(data_loading_code))
+
+    # 3. Add a code cell for plotting loss curves
+    plot_loss_code = """
+# Plot the training loss over epochs
+epochs = results['epochs']
+losses = results['training_losses']
+
+plt.figure(figsize=(10, 6))
+plt.plot(range(1, epochs + 1), losses, marker='o')
+plt.title('Training Loss per Epoch')
+plt.xlabel('Epoch')
+plt.ylabel('Loss')
+plt.grid(True)
+plt.show()
+"""
+    nb['cells'].append(nbf.v4.new_code_cell(plot_loss_code))
+
+    # 4. Add a code cell for clustering results visualization
+    cluster_vis_code = """
+# Visualize the clustering results
+image_paths = [result['image_path'] for result in results['results']]
+clusters = [result['cluster'] for result in results['results']]
+
+# Count how many samples per cluster
+unique_clusters, counts = np.unique(clusters, return_counts=True)
+
+plt.figure(figsize=(8, 5))
+plt.bar(unique_clusters, counts, color='skyblue')
+plt.title('Cluster Distribution')
+plt.xlabel('Cluster')
+plt.ylabel('Number of Samples')
+plt.show()
+"""
+    nb['cells'].append(nbf.v4.new_code_cell(cluster_vis_code))
+
+    # 5. Add embedding visualization (e.g., PCA or t-SNE)
+    embed_vis_code = """
+from sklearn.decomposition import PCA
+
+# Extract embeddings and reduce dimensionality with PCA for visualization
+embeddings = np.array([result['embedding'] for result in results['results']])
+
+pca = PCA(n_components=2)
+reduced_embeddings = pca.fit_transform(embeddings)
+
+plt.figure(figsize=(10, 6))
+plt.scatter(reduced_embeddings[:, 0], reduced_embeddings[:, 1], c=clusters, cmap='viridis', s=30)
+plt.colorbar()
+plt.title('Embeddings Visualized using PCA')
+plt.xlabel('PCA Component 1')
+plt.ylabel('PCA Component 2')
+plt.grid(True)
+plt.show()
+"""
+    nb['cells'].append(nbf.v4.new_code_cell(embed_vis_code))
+
+    # 6. Add a summary markdown cell
+    summary_text = """
+## Summary
+
+- We trained an autoencoder on the AwA2 dataset and extracted embeddings.
+- The embeddings were clustered using KMeans with the number of clusters set to 5.
+- Loss per epoch was tracked, and the cluster distribution and embeddings were visualized.
+    """
+    nb['cells'].append(nbf.v4.new_markdown_cell(summary_text))
+
+    # Save the notebook
+    with open(output_notebook, 'w') as f:
+        nbf.write(nb, f)
+
+    logging.info(f"Notebook saved to {output_notebook}")

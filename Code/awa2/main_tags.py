@@ -3,6 +3,7 @@ import logging
 import argparse
 import json
 import torch
+import numpy as np  # Importing NumPy for array operations
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
 from torchvision import transforms
@@ -10,45 +11,33 @@ from torch.utils.data import DataLoader
 from dataset import AwA2Dataset
 from model import Autoencoder
 from train import train_autoencoder
-from utils import extract_embeddings, create_sample_dataset, custom_collate, setup_logging
+from utils import extract_embeddings, create_sample_dataset, custom_collate, setup_logging, generate_notebook, save_detailed_results
+from sklearn.metrics import adjusted_rand_score
+from scipy.optimize import linear_sum_assignment
 
 setup_logging()
 
-def save_detailed_results(output_path, image_paths, clusters, embeddings, labels, symbolic_tags, losses, epochs):
+def calculate_clustering_accuracy(true_labels, predicted_clusters):
     """
-    Saves detailed results to a JSON file, including embeddings, clusters, labels, and tags.
-
-    Args:
-    - output_path (str): Path to save the results.
-    - image_paths (list): List of image paths.
-    - clusters (list): Cluster assignments for each image.
-    - embeddings (list): Embeddings for each image.
-    - labels (list): Labels for each image.
-    - symbolic_tags (list): Symbolic tags for each image.
-    - losses (list): Training losses per epoch.
-    - epochs (int): Number of epochs.
+    Compute clustering accuracy (ACC) by finding the best one-to-one mapping between clusters and true labels.
     """
-    results = []
-    for i in range(len(image_paths)):
-        result = {
-            'image_path': image_paths[i],
-            'cluster': int(clusters[i]),
-            'embedding': embeddings[i].tolist(),
-            'label': int(labels[i]),
-            'symbolic_tag': symbolic_tags[i].tolist()
-        }
-        results.append(result)
+    max_label = max(true_labels) + 1  # Determine the number of unique true labels
+    max_cluster = max(predicted_clusters) + 1  # Determine the number of unique predicted clusters
 
-    output = {
-        'epochs': epochs,
-        'training_losses': losses,
-        'results': results
-    }
+    # Initialize the contingency matrix with dynamic shape
+    contingency_matrix = np.zeros((max_label, max_cluster))
 
-    with open(output_path, 'w') as f:
-        json.dump(output, f, indent=4)
+    # Populate the contingency matrix
+    for i, (true_label, cluster) in enumerate(zip(true_labels, predicted_clusters)):
+        contingency_matrix[true_label, cluster] += 1
 
-    logging.info(f"Results saved to {output_path}")
+    # Use the Hungarian algorithm to find the best cluster-label mapping
+    row_ind, col_ind = linear_sum_assignment(-contingency_matrix)
+    best_mapping = contingency_matrix[row_ind, col_ind].sum()
+
+    acc = best_mapping / len(true_labels)  # Clustering accuracy
+    return acc
+
 
 def main(use_gpu, use_sample):
     source_dir = "data/Animals_with_Attributes2"
@@ -56,7 +45,7 @@ def main(use_gpu, use_sample):
     pred_file = "data/Animals_with_Attributes2/predicate-matrix-continuous.txt"
 
     if use_sample:
-        create_sample_dataset(source_dir, dataset_dir, sample_size=50)
+        create_sample_dataset(source_dir, dataset_dir, sample_size=1000)
         img_dir = os.path.join(dataset_dir, "JPEGImages")
         attr_file = os.path.join(dataset_dir, "AwA2-labels.txt")
     else:
@@ -80,14 +69,13 @@ def main(use_gpu, use_sample):
     # Initialize and train the autoencoder
     autoencoder = Autoencoder()
 
-    # Training
-    losses = []
-    num_epochs = 10  # Adjust as needed
+    training_losses = []
+    num_epochs = 100
 
     for epoch in range(num_epochs):
         logging.info(f"Starting epoch {epoch + 1}/{num_epochs}")
         epoch_loss = train_autoencoder(dataloader, autoencoder, use_gpu)
-        losses.append(epoch_loss)
+        training_losses.append(epoch_loss)
         logging.info(f"Epoch {epoch + 1} completed with loss: {epoch_loss}")
 
     # Save the trained autoencoder model
@@ -95,7 +83,7 @@ def main(use_gpu, use_sample):
     torch.save(autoencoder.state_dict(), model_save_path)
     logging.info(f"Trained autoencoder model saved at {model_save_path}")
 
-    # Extract embeddings
+    # Extract embeddings using the trained autoencoder
     embeddings = extract_embeddings(dataloader, autoencoder, use_gpu)
 
     # Concatenate embeddings with symbolic tags
@@ -107,9 +95,17 @@ def main(use_gpu, use_sample):
     combined_features = scaler.fit_transform(combined_features.cpu().detach().numpy())
 
     # Apply KMeans clustering on combined features
-    n_clusters = 5  # Could be dynamic based on silhouette scoring
+    n_clusters = len(set(awa2_dataset.labels))  
+    logging.info(f"Applying KMeans with {n_clusters} clusters")
     kmeans = KMeans(n_clusters=n_clusters)
-    clusters = kmeans.fit_predict(combined_features)
+    clusters = kmeans.fit_predict(embeddings.cpu().detach().numpy())
+
+    # Calculate final accuracy and ARI
+    true_labels = awa2_dataset.labels
+    acc = calculate_clustering_accuracy(true_labels, clusters)
+    ari = adjusted_rand_score(true_labels, clusters)
+    logging.info(f"Final clustering accuracy (ACC): {acc}")
+    logging.info(f"Adjusted Rand Index (ARI): {ari}")
 
     # Save detailed results
     output_results_path = "detailed_results_tags.json"
@@ -118,9 +114,16 @@ def main(use_gpu, use_sample):
                           clusters,
                           embeddings.cpu().detach().numpy(),
                           awa2_dataset.labels,
-                          awa2_dataset.symbolic_tags,
-                          losses,
-                          num_epochs)
+                          symbolic_tags=awa2_dataset.symbolic_tags,
+                          losses=training_losses,
+                          accuracy=acc,  # Set the calculated accuracy
+                          epochs=num_epochs)
+
+    # Generate results notebook
+    output_notebook_path = "results_notebook_tags.ipynb"
+    generate_notebook(output_results_path, output_notebook_path)
+    logging.info(f"Notebook generated at {output_notebook_path}")
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Run the AwA2 dataset processing.')
