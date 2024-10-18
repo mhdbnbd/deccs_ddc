@@ -8,7 +8,6 @@ from PIL import Image, UnidentifiedImageError
 import numpy as np
 import torch
 
-
 class AwA2Dataset(Dataset):
     def __init__(self, img_dir, attr_file, pred_file, transform=None):
         """
