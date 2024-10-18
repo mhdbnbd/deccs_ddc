@@ -15,6 +15,44 @@ from utils import extract_embeddings, create_sample_dataset, custom_collate, set
 # Setup logging for the script
 setup_logging()
 
+def save_detailed_results(output_path, image_paths, clusters, embeddings, labels, symbolic_tags, losses, accuracy, epochs):
+    """
+    Saves detailed results to a JSON file, including embeddings, clusters, labels, and tags.
+
+    Args:
+    - output_path (str): Path to save the results.
+    - image_paths (list): List of image paths.
+    - clusters (list): Cluster assignments for each image.
+    - embeddings (list): Embeddings for each image.
+    - labels (list): Labels for each image.
+    - symbolic_tags (list): Symbolic tags for each image.
+    - losses (list): Training losses per epoch.
+    - accuracy (float): Final accuracy after clustering.
+    - epochs (int): Number of epochs.
+    """
+    results = []
+    for i in range(len(image_paths)):
+        result = {
+            'image_path': image_paths[i],
+            'cluster': int(clusters[i]),
+            'embedding': embeddings[i].tolist(),
+            'label': int(labels[i]),
+            'symbolic_tag': symbolic_tags[i].tolist()
+        }
+        results.append(result)
+    
+    output = {
+        'epochs': epochs,
+        'training_losses': losses,
+        'final_accuracy': accuracy,
+        'results': results
+    }
+
+    with open(output_path, 'w') as f:
+        json.dump(output, f, indent=4)
+
+    logging.info(f"Results saved to {output_path}")
+
 def main(use_gpu, use_sample):
     source_dir = "data/Animals_with_Attributes2"
     dataset_dir = "AwA2-data-sample"
@@ -49,7 +87,16 @@ def main(use_gpu, use_sample):
     # Initialize and train the constrained autoencoder
     logging.info("Initializing and training the constrained autoencoder")
     autoencoder = Autoencoder()
-    train_constrained_autoencoder(dataloader, autoencoder, use_gpu)
+
+    # Store training losses
+    losses = []
+    num_epochs = 10  # Adjust as needed
+
+    for epoch in range(num_epochs):
+        logging.info(f"Starting epoch {epoch + 1}/{num_epochs}")
+        epoch_loss = train_constrained_autoencoder(dataloader, autoencoder, use_gpu)
+        losses.append(epoch_loss)
+        logging.info(f"Epoch {epoch + 1} completed with loss: {epoch_loss}")
 
     # Save the trained constrained autoencoder model
     model_save_path = "autoencoder_tags2.pth"
@@ -76,13 +123,22 @@ def main(use_gpu, use_sample):
     kmeans = KMeans(n_clusters=n_clusters)
     clusters = kmeans.fit_predict(combined_features)
 
-    # Save the clustering results
-    logging.info("Saving clustering results")
-    results = {awa2_dataset.image_paths[i]: int(cluster) for i, cluster in enumerate(clusters)}
-    with open("clustering_results_tags2.json", "w") as f:
-        json.dump(results, f, indent=4)
-    logging.info("Clustering results saved to clustering_results_tags2.json")
+    # Calculate final accuracy (you can adjust this to suit your needs)
+    correct = sum(1 for i in range(len(clusters)) if clusters[i] == awa2_dataset.labels[i])
+    accuracy = correct / len(clusters)
+    logging.info(f"Final clustering accuracy: {accuracy}")
 
+    # Save the clustering results with detailed information
+    output_results_path = "detailed_results_tags2.json"
+    save_detailed_results(output_results_path,
+                          awa2_dataset.image_paths,
+                          clusters,
+                          autoencoder_embeddings.cpu().detach().numpy(),
+                          awa2_dataset.labels,
+                          awa2_dataset.symbolic_tags,
+                          losses,
+                          accuracy,
+                          num_epochs)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Run the AwA2 dataset processing with symbolic tags.')
