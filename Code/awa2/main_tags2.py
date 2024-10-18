@@ -1,3 +1,5 @@
+#main_tags2.py
+
 import torch
 import argparse
 from model import Autoencoder
@@ -11,6 +13,8 @@ from torch.utils.data import DataLoader
 import os
 import json
 import logging
+
+setup_logging()
 
 def main(use_gpu, use_sample):
     # Setup paths and create sample dataset
@@ -35,6 +39,11 @@ def main(use_gpu, use_sample):
     # Create the dataset and dataloader
     awa2_dataset = AwA2Dataset(img_dir=img_dir, attr_file=attr_file, pred_file=pred_file, transform=transform)
     dataloader = DataLoader(awa2_dataset, batch_size=32, shuffle=True, collate_fn=custom_collate)
+    logging.info(f"Dataset created with {len(awa2_dataset)} samples.")
+    logging.info(f"Dataloader created with {len(dataloader)} batches.")
+    except Exception as e:
+        logging.error(f"Error creating dataset and dataloader: {e}")
+        return
 
     # Initialize and train the constrained autoencoder
     model = Autoencoder()

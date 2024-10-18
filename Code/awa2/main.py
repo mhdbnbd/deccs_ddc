@@ -1,3 +1,5 @@
+#main.py
+
 import os
 import logging
 import argparse
@@ -10,9 +12,9 @@ from sklearn.cluster import KMeans
 import torch
 from torchvision import transforms
 from torch.utils.data import DataLoader
+from utils import setup_logging
 
-# Setup logging
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+setup_logging()
 
 def main(use_gpu, use_sample):
     """
@@ -56,10 +58,13 @@ def main(use_gpu, use_sample):
     try:
         awa2_dataset = AwA2Dataset(img_dir=img_dir, attr_file=attr_file, pred_file=pred_file, transform=transform)
         dataloader = DataLoader(awa2_dataset, batch_size=32, shuffle=True, collate_fn=custom_collate)
-        logging.info(f"Dataset and dataloader created with {len(awa2_dataset)} samples")
+        logging.info(f"Dataset created with {len(awa2_dataset)} samples.")
+        logging.info(f"Dataloader created with {len(dataloader)} batches.")
     except Exception as e:
         logging.error(f"Error creating dataset and dataloader: {e}")
         return
+
+
 
     # Check if DataLoader has valid samples
     if len(dataloader) == 0:

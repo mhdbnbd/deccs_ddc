@@ -1,6 +1,7 @@
 ToDo:  
 
-- log results in output file (loss, ...)
+- log results in output file (loss, ...) : Ensure that logging is used consistently across both scripts. It’s good practice to log the shapes of intermediate outputs, like after extracting embeddings, to verify that the data flows correctly through your pipeline.
+
 - When versions run simultaneously different data samples are created/conflict.
 - how many clusters,  = n_labels 
 - https://github.com/collinleiber/ClustPy
