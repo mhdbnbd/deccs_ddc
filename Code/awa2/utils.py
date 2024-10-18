@@ -108,14 +108,11 @@ def generate_labels_file(img_dir, labels_file):
     logging.info(f"Labels file created at {labels_file}")
 
 def custom_collate(batch):
-    """
-    Custom collate function to filter out None values from batches.
-    """
-    filtered_batch = [item for item in batch if item[0] is not None]
-    if len(filtered_batch) < len(batch):
-        logging.warning(f"Filtered out {len(batch) - len(filtered_batch)} samples containing None values")
-    if len(filtered_batch) > 0:
-        return torch.utils.data.default_collate(filtered_batch)
-    else:
-        logging.error("All samples in the batch are None. Returning empty batch.")
-        return torch.utils.data.default_collate([])
+    # Filter out None samples
+    batch = [b for b in batch if b[0] is not None]
+    
+    if len(batch) == 0:
+        logging.warning("All samples in the batch are None. Skipping this batch.")
+        raise StopIteration  # This prevents the training loop from crashing
+
+    return torch.utils.data.default_collate(batch)

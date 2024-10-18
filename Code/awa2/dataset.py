@@ -1,12 +1,12 @@
-#dataset.py
-
 import os
 import pandas as pd
 from torch.utils.data import Dataset
 import logging
-from PIL import Image, UnidentifiedImageError
+from PIL import UnidentifiedImageError
 import numpy as np
 import torch
+from PIL import Image
+import torchvision.transforms.functional as F
 
 class AwA2Dataset(Dataset):
     def __init__(self, img_dir, attr_file, pred_file, transform=None):
@@ -88,17 +88,51 @@ class AwA2Dataset(Dataset):
         """
         image_path = os.path.join(self.img_dir, self.image_paths[idx])
 
+        # Load the image using PIL
         try:
-            image = Image.open(image_path).convert('RGB')
-        except (UnidentifiedImageError, FileNotFoundError) as e:
-            logging.error(f"Error loading image at {image_path}: {e}")
+            image = Image.open(image_path)
+
+            # Ensure the image is in RGB mode
+            if image.mode != 'RGB':
+                image = image.convert('RGB')
+
+            logging.debug(f"Loaded image from {image_path}")
+
+        except UnidentifiedImageError as e:
+            logging.error(f"Error loading image {image_path}: {e}")
             return None, None, None, None
 
+        # Apply transformations if they exist, before converting to a Tensor
         if self.transform:
-            image = self.transform(image)
+            try:
+                # Apply transformations to the image (PIL or ndarray)
+                image = self.transform(image)
+                logging.debug(f"Image transformed successfully for {image_path}")
+
+            except Exception as e:
+                logging.error(f"Failed to apply transformations to image {image_path}: {e}")
+                return None, None, None, None
+
+        # Convert to Tensor if not already a Tensor
+        if isinstance(image, torch.Tensor):
+            image_tensor = image  # If already a tensor, assign it directly.
+        else:
+            # Ensure the image is converted to NumPy array if still in PIL/ndarray form
+            try:
+                image_np = np.array(image, dtype=np.uint8)
+                logging.debug(f"Converted image to NumPy array: {image_np.shape}")
+
+                # Convert NumPy array to PyTorch tensor (Channel, Height, Width)
+                image_tensor = torch.from_numpy(image_np).permute(2, 0, 1).float() / 255.0  # Rescale to [0, 1]
+                logging.debug(f"Converted image to tensor: {image_tensor.shape}")
+
+            except Exception as e:
+                logging.error(f"Error processing image {image_path}: {e}")
+                return None, None, None, None
 
         label = torch.tensor(self.labels[idx], dtype=torch.long)
         attribute = torch.tensor(self.attributes[idx], dtype=torch.float32)
         symbolic_tag = torch.tensor(self.symbolic_tags[idx], dtype=torch.float32)
 
-        return image, label, attribute, symbolic_tag
+        return image_tensor, label, attribute, symbolic_tag
+
