@@ -1,3 +1,5 @@
+#main_tags.py
+
 import os
 import logging
 import argparse
@@ -10,11 +12,11 @@ from torch.utils.data import DataLoader
 from dataset import AwA2Dataset
 from model import Autoencoder
 from train import train_autoencoder
-from utils import extract_embeddings, create_sample_dataset, custom_collate
+from utils import extract_embeddings, create_sample_dataset, custom_collate, setup_logging
 
+setup_logging()
 
 def main(use_gpu, use_sample):
-    # Setup paths and create sample dataset if needed
     source_dir = "data/Animals_with_Attributes2"
     dataset_dir = "AwA2-data-sample"
     pred_file = "data/Animals_with_Attributes2/predicate-matrix-continuous.txt"
@@ -33,9 +35,13 @@ def main(use_gpu, use_sample):
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
     ])
 
-    # Create the dataset and dataloader
-    awa2_dataset = AwA2Dataset(img_dir=img_dir, attr_file=attr_file, pred_file=pred_file, transform=transform)
-    dataloader = DataLoader(awa2_dataset, batch_size=32, shuffle=True, collate_fn=custom_collate)
+    try:
+        awa2_dataset = AwA2Dataset(img_dir=img_dir, attr_file=attr_file, pred_file=pred_file, transform=transform)
+        dataloader = DataLoader(awa2_dataset, batch_size=32, shuffle=True, collate_fn=custom_collate)
+        logging.info(f"Dataset created with {len(awa2_dataset)} samples.")
+    except Exception as e:
+        logging.error(f"Error creating dataset and dataloader: {e}")
+        return
 
     # Initialize and train the autoencoder
     autoencoder = Autoencoder()
@@ -48,17 +54,17 @@ def main(use_gpu, use_sample):
     symbolic_tags = torch.tensor(awa2_dataset.symbolic_tags)
     combined_features = torch.cat((embeddings, symbolic_tags), dim=1)
 
-    # Standardize features
+    # Standardize features before clustering
     scaler = StandardScaler()
     combined_features = scaler.fit_transform(combined_features.cpu().detach().numpy())
 
     # Apply KMeans clustering on combined features
-    n_clusters = 5  # to be adjusted
+    n_clusters = 5  # Could be dynamic based on silhouette scoring
     kmeans = KMeans(n_clusters=n_clusters)
     clusters = kmeans.fit_predict(combined_features)
 
     # Save the clustering results
-    results = {f"Image_{i}": int(cluster) for i, cluster in enumerate(clusters)}
+    results = {awa2_dataset.image_paths[i]: int(cluster) for i, cluster in enumerate(clusters)}
     with open("clustering_results_tags.json", "w") as f:
         json.dump(results, f, indent=4)
     logging.info("Clustering results saved to clustering_results_tags.json")
