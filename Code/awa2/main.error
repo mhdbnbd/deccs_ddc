@@ -1,0 +1,465 @@
+2024-10-18 20:53:45,510 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/walrus/walrus_10049.jpg to AwA2-data-sample/JPEGImages/walrus/walrus_10049.jpg
+2024-10-18 20:53:45,525 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/fox/fox_10185.jpg to AwA2-data-sample/JPEGImages/fox/fox_10185.jpg
+2024-10-18 20:53:45,526 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/lion/lion_10712.jpg to AwA2-data-sample/JPEGImages/lion/lion_10712.jpg
+2024-10-18 20:53:45,526 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/sheep/sheep_11270.jpg to AwA2-data-sample/JPEGImages/sheep/sheep_11270.jpg
+2024-10-18 20:53:45,527 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/spider+monkey/spider+monkey_10197.jpg to AwA2-data-sample/JPEGImages/spider+monkey/spider+monkey_10197.jpg
+2024-10-18 20:53:45,527 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/gorilla/gorilla_10834.jpg to AwA2-data-sample/JPEGImages/gorilla/gorilla_10834.jpg
+2024-10-18 20:53:45,541 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/gorilla/gorilla_10651.jpg to AwA2-data-sample/JPEGImages/gorilla/gorilla_10651.jpg
+2024-10-18 20:53:45,541 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/humpback+whale/humpback+whale_10435.jpg to AwA2-data-sample/JPEGImages/humpback+whale/humpback+whale_10435.jpg
+2024-10-18 20:53:45,542 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/lion/lion_10160.jpg to AwA2-data-sample/JPEGImages/lion/lion_10160.jpg
+2024-10-18 20:53:45,554 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/elephant/elephant_10169.jpg to AwA2-data-sample/JPEGImages/elephant/elephant_10169.jpg
+2024-10-18 20:53:45,570 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/squirrel/squirrel_10953.jpg to AwA2-data-sample/JPEGImages/squirrel/squirrel_10953.jpg
+2024-10-18 20:53:45,579 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/leopard/leopard_10643.jpg to AwA2-data-sample/JPEGImages/leopard/leopard_10643.jpg
+2024-10-18 20:53:45,600 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/otter/otter_10294.jpg to AwA2-data-sample/JPEGImages/otter/otter_10294.jpg
+2024-10-18 20:53:45,608 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/giraffe/giraffe_11059.jpg to AwA2-data-sample/JPEGImages/giraffe/giraffe_11059.jpg
+2024-10-18 20:53:45,609 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/seal/seal_10493.jpg to AwA2-data-sample/JPEGImages/seal/seal_10493.jpg
+2024-10-18 20:53:45,610 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/rhinoceros/rhinoceros_10539.jpg to AwA2-data-sample/JPEGImages/rhinoceros/rhinoceros_10539.jpg
+2024-10-18 20:53:45,621 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/zebra/zebra_10180.jpg to AwA2-data-sample/JPEGImages/zebra/zebra_10180.jpg
+2024-10-18 20:53:45,634 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/elephant/elephant_11026.jpg to AwA2-data-sample/JPEGImages/elephant/elephant_11026.jpg
+2024-10-18 20:53:45,647 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/collie/collie_10209.jpg to AwA2-data-sample/JPEGImages/collie/collie_10209.jpg
+2024-10-18 20:53:45,648 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/fox/fox_10274.jpg to AwA2-data-sample/JPEGImages/fox/fox_10274.jpg
+2024-10-18 20:53:45,648 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/rat/rat_10274.jpg to AwA2-data-sample/JPEGImages/rat/rat_10274.jpg
+2024-10-18 20:53:45,649 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/ox/ox_10462.jpg to AwA2-data-sample/JPEGImages/ox/ox_10462.jpg
+2024-10-18 20:53:45,650 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/otter/otter_10119.jpg to AwA2-data-sample/JPEGImages/otter/otter_10119.jpg
+2024-10-18 20:53:45,650 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/hippopotamus/hippopotamus_10120.jpg to AwA2-data-sample/JPEGImages/hippopotamus/hippopotamus_10120.jpg
+2024-10-18 20:53:45,651 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/killer+whale/killer+whale_10099.jpg to AwA2-data-sample/JPEGImages/killer+whale/killer+whale_10099.jpg
+2024-10-18 20:53:45,661 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/tiger/tiger_10435.jpg to AwA2-data-sample/JPEGImages/tiger/tiger_10435.jpg
+2024-10-18 20:53:45,680 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/rabbit/rabbit_10783.jpg to AwA2-data-sample/JPEGImages/rabbit/rabbit_10783.jpg
+2024-10-18 20:53:45,695 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/leopard/leopard_10344.jpg to AwA2-data-sample/JPEGImages/leopard/leopard_10344.jpg
+2024-10-18 20:53:45,706 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/bobcat/bobcat_10194.jpg to AwA2-data-sample/JPEGImages/bobcat/bobcat_10194.jpg
+2024-10-18 20:53:45,707 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/giraffe/giraffe_10484.jpg to AwA2-data-sample/JPEGImages/giraffe/giraffe_10484.jpg
+2024-10-18 20:53:45,708 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/chihuahua/chihuahua_10145.jpg to AwA2-data-sample/JPEGImages/chihuahua/chihuahua_10145.jpg
+2024-10-18 20:53:45,709 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/antelope/antelope_10937.jpg to AwA2-data-sample/JPEGImages/antelope/antelope_10937.jpg
+2024-10-18 20:53:45,720 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/squirrel/squirrel_10290.jpg to AwA2-data-sample/JPEGImages/squirrel/squirrel_10290.jpg
+2024-10-18 20:53:45,736 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/hippopotamus/hippopotamus_10538.jpg to AwA2-data-sample/JPEGImages/hippopotamus/hippopotamus_10538.jpg
+2024-10-18 20:53:45,753 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/elephant/elephant_10341.jpg to AwA2-data-sample/JPEGImages/elephant/elephant_10341.jpg
+2024-10-18 20:53:45,762 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/weasel/weasel_10267.jpg to AwA2-data-sample/JPEGImages/weasel/weasel_10267.jpg
+2024-10-18 20:53:45,776 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/horse/horse_11630.jpg to AwA2-data-sample/JPEGImages/horse/horse_11630.jpg
+2024-10-18 20:53:45,791 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/rhinoceros/rhinoceros_10630.jpg to AwA2-data-sample/JPEGImages/rhinoceros/rhinoceros_10630.jpg
+2024-10-18 20:53:45,800 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/mouse/mouse_10121.jpg to AwA2-data-sample/JPEGImages/mouse/mouse_10121.jpg
+2024-10-18 20:53:45,826 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/horse/horse_11042.jpg to AwA2-data-sample/JPEGImages/horse/horse_11042.jpg
+2024-10-18 20:53:45,837 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/antelope/antelope_10151.jpg to AwA2-data-sample/JPEGImages/antelope/antelope_10151.jpg
+2024-10-18 20:53:45,849 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/seal/seal_10241.jpg to AwA2-data-sample/JPEGImages/seal/seal_10241.jpg
+2024-10-18 20:53:45,867 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/hamster/hamster_10629.jpg to AwA2-data-sample/JPEGImages/hamster/hamster_10629.jpg
+2024-10-18 20:53:45,880 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/fox/fox_10181.jpg to AwA2-data-sample/JPEGImages/fox/fox_10181.jpg
+2024-10-18 20:53:45,901 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/gorilla/gorilla_10322.jpg to AwA2-data-sample/JPEGImages/gorilla/gorilla_10322.jpg
+2024-10-18 20:53:45,912 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/ox/ox_10324.jpg to AwA2-data-sample/JPEGImages/ox/ox_10324.jpg
+2024-10-18 20:53:45,913 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/bat/bat_10383.jpg to AwA2-data-sample/JPEGImages/bat/bat_10383.jpg
+2024-10-18 20:53:45,931 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/leopard/leopard_10071.jpg to AwA2-data-sample/JPEGImages/leopard/leopard_10071.jpg
+2024-10-18 20:53:45,932 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/gorilla/gorilla_10488.jpg to AwA2-data-sample/JPEGImages/gorilla/gorilla_10488.jpg
+2024-10-18 20:53:45,948 - DEBUG - Copied data/Animals_with_Attributes2/JPEGImages/rhinoceros/rhinoceros_10140.jpg to AwA2-data-sample/JPEGImages/rhinoceros/rhinoceros_10140.jpg
+2024-10-18 20:54:03,610 - INFO - Sample of 50 images created in AwA2-data-sample/JPEGImages
+2024-10-18 20:54:03,610 - INFO - Sample labels file created at AwA2-data-sample/AwA2-labels.txt
+2024-10-18 20:54:03,615 - INFO - Image transformations defined
+2024-10-18 20:54:03,615 - INFO - Creating dataset and dataloader
+2024-10-18 20:54:03,617 - INFO - Initializing the autoencoder
+2024-10-18 20:54:03,642 - INFO - Training the autoencoder
+2024-10-18 20:54:06,704 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/elephant/elephant_11026.jpg
+2024-10-18 20:54:06,907 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/elephant/elephant_11026.jpg
+2024-10-18 20:54:06,908 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/leopard/leopard_10071.jpg
+2024-10-18 20:54:07,035 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/leopard/leopard_10071.jpg
+2024-10-18 20:54:07,036 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/fox/fox_10274.jpg
+2024-10-18 20:54:07,053 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/fox/fox_10274.jpg
+2024-10-18 20:54:07,054 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/chihuahua/chihuahua_10145.jpg
+2024-10-18 20:54:07,071 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/chihuahua/chihuahua_10145.jpg
+2024-10-18 20:54:07,072 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/antelope/antelope_10151.jpg
+2024-10-18 20:54:07,091 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/antelope/antelope_10151.jpg
+2024-10-18 20:54:07,091 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/gorilla/gorilla_10651.jpg
+2024-10-18 20:54:07,104 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/gorilla/gorilla_10651.jpg
+2024-10-18 20:54:07,104 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/elephant/elephant_10341.jpg
+2024-10-18 20:54:07,114 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/elephant/elephant_10341.jpg
+2024-10-18 20:54:07,114 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/gorilla/gorilla_10834.jpg
+2024-10-18 20:54:07,118 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/gorilla/gorilla_10834.jpg
+2024-10-18 20:54:07,118 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/sheep/sheep_11270.jpg
+2024-10-18 20:54:07,122 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/sheep/sheep_11270.jpg
+2024-10-18 20:54:07,122 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/giraffe/giraffe_10484.jpg
+2024-10-18 20:54:07,133 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/giraffe/giraffe_10484.jpg
+2024-10-18 20:54:07,133 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/squirrel/squirrel_10953.jpg
+2024-10-18 20:54:07,150 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/squirrel/squirrel_10953.jpg
+2024-10-18 20:54:07,150 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/humpback+whale/humpback+whale_10435.jpg
+2024-10-18 20:54:07,160 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/humpback+whale/humpback+whale_10435.jpg
+2024-10-18 20:54:07,161 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/gorilla/gorilla_10322.jpg
+2024-10-18 20:54:07,171 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/gorilla/gorilla_10322.jpg
+2024-10-18 20:54:07,172 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/bat/bat_10383.jpg
+2024-10-18 20:54:07,175 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/bat/bat_10383.jpg
+2024-10-18 20:54:07,176 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/giraffe/giraffe_11059.jpg
+2024-10-18 20:54:07,187 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/giraffe/giraffe_11059.jpg
+2024-10-18 20:54:07,188 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/rabbit/rabbit_10783.jpg
+2024-10-18 20:54:07,201 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/rabbit/rabbit_10783.jpg
+2024-10-18 20:54:07,201 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/gorilla/gorilla_10488.jpg
+2024-10-18 20:54:07,214 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/gorilla/gorilla_10488.jpg
+2024-10-18 20:54:07,214 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/weasel/weasel_10267.jpg
+2024-10-18 20:54:07,219 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/weasel/weasel_10267.jpg
+2024-10-18 20:54:07,220 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/hippopotamus/hippopotamus_10120.jpg
+2024-10-18 20:54:07,229 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/hippopotamus/hippopotamus_10120.jpg
+2024-10-18 20:54:07,229 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/rhinoceros/rhinoceros_10140.jpg
+2024-10-18 20:54:07,239 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/rhinoceros/rhinoceros_10140.jpg
+2024-10-18 20:54:07,240 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/lion/lion_10160.jpg
+2024-10-18 20:54:07,269 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/lion/lion_10160.jpg
+2024-10-18 20:54:07,270 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/bobcat/bobcat_10194.jpg
+2024-10-18 20:54:07,284 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/bobcat/bobcat_10194.jpg
+2024-10-18 20:54:07,284 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/otter/otter_10294.jpg
+2024-10-18 20:54:07,308 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/otter/otter_10294.jpg
+2024-10-18 20:54:07,309 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/lion/lion_10712.jpg
+2024-10-18 20:54:07,332 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/lion/lion_10712.jpg
+2024-10-18 20:54:07,333 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/elephant/elephant_10169.jpg
+2024-10-18 20:54:07,354 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/elephant/elephant_10169.jpg
+2024-10-18 20:54:07,355 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/antelope/antelope_10937.jpg
+2024-10-18 20:54:07,375 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/antelope/antelope_10937.jpg
+2024-10-18 20:54:07,375 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/rat/rat_10274.jpg
+2024-10-18 20:54:07,382 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/rat/rat_10274.jpg
+2024-10-18 20:54:07,383 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/ox/ox_10324.jpg
+2024-10-18 20:54:07,389 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/ox/ox_10324.jpg
+2024-10-18 20:54:07,390 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/hippopotamus/hippopotamus_10538.jpg
+2024-10-18 20:54:07,412 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/hippopotamus/hippopotamus_10538.jpg
+2024-10-18 20:54:07,412 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/tiger/tiger_10435.jpg
+2024-10-18 20:54:07,416 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/tiger/tiger_10435.jpg
+2024-10-18 20:54:07,416 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/spider+monkey/spider+monkey_10197.jpg
+2024-10-18 20:54:07,429 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/spider+monkey/spider+monkey_10197.jpg
+2024-10-18 20:54:07,430 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/hamster/hamster_10629.jpg
+2024-10-18 20:54:07,433 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/hamster/hamster_10629.jpg
+2024-10-18 20:54:09,929 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/fox/fox_10181.jpg
+2024-10-18 20:54:09,943 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/fox/fox_10181.jpg
+2024-10-18 20:54:09,943 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/rhinoceros/rhinoceros_10539.jpg
+2024-10-18 20:54:09,960 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/rhinoceros/rhinoceros_10539.jpg
+2024-10-18 20:54:09,960 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/collie/collie_10209.jpg
+2024-10-18 20:54:09,973 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/collie/collie_10209.jpg
+2024-10-18 20:54:09,974 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/fox/fox_10185.jpg
+2024-10-18 20:54:09,985 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/fox/fox_10185.jpg
+2024-10-18 20:54:09,986 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/killer+whale/killer+whale_10099.jpg
+2024-10-18 20:54:10,000 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/killer+whale/killer+whale_10099.jpg
+2024-10-18 20:54:10,001 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/seal/seal_10241.jpg
+2024-10-18 20:54:10,013 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/seal/seal_10241.jpg
+2024-10-18 20:54:10,013 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/seal/seal_10493.jpg
+2024-10-18 20:54:10,029 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/seal/seal_10493.jpg
+2024-10-18 20:54:10,029 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/zebra/zebra_10180.jpg
+2024-10-18 20:54:10,033 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/zebra/zebra_10180.jpg
+2024-10-18 20:54:10,034 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/leopard/leopard_10344.jpg
+2024-10-18 20:54:10,038 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/leopard/leopard_10344.jpg
+2024-10-18 20:54:10,038 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/squirrel/squirrel_10290.jpg
+2024-10-18 20:54:10,050 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/squirrel/squirrel_10290.jpg
+2024-10-18 20:54:10,050 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/horse/horse_11042.jpg
+2024-10-18 20:54:10,061 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/horse/horse_11042.jpg
+2024-10-18 20:54:10,062 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/ox/ox_10462.jpg
+2024-10-18 20:54:10,074 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/ox/ox_10462.jpg
+2024-10-18 20:54:10,074 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/otter/otter_10119.jpg
+2024-10-18 20:54:10,078 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/otter/otter_10119.jpg
+2024-10-18 20:54:10,078 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/mouse/mouse_10121.jpg
+2024-10-18 20:54:10,085 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/mouse/mouse_10121.jpg
+2024-10-18 20:54:10,085 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/walrus/walrus_10049.jpg
+2024-10-18 20:54:10,098 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/walrus/walrus_10049.jpg
+2024-10-18 20:54:10,098 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/horse/horse_11630.jpg
+2024-10-18 20:54:10,102 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/horse/horse_11630.jpg
+2024-10-18 20:54:10,102 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/leopard/leopard_10643.jpg
+2024-10-18 20:54:10,114 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/leopard/leopard_10643.jpg
+2024-10-18 20:54:10,115 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/rhinoceros/rhinoceros_10630.jpg
+2024-10-18 20:54:10,128 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/rhinoceros/rhinoceros_10630.jpg
+2024-10-18 20:54:10,153 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/gorilla/gorilla_10322.jpg
+2024-10-18 20:54:10,171 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/gorilla/gorilla_10322.jpg
+2024-10-18 20:54:10,171 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/lion/lion_10712.jpg
+2024-10-18 20:54:10,183 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/lion/lion_10712.jpg
+2024-10-18 20:54:10,183 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/gorilla/gorilla_10834.jpg
+2024-10-18 20:54:10,188 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/gorilla/gorilla_10834.jpg
+2024-10-18 20:54:10,188 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/spider+monkey/spider+monkey_10197.jpg
+2024-10-18 20:54:10,201 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/spider+monkey/spider+monkey_10197.jpg
+2024-10-18 20:54:10,201 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/killer+whale/killer+whale_10099.jpg
+2024-10-18 20:54:10,215 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/killer+whale/killer+whale_10099.jpg
+2024-10-18 20:54:10,216 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/antelope/antelope_10937.jpg
+2024-10-18 20:54:10,227 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/antelope/antelope_10937.jpg
+2024-10-18 20:54:10,227 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/leopard/leopard_10643.jpg
+2024-10-18 20:54:10,239 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/leopard/leopard_10643.jpg
+2024-10-18 20:54:10,240 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/humpback+whale/humpback+whale_10435.jpg
+2024-10-18 20:54:10,252 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/humpback+whale/humpback+whale_10435.jpg
+2024-10-18 20:54:10,252 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/fox/fox_10181.jpg
+2024-10-18 20:54:10,266 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/fox/fox_10181.jpg
+2024-10-18 20:54:10,266 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/rabbit/rabbit_10783.jpg
+2024-10-18 20:54:10,283 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/rabbit/rabbit_10783.jpg
+2024-10-18 20:54:10,283 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/elephant/elephant_10169.jpg
+2024-10-18 20:54:10,301 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/elephant/elephant_10169.jpg
+2024-10-18 20:54:10,301 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/leopard/leopard_10344.jpg
+2024-10-18 20:54:10,305 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/leopard/leopard_10344.jpg
+2024-10-18 20:54:10,306 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/walrus/walrus_10049.jpg
+2024-10-18 20:54:10,319 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/walrus/walrus_10049.jpg
+2024-10-18 20:54:10,319 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/sheep/sheep_11270.jpg
+2024-10-18 20:54:10,323 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/sheep/sheep_11270.jpg
+2024-10-18 20:54:10,324 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/horse/horse_11042.jpg
+2024-10-18 20:54:10,335 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/horse/horse_11042.jpg
+2024-10-18 20:54:10,335 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/zebra/zebra_10180.jpg
+2024-10-18 20:54:10,340 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/zebra/zebra_10180.jpg
+2024-10-18 20:54:10,340 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/lion/lion_10160.jpg
+2024-10-18 20:54:10,354 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/lion/lion_10160.jpg
+2024-10-18 20:54:10,354 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/hamster/hamster_10629.jpg
+2024-10-18 20:54:10,358 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/hamster/hamster_10629.jpg
+2024-10-18 20:54:10,358 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/rat/rat_10274.jpg
+2024-10-18 20:54:10,362 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/rat/rat_10274.jpg
+2024-10-18 20:54:10,362 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/collie/collie_10209.jpg
+2024-10-18 20:54:10,375 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/collie/collie_10209.jpg
+2024-10-18 20:54:10,375 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/giraffe/giraffe_10484.jpg
+2024-10-18 20:54:10,389 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/giraffe/giraffe_10484.jpg
+2024-10-18 20:54:10,389 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/gorilla/gorilla_10651.jpg
+2024-10-18 20:54:10,403 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/gorilla/gorilla_10651.jpg
+2024-10-18 20:54:10,403 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/squirrel/squirrel_10953.jpg
+2024-10-18 20:54:10,421 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/squirrel/squirrel_10953.jpg
+2024-10-18 20:54:10,421 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/chihuahua/chihuahua_10145.jpg
+2024-10-18 20:54:10,433 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/chihuahua/chihuahua_10145.jpg
+2024-10-18 20:54:10,433 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/fox/fox_10185.jpg
+2024-10-18 20:54:10,444 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/fox/fox_10185.jpg
+2024-10-18 20:54:10,445 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/rhinoceros/rhinoceros_10539.jpg
+2024-10-18 20:54:10,460 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/rhinoceros/rhinoceros_10539.jpg
+2024-10-18 20:54:10,460 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/mouse/mouse_10121.jpg
+2024-10-18 20:54:10,467 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/mouse/mouse_10121.jpg
+2024-10-18 20:54:10,467 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/seal/seal_10241.jpg
+2024-10-18 20:54:10,479 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/seal/seal_10241.jpg
+2024-10-18 20:54:10,479 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/otter/otter_10119.jpg
+2024-10-18 20:54:10,483 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/otter/otter_10119.jpg
+2024-10-18 20:54:10,483 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/giraffe/giraffe_11059.jpg
+2024-10-18 20:54:10,496 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/giraffe/giraffe_11059.jpg
+2024-10-18 20:54:10,497 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/elephant/elephant_11026.jpg
+2024-10-18 20:54:10,510 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/elephant/elephant_11026.jpg
+2024-10-18 20:54:10,510 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/hippopotamus/hippopotamus_10538.jpg
+2024-10-18 20:54:10,523 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/hippopotamus/hippopotamus_10538.jpg
+2024-10-18 20:54:10,533 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/rhinoceros/rhinoceros_10140.jpg
+2024-10-18 20:54:10,545 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/rhinoceros/rhinoceros_10140.jpg
+2024-10-18 20:54:10,546 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/seal/seal_10493.jpg
+2024-10-18 20:54:10,561 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/seal/seal_10493.jpg
+2024-10-18 20:54:10,562 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/weasel/weasel_10267.jpg
+2024-10-18 20:54:10,567 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/weasel/weasel_10267.jpg
+2024-10-18 20:54:10,567 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/hippopotamus/hippopotamus_10120.jpg
+2024-10-18 20:54:10,578 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/hippopotamus/hippopotamus_10120.jpg
+2024-10-18 20:54:10,578 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/ox/ox_10324.jpg
+2024-10-18 20:54:10,582 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/ox/ox_10324.jpg
+2024-10-18 20:54:10,582 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/fox/fox_10274.jpg
+2024-10-18 20:54:10,593 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/fox/fox_10274.jpg
+2024-10-18 20:54:10,594 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/ox/ox_10462.jpg
+2024-10-18 20:54:10,606 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/ox/ox_10462.jpg
+2024-10-18 20:54:10,606 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/bat/bat_10383.jpg
+2024-10-18 20:54:10,611 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/bat/bat_10383.jpg
+2024-10-18 20:54:10,612 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/elephant/elephant_10341.jpg
+2024-10-18 20:54:10,623 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/elephant/elephant_10341.jpg
+2024-10-18 20:54:10,623 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/gorilla/gorilla_10488.jpg
+2024-10-18 20:54:10,638 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/gorilla/gorilla_10488.jpg
+2024-10-18 20:54:10,638 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/bobcat/bobcat_10194.jpg
+2024-10-18 20:54:10,644 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/bobcat/bobcat_10194.jpg
+2024-10-18 20:54:10,644 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/squirrel/squirrel_10290.jpg
+2024-10-18 20:54:10,655 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/squirrel/squirrel_10290.jpg
+2024-10-18 20:54:10,655 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/tiger/tiger_10435.jpg
+2024-10-18 20:54:10,658 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/tiger/tiger_10435.jpg
+2024-10-18 20:54:10,659 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/leopard/leopard_10071.jpg
+2024-10-18 20:54:10,673 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/leopard/leopard_10071.jpg
+2024-10-18 20:54:10,673 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/rhinoceros/rhinoceros_10630.jpg
+2024-10-18 20:54:10,686 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/rhinoceros/rhinoceros_10630.jpg
+2024-10-18 20:54:10,687 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/otter/otter_10294.jpg
+2024-10-18 20:54:10,698 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/otter/otter_10294.jpg
+2024-10-18 20:54:10,698 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/antelope/antelope_10151.jpg
+2024-10-18 20:54:10,712 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/antelope/antelope_10151.jpg
+2024-10-18 20:54:10,712 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/horse/horse_11630.jpg
+2024-10-18 20:54:10,716 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/horse/horse_11630.jpg
+2024-10-18 20:54:10,723 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/lion/lion_10160.jpg
+2024-10-18 20:54:10,737 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/lion/lion_10160.jpg
+2024-10-18 20:54:10,737 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/collie/collie_10209.jpg
+2024-10-18 20:54:10,750 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/collie/collie_10209.jpg
+2024-10-18 20:54:10,750 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/gorilla/gorilla_10834.jpg
+2024-10-18 20:54:10,754 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/gorilla/gorilla_10834.jpg
+2024-10-18 20:54:10,755 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/lion/lion_10712.jpg
+2024-10-18 20:54:10,767 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/lion/lion_10712.jpg
+2024-10-18 20:54:10,767 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/seal/seal_10241.jpg
+2024-10-18 20:54:10,780 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/seal/seal_10241.jpg
+2024-10-18 20:54:10,780 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/fox/fox_10181.jpg
+2024-10-18 20:54:10,793 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/fox/fox_10181.jpg
+2024-10-18 20:54:10,794 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/horse/horse_11630.jpg
+2024-10-18 20:54:10,798 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/horse/horse_11630.jpg
+2024-10-18 20:54:10,798 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/horse/horse_11042.jpg
+2024-10-18 20:54:10,809 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/horse/horse_11042.jpg
+2024-10-18 20:54:10,810 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/giraffe/giraffe_11059.jpg
+2024-10-18 20:54:10,823 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/giraffe/giraffe_11059.jpg
+2024-10-18 20:54:10,823 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/bat/bat_10383.jpg
+2024-10-18 20:54:10,833 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/bat/bat_10383.jpg
+2024-10-18 20:54:10,834 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/elephant/elephant_11026.jpg
+2024-10-18 20:54:10,846 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/elephant/elephant_11026.jpg
+2024-10-18 20:54:10,847 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/hippopotamus/hippopotamus_10538.jpg
+2024-10-18 20:54:10,859 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/hippopotamus/hippopotamus_10538.jpg
+2024-10-18 20:54:10,860 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/rat/rat_10274.jpg
+2024-10-18 20:54:10,863 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/rat/rat_10274.jpg
+2024-10-18 20:54:10,864 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/sheep/sheep_11270.jpg
+2024-10-18 20:54:10,868 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/sheep/sheep_11270.jpg
+2024-10-18 20:54:10,868 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/gorilla/gorilla_10488.jpg
+2024-10-18 20:54:10,883 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/gorilla/gorilla_10488.jpg
+2024-10-18 20:54:10,883 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/gorilla/gorilla_10651.jpg
+2024-10-18 20:54:10,897 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/gorilla/gorilla_10651.jpg
+2024-10-18 20:54:10,897 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/rabbit/rabbit_10783.jpg
+2024-10-18 20:54:10,914 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/rabbit/rabbit_10783.jpg
+2024-10-18 20:54:10,914 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/leopard/leopard_10344.jpg
+2024-10-18 20:54:10,918 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/leopard/leopard_10344.jpg
+2024-10-18 20:54:10,918 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/squirrel/squirrel_10290.jpg
+2024-10-18 20:54:10,929 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/squirrel/squirrel_10290.jpg
+2024-10-18 20:54:10,929 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/ox/ox_10324.jpg
+2024-10-18 20:54:10,932 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/ox/ox_10324.jpg
+2024-10-18 20:54:10,933 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/elephant/elephant_10341.jpg
+2024-10-18 20:54:10,944 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/elephant/elephant_10341.jpg
+2024-10-18 20:54:10,944 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/squirrel/squirrel_10953.jpg
+2024-10-18 20:54:10,961 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/squirrel/squirrel_10953.jpg
+2024-10-18 20:54:10,962 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/bobcat/bobcat_10194.jpg
+2024-10-18 20:54:10,968 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/bobcat/bobcat_10194.jpg
+2024-10-18 20:54:10,968 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/rhinoceros/rhinoceros_10539.jpg
+2024-10-18 20:54:10,983 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/rhinoceros/rhinoceros_10539.jpg
+2024-10-18 20:54:10,984 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/chihuahua/chihuahua_10145.jpg
+2024-10-18 20:54:10,996 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/chihuahua/chihuahua_10145.jpg
+2024-10-18 20:54:10,996 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/otter/otter_10294.jpg
+2024-10-18 20:54:11,008 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/otter/otter_10294.jpg
+2024-10-18 20:54:11,008 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/hamster/hamster_10629.jpg
+2024-10-18 20:54:11,012 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/hamster/hamster_10629.jpg
+2024-10-18 20:54:11,012 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/weasel/weasel_10267.jpg
+2024-10-18 20:54:11,018 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/weasel/weasel_10267.jpg
+2024-10-18 20:54:11,018 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/spider+monkey/spider+monkey_10197.jpg
+2024-10-18 20:54:11,031 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/spider+monkey/spider+monkey_10197.jpg
+2024-10-18 20:54:11,031 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/fox/fox_10185.jpg
+2024-10-18 20:54:11,043 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/fox/fox_10185.jpg
+2024-10-18 20:54:11,043 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/otter/otter_10119.jpg
+2024-10-18 20:54:11,047 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/otter/otter_10119.jpg
+2024-10-18 20:54:11,047 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/fox/fox_10274.jpg
+2024-10-18 20:54:11,059 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/fox/fox_10274.jpg
+2024-10-18 20:54:11,067 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/antelope/antelope_10151.jpg
+2024-10-18 20:54:11,081 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/antelope/antelope_10151.jpg
+2024-10-18 20:54:11,081 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/hippopotamus/hippopotamus_10120.jpg
+2024-10-18 20:54:11,092 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/hippopotamus/hippopotamus_10120.jpg
+2024-10-18 20:54:11,092 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/elephant/elephant_10169.jpg
+2024-10-18 20:54:11,113 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/elephant/elephant_10169.jpg
+2024-10-18 20:54:11,114 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/walrus/walrus_10049.jpg
+2024-10-18 20:54:11,127 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/walrus/walrus_10049.jpg
+2024-10-18 20:54:11,127 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/giraffe/giraffe_10484.jpg
+2024-10-18 20:54:11,141 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/giraffe/giraffe_10484.jpg
+2024-10-18 20:54:11,142 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/zebra/zebra_10180.jpg
+2024-10-18 20:54:11,146 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/zebra/zebra_10180.jpg
+2024-10-18 20:54:11,146 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/humpback+whale/humpback+whale_10435.jpg
+2024-10-18 20:54:11,158 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/humpback+whale/humpback+whale_10435.jpg
+2024-10-18 20:54:11,158 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/ox/ox_10462.jpg
+2024-10-18 20:54:11,171 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/ox/ox_10462.jpg
+2024-10-18 20:54:11,171 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/leopard/leopard_10643.jpg
+2024-10-18 20:54:11,184 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/leopard/leopard_10643.jpg
+2024-10-18 20:54:11,184 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/killer+whale/killer+whale_10099.jpg
+2024-10-18 20:54:11,198 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/killer+whale/killer+whale_10099.jpg
+2024-10-18 20:54:11,198 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/gorilla/gorilla_10322.jpg
+2024-10-18 20:54:11,212 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/gorilla/gorilla_10322.jpg
+2024-10-18 20:54:11,212 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/antelope/antelope_10937.jpg
+2024-10-18 20:54:11,224 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/antelope/antelope_10937.jpg
+2024-10-18 20:54:11,224 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/leopard/leopard_10071.jpg
+2024-10-18 20:54:11,239 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/leopard/leopard_10071.jpg
+2024-10-18 20:54:11,239 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/mouse/mouse_10121.jpg
+2024-10-18 20:54:11,246 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/mouse/mouse_10121.jpg
+2024-10-18 20:54:11,246 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/seal/seal_10493.jpg
+2024-10-18 20:54:11,262 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/seal/seal_10493.jpg
+2024-10-18 20:54:11,262 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/tiger/tiger_10435.jpg
+2024-10-18 20:54:11,265 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/tiger/tiger_10435.jpg
+2024-10-18 20:54:11,266 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/rhinoceros/rhinoceros_10140.jpg
+2024-10-18 20:54:11,278 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/rhinoceros/rhinoceros_10140.jpg
+2024-10-18 20:54:11,279 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/rhinoceros/rhinoceros_10630.jpg
+2024-10-18 20:54:11,292 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/rhinoceros/rhinoceros_10630.jpg
+2024-10-18 20:54:11,302 - INFO - Trained autoencoder model saved at autoencoder_main.pth
+2024-10-18 20:54:11,302 - INFO - Extracting embeddings
+2024-10-18 20:54:11,303 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/giraffe/giraffe_11059.jpg
+2024-10-18 20:54:11,317 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/giraffe/giraffe_11059.jpg
+2024-10-18 20:54:11,317 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/elephant/elephant_11026.jpg
+2024-10-18 20:54:11,330 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/elephant/elephant_11026.jpg
+2024-10-18 20:54:11,330 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/otter/otter_10119.jpg
+2024-10-18 20:54:11,335 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/otter/otter_10119.jpg
+2024-10-18 20:54:11,335 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/antelope/antelope_10151.jpg
+2024-10-18 20:54:11,349 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/antelope/antelope_10151.jpg
+2024-10-18 20:54:11,349 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/tiger/tiger_10435.jpg
+2024-10-18 20:54:11,353 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/tiger/tiger_10435.jpg
+2024-10-18 20:54:11,353 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/giraffe/giraffe_10484.jpg
+2024-10-18 20:54:11,367 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/giraffe/giraffe_10484.jpg
+2024-10-18 20:54:11,367 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/gorilla/gorilla_10834.jpg
+2024-10-18 20:54:11,372 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/gorilla/gorilla_10834.jpg
+2024-10-18 20:54:11,372 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/elephant/elephant_10169.jpg
+2024-10-18 20:54:11,388 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/elephant/elephant_10169.jpg
+2024-10-18 20:54:11,388 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/elephant/elephant_10341.jpg
+2024-10-18 20:54:11,400 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/elephant/elephant_10341.jpg
+2024-10-18 20:54:11,400 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/seal/seal_10241.jpg
+2024-10-18 20:54:11,413 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/seal/seal_10241.jpg
+2024-10-18 20:54:11,413 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/rat/rat_10274.jpg
+2024-10-18 20:54:11,417 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/rat/rat_10274.jpg
+2024-10-18 20:54:11,417 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/mouse/mouse_10121.jpg
+2024-10-18 20:54:11,423 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/mouse/mouse_10121.jpg
+2024-10-18 20:54:11,424 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/otter/otter_10294.jpg
+2024-10-18 20:54:11,435 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/otter/otter_10294.jpg
+2024-10-18 20:54:11,436 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/seal/seal_10493.jpg
+2024-10-18 20:54:11,451 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/seal/seal_10493.jpg
+2024-10-18 20:54:11,452 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/rhinoceros/rhinoceros_10140.jpg
+2024-10-18 20:54:11,464 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/rhinoceros/rhinoceros_10140.jpg
+2024-10-18 20:54:11,465 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/humpback+whale/humpback+whale_10435.jpg
+2024-10-18 20:54:11,476 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/humpback+whale/humpback+whale_10435.jpg
+2024-10-18 20:54:11,477 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/antelope/antelope_10937.jpg
+2024-10-18 20:54:11,488 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/antelope/antelope_10937.jpg
+2024-10-18 20:54:11,489 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/ox/ox_10324.jpg
+2024-10-18 20:54:11,492 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/ox/ox_10324.jpg
+2024-10-18 20:54:11,493 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/fox/fox_10181.jpg
+2024-10-18 20:54:11,507 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/fox/fox_10181.jpg
+2024-10-18 20:54:11,507 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/rhinoceros/rhinoceros_10630.jpg
+2024-10-18 20:54:11,520 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/rhinoceros/rhinoceros_10630.jpg
+2024-10-18 20:54:11,520 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/leopard/leopard_10344.jpg
+2024-10-18 20:54:11,524 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/leopard/leopard_10344.jpg
+2024-10-18 20:54:11,525 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/gorilla/gorilla_10651.jpg
+2024-10-18 20:54:11,538 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/gorilla/gorilla_10651.jpg
+2024-10-18 20:54:11,539 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/sheep/sheep_11270.jpg
+2024-10-18 20:54:11,543 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/sheep/sheep_11270.jpg
+2024-10-18 20:54:11,543 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/gorilla/gorilla_10488.jpg
+2024-10-18 20:54:11,558 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/gorilla/gorilla_10488.jpg
+2024-10-18 20:54:11,559 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/lion/lion_10712.jpg
+2024-10-18 20:54:11,571 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/lion/lion_10712.jpg
+2024-10-18 20:54:11,571 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/squirrel/squirrel_10953.jpg
+2024-10-18 20:54:11,588 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/squirrel/squirrel_10953.jpg
+2024-10-18 20:54:11,588 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/collie/collie_10209.jpg
+2024-10-18 20:54:11,602 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/collie/collie_10209.jpg
+2024-10-18 20:54:11,602 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/weasel/weasel_10267.jpg
+2024-10-18 20:54:11,608 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/weasel/weasel_10267.jpg
+2024-10-18 20:54:11,608 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/spider+monkey/spider+monkey_10197.jpg
+2024-10-18 20:54:11,620 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/spider+monkey/spider+monkey_10197.jpg
+2024-10-18 20:54:11,621 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/ox/ox_10462.jpg
+2024-10-18 20:54:11,633 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/ox/ox_10462.jpg
+2024-10-18 20:54:11,633 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/squirrel/squirrel_10290.jpg
+2024-10-18 20:54:11,644 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/squirrel/squirrel_10290.jpg
+2024-10-18 20:54:11,644 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/rhinoceros/rhinoceros_10539.jpg
+2024-10-18 20:54:11,660 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/rhinoceros/rhinoceros_10539.jpg
+2024-10-18 20:54:11,663 - DEBUG - Batch 0 processed with image shape: torch.Size([32, 3, 128, 128])
+2024-10-18 20:54:11,664 - DEBUG - Encoded embeddings for batch 0: torch.Size([32, 128, 8, 8])
+2024-10-18 20:54:11,664 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/fox/fox_10274.jpg
+2024-10-18 20:54:11,676 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/fox/fox_10274.jpg
+2024-10-18 20:54:11,676 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/killer+whale/killer+whale_10099.jpg
+2024-10-18 20:54:11,690 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/killer+whale/killer+whale_10099.jpg
+2024-10-18 20:54:11,691 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/zebra/zebra_10180.jpg
+2024-10-18 20:54:11,695 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/zebra/zebra_10180.jpg
+2024-10-18 20:54:11,695 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/bobcat/bobcat_10194.jpg
+2024-10-18 20:54:11,701 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/bobcat/bobcat_10194.jpg
+2024-10-18 20:54:11,701 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/leopard/leopard_10071.jpg
+2024-10-18 20:54:11,716 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/leopard/leopard_10071.jpg
+2024-10-18 20:54:11,716 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/hamster/hamster_10629.jpg
+2024-10-18 20:54:11,720 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/hamster/hamster_10629.jpg
+2024-10-18 20:54:11,720 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/fox/fox_10185.jpg
+2024-10-18 20:54:11,732 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/fox/fox_10185.jpg
+2024-10-18 20:54:11,732 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/lion/lion_10160.jpg
+2024-10-18 20:54:11,747 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/lion/lion_10160.jpg
+2024-10-18 20:54:11,747 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/leopard/leopard_10643.jpg
+2024-10-18 20:54:11,760 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/leopard/leopard_10643.jpg
+2024-10-18 20:54:11,760 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/horse/horse_11042.jpg
+2024-10-18 20:54:11,771 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/horse/horse_11042.jpg
+2024-10-18 20:54:11,772 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/hippopotamus/hippopotamus_10538.jpg
+2024-10-18 20:54:11,784 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/hippopotamus/hippopotamus_10538.jpg
+2024-10-18 20:54:11,785 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/walrus/walrus_10049.jpg
+2024-10-18 20:54:11,798 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/walrus/walrus_10049.jpg
+2024-10-18 20:54:11,798 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/rabbit/rabbit_10783.jpg
+2024-10-18 20:54:11,819 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/rabbit/rabbit_10783.jpg
+2024-10-18 20:54:11,819 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/gorilla/gorilla_10322.jpg
+2024-10-18 20:54:11,832 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/gorilla/gorilla_10322.jpg
+2024-10-18 20:54:11,832 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/chihuahua/chihuahua_10145.jpg
+2024-10-18 20:54:11,844 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/chihuahua/chihuahua_10145.jpg
+2024-10-18 20:54:11,845 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/bat/bat_10383.jpg
+2024-10-18 20:54:11,850 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/bat/bat_10383.jpg
+2024-10-18 20:54:11,850 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/horse/horse_11630.jpg
+2024-10-18 20:54:11,854 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/horse/horse_11630.jpg
+2024-10-18 20:54:11,854 - DEBUG - Loaded image from AwA2-data-sample/JPEGImages/hippopotamus/hippopotamus_10120.jpg
+2024-10-18 20:54:11,865 - DEBUG - Image transformed successfully for AwA2-data-sample/JPEGImages/hippopotamus/hippopotamus_10120.jpg
+2024-10-18 20:54:11,867 - DEBUG - Batch 1 processed with image shape: torch.Size([18, 3, 128, 128])
+2024-10-18 20:54:11,867 - DEBUG - Encoded embeddings for batch 1: torch.Size([18, 128, 8, 8])
+2024-10-18 20:54:11,868 - INFO - Total extracted embeddings shape: torch.Size([50, 8192])
+2024-10-18 20:54:11,868 - INFO - Applying KMeans clustering
+2024-10-18 20:54:11,954 - INFO - Clustering results saved to clustering_results_main.json
