@@ -1,8 +1,14 @@
+#utils.py
+
 import torch
 import os
 import logging
 import shutil
 import random
+import logging
+
+def setup_logging():
+    logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def extract_embeddings(dataloader, model, use_gpu):
     """
@@ -14,12 +20,18 @@ def extract_embeddings(dataloader, model, use_gpu):
     embeddings = []
 
     with torch.no_grad():
-        for images, _, _, _ in dataloader:
+        for batch_idx, (images, _, _, _) in enumerate(dataloader):
             images = images.to(device)
+            logging.debug(f"Batch {batch_idx} processed with image shape: {images.shape}")
+
+            # Forward pass through autoencoder encoder
             encoded = model.encoder(images)
+            logging.debug(f"Encoded embeddings for batch {batch_idx}: {encoded.shape}")
+
             embeddings.append(encoded.view(encoded.size(0), -1).cpu())
 
     embeddings = torch.cat(embeddings, dim=0)
+    logging.info(f"Total extracted embeddings shape: {embeddings.shape}")
     return embeddings
 
 def create_sample_dataset(source_dir, target_dir, sample_size=100):
