@@ -59,7 +59,8 @@ def train_constrained_autoencoder(dataloader, model, use_gpu, num_epochs=100):
             loss = criterion(outputs, images)
 
             # Additional loss term for symbolic tags
-            tag_loss = F.mse_loss(symbolic_tags, symbolic_tags)  # Example term, should be refined
+            predicted_tags = model.encoder(images)  # Predict tags based on embeddings
+            tag_loss = F.mse_loss(predicted_tags, symbolic_tags)
 
             # Total loss combines the reconstruction loss and the symbolic tag loss
             total_loss = loss + tag_loss
