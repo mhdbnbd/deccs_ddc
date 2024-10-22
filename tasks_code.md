@@ -1,5 +1,5 @@
 ToDo:  
--  fix: concatenating the embeddings with the symbolic tags (combined_features) but still using only the embeddings for clustering (kmeans.fit_predict(embeddings)
+
 - log results in output file (loss, ...) : Ensure that logging is used consistently across both scripts. It’s good practice to log the shapes of intermediate outputs, like after extracting embeddings, to verify that the data flows correctly through your pipeline.
 
 - When versions run simultaneously different data samples are created/conflict.
@@ -12,8 +12,10 @@ ToDo:
 - Results evaluatuion and analysis.
 - tests ( tag included dataset preprocessing + training)
 
-Ongoing/done:  
+Ongoing/done?:
 
+- define additional constrained autoencoder loss
+- fix: using combined features for clustering
 - Include some pseudo-code and/or schema to clarify steps.
 - Adapt the Autoencoder to include DDC functionalities: Integrating symbolic tags more tightly into the clustering process by using them as additional features or constraints.
 - main_tags (tags in autoencoder)
