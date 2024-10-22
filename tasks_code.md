@@ -1,9 +1,9 @@
 ToDo:  
-
+-  fix: concatenating the embeddings with the symbolic tags (combined_features) but still using only the embeddings for clustering (kmeans.fit_predict(embeddings)
 - log results in output file (loss, ...) : Ensure that logging is used consistently across both scripts. It’s good practice to log the shapes of intermediate outputs, like after extracting embeddings, to verify that the data flows correctly through your pipeline.
 
 - When versions run simultaneously different data samples are created/conflict.
-- how many clusters,  = n_labels 
+- how many clusters,  = n_labels/silhouette method ? clusters should be > labels (e.g animals with fur, animals that are small/sublabels) n_clusters = n_labels * (n_tags matchingeach label) = count of 1s in the matrix ?
 - https://github.com/collinleiber/ClustPy
 - apply different clustering methods and consensus
 - Data preprocessing : AwA, APY .
