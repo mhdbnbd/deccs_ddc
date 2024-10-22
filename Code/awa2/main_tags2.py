@@ -99,7 +99,7 @@ def main(use_gpu, use_sample):
     n_clusters = len(set(awa2_dataset.labels))  
     logging.info(f"Applying KMeans with {n_clusters} clusters")
     kmeans = KMeans(n_clusters=n_clusters)
-    clusters = kmeans.fit_predict(embeddings.cpu().detach().numpy())
+    clusters = kmeans.fit_predict(combined_features.cpu().detach().numpy())
 
     # Calculate final accuracy and ARI
     true_labels = awa2_dataset.labels
