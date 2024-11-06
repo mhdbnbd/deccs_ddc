@@ -10,7 +10,7 @@ ToDo:
 - tests ( tag included dataset preprocessing + training)
 - Include some pseudo-code and/or schema to clarify steps.
 
-Ongoing :
+Ongoing/done(to be reviewed) :
 
 - Can run on (no? gpu/ yes luke)
 - Adapt the Autoencoder to include DDC functionalities: Integrating symbolic tags more tightly into the clustering process by using them as additional features or constraints.

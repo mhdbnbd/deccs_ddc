@@ -14,3 +14,6 @@ Code/awa2/AwA2-data.zip
 Code/awa2/AwA2-data-sample-tags/
 Code/awa2/AwA2-data-sample-tags2/
 Code/awa2/autoencoder_tags.pth
+Code/awa2/autoencoder_main.pth
+Code/awa2/detailed_results_main.json
+Code/awa2/results_notebook_main.ipynb
