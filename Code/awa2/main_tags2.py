@@ -42,11 +42,11 @@ def calculate_clustering_accuracy(true_labels, predicted_clusters):
 
 def main(use_gpu, use_sample):
     source_dir = "data/Animals_with_Attributes2"
-    dataset_dir = "AwA2-data-sample"
+    dataset_dir = "AwA2-data-sample-tags2"
     pred_file = "data/Animals_with_Attributes2/predicate-matrix-continuous.txt"
 
     if use_sample:
-        create_sample_dataset(source_dir, dataset_dir, sample_size=1000)
+        create_sample_dataset(source_dir, dataset_dir, sample_size=5000)
         img_dir = os.path.join(dataset_dir, "JPEGImages")
         attr_file = os.path.join(dataset_dir, "AwA2-labels.txt")
     else:
@@ -71,7 +71,7 @@ def main(use_gpu, use_sample):
     autoencoder = Autoencoder()
 
     training_losses = []
-    num_epochs = 100
+    num_epochs = 3
 
     for epoch in range(num_epochs):
         logging.info(f"Starting epoch {epoch + 1}/{num_epochs}")
@@ -102,6 +102,7 @@ def main(use_gpu, use_sample):
     clusters = kmeans.fit_predict(combined_features.cpu().detach().numpy())
 
     # Calculate final accuracy and ARI
+    #add NMI
     true_labels = awa2_dataset.labels
     acc = calculate_clustering_accuracy(true_labels, clusters)
     ari = adjusted_rand_score(true_labels, clusters)
