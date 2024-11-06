@@ -40,11 +40,11 @@ def calculate_clustering_accuracy(true_labels, predicted_clusters):
 
 def main(use_gpu, use_sample):
     source_dir = "data/Animals_with_Attributes2"
-    dataset_dir = "AwA2-data-sample"
+    dataset_dir = "AwA2-data-sample-tags"
     pred_file = "data/Animals_with_Attributes2/predicate-matrix-continuous.txt"
 
     if use_sample:
-        create_sample_dataset(source_dir, dataset_dir, sample_size=1000)
+        create_sample_dataset(source_dir, dataset_dir, sample_size=5000)
         img_dir = os.path.join(dataset_dir, "JPEGImages")
         attr_file = os.path.join(dataset_dir, "AwA2-labels.txt")
     else:
@@ -69,7 +69,7 @@ def main(use_gpu, use_sample):
     autoencoder = Autoencoder()
 
     training_losses = []
-    num_epochs = 100
+    num_epochs = 4
 
     for epoch in range(num_epochs):
         logging.info(f"Starting epoch {epoch + 1}/{num_epochs}")
