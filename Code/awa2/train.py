@@ -5,7 +5,7 @@ import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
 
-def train_autoencoder(dataloader, model, use_gpu, num_epochs=100):
+def train_autoencoder(dataloader, model, use_gpu):
     """
     Train the autoencoder model.
 
@@ -37,10 +37,10 @@ def train_autoencoder(dataloader, model, use_gpu, num_epochs=100):
         running_loss += loss.item()
 
     epoch_loss = running_loss / len(dataloader)
-    print(f'Epoch [{epoch + 1}/{num_epochs}], Loss: {epoch_loss:.4f}')
+    return epoch_loss
 
 
-def train_constrained_autoencoder(dataloader, model, use_gpu, num_epochs=100):
+def train_constrained_autoencoder(dataloader, model, use_gpu, epoch):
     """
     Train the autoencoder model.
 
@@ -82,4 +82,4 @@ def train_constrained_autoencoder(dataloader, model, use_gpu, num_epochs=100):
         running_loss += total_loss.item()
 
     epoch_loss = running_loss / len(dataloader)
-    print(f'Epoch [{epoch + 1}/{num_epochs}], Loss: {epoch_loss:.4f}')
+    return epoch_loss
