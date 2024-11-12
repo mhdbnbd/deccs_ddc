@@ -46,7 +46,7 @@ def main(use_gpu, use_sample):
     pred_file = "data/Animals_with_Attributes2/predicate-matrix-continuous.txt"
 
     if use_sample:
-        create_sample_dataset(source_dir, dataset_dir, sample_size=500)
+        create_sample_dataset(source_dir, dataset_dir, sample_size=100)
         img_dir = os.path.join(dataset_dir, "JPEGImages")
         attr_file = os.path.join(dataset_dir, "AwA2-labels.txt")
     else:
@@ -71,7 +71,7 @@ def main(use_gpu, use_sample):
     autoencoder = ConstrainedAutoencoder()
 
     training_losses = []
-    num_epochs = 3
+    num_epochs = 4
 
     for epoch in range(num_epochs):
         logging.info(f"Starting epoch {epoch + 1}/{num_epochs}")
