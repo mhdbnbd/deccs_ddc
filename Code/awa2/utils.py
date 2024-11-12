@@ -7,8 +7,27 @@ import nbformat as nbf
 import matplotlib.pyplot as plt
 import json
 
-def setup_logging():
-    logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+def setup_logging(log_filename='maintag2_sampled.log'):
+    # Create a logger
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+
+    # Create file handler
+    file_handler = logging.FileHandler(log_filename)
+    file_handler.setLevel(logging.INFO)
+
+    # Create console handler
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging.INFO)
+
+    # Define a common formatter and add it to both handlers
+    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+    file_handler.setFormatter(formatter)
+    console_handler.setFormatter(formatter)
+
+    # Add both handlers to the logger
+    logger.addHandler(file_handler)
+    logger.addHandler(console_handler)
 
 def extract_embeddings(dataloader, model, use_gpu):
     """
@@ -157,6 +176,9 @@ def save_detailed_results(output_path, image_paths, clusters, embeddings, labels
 
     logging.info(f"Results saved to {output_path}")
 
+import nbformat as nbf
+import logging
+
 def generate_notebook(results_file, output_notebook):
     """
     Generates a Jupyter notebook to present the results and the steps taken to achieve them.
@@ -168,8 +190,6 @@ def generate_notebook(results_file, output_notebook):
     logging.info(f"Generating notebook at {output_notebook}")
     
     nb = nbf.v4.new_notebook()
-
-    # most poplar cluster analysis
 
     # 1. Add introduction markdown cell
     intro_text = """# Results Notebook
@@ -185,18 +205,25 @@ This notebook presents the results of the clustering process performed on the Aw
     nb['cells'].append(nbf.v4.new_markdown_cell(intro_text))
 
     # 2. Add a code cell for loading data
-    data_loading_code = """
+    data_loading_code = f"""
 import json
 import matplotlib.pyplot as plt
 import numpy as np
 
 # Load the results file
-results_file = '{}'
+results_file = '{results_file}'
 with open(results_file, 'r') as f:
     results = json.load(f)
 
 print("Results loaded successfully")
-""".format(results_file)
+
+# Extract clusters and embeddings from results
+clusters = [result['cluster'] for result in results['results']]
+embeddings = np.array([result['embedding'] for result in results['results']])
+image_paths = [result['image_path'] for result in results['results']]
+
+print("Clusters and embeddings extracted.")
+"""
     nb['cells'].append(nbf.v4.new_code_cell(data_loading_code))
 
     # 3. Add a code cell for plotting loss curves
@@ -218,9 +245,6 @@ plt.show()
     # 4. Add a code cell for clustering results visualization
     cluster_vis_code = """
 # Visualize the clustering results
-image_paths = [result['image_path'] for result in results['results']]
-clusters = [result['cluster'] for result in results['results']]
-
 # Count how many samples per cluster
 unique_clusters, counts = np.unique(clusters, return_counts=True)
 
@@ -237,9 +261,7 @@ plt.show()
     embed_vis_code = """
 from sklearn.decomposition import PCA
 
-# Extract embeddings and reduce dimensionality with PCA for visualization
-embeddings = np.array([result['embedding'] for result in results['results']])
-
+# Reduce dimensionality of embeddings with PCA for visualization
 pca = PCA(n_components=2)
 reduced_embeddings = pca.fit_transform(embeddings)
 
@@ -259,7 +281,7 @@ plt.show()
 ## Summary
 
 - We trained an autoencoder on the AwA2 dataset and extracted embeddings.
-- The embeddings were clustered using KMeans with the number of clusters set to 5.
+- The embeddings were clustered using KMeans with the number of clusters set to 50.
 - Loss per epoch was tracked, and the cluster distribution and embeddings were visualized.
     """
     nb['cells'].append(nbf.v4.new_markdown_cell(summary_text))
@@ -269,3 +291,4 @@ plt.show()
         nbf.write(nb, f)
 
     logging.info(f"Notebook saved to {output_notebook}")
+

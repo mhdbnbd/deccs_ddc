@@ -8,7 +8,7 @@ from sklearn.cluster import KMeans
 from torchvision import transforms
 from torch.utils.data import DataLoader
 from dataset import AwA2Dataset
-from model import Autoencoder
+from model import ConstrainedAutoencoder
 from train import train_constrained_autoencoder
 from utils import extract_embeddings, create_sample_dataset, custom_collate, setup_logging, generate_notebook, save_detailed_results
 from sklearn.metrics import accuracy_score, adjusted_rand_score
@@ -46,7 +46,7 @@ def main(use_gpu, use_sample):
     pred_file = "data/Animals_with_Attributes2/predicate-matrix-continuous.txt"
 
     if use_sample:
-        create_sample_dataset(source_dir, dataset_dir, sample_size=5000)
+        create_sample_dataset(source_dir, dataset_dir, sample_size=500)
         img_dir = os.path.join(dataset_dir, "JPEGImages")
         attr_file = os.path.join(dataset_dir, "AwA2-labels.txt")
     else:
@@ -68,7 +68,7 @@ def main(use_gpu, use_sample):
         return
 
     # Initialize and train the constrained autoencoder
-    autoencoder = Autoencoder()
+    autoencoder = ConstrainedAutoencoder()
 
     training_losses = []
     num_epochs = 3
@@ -99,7 +99,7 @@ def main(use_gpu, use_sample):
     n_clusters = len(set(awa2_dataset.labels))  
     logging.info(f"Applying KMeans with {n_clusters} clusters")
     kmeans = KMeans(n_clusters=n_clusters)
-    clusters = kmeans.fit_predict(combined_features.cpu().detach().numpy())
+    clusters = kmeans.fit_predict(combined_features)
 
     # Calculate final accuracy and ARI
     #add NMI
