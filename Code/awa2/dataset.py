@@ -130,9 +130,9 @@ class AwA2Dataset(Dataset):
                 logging.error(f"Error processing image {image_path}: {e}")
                 return None, None, None, None
 
-        label = torch.tensor(self.labels[idx], dtype=torch.long)
-        attribute = torch.tensor(self.attributes[idx], dtype=torch.float32)
+        # label = torch.tensor(self.labels[idx], dtype=torch.long)
+        # attribute = torch.tensor(self.attributes[idx], dtype=torch.float32)
         symbolic_tag = torch.tensor(self.symbolic_tags[idx], dtype=torch.float32)
 
-        return image_tensor, label, attribute, symbolic_tag
+        return image_tensor, symbolic_tag
 

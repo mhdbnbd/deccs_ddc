@@ -39,7 +39,7 @@ def extract_embeddings(dataloader, model, use_gpu):
     embeddings = []
 
     with torch.no_grad():
-        for batch_idx, (images, _, _, _) in enumerate(dataloader):
+        for batch_idx, (images, _) in enumerate(dataloader):
             images = images.to(device)
             logging.debug(f"Batch {batch_idx} processed with image shape: {images.shape}")
 

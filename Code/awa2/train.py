@@ -22,7 +22,7 @@ def train_autoencoder(dataloader, model, use_gpu):
 
     model.train()
     running_loss = 0.0
-    for images, _, _, _ in dataloader:
+    for images, _ in dataloader:
         images = images.to(device)
 
         # Forward pass
@@ -58,7 +58,7 @@ def train_constrained_autoencoder(dataloader, model, use_gpu):
 
     model.train()
     running_loss = 0.0
-    for images, _, _, symbolic_tags in dataloader:
+    for images, symbolic_tags in dataloader:
         images = images.to(device)
         symbolic_tags = symbolic_tags.to(device)
 
