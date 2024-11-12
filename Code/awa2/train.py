@@ -40,7 +40,7 @@ def train_autoencoder(dataloader, model, use_gpu):
     return epoch_loss
 
 
-def train_constrained_autoencoder(dataloader, model, use_gpu, epoch):
+def train_constrained_autoencoder(dataloader, model, use_gpu):
     """
     Train the autoencoder model.
 
