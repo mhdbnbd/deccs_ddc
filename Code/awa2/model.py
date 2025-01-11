@@ -1,3 +1,5 @@
+#model.py
+
 import torch.nn as nn
 
 class Autoencoder(nn.Module):
@@ -43,6 +45,10 @@ class ConstrainedAutoencoder(nn.Module):
             nn.Conv2d(64, 128, 3, stride=2, padding=1),
             nn.ReLU(),
         )
+        
+        # New fully connected layer to predict tags
+        self.fc_tags = nn.Linear(128 * 8 * 8, 85)  # Assuming 85 symbolic tags
+
         self.decoder = nn.Sequential(
             nn.ConvTranspose2d(128, 64, 3, stride=2, padding=1, output_padding=1),
             nn.ReLU(),
@@ -55,6 +61,13 @@ class ConstrainedAutoencoder(nn.Module):
         )
 
     def forward(self, x):
-        x = self.encoder(x)
-        x = self.decoder(x)
-        return x
+        encoded = self.encoder(x)
+
+        # Flatten the encoded output for the fully connected layer
+        encoded_flat = encoded.view(encoded.size(0), -1)  # Flatten [batch_size, channels, height, width] -> [batch_size, features]
+
+        predicted_tags = self.fc_tags(encoded_flat)  # Predict tags
+
+        decoded = self.decoder(encoded)
+        return decoded, predicted_tags  # Return both the reconstructed image and the predicted tags
+
