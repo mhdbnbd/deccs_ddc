@@ -6,6 +6,8 @@ import random
 import nbformat as nbf
 import matplotlib.pyplot as plt
 import json
+import nbformat as nbf
+import logging
 
 def setup_logging(log_filename='maintag2_sampled.log'):
     # Create a logger
@@ -175,9 +177,6 @@ def save_detailed_results(output_path, image_paths, clusters, embeddings, labels
         json.dump(output, f, indent=4)
 
     logging.info(f"Results saved to {output_path}")
-
-import nbformat as nbf
-import logging
 
 def generate_notebook(results_file, output_notebook):
     """
