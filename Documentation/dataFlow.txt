@@ -118,3 +118,175 @@ Step 9: Testing
 
     In the testing phase, a separate set of images is passed through the same pipeline (embedding extraction, clustering, and evaluation) to assess the model’s generalization ability.
 
+-----------------------------------------------------------------------------------------------------------------------
+
+Ensuring Correct Mapping of Images, Labels, and Attributes
+
+Currently, the pipeline mostly aligns images with their corresponding labels and symbolic attributes, but there are a few points of concern regarding the guarantee of correct alignment and data leakage prevention. Here's an analysis of the key mechanisms and what improvements could be made.
+Step 1: Ensuring Correct Mapping of Images, Labels, and Attributes
+
+In the current implementation, the following methods handle the data loading and alignment:
+In AwA2Dataset Class (dataset.py):
+1. Load Images and Labels (load_attributes)
+
+The load_attributes(attr_file) method reads image paths and corresponding labels from AwA2-labels.txt:
+
+def load_attributes(self, attr_file):
+    image_paths, labels, attributes = [], [], []
+    try:
+        with open(attr_file, 'r') as file:
+            for line in file:
+                parts = line.strip().split()
+                image_path = parts[0]
+                label = int(parts[1])
+                attribute = list(map(int, parts[2:])) if len(parts) > 2 else []
+                image_paths.append(image_path)
+                labels.append(label)
+                attributes.append(attribute)
+    except Exception as e:
+        logging.error(f"Error reading attributes file: {e}")
+    return image_paths, labels, attributes
+
+Guarantee Mechanism:
+
+    The image paths (image_paths) are directly paired with labels (labels) line-by-line as they are read from the file.
+    Potential Improvement: Check for duplicates, missing data, or malformed lines using checks like:
+
+    if not os.path.exists(os.path.join(self.img_dir, image_path)):
+        raise ValueError(f"Image {image_path} not found.")
+
+2. Load Symbolic Tags (load_predicates)
+
+The load_predicates(pred_file) reads symbolic tag vectors (attributes) for each image:
+
+def load_predicates(self, pred_file):
+    data = []
+    try:
+        with open(pred_file, 'r') as file:
+            for line_num, line in enumerate(file):
+                parts = line.strip().split()
+                try:
+                    numeric_parts = list(map(float, parts))
+                    data.append(numeric_parts)
+                except ValueError as e:
+                    logging.error(f"Error parsing line {line_num + 1}: {e}")
+    except Exception as e:
+        logging.error(f"Error loading predicates file: {e}")
+
+    if not data:
+        raise ValueError("Predicate file contains no valid rows.")
+    return np.array(data)
+
+Guarantee Mechanism:
+
+    Each row in the predicate matrix corresponds to a specific image, assuming correct ordering between the labels and predicates.
+
+Potential Issue:
+
+    If the predicate file’s rows do not align with the order of images in AwA2-labels.txt, symbolic tags will be mismatched.
+
+Fix/Improvement Suggestion:
+Instead of relying on positional matching, you can map image paths explicitly using dictionaries:
+
+# Create a dictionary to map image paths to their corresponding symbolic tags
+def load_predicates_with_mapping(self, pred_file, image_paths):
+    predicate_map = {}
+    with open(pred_file, 'r') as file:
+        for i, line in enumerate(file):
+            parts = list(map(float, line.strip().split()))
+            predicate_map[image_paths[i]] = parts  # Map predicates to correct image path
+    return predicate_map
+
+3. Alignment Check in match_symbolic_tags()
+
+This function attempts to pad the symbolic tag matrix if the number of tags does not match the number of images:
+
+def match_symbolic_tags(self):
+    num_images = len(self.image_paths)
+    num_tags = self.symbolic_tags.shape[0]
+    if num_tags != num_images:
+        logging.warning(f"Number of images ({num_images}) does not match symbolic tags ({num_tags}). Padding with zeros.")
+        pad_size = num_images - num_tags
+        pad = np.zeros((pad_size, self.symbolic_tags.shape[1]))
+        self.symbolic_tags = np.vstack([self.symbolic_tags, pad])
+
+Current Issue:
+
+    Padding with zeros introduces irrelevant symbolic tags and can lead to noise during training.
+
+Improvement:
+
+    Instead of padding, log an error and prevent the dataset from being loaded if a mismatch is detected:
+
+if num_tags != num_images:
+    raise ValueError("Mismatch between number of images and symbolic tags. Check data alignment.")
+
+Step 2: Ensuring Labels Are Used Only During Testing
+
+Currently, the labels (true_labels) are used during clustering evaluation but should not be exposed during training.
+Review of Training Script (train.py)
+
+In both train_autoencoder and train_constrained_autoencoder, only images and symbolic tags are used for training:
+
+for images, symbolic_tags in dataloader:
+    images = images.to(device)
+    symbolic_tags = symbolic_tags.to(device)
+
+    # Forward pass
+    outputs, predicted_tags = model(images)
+
+    # Calculate reconstruction and tag prediction losses
+    recon_loss = criterion(outputs, images)
+    tag_loss = tag_criterion(predicted_tags, symbolic_tags)
+
+    total_loss = recon_loss + lambda_tag * tag_loss
+    optimizer.zero_grad()
+    total_loss.backward()
+    optimizer.step()
+
+Guarantee:
+
+    The labels (labels) from AwA2-labels.txt are not passed into the model during training.
+
+3. Clustering Evaluation in main.py
+
+During testing, the labels are passed for evaluation purposes only through clustering accuracy calculation:
+
+def calculate_clustering_accuracy(true_labels, predicted_clusters):
+    # Hungarian matching to find best label-to-cluster mapping
+    contingency_matrix = np.zeros((max_label, max_cluster))
+    for i, (true_label, cluster) in enumerate(zip(true_labels, predicted_clusters)):
+        contingency_matrix[true_label, cluster] += 1
+
+    row_ind, col_ind = linear_sum_assignment(-contingency_matrix)
+    acc = contingency_matrix[row_ind, col_ind].sum() / len(true_labels)
+    return acc
+
+Guarantee:
+
+    The labels are used only in this function during testing, which prevents them from influencing model weights.
+
+Step 3: Improvements for Data Leakage Prevention
+
+To further guarantee no data leakage:
+
+    Ensure Train/Test Splits:
+    Implement explicit train/test splits using:
+
+from sklearn.model_selection import train_test_split
+
+train_indices, test_indices = train_test_split(np.arange(len(image_paths)), test_size=0.2, random_state=42)
+train_images, test_images = [image_paths[i] for i in train_indices], [image_paths[i] for i in test_indices]
+
+Create Separate Datasets for Training and Testing:
+Ensure the test labels are not included in any symbolic tag learning by creating separate loaders:
+
+    train_dataset = AwA2Dataset(train_images, ...)
+    test_dataset = AwA2Dataset(test_images, ...)
+
+Final Corrected Pipeline
+
+    Load images and their corresponding symbolic tags using explicit mapping.
+    Perform explicit train/test splits to ensure no data leakage.
+    Use labels only for testing during evaluation.
+
