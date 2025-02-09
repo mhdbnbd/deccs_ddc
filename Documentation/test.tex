@@ -1,0 +1,18 @@
+\documentclass{article}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+\begin{document}
+\begin{algorithm}[H]
+\caption{Generating Explanations with DDC}
+\begin{algorithmic}[1]
+\REQUIRE Clusters from DECCS, feature-tag mapping
+\FOR{each cluster $c$}
+   \STATE Map features of $c$ to tags
+   \STATE Solve ILP to find the most representative tags for $c$
+   \STATE Generate explanation for $c$ using selected tags
+\ENDFOR
+\ENSURE Explanations for all clusters
+\end{algorithmic}
+\end{algorithm}
+\end{document}

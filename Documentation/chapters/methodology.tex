@@ -1,70 +1,148 @@
+\chapter{Methodology}
+
+\section{Overview}
 To develop a system that combines Deep Embedded Clustering with Consensus Representations (DECCS) and Deep Descriptive Clustering (DDC), this methodology leverages the strengths of both methods to create an efficient and interpretable clustering system. This approach ensures that the resulting clusters are not only robust but also provide meaningful insights.
 
-\subsubsection{Initial Clustering with DECCS}
+\section{Initial Clustering with DECCS}
 \begin{itemize}
-\item \textbf{Selection of Clustering Algorithms}: The process begins with the careful selection of a diverse array of clustering algorithms. Each algorithm should offer unique strengths and perspectives, ensuring that the DECCS ensemble encompasses a wide range of clustering approaches. This diversity is key to capturing the multifaceted nature of complex datasets.
-
-\item \textbf{Application of DECCS Methodology}: DECCS synthesizes the varied clustering results into a unified consensus representation. This step involves processing the dataset through each selected algorithm and then using DECCS to find common ground among the disparate clustering outcomes. The aim is to achieve a consensus that balances the insights from each algorithm, resulting in robust and comprehensive clustering.
+    \item \textbf{Selection of Clustering Algorithms}: The process begins with the careful selection of a diverse array of clustering algorithms. Each algorithm should offer unique strengths and perspectives, ensuring that the DECCS ensemble encompasses a wide range of clustering approaches. This diversity is key to capturing the multifaceted nature of complex datasets.
+    \item \textbf{Application of DECCS Methodology}: DECCS synthesizes the varied clustering results into a unified consensus representation. This step involves processing the dataset through each selected algorithm and then using DECCS to find common ground among the disparate clustering outcomes. The aim is to achieve a consensus that balances the insights from each algorithm, resulting in robust and comprehensive clustering.
 \end{itemize}
 
-
-\subsubsection{Generating Explanations with DDC}
+\section{Generating Explanations with DDC}
 \begin{itemize}
-\item \textbf{Mapping Features to Tags}: For the clusters formed through DECCS, the next step involves mapping complex data features onto a set of interpretable tags or labels. This process transforms high-dimensional, abstract data features into a more easily understood format, facilitating the generation of meaningful cluster explanations.
-
-\item \textbf{Solving the ILP Problem}: Utilizing DDC’s Integer Linear Programming (ILP) methodology, concise and meaningful explanations for each cluster are generated. This step leverages the mapped tags to create explanations that not only describe the clusters but also offer insights into their underlying structure and relationships.
+    \item \textbf{Mapping Features to Tags}: For the clusters formed through DECCS, the next step involves mapping complex data features onto a set of interpretable tags or labels. This process transforms high-dimensional, abstract data features into a more easily understood format, facilitating the generation of meaningful cluster explanations.
+    \item \textbf{Solving the ILP Problem}: Utilizing DDC’s Integer Linear Programming (ILP) methodology, concise and meaningful explanations for each cluster are generated. This step leverages the mapped tags to create explanations that not only describe the clusters but also offer insights into their underlying structure and relationships.
 \end{itemize}
 
-%\begin{algorithm}[H]
-%\caption{Generating Explanations with DDC}
-%\begin{algorithmic}[1]
-%\State
-%\textbf{Input:} Clusters from DECCS, feature-tag mapping
-%\For{each cluster $c$}
-%    \State Map features of $c$ to tags
-%    \State Solve ILP to find the most representative tags for $c$
-%    \State Generate explanation for $c$ using selected tags
-%\EndFor
-%\State \textbf{Output:} Explanations for all clusters
-%\end{algorithmic}
-%\end{algorithm}
+\begin{algorithm}[H]
+\caption{Generating Explanations with DDC}
+\begin{algorithmic}[1]
+\REQUIRE Clusters from DECCS, feature-tag mapping
+\FOR{each cluster $c$}
+   \STATE Map features of $c$ to tags
+   \STATE Solve ILP to find the most representative tags for $c$
+   \STATE Generate explanation for $c$ using selected tags
+\ENDFOR
+\ENSURE Explanations for all clusters
+\end{algorithmic}
+\end{algorithm}
 
+\section{Dataset Preparation}
+\subsection{AwA2 Dataset}
+The Animals with Attributes 2 (AwA2) dataset is utilized in this research. This dataset includes images, class labels, and associated attributes. For enhanced interpretability, symbolic tags from a predicate matrix are incorporated into the dataset.
 
-\subsubsection{Integration of Pairwise Loss Function}
+\subsection{Data Preprocessing}
+The preprocessing involves the following steps:
+\begin{enumerate}
+    \item \textbf{Loading Images and Labels:} Load images and corresponding labels from the dataset directory.
+    \item \textbf{Incorporating Symbolic Tags:} Read symbolic tags from a predicate matrix file.
+    \item \textbf{Handling Inconsistencies:} Manage inconsistencies in the dataset, such as varying numbers of attributes.
+\end{enumerate}
+
+\begin{schema}[of Loading AwA2 Dataset with Symbolic Tags]
+    \begin{itemize}
+        \item Initialize dataset class
+        \item Load images and labels
+        \item Load symbolic tags from predicate matrix
+        \item Return image, label, attribute, and symbolic tag
+    \end{itemize}
+\end{schema}
+
+\section{Model Training}
+\subsection{Autoencoder}
+An autoencoder is trained to extract embeddings from the images. The autoencoder comprises an encoder and a decoder network. The encoder compresses the input into a latent space representation, and the decoder reconstructs the input from this representation.
+
+\begin{schema}[of Autoencoder Training]
+    \begin{itemize}
+        \item Initialize autoencoder model
+        \item For each epoch:
+        \begin{itemize}
+            \item For each batch:
+            \begin{itemize}
+                \item Forward pass
+                \item Compute loss
+                \item Backward pass
+                \item Update weights
+            \end{itemize}
+        \end{itemize}
+        \item Print loss for each epoch
+    \end{itemize}
+\end{schema}
+
+\subsection{Embedding Extraction}
+Once the autoencoder is trained, it is used to extract embeddings from the dataset. These embeddings represent the compressed information of the images, which will be used for clustering.
+
+\begin{schema}[of Embedding Extraction]
+    \begin{itemize}
+        \item Initialize list for embeddings
+        \item For each batch in dataloader:
+        \begin{itemize}
+            \item Forward pass through encoder
+            \item Append embeddings to list
+        \end{itemize}
+        \item Return concatenated embeddings
+    \end{itemize}
+\end{schema}
+
+\section{Clustering}
+\subsection{K-Means Clustering}
+The extracted embeddings are clustered using the K-Means algorithm. K-Means clustering partitions the embeddings into a predefined number of clusters by minimizing the variance within each cluster.
+
+\begin{schema}[Pseudo Code for K-Means Clustering]
+    \begin{itemize}
+        \item Initialize K-Means with number of clusters
+        \item Fit K-Means to embeddings
+        \item Predict clusters
+        \item Return cluster labels
+    \end{itemize}
+\end{schema}
+
+\subsection{Validation and Analysis}
+To ensure the validity and accuracy of the clustering, several analyses are conducted:
+\begin{enumerate}
+    \item \textbf{Cluster Distribution:} Examine the distribution of data points across clusters.
+    \item \textbf{Cluster Visualization:} Visualize the clusters to inspect separability and cohesion.
+    \item \textbf{Homogeneity Score:} Measure how uniformly each cluster contains a single class.
+    \item \textbf{Silhouette Score:} Evaluate the quality of clustering by measuring similarity within clusters compared to other clusters.
+\end{enumerate}
+
+\begin{schema}[of Cluster Validation]
+    \begin{itemize}
+        \item Compute homogeneity score
+        \item Compute silhouette score
+        \item Plot clusters
+        \item Display metrics and visualization
+    \end{itemize}
+\end{schema}
+
+\section{Integration of Pairwise Loss Function}
 \begin{itemize}
-\item \textbf{Modification of DECCS Framework}: The DECCS training algorithm is enhanced by integrating DDC's pairwise loss function. This additional loss component addresses discrepancies between the clustering feature space and the tag-based explanation space, thereby aligning the clustering process more closely with the generated explanations.
-
-\item \textbf{Implementation of Pairwise Loss}: During training, instances within each mini-batch that are close in the tag space but far apart in the clustering feature space are identified. The pairwise loss is then calculated based on these discrepancies and used to update the model parameters during backpropagation.
+    \item \textbf{Modification of DECCS Framework}: The DECCS training algorithm is enhanced by integrating DDC's pairwise loss function. This additional loss component addresses discrepancies between the clustering feature space and the tag-based explanation space, thereby aligning the clustering process more closely with the generated explanations.
+    \item \textbf{Implementation of Pairwise Loss}: During training, instances within each mini-batch that are close in the tag space but far apart in the clustering feature space are identified. The pairwise loss is then calculated based on these discrepancies and used to update the model parameters during backpropagation.
 \end{itemize}
 
 \begin{equation}
 \mathcal{L}_{pairwise} = \sum_{i,j} \mathds{1}_{[d_{tag}(i,j) < \epsilon]} \cdot \left( d_{feature}(i,j) \right)^2
 \end{equation}
 
-\subsubsection{Balancing Loss Components}
+\section{Balancing Loss Components}
 \textbf{Harmonization of Loss Functions}: Balancing the new pairwise loss with the existing loss functions in DECCS is essential. This balancing act often requires careful hyperparameter tuning to ensure that neither the clustering objective nor the explanation objective dominates, thus maintaining a harmonious integration of the two.
 
-\subsubsection{Iterative Optimization and Refinement}
+\section{Iterative Optimization and Refinement}
 \begin{itemize}
-\item \textbf{Iterative Process Establishment}: An iterative loop is established where both clustering (via DECCS) and explanations (via DDC) are refined in tandem. After updating the DECCS clustering with the latest data representation, DDC is applied to generate explanations for the new clusters.
-
-\item \textbf{Feedback Loop Creation}: The explanations generated by DDC inform subsequent iterations of clustering in DECCS. Insights from the explanations are used to adjust the representation learning in DECCS or to fine-tune the consensus mechanism.
-
-\item \textbf{Consistency Monitoring}: Consistency between clustering outputs and their explanations is continuously monitored. This step ensures that the explanations accurately reflect the clusters, and adjustments are made as necessary to both the clustering mechanism and the explanation generation process.
-
-\item \textbf{Convergence Criteria Definition}: Criteria for convergence in this iterative optimization process are established. These could be based on the stability of cluster assignments over iterations, improvement in explanation quality, or a set number of iterations.
-
-\item \textbf{Evaluation and Refinement Post Iteration}: Each iteration ends with an evaluation of both clustering and explanation quality. The models are then refined based on these evaluations to enhance clustering performance and the relevance and quality of explanations.
+    \item \textbf{Iterative Process Establishment}: An iterative loop is established where both clustering (via DECCS) and explanations (via DDC) are refined in tandem. After updating the DECCS clustering with the latest data representation, DDC is applied to generate explanations for the new clusters.
+    \item \textbf{Feedback Loop Creation}: The explanations generated by DDC inform subsequent iterations of clustering in DECCS. Insights from the explanations are used to adjust the representation learning in DECCS or to fine-tune the consensus mechanism.
+    \item \textbf{Consistency Monitoring}: Consistency between clustering outputs and their explanations is continuously monitored. This step ensures that the explanations accurately reflect the clusters, and adjustments are made as necessary to both the clustering mechanism and the explanation generation process.
+    \item \textbf{Convergence Criteria Definition}: Criteria for convergence in this iterative optimization process are established. These could be based on the stability of cluster assignments over iterations, improvement in explanation quality, or a set number of iterations.
+    \item \textbf{Evaluation and Refinement Post Iteration}: Each iteration ends with an evaluation of both clustering and explanation quality. The models are then refined based on these evaluations to enhance clustering performance and the relevance and quality of explanations.
 \end{itemize}
 
-
-\subsubsection{Finalization of the Model}
+\section{Finalization of the Model}
 \textbf{Model Finalization}: Upon achieving alignment between well-defined clusters and their corresponding explanations, the iterative process concludes. The final model is a synthesis of DECCS’s effective clustering capabilities and DDC’s interpretative explanations.
 
-\subsubsection{Performance and Interpretability Evaluation}
+\section{Performance and Interpretability Evaluation}
 \begin{itemize}
-\item \textbf{Evaluation Metrics}: The performance of the integrated DECCS-DDC approach will be evaluated using clustering metrics such as Normalized Mutual Information (NMI) and Adjusted Rand Index (ARI). Interpretability will be assessed using metrics such as Tag Coverage (TC) and Inverse Tag Frequency (ITF).
-
-\item \textbf{Experimental Setup}: The integrated approach will be tested on the Animals with Attributes (AwA) and aPascal \& aYahoo (aPY) datasets. The evaluation will compare the performance and interpretability of the integrated DECCS-DDC approach against the standalone DECCS and DDC methods.
+    \item \textbf{Evaluation Metrics}: The performance of the integrated DECCS-DDC approach will be evaluated using clustering metrics such as Normalized Mutual Information (NMI) and Adjusted Rand Index (ARI). Interpretability will be assessed using metrics such as Tag Coverage (TC) and Inverse Tag Frequency (ITF).
+    \item \textbf{Experimental Setup}: The integrated approach will be tested on the Animals with Attributes (AwA) and aPascal \& aYahoo (aPY) datasets. The evaluation will compare the performance and interpretability of the integrated DECCS-DDC approach against the standalone DECCS and DDC methods.
 \end{itemize}
-
