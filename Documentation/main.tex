@@ -73,6 +73,12 @@
 % Prevent duplicate destination identifiers
 \hypersetup{pageanchor=true}
 
+% Schema environment definition
+\usepackage{tcolorbox}
+\tcbuselibrary{listingsutf8}
+\newtcolorbox{schema}[1][]{colback=blue!5!white, colframe=blue!75!black,
+    fonttitle=\bfseries, title=Schema #1}
+
 % Document start
 \begin{document}
 
