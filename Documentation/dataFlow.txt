@@ -1,0 +1,120 @@
+Step 1: Data Loading
+
+    Folder Structure :
+        The data is located in the data/Animals_with_Attributes2 folder containing:
+            JPEGImages/: Directory containing the input images.
+            AwA2-labels.txt: Contains mappings of image paths to labels (e.g., "beaver/beaver_10107.jpg 0").
+            predicate-matrix-continuous.txt: Contains the symbolic tag/attribute matrix.
+            predicates.txt: Contains descriptions of symbolic attributes (e.g., "furry", "tail", etc.).
+
+    Data Loading in dataset.py
+        Class: AwA2Dataset loads images, labels, and symbolic tags through:
+            load_attributes(attr_file): Loads the image paths and corresponding labels from AwA2-labels.txt.
+            load_predicates(pred_file): Loads the symbolic tags/attribute matrix from predicate-matrix-continuous.txt.
+            match_symbolic_tags(): Ensures symbolic tags have the same number of rows as images by padding if needed (this needs improvement as discussed).
+
+    Image Transformation
+        The images are transformed using:
+
+    transform = transforms.Compose([
+        transforms.Resize((128, 128)),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+    ])
+
+Step 2: Dataset and DataLoader Creation
+
+    The dataset is created using the AwA2Dataset class:
+
+    awa2_dataset = AwA2Dataset(img_dir, attr_file, pred_file, transform)
+    dataloader = DataLoader(awa2_dataset, batch_size=32, shuffle=True, collate_fn=custom_collate)
+
+    DataLoader: Fetches mini-batches of images and symbolic tags for each training iteration.
+
+Step 3: Autoencoder Model Initialization
+
+    Model Loading:
+        Either the Autoencoder or ConstrainedAutoencoder is instantiated from model.py:
+            The Autoencoder focuses on reconstructing images.
+            The ConstrainedAutoencoder additionally predicts symbolic tags as part of a multi-objective learning approach.
+
+    GPU Utilization:
+    The model is moved to the GPU if available:
+
+    device = torch.device('cuda' if use_gpu and torch.cuda.is_available() else 'cpu')
+    model.to(device)
+
+Step 4: Training Loop
+
+    Training Script (train.py):
+        The training loop processes each mini-batch using the train_autoencoder or train_constrained_autoencoder function.
+
+    Steps within the loop:
+        Load a mini-batch of images and symbolic tags.
+        Pass the images through the encoder-decoder structure of the autoencoder.
+        Compute:
+            Reconstruction Loss: Measures how well the model reconstructs the input images.
+            Tag Loss (if applicable): Measures the model’s prediction accuracy of symbolic tags.
+        Backpropagate the total loss and update model weights.
+
+    outputs, predicted_tags = model(images)
+    recon_loss = criterion(outputs, images)
+    tag_loss = tag_criterion(predicted_tags, symbolic_tags)
+    total_loss = recon_loss + lambda_tag * tag_loss
+    optimizer.zero_grad()
+    total_loss.backward()
+    optimizer.step()
+
+    Epoch-level Loss Calculation:
+    At the end of each epoch, the average loss is recorded, and the model’s performance can be logged for monitoring.
+
+Step 5: Extracting Embeddings
+
+    Once training is complete, embeddings are extracted using the autoencoder’s encoder.
+        The extract_embeddings function in utils.py performs this:
+
+    embeddings = extract_embeddings(dataloader, model, use_gpu)
+
+        The encoder outputs compressed representations of the images, which are used for clustering.
+
+Step 6: KMeans Clustering
+
+    Embedding Clustering:
+        The embeddings are passed into the KMeans clustering algorithm to group similar samples:
+
+kmeans = KMeans(n_clusters=num_clusters)
+kmeans.fit(embeddings)
+predicted_clusters = kmeans.labels_
+
+Hungarian Matching:
+
+    To evaluate clustering accuracy, the Hungarian algorithm is applied to find the best cluster-to-label mapping:
+
+    row_ind, col_ind = linear_sum_assignment(-contingency_matrix)
+    acc = contingency_matrix[row_ind, col_ind].sum() / len(true_labels)
+
+Step 7: Evaluation Metrics
+
+    The performance of clustering is evaluated using multiple metrics:
+        Clustering Accuracy: Finds the one-to-one mapping between clusters and ground-truth labels.
+        NMI and ARI (Suggested): These can be added to measure the clustering performance more comprehensively:
+
+        nmi = normalized_mutual_info_score(true_labels, predicted_clusters)
+        ari = adjusted_rand_score(true_labels, predicted_clusters)
+
+Step 8: Visualization and Interpretation
+
+    Cluster Visualization (validate_clusters.py):
+        The clusters are visualized in 2D using:
+
+    plt.scatter(embeddings[:, 0], embeddings[:, 1], c=predicted_clusters, cmap='viridis')
+    plt.colorbar()
+    plt.show()
+
+    Cluster Distribution and Centroids Analysis:
+    Additional analysis includes printing cluster distributions and inspecting centroids to understand how well the clustering works.
+
+Step 9: Testing
+
+    In the testing phase, a separate set of images is passed through the same pipeline (embedding extraction, clustering, and evaluation) to assess the model’s generalization ability.
+
