@@ -1,5 +1,14 @@
 ToDo:  
 
+- handleDataLeakage : (critical prio)
+  - attributes in the AwA2Dataset.load_attributes does not stand for the symbolic tags
+  - The load_predicates(pred_file) reads symbolic tag vectors (attributes) for each image instead of FOR EACH LABEL
+  - SOLUTION : dict map each image with its tags using labels, i.e. image x with label y + label y has tags z = data is image x, tags z (label y is omitted from training)
+  - input data : (.jpg, (vector of size 50))
+  - Implement explicit train/test splits
+
+- optimise GPU usage (high prio)
+
 -    #add NMI
 - https://github.com/collinleiber/ClustPy/blob/main/clustpy/deep/_data_utils.py#L101
 - https://github.com/collinleiber/ClustPy/blob/main/clustpy/data/_utils.py#L99

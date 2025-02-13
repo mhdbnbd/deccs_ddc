@@ -25,4 +25,6 @@ https://wakatime.com/dashboard
 1208 4h --"setup env for lap2"  
 1308 4h --"improve data availability"  
 1408 8h --"improve code portability, various conflict resolves and syncs"
+
+0902 4h --"troubleshoot input data quality issue"
   
