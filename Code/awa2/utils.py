@@ -55,9 +55,16 @@ def extract_embeddings(dataloader, model, use_gpu):
     logging.info(f"Total extracted embeddings shape: {embeddings.shape}")
     return embeddings
 
-def create_sample_dataset(source_dir, target_dir, sample_size=100):
+
+def create_sample_dataset(source_dir, target_dir, classes_file, sample_size=100):
     """
-    Create a sample dataset from the source dataset.
+    Create a sample dataset, ensuring correct label assignments from `classes.txt`.
+
+    Args:
+    - source_dir (str): Path to full dataset.
+    - target_dir (str): Path to sample dataset.
+    - classes_file (str): Path to `classes.txt` to enforce correct labels.
+    - sample_size (int): Number of images to sample.
     """
     if os.path.exists(target_dir):
         shutil.rmtree(target_dir)
@@ -71,62 +78,77 @@ def create_sample_dataset(source_dir, target_dir, sample_size=100):
     if not os.path.exists(sample_img_dir):
         os.makedirs(sample_img_dir, exist_ok=True)
 
-    if not os.path.exists(labels_file):
-        logging.warning(f"Labels file {labels_file} not found. Generating a new one.")
-        generate_labels_file(img_dir, labels_file)
+    # Read correct class mapping from `classes.txt`
+    class_mapping = {}
+    with open(classes_file, "r") as f:
+        for line in f:
+            parts = line.strip().split()
+            if len(parts) == 2:
+                class_id = int(parts[0])  # Keep `classes.txt` order
+                class_name = parts[1]
+                class_mapping[class_name] = class_id
 
-    all_images = []
-    for root, dirs, files in os.walk(img_dir):
-        for file in files:
-            if file.endswith('.jpg'):
-                all_images.append(os.path.join(root, file))
+    # Load images and labels together
+    image_label_pairs = []
+    with open(labels_file, "r") as f:
+        for line in f:
+            parts = line.strip().split()
+            class_folder = parts[0].split('/')[0]  # Extract class name
+            correct_label = class_mapping.get(class_folder, -1)
+            if correct_label != -1:
+                image_label_pairs.append((parts[0], correct_label))
 
-    if sample_size > len(all_images):
-        sample_size = len(all_images)
+    if sample_size > len(image_label_pairs):
+        sample_size = len(image_label_pairs)
         logging.warning(f"Sample size adjusted to {sample_size} due to limited number of images.")
 
-    sampled_images = random.sample(all_images, sample_size)
+    # Sample while maintaining label consistency
+    sampled_pairs = random.sample(image_label_pairs, sample_size)
 
-    for img in sampled_images:
-        target_path = os.path.join(sample_img_dir, os.path.relpath(img, img_dir))
-        os.makedirs(os.path.dirname(target_path), exist_ok=True)
-
-        if os.path.exists(target_path):
-            os.remove(target_path)
-
-        shutil.copy(img, target_path)
-        logging.debug(f"Copied {img} to {target_path}")
-
-    with open(labels_file, "r") as f:
-        lines = f.readlines()
-
-    sampled_lines = [line for line in lines if os.path.relpath(line.split()[0], '').replace('\\', '/') in [os.path.relpath(img, img_dir).replace('\\', '/') for img in sampled_images]]
-
+    # Copy images and save sampled labels
     with open(sample_labels_file, "w") as f:
-        f.writelines(sampled_lines)
+        for img_rel_path, label in sampled_pairs:
+            source_path = os.path.join(img_dir, img_rel_path)
+            target_path = os.path.join(sample_img_dir, img_rel_path)
+
+            os.makedirs(os.path.dirname(target_path), exist_ok=True)
+            shutil.copy(source_path, target_path)
+
+            f.write(f"{img_rel_path} {label}\n")
 
     logging.info(f"Sample of {sample_size} images created in {sample_img_dir}")
     logging.info(f"Sample labels file created at {sample_labels_file}")
 
-def generate_labels_file(img_dir, labels_file):
+def generate_labels_file(img_dir, labels_file, classes_file):
     """
-    Generate a labels file for the dataset.
+    Generate a labels file (`AwA2-labels.txt`) ensuring labels match `classes.txt` order.
 
-    Parameters:
-    img_dir (str): Directory containing the image folders.
-    labels_file (str): Path to the labels file to be created.
+    Args:
+    - img_dir (str): Path to directory containing image class folders.
+    - labels_file (str): Output labels file.
+    - classes_file (str): Path to `classes.txt` to enforce correct label mapping.
     """
-    # Ensure the directory for the labels file exists
+    # Read `classes.txt` and create a mapping: class_name → correct_label
+    class_mapping = {}
+    with open(classes_file, "r") as f:
+        for line in f:
+            parts = line.strip().split()
+            if len(parts) == 2:
+                class_id = int(parts[0])  # Keep 1-based indexing from `classes.txt`
+                class_name = parts[1]  # Class folder name
+                class_mapping[class_name] = class_id  # Enforce label consistency
+
     os.makedirs(os.path.dirname(labels_file), exist_ok=True)
 
     with open(labels_file, 'w') as f:
-        for class_label, class_dir in enumerate(os.listdir(img_dir)):
-            class_path = os.path.join(img_dir, class_dir)
+        for class_name, class_id in class_mapping.items():
+            class_path = os.path.join(img_dir, class_name)
             if os.path.isdir(class_path):
                 for img_filename in os.listdir(class_path):
                     if img_filename.endswith('.jpg'):
-                        f.write(f"{os.path.join(class_dir, img_filename)} {class_label}\n")
-    logging.info(f"Labels file created at {labels_file}")
+                        f.write(f"{os.path.join(class_name, img_filename)} {class_id}\n")
+
+    logging.info(f"Labels file created at {labels_file}, using official `classes.txt` mapping.")
 
 def custom_collate(batch):
     # Filter out None samples
