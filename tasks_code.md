@@ -24,6 +24,7 @@ Ongoing/done(to be reviewed) :
 
 Done :
 
+- fix: remove biasing labels
 - fix luke error (PIL.UnidentifiedImageError: cannot identify image file/corrupted images.
 - improve data availability and code portability 
 - Utility Functions for loading tags.

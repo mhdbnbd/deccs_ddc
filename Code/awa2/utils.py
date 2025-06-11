@@ -98,7 +98,8 @@ def create_sample_dataset(source_dir, target_dir, sample_size=100):
     with open(labels_file, "r") as f:
         lines = f.readlines()
 
-    sampled_lines = [line for line in lines if os.path.relpath(line.split()[0], '').replace('\\', '/') in [os.path.relpath(img, img_dir).replace('\\', '/') for img in sampled_images]]
+    sampled_lines = [line for line in lines if os.path.relpath(line.split()[0], '')
+                     .replace('\\', '/') in [os.path.relpath(img, img_dir).replace('\\', '/') for img in sampled_images]]
 
     with open(sample_labels_file, "w") as f:
         f.writelines(sampled_lines)
