@@ -21,7 +21,7 @@ def train_autoencoder(dataloader, model, use_gpu):
     optimizer = optim.Adam(model.parameters(), lr=1e-3)
 
     model.train()
-    running_loss = 0.0
+    total_loss = 0.0
     for images, _ in dataloader:
         images = images.to(device)
 
@@ -34,10 +34,32 @@ def train_autoencoder(dataloader, model, use_gpu):
         loss.backward()
         optimizer.step()
 
-        running_loss += loss.item()
+        total_loss += loss.item()
 
-    epoch_loss = running_loss / len(dataloader)
+    epoch_loss = total_loss / len(dataloader)
     return epoch_loss
+
+def evaluate_autoencoder(dataloader, model, use_gpu):
+    """
+    Evaluate the autoencoder model on the test set.
+    """
+    device = torch.device('cuda' if use_gpu and torch.cuda.is_available() else 'cpu')
+    model.to(device)
+    model.eval()
+    criterion = nn.MSELoss()
+    total_loss = 0.0
+
+    with torch.no_grad():
+        for images, _ in dataloader:
+            images = images.to(device)
+            outputs = model(images)
+            loss = criterion(outputs, images)
+            total_loss += loss.item()
+
+    avg_loss = total_loss / len(dataloader)
+    print(f"Test Loss: {avg_loss:.4f}")
+    return avg_loss
+
 
 
 def train_constrained_autoencoder(dataloader, model, use_gpu):
