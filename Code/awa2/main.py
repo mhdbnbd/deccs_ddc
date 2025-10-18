@@ -86,7 +86,7 @@ def main(use_gpu, use_sample):
 
     # Training
     training_losses = []
-    num_epochs = 2
+    num_epochs = 6
 
     # Train the model
     for epoch in range(num_epochs):
