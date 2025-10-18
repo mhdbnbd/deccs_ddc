@@ -4,7 +4,7 @@ import argparse
 import json
 from dataset import AwA2Dataset
 from model import Autoencoder
-from train import train_autoencoder
+from train import train_autoencoder, evaluate_autoencoder
 from utils import extract_embeddings, create_sample_dataset, custom_collate, setup_logging, generate_notebook, save_detailed_results
 from sklearn.cluster import KMeans
 from sklearn.metrics import accuracy_score, adjusted_rand_score
@@ -41,12 +41,13 @@ def main(use_gpu, use_sample):
     """
     Main function for dataset processing, model training, and clustering.
     """
-    source_dir = "data/Animals_with_Attributes2"
+    source_dir = "data/AwA2-data/Animals_with_Attributes2"
     dataset_dir = "AwA2-data-sample"
-    pred_file = "data/Animals_with_Attributes2/predicate-matrix-continuous.txt"
+    pred_file = "data/AwA2-data/Animals_with_Attributes2/predicate-matrix-continuous.txt"
+    classes_file = "data/AwA2-data/Animals_with_Attributes2/classes.txt"
 
     if use_sample:
-        create_sample_dataset(source_dir, dataset_dir, sample_size=100)
+        create_sample_dataset(source_dir, dataset_dir, classes_file, sample_size=100)
         img_dir = os.path.join(dataset_dir, "JPEGImages")
         attr_file = os.path.join(dataset_dir, "AwA2-labels.txt")
     else:
@@ -66,8 +67,14 @@ def main(use_gpu, use_sample):
 
     logging.info("Creating dataset and dataloader")
     try:
-        awa2_dataset = AwA2Dataset(img_dir=img_dir, attr_file=attr_file, pred_file=pred_file, transform=transform)
+        awa2_dataset = AwA2Dataset(img_dir=img_dir, attr_file=attr_file, pred_file=pred_file, transform=transform,
+                                   classes_file=classes_file, train=True)
+        test_dataset = AwA2Dataset(img_dir=img_dir, attr_file=attr_file, pred_file=pred_file, transform=transform,
+                                   classes_file=classes_file, train=False)
+
         dataloader = DataLoader(awa2_dataset, batch_size=32, shuffle=True, collate_fn=custom_collate)
+        test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False)
+
         logging.info(f"Dataset created with {len(awa2_dataset)} samples.")
         logging.info(f"Dataloader created with {len(dataloader)} batches.")
     except Exception as e:
@@ -79,13 +86,16 @@ def main(use_gpu, use_sample):
 
     # Training
     training_losses = []
-    num_epochs = 4
+    num_epochs = 6
 
+    # Train the model
     for epoch in range(num_epochs):
-        logging.info(f"Starting epoch {epoch + 1}/{num_epochs}")
-        epoch_loss = train_autoencoder(dataloader, autoencoder, use_gpu)
-        training_losses.append(epoch_loss)
-        logging.info(f"Epoch {epoch + 1} completed with loss: {epoch_loss}")
+        train_loss = train_autoencoder(dataloader, autoencoder, use_gpu)
+        print(f"Epoch {epoch + 1}/{num_epochs}, Train Loss: {train_loss:.4f}")
+
+        # Evaluate after every epoch
+        test_loss = evaluate_autoencoder(test_loader, autoencoder, use_gpu)
+        print(f"Epoch {epoch + 1}/{num_epochs}, Test Loss: {test_loss:.4f}")
 
     # Save the trained autoencoder model
     model_save_path = "autoencoder_main.pth"

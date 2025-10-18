@@ -9,63 +9,85 @@ from PIL import Image
 import torchvision.transforms.functional as F
 
 class AwA2Dataset(Dataset):
-    def __init__(self, img_dir, attr_file, pred_file, transform=None):
+    def __init__(self, img_dir, attr_file, pred_file, classes_file, transform=None, train=True, train_ratio=0.8):
         """
-        Dataset for Animals with Attributes 2 (AwA2).
         Args:
-        - img_dir (str): Directory containing images.
-        - attr_file (str): Path to attribute file containing labels.
-        - pred_file (str): Path to symbolic tag file.
-        - transform (callable, optional): Transformations to apply on each image.
+        - img_dir (str): Path to the directory containing images.
+        - attr_file (str): Path to the attribute file (image-label mapping).
+        - pred_file (str): Path to the predicate file (symbolic tag vectors for each class).
+        - transform (callable, optional): Transformations to apply on images.
+        - train (bool): Whether to use the training split or test split.
+        - train_ratio (float): Ratio of dataset to use for training.
         """
         self.img_dir = img_dir
         self.transform = transform
-        self.image_paths, self.labels, self.attributes = self.load_attributes(attr_file)
-        self.symbolic_tags = self.load_predicates(pred_file)
-        
-        # Ensures symbolic tags align with image count
-        self.match_symbolic_tags()
+        self.image_paths, self.labels = self.load_image_labels(attr_file, classes_file)
+        self.label_to_tags = self.load_predicates(pred_file)
 
-    def load_attributes(self, attr_file):
+        # Assign symbolic tags to each image based on its label
+        self.symbolic_tags = np.array([self.label_to_tags[label] if label in self.label_to_tags else np.zeros(85) for label in self.labels])
+
+        # Perform explicit train/test split
+        split_index = int(len(self.image_paths) * train_ratio)
+        if train:
+            self.image_paths = self.image_paths[:split_index]
+            self.labels = self.labels[:split_index]
+            self.symbolic_tags = self.symbolic_tags[:split_index]
+        else:
+            self.image_paths = self.image_paths[split_index:]
+            self.labels = self.labels[split_index:]
+            self.symbolic_tags = self.symbolic_tags[split_index:]
+
+    def load_image_labels(self, attr_file, classes_file):
         """
-        Loads image paths, labels, and attributes from file.
+        Loads image file paths and their correct class labels from `classes.txt`.
+
+        Args:
+        - attr_file (str): Path to `AwA2-labels.txt`
+        - classes_file (str): Path to `classes.txt`
         """
-        image_paths, labels, attributes = [], [], []
+        image_paths, labels = [], []
+
+        # Read correct class mapping from `classes.txt`
+        class_mapping = {}
+        with open(classes_file, "r") as f:
+            for line in f:
+                parts = line.strip().split()
+                if len(parts) == 2:
+                    class_id = int(parts[0])  # Keep `classes.txt` index
+                    class_name = parts[1]
+                    class_mapping[class_name] = class_id
+
         try:
             with open(attr_file, 'r') as file:
                 for line in file:
                     parts = line.strip().split()
-                    image_path = parts[0]
-                    label = int(parts[1])
-                    attribute = list(map(int, parts[2:])) if len(parts) > 2 else []
-                    image_paths.append(image_path)
-                    labels.append(label)
-                    attributes.append(attribute)
-        except Exception as e:
-            logging.error(f"Error reading attributes file: {e}")
-        return image_paths, labels, attributes
+                    image_path = os.path.join(self.img_dir, parts[0])
+                    class_folder = parts[0].split('/')[0]  # Extract class name from path
+                    label = class_mapping.get(class_folder, -1)  # Use correct class ID
 
-    def load_predicates(self, pred_file):
-        """
-        Loads predicates (symbolic tags) from file as numpy array.
-        """
-        data = []
+                    if label != -1:  # Ignore images with unknown labels
+                        image_paths.append(image_path)
+                        labels.append(label)
+        except Exception as e:
+            logging.error(f"Error reading attribute file: {e}")
+
+        return image_paths, labels
+
+    @staticmethod
+    def load_predicates(pred_file):
+        """Loads the predicate matrix and correctly maps 1-based class labels to 0-based predicate matrix indices."""
         try:
-            with open(pred_file, 'r') as file:
-                for line_num, line in enumerate(file):
-                    parts = line.strip().split()
-                    try:
-                        numeric_parts = list(map(float, parts))
-                        data.append(numeric_parts)
-                    except ValueError as e:
-                        logging.error(f"Error parsing line {line_num + 1}: {e}")
-        except Exception as e:
-            logging.error(f"Error loading predicates file: {e}")
+            pred_matrix = np.loadtxt(pred_file)  # Load all 85-dimensional class attributes
 
-        if not data:
-            raise ValueError("Predicate file contains no valid rows.")
-        
-        return np.array(data)
+            if pred_matrix.shape != (50, 85):
+                logging.warning(f"Expected (50, 85) shape, but got {pred_matrix.shape}")
+
+            # Ensure mapping adjusts for 1-based to 0-based index shift
+            return {i + 1: pred_matrix[i] for i in range(50)}  # Class ID 1 maps to index 0
+        except Exception as e:
+            logging.error(f"Error reading predicate file: {e}")
+            return {}
 
     def match_symbolic_tags(self):
         """
@@ -83,56 +105,21 @@ class AwA2Dataset(Dataset):
         return len(self.image_paths)
 
     def __getitem__(self, idx):
-        """
-        Retrieves image, label, attributes, and symbolic tags by index.
-        """
-        image_path = os.path.join(self.img_dir, self.image_paths[idx])
+        """Returns an image and its corresponding 85-dimensional symbolic tag vector."""
+        img_path = self.image_paths[idx]
+        symbolic_tag = self.symbolic_tags[idx]  # Should have shape (85,)
 
-        # Load the image using PIL
         try:
-            image = Image.open(image_path)
-
-            # Ensure the image is in RGB mode
-            if image.mode != 'RGB':
-                image = image.convert('RGB')
-
-            logging.debug(f"Loaded image from {image_path}")
-
-        except UnidentifiedImageError as e:
-            logging.error(f"Error loading image {image_path}: {e}")
-            return None, None, None, None
-
-        # Apply transformations if they exist, before converting to a Tensor
-        if self.transform:
-            try:
-                # Apply transformations to the image (PIL or ndarray)
+            image = Image.open(img_path).convert("RGB")
+            if self.transform:
                 image = self.transform(image)
-                logging.debug(f"Image transformed successfully for {image_path}")
+        except Exception as e:
+            logging.warning(f"Error loading image {img_path}: {e}")
+            return None, None  # Skip bad images
 
-            except Exception as e:
-                logging.error(f"Failed to apply transformations to image {image_path}: {e}")
-                return None, None, None, None
+        # Debugging the correct mapping
+        print(f"Image: {img_path}, Expected Label: {self.labels[idx]}, "
+              f"Tag Vector Shape: {symbolic_tag.shape}, First 5 Tags: {symbolic_tag[:5]}")
 
-        # Convert to Tensor if not already a Tensor
-        if isinstance(image, torch.Tensor):
-            image_tensor = image  # If already a tensor, assign it directly.
-        else:
-            # Ensure the image is converted to NumPy array if still in PIL/ndarray form
-            try:
-                image_np = np.array(image, dtype=np.uint8)
-                logging.debug(f"Converted image to NumPy array: {image_np.shape}")
-
-                # Convert NumPy array to PyTorch tensor (Channel, Height, Width)
-                image_tensor = torch.from_numpy(image_np).permute(2, 0, 1).float() / 255.0  # Rescale to [0, 1]
-                logging.debug(f"Converted image to tensor: {image_tensor.shape}")
-
-            except Exception as e:
-                logging.error(f"Error processing image {image_path}: {e}")
-                return None, None, None, None
-
-        # label = torch.tensor(self.labels[idx], dtype=torch.long)
-        # attribute = torch.tensor(self.attributes[idx], dtype=torch.float32)
-        symbolic_tag = torch.tensor(self.symbolic_tags[idx], dtype=torch.float32)
-
-        return image_tensor, symbolic_tag
+        return image, torch.tensor(symbolic_tag, dtype=torch.float32)
 
