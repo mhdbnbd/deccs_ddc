@@ -1,13 +1,13 @@
-import torch
-import os
-import logging
-import shutil
-import random
-import nbformat as nbf
-import matplotlib.pyplot as plt
 import json
-import nbformat as nbf
 import logging
+import logging
+import nbformat as nbf
+import nbformat as nbf
+import os
+import random
+import shutil
+import torch
+
 
 def setup_logging(log_filename='maintag2_sampled.log'):
     # Create a logger
@@ -48,7 +48,7 @@ def extract_embeddings(dataloader, model, use_gpu):
             # Forward pass through autoencoder encoder
             encoded = model.encoder(images)
             logging.debug(f"Encoded embeddings for batch {batch_idx}: {encoded.shape}")
-
+            encoded = torch.nn.functional.adaptive_avg_pool2d(encoded, 1)
             embeddings.append(encoded.view(encoded.size(0), -1).cpu())
 
     embeddings = torch.cat(embeddings, dim=0)
