@@ -106,8 +106,6 @@ def main(use_gpu, use_sample):
     embeddings = extract_embeddings(dataloader, autoencoder, use_gpu)
     logging.info(f"Extracted embeddings with shape {embeddings.shape}")
 
-    embeddings = embeddings.view(embeddings.size(0), -1)
-
     # Apply KMeans clustering on embeddings
     n_clusters = len(set(awa2_dataset.labels))
     logging.info(f"Applying KMeans with {n_clusters} clusters")
