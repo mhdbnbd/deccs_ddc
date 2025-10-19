@@ -34,7 +34,7 @@ class Autoencoder(nn.Module):
 
 class ConstrainedAutoencoder(nn.Module):
     def __init__(self):
-        super(ConstrainedAutoencoder, self).__init__()
+        super().__init__()
         self.encoder = nn.Sequential(
             nn.Conv2d(3, 16, 3, stride=2, padding=1),
             nn.ReLU(),
@@ -47,7 +47,7 @@ class ConstrainedAutoencoder(nn.Module):
         )
         
         # New fully connected layer to predict tags
-        self.fc_tags = nn.Linear(128 * 8 * 8, 85)  # Assuming 85 symbolic tags
+        self.fc_tags = nn.Linear(128, 85)  # Assuming 85 symbolic tags
 
         self.decoder = nn.Sequential(
             nn.ConvTranspose2d(128, 64, 3, stride=2, padding=1, output_padding=1),
@@ -62,11 +62,13 @@ class ConstrainedAutoencoder(nn.Module):
 
     def forward(self, x):
         encoded = self.encoder(x)
+        pooled = F.adaptive_avg_pool2d(enc, 1)
+        pooled = pooled.view(pooled.size(0), -1)
 
         # Flatten the encoded output for the fully connected layer
-        encoded_flat = encoded.view(encoded.size(0), -1)  # Flatten [batch_size, channels, height, width] -> [batch_size, features]
+        # encoded_flat = encoded.view(encoded.size(0), -1)  # Flatten [batch_size, channels, height, width] -> [batch_size, features]
 
-        predicted_tags = self.fc_tags(encoded_flat)  # Predict tags
+        predicted_tags = self.fc_tags(pooled)  # Predict tags
 
         decoded = self.decoder(encoded)
         return decoded, predicted_tags  # Return both the reconstructed image and the predicted tags
