@@ -1,18 +1,21 @@
 import os
 import logging
 import argparse
-import json
 from dataset import AwA2Dataset
 from model import Autoencoder
 from train import train_autoencoder, evaluate_autoencoder
 from utils import extract_embeddings, create_sample_dataset, custom_collate, setup_logging, generate_notebook, save_detailed_results, clustering_accuracy
 from sklearn.cluster import KMeans
-from sklearn.metrics import accuracy_score, adjusted_rand_score
-from scipy.optimize import linear_sum_assignment
+from sklearn.metrics import adjusted_rand_score
 import torch
 from torchvision import transforms
 from torch.utils.data import DataLoader
-import numpy as np
+import random, numpy
+
+
+random.seed(42); random.random.seed(42); numpy.manual_seed(42)
+if use_gpu and numpy.cuda.is_available():
+    numpy.cuda.manual_seed_all(42)
 
 setup_logging()
 
@@ -70,7 +73,7 @@ def main(use_gpu, use_sample):
     for epoch in range(num_epochs):
         train_loss = train_autoencoder(dataloader, autoencoder, use_gpu)
         print(f"Epoch {epoch + 1}/{num_epochs}, Train Loss: {train_loss:.4f}")
-
+        training_losses.append(train_loss)
         # Evaluate after every epoch
         test_loss = evaluate_autoencoder(test_loader, autoencoder, use_gpu)
         print(f"Epoch {epoch + 1}/{num_epochs}, Test Loss: {test_loss:.4f}")
