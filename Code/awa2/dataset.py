@@ -1,12 +1,11 @@
+import logging
+import numpy as np
 import os
 import pandas as pd
-from torch.utils.data import Dataset
-import logging
-from PIL import UnidentifiedImageError
-import numpy as np
 import torch
-from PIL import Image
-import torchvision.transforms.functional as F
+from PIL import Image, UnidentifiedImageError
+from torch.utils.data import Dataset
+
 
 class AwA2Dataset(Dataset):
     def __init__(self, img_dir, attr_file, pred_file, classes_file, transform=None, train=True, train_ratio=0.8):
@@ -15,12 +14,14 @@ class AwA2Dataset(Dataset):
         - img_dir (str): Path to the directory containing images.
         - attr_file (str): Path to the attribute file (image-label mapping).
         - pred_file (str): Path to the predicate file (symbolic tag vectors for each class).
+        - classes_file: Path to classes.txt
         - transform (callable, optional): Transformations to apply on images.
         - train (bool): Whether to use the training split or test split.
         - train_ratio (float): Ratio of dataset to use for training.
         """
         self.img_dir = img_dir
         self.transform = transform
+        self.classes_file = classes_file
         self.image_paths, self.labels = self.load_image_labels(attr_file, classes_file)
         self.label_to_tags = self.load_predicates(pred_file)
 
@@ -28,15 +29,19 @@ class AwA2Dataset(Dataset):
         self.symbolic_tags = np.array([self.label_to_tags[label] if label in self.label_to_tags else np.zeros(85) for label in self.labels])
 
         # Perform explicit train/test split
-        split_index = int(len(self.image_paths) * train_ratio)
+        rng = np.random.default_rng(42)
+        idx = np.arange(len(self.image_paths))
+        rng.shuffle(idx)
+        split_index = int(len(idx) * train_ratio)
+        train_idx, test_idx = idx[:split_index], idx[split_index:]
         if train:
-            self.image_paths = self.image_paths[:split_index]
-            self.labels = self.labels[:split_index]
-            self.symbolic_tags = self.symbolic_tags[:split_index]
+            self.image_paths = self.image_paths[:train_idx]
+            self.labels = self.labels[:train_idx]
+            self.symbolic_tags = self.symbolic_tags[:train_idx]
         else:
-            self.image_paths = self.image_paths[split_index:]
-            self.labels = self.labels[split_index:]
-            self.symbolic_tags = self.symbolic_tags[split_index:]
+            self.image_paths = self.image_paths[test_idx:]
+            self.labels = self.labels[test_idx:]
+            self.symbolic_tags = self.symbolic_tags[test_idx:]
 
     def load_image_labels(self, attr_file, classes_file):
         """
@@ -89,18 +94,6 @@ class AwA2Dataset(Dataset):
             logging.error(f"Error reading predicate file: {e}")
             return {}
 
-    def match_symbolic_tags(self):
-        """
-        Ensures symbolic tags have the same number of rows as image paths.
-        """
-        num_images = len(self.image_paths)
-        num_tags = self.symbolic_tags.shape[0]
-        if num_tags != num_images:
-            logging.warning(f"Number of images ({num_images}) does not match symbolic tags ({num_tags}). Padding with zeros.")
-            # pad_size = num_images - num_tags
-            # pad = np.zeros((pad_size, self.symbolic_tags.shape[1]))
-            # self.symbolic_tags = np.vstack([self.symbolic_tags, pad])
-
     def __len__(self):
         return len(self.image_paths)
 
@@ -118,7 +111,7 @@ class AwA2Dataset(Dataset):
             return None, None  # Skip bad images
 
         # Debugging the correct mapping
-        print(f"Image: {img_path}, Expected Label: {self.labels[idx]}, "
+        logging.debug(f"Image: {img_path}, Expected Label: {self.labels[idx]}, "
               f"Tag Vector Shape: {symbolic_tag.shape}, First 5 Tags: {symbolic_tag[:5]}")
 
         return image, torch.tensor(symbolic_tag, dtype=torch.float32)

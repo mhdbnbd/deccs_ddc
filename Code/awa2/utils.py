@@ -1,17 +1,17 @@
 import json
 import logging
-import logging
-import nbformat as nbf
 import nbformat as nbf
 import os
 import random
 import shutil
 import torch
-
+import numpy as np
+from scipy.optimize import linear_sum_assignment
 
 def setup_logging(log_filename='maintag2_sampled.log'):
-    # Create a logger
     logger = logging.getLogger()
+    if logger.handlers:
+        return
     logger.setLevel(logging.INFO)
 
     # Create file handler
@@ -156,8 +156,7 @@ def custom_collate(batch):
     
     if len(batch) == 0:
         logging.warning("All samples in the batch are None. Skipping this batch.")
-        return []  # Instead of raising StopIteration, return an empty batch
-
+        return None  # Instead of raising StopIteration, return an empty batch
     return torch.utils.data.default_collate(batch)
 
 def clustering_acc(y_true, y_pred):
