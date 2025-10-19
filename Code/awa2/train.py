@@ -75,11 +75,12 @@ def train_constrained_autoencoder(dataloader, model, use_gpu):
     device = torch.device('cuda' if use_gpu and torch.cuda.is_available() else 'cpu')
     model = model.to(device)
     criterion = nn.MSELoss()  # For reconstruction loss
-    tag_criterion = nn.MSELoss()  # For tag prediction loss
+    tag_criterion = nn.BCEWithLogitsLoss()  # For tag prediction loss
     optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
 
     model.train()
     running_loss = 0.0
+    tag_tuner = 0.5
     for images, symbolic_tags in dataloader:
         images = images.to(device)
         symbolic_tags = symbolic_tags.to(device)
@@ -94,7 +95,7 @@ def train_constrained_autoencoder(dataloader, model, use_gpu):
         tag_loss = tag_criterion(predicted_tags, symbolic_tags)
 
         # Total loss combines reconstruction loss and tag loss
-        total_loss = recon_loss + tag_loss
+        total_loss = recon_loss + tag_tuner * tag_loss
 
         # Backward pass
         optimizer.zero_grad()

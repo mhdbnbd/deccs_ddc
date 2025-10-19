@@ -97,9 +97,9 @@ class AwA2Dataset(Dataset):
         num_tags = self.symbolic_tags.shape[0]
         if num_tags != num_images:
             logging.warning(f"Number of images ({num_images}) does not match symbolic tags ({num_tags}). Padding with zeros.")
-            pad_size = num_images - num_tags
-            pad = np.zeros((pad_size, self.symbolic_tags.shape[1]))
-            self.symbolic_tags = np.vstack([self.symbolic_tags, pad])
+            # pad_size = num_images - num_tags
+            # pad = np.zeros((pad_size, self.symbolic_tags.shape[1]))
+            # self.symbolic_tags = np.vstack([self.symbolic_tags, pad])
 
     def __len__(self):
         return len(self.image_paths)

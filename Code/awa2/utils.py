@@ -160,6 +160,16 @@ def custom_collate(batch):
 
     return torch.utils.data.default_collate(batch)
 
+def clustering_acc(y_true, y_pred):
+    y_true_u, y_true = np.unique(y_true, return_inverse=True)
+    y_pred_u, y_pred = np.unique(y_pred, return_inverse=True)
+    D = np.zeros((y_true_u.size, y_pred_u.size), dtype=np.int64)
+    for i in range(y_true.size):
+        D[y_true[i], y_pred[i]] += 1
+    r, c = linear_sum_assignment(D.max() - D)
+    return D[r, c].sum() / y_true.size
+
+
 def save_detailed_results(output_path, image_paths, clusters, embeddings, labels, symbolic_tags=None, losses=None, accuracy=None, epochs=None):
     """
     Saves detailed results to a JSON file, including embeddings, clusters, labels, and tags.

@@ -3,7 +3,7 @@ import logging
 import argparse
 import json
 import torch
-import numpy as np  # Importing NumPy for array operations
+import numpy as np
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
 from torchvision import transforms
@@ -11,32 +11,11 @@ from torch.utils.data import DataLoader
 from dataset import AwA2Dataset
 from model import Autoencoder
 from train import train_autoencoder
-from utils import extract_embeddings, create_sample_dataset, custom_collate, setup_logging, generate_notebook, save_detailed_results
+from utils import extract_embeddings, create_sample_dataset, custom_collate, setup_logging, generate_notebook, save_detailed_results, clustering_accuracy
 from sklearn.metrics import adjusted_rand_score
 from scipy.optimize import linear_sum_assignment
 
 setup_logging()
-
-def calculate_clustering_accuracy(true_labels, predicted_clusters):
-    """
-    Compute clustering accuracy (ACC) by finding the best one-to-one mapping between clusters and true labels.
-    """
-    max_label = max(true_labels) + 1  # Determine the number of unique true labels
-    max_cluster = max(predicted_clusters) + 1  # Determine the number of unique predicted clusters
-
-    # Initialize the contingency matrix with dynamic shape
-    contingency_matrix = np.zeros((max_label, max_cluster))
-
-    # Populate the contingency matrix
-    for i, (true_label, cluster) in enumerate(zip(true_labels, predicted_clusters)):
-        contingency_matrix[true_label, cluster] += 1
-
-    # Use the Hungarian algorithm to find the best cluster-label mapping
-    row_ind, col_ind = linear_sum_assignment(-contingency_matrix)
-    best_mapping = contingency_matrix[row_ind, col_ind].sum()
-
-    acc = best_mapping / len(true_labels)  # Clustering accuracy
-    return acc
 
 def main(use_gpu, use_sample):
     source_dir = "data/Animals_with_Attributes2"
@@ -100,7 +79,7 @@ def main(use_gpu, use_sample):
 
     # Calculate final accuracy and ARI
     true_labels = awa2_dataset.labels
-    acc = calculate_clustering_accuracy(true_labels, clusters)
+    acc = clustering_accuracy(true_labels, clusters)
     ari = adjusted_rand_score(true_labels, clusters)
     logging.info(f"Final clustering accuracy (ACC): {acc}")
     logging.info(f"Adjusted Rand Index (ARI): {ari}")
