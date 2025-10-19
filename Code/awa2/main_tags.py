@@ -21,9 +21,10 @@ def main(use_gpu, use_sample):
     source_dir = "data/Animals_with_Attributes2"
     dataset_dir = "AwA2-data-sample-tags"
     pred_file = "data/Animals_with_Attributes2/predicate-matrix-continuous.txt"
+    classes_file = "data/AwA2-data/Animals_with_Attributes2/classes.txt"
 
     if use_sample:
-        create_sample_dataset(source_dir, dataset_dir, sample_size=100)
+        create_sample_dataset(source_dir, dataset_dir, classes_file, sample_size=100)
         img_dir = os.path.join(dataset_dir, "JPEGImages")
         attr_file = os.path.join(dataset_dir, "AwA2-labels.txt")
     else:
