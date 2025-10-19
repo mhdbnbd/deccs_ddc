@@ -1,9 +1,10 @@
 #train.py
 
+import logging
 import torch
 import torch.nn as nn
 import torch.optim as optim
-import torch.nn.functional as F
+
 
 def train_autoencoder(dataloader, model, use_gpu):
     """
@@ -23,17 +24,16 @@ def train_autoencoder(dataloader, model, use_gpu):
     model.train()
     total_loss = 0.0
     for images, _ in dataloader:
+        if (images, _) is None:
+            continue
         images = images.to(device)
-
         # Forward pass
         outputs = model(images)
         loss = criterion(outputs, images)
-
         # Backward pass
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
-
         total_loss += loss.item()
 
     epoch_loss = total_loss / len(dataloader)
@@ -51,6 +51,8 @@ def evaluate_autoencoder(dataloader, model, use_gpu):
 
     with torch.no_grad():
         for images, _ in dataloader:
+            if (images, _) is None:
+                continue
             images = images.to(device)
             outputs = model(images)
             loss = criterion(outputs, images)
@@ -82,6 +84,8 @@ def train_constrained_autoencoder(dataloader, model, use_gpu):
     running_loss = 0.0
     tag_tuner = 0.5
     for images, symbolic_tags in dataloader:
+        if (images, symbolic_tags) is None:
+            continue
         images = images.to(device)
         symbolic_tags = symbolic_tags.to(device)
 
@@ -90,12 +94,15 @@ def train_constrained_autoencoder(dataloader, model, use_gpu):
         
         # Reconstruction loss (for images)
         recon_loss = criterion(outputs, images)
-        
+        logging.info("reconstruction loss {recon_loss}")
+
         # Tag prediction loss
         tag_loss = tag_criterion(predicted_tags, symbolic_tags)
+        logging.info("tag loss {tag_loss}")
 
         # Total loss combines reconstruction loss and tag loss
         total_loss = recon_loss + tag_tuner * tag_loss
+        logging.info("total loss {total_loss} (reminder : tag_tuner might need adjustment (0.5-2))")
 
         # Backward pass
         optimizer.zero_grad()
@@ -103,6 +110,7 @@ def train_constrained_autoencoder(dataloader, model, use_gpu):
         optimizer.step()
 
         running_loss += total_loss.item()
+        # ToDo add early stopping (torch.optim.lr_scheduler.StepLR)
 
     epoch_loss = running_loss / len(dataloader)
     return epoch_loss

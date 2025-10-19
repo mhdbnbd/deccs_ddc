@@ -1,9 +1,7 @@
 import os
 import logging
 import argparse
-import json
 import torch
-import numpy as np
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
 from torchvision import transforms
@@ -11,14 +9,14 @@ from torch.utils.data import DataLoader
 from dataset import AwA2Dataset
 from model import Autoencoder
 from train import train_autoencoder
-from utils import extract_embeddings, create_sample_dataset, custom_collate, setup_logging, generate_notebook, save_detailed_results, clustering_accuracy
+from utils import (extract_embeddings, create_sample_dataset, custom_collate, setup_logging, generate_notebook,
+                   save_detailed_results, clustering_acc)
 from sklearn.metrics import adjusted_rand_score
-from scipy.optimize import linear_sum_assignment
 
 setup_logging()
 
 def main(use_gpu, use_sample):
-    source_dir = "data/Animals_with_Attributes2"
+    source_dir = "data/AwA2-data/Animals_with_Attributes2"
     dataset_dir = "AwA2-data-sample-tags"
     pred_file = "data/Animals_with_Attributes2/predicate-matrix-continuous.txt"
     classes_file = "data/AwA2-data/Animals_with_Attributes2/classes.txt"
@@ -37,7 +35,8 @@ def main(use_gpu, use_sample):
     ])
 
     try:
-        awa2_dataset = AwA2Dataset(img_dir=img_dir, attr_file=attr_file, pred_file=pred_file, transform=transform)
+        awa2_dataset = AwA2Dataset(img_dir=img_dir, attr_file=attr_file, pred_file=pred_file, classes_file=classes_file,
+                                   transform=transform)
         dataloader = DataLoader(awa2_dataset, batch_size=32, shuffle=True, collate_fn=custom_collate)
         logging.info(f"Dataset created with {len(awa2_dataset)} samples.")
     except Exception as e:
