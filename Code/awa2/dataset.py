@@ -27,6 +27,7 @@ class AwA2Dataset(Dataset):
 
         # Assign symbolic tags to each image based on its label
         self.symbolic_tags = np.array([self.label_to_tags[label] if label in self.label_to_tags else np.zeros(85) for label in self.labels])
+        assert self.symbolic_tags.shape[1] == 85, f"Expected 85 tags, got {self.symbolic_tags.shape[1]}"
 
         # Perform explicit train/test split
         rng = np.random.default_rng(42)
@@ -35,13 +36,13 @@ class AwA2Dataset(Dataset):
         split_index = int(len(idx) * train_ratio)
         train_idx, test_idx = idx[:split_index], idx[split_index:]
         if train:
-            self.image_paths = self.image_paths[:train_idx]
-            self.labels = self.labels[:train_idx]
-            self.symbolic_tags = self.symbolic_tags[:train_idx]
+            self.image_paths = [self.image_paths[i] for i in train_idx]
+            self.labels = [self.labels[i] for i in train_idx]
+            self.symbolic_tags = self.symbolic_tags[train_idx]
         else:
-            self.image_paths = self.image_paths[test_idx:]
-            self.labels = self.labels[test_idx:]
-            self.symbolic_tags = self.symbolic_tags[test_idx:]
+            self.image_paths = [self.image_paths[i] for i in test_idx]
+            self.labels = [self.labels[i] for i in test_idx]
+            self.symbolic_tags = self.symbolic_tags[test_idx]
 
     def load_image_labels(self, attr_file, classes_file):
         """
