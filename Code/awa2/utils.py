@@ -7,6 +7,9 @@ import shutil
 import torch
 import numpy as np
 from scipy.optimize import linear_sum_assignment
+from sklearn.cluster import KMeans
+from sklearn.metrics import adjusted_rand_score, normalized_mutual_info_score, \
+                            homogeneity_completeness_v_measure, silhouette_score
 
 def setup_logging(log_filename='maintag2_sampled.log'):
     logger = logging.getLogger()
@@ -159,6 +162,27 @@ def custom_collate(batch):
         return None  # Instead of raising StopIteration, return an empty batch
     return torch.utils.data.default_collate(batch)
 
+def evaluate_clustering(embeddings, true_labels, mode_desc=""):
+    """Run KMeans and compute standard clustering metrics."""
+    k = len(np.unique(true_labels))
+    kmeans = KMeans(n_clusters=k, n_init=10, random_state=42)
+    clusters = kmeans.fit_predict(embeddings)
+
+    acc = clustering_acc(true_labels, clusters)
+    ari = adjusted_rand_score(true_labels, clusters)
+    nmi = normalized_mutual_info_score(true_labels, clusters)
+    h, c, v = homogeneity_completeness_v_measure(true_labels, clusters)
+    sil = silhouette_score(embeddings, clusters)
+
+    logging.info(f"[{mode_desc}] ACC={acc:.4f}, ARI={ari:.4f}, NMI={nmi:.4f}, "
+                 f"H={h:.4f}, C={c:.4f}, V={v:.4f}, Sil={sil:.4f}")
+    return {
+        "acc": acc, "ari": ari, "nmi": nmi,
+        "homogeneity": h, "completeness": c,
+        "v_measure": v, "silhouette": sil,
+        "clusters": clusters.tolist(),
+    }
+
 def clustering_acc(y_true, y_pred):
     y_true_u, y_true = np.unique(y_true, return_inverse=True)
     y_pred_u, y_pred = np.unique(y_pred, return_inverse=True)
@@ -169,7 +193,7 @@ def clustering_acc(y_true, y_pred):
     return D[r, c].sum() / y_true.size
 
 
-def save_detailed_results(output_path, image_paths, clusters, embeddings, labels, symbolic_tags=None, losses=None, accuracy=None, epochs=None):
+def save_detailed_results(results, output_path="results.json", symbolic_tags=None, losses=None, accuracy=None, epochs=None):
     """
     Saves detailed results to a JSON file, including embeddings, clusters, labels, and tags.
 
@@ -184,19 +208,6 @@ def save_detailed_results(output_path, image_paths, clusters, embeddings, labels
     - accuracy (float or None): Final accuracy after clustering. Can be None if not available.
     - epochs (int or None): Number of epochs. Can be None if not applicable.
     """
-    results = []
-    for i in range(len(image_paths)):
-        result = {
-            'image_path': image_paths[i],
-            'cluster': int(clusters[i]),
-            'embedding': embeddings[i].tolist(),
-            'label': int(labels[i])
-        }
-        # Add symbolic tag information if provided
-        if symbolic_tags is not None:
-            result['symbolic_tag'] = symbolic_tags[i].tolist()
-        results.append(result)
-    
     output = {
         'epochs': epochs if epochs is not None else "Not provided",
         'training_losses': losses if losses is not None else "Not provided",
