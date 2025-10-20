@@ -1,6 +1,7 @@
 #model.py
 
 import torch.nn as nn
+import torch.nn.functional as F
 
 class Autoencoder(nn.Module):
     def __init__(self):
@@ -62,7 +63,7 @@ class ConstrainedAutoencoder(nn.Module):
 
     def forward(self, x):
         encoded = self.encoder(x)
-        pooled = F.adaptive_avg_pool2d(enc, 1)
+        pooled = F.adaptive_avg_pool2d(encoded, 1)
         pooled = pooled.view(pooled.size(0), -1)
 
         # Flatten the encoded output for the fully connected layer

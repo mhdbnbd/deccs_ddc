@@ -12,10 +12,6 @@ ToDo:
 
 Ongoing/done(to be reviewed) :
 
-- Merge all pipelines : 
-  - main_tags (tags in clustering)
-  - main_tags2 (tags in clustering and autoencoder )
-
 - handleDataLeakage : (critical prio)
   - attributes in the AwA2Dataset.load_attributes does not stand for the symbolic tags
   - The load_predicates(pred_file) reads symbolic tag vectors (attributes) for each image instead of FOR EACH LABEL
@@ -30,7 +26,10 @@ Ongoing/done(to be reviewed) :
 - Utility Functions for evaluating results.
 
 Done :
-- Can run on (no? gpu/ yes luke)
+
+- Merge all pipelines : 
+  - main_tags (tags in clustering)
+  - main_tags2 (tags in clustering and autoencoder )
 - Adapt the Autoencoder to include DDC functionalities: Integrating symbolic tags more tightly into the clustering 
 - process by using them as additional features or constraints.
 - fix luke error (PIL.UnidentifiedImageError: cannot identify image file/corrupted images.
