@@ -15,14 +15,15 @@ from utils import (
     setup_logging,
     save_detailed_results,
     clustering_acc,
-    evaluate_clustering
+    evaluate_clustering,
+    plot_experiment_results
 )
 
 setup_logging()
 
 def main():
     parser = argparse.ArgumentParser(description="AwA2 pipeline")
-    parser.add_argument("--mode", type=str, choices=["baseline", "concat", "cae"],
+    parser.add_argument("--mode", type=str, choices=["ae", "oracle", "cae"],
                         required=True, help="Experiment mode")
     parser.add_argument("--use_gpu", action="store_true")
     parser.add_argument("--use_sample", action="store_true")
@@ -57,6 +58,15 @@ def main():
         transform=transform,
         train=True
     )
+
+    labels_np = np.array(awa2_dataset.labels)
+    tags_np = np.array(awa2_dataset.symbolic_tags)
+    per_class_var = []
+    for cls in np.unique(labels_np):
+        v = tags_np[labels_np == cls].var(axis=0).mean()
+        per_class_var.append(v)
+    logging.info(f"Mean per-class tag variance: {np.mean(per_class_var):.6f}")
+
     dataloader = DataLoader(awa2_dataset, batch_size=32, shuffle=True, collate_fn=custom_collate)
     logging.info(f"Dataset created with {len(awa2_dataset)} samples.")
 
@@ -78,11 +88,11 @@ def main():
     true_labels = np.array(awa2_dataset.labels)
     symbolic_tags = awa2_dataset.symbolic_tags
 
-    if args.mode == "baseline":
+    if args.mode == "ae":
         results = evaluate_clustering(embeddings, true_labels, mode_desc="Baseline")
-    elif args.mode == "concat":
+    elif args.mode == "oracle":
         concat_features = np.concatenate([embeddings, symbolic_tags], axis=1)
-        results = evaluate_clustering(concat_features, true_labels, mode_desc="Concat (tags post-training)")
+        results = evaluate_clustering(concat_features, true_labels, mode_desc="Oracle (tags post-training)")
     else:
         results = evaluate_clustering(embeddings, true_labels, mode_desc="Constrained AE (tags supervised)")
     save_detailed_results(
@@ -94,6 +104,14 @@ def main():
         output_path=f"results_{args.mode}.json"
     )
     logging.info(f"Experiment '{args.mode}' complete. Results saved.")
+
+    plot_experiment_results(
+        output_dir=".",  # same directory as results JSON
+        mode=args.mode,
+        losses=training_losses,
+        embeddings=embeddings if args.mode != "concat" else concat_features,
+        clusters=np.array(results["metrics"]["clusters"])
+    )
 
 if __name__ == "__main__":
     main()

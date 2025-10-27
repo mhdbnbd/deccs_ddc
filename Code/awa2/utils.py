@@ -8,6 +8,8 @@ import torch
 import numpy as np
 from scipy.optimize import linear_sum_assignment
 from sklearn.cluster import KMeans
+from sklearn.decomposition import PCA
+import matplotlib.pyplot as plt
 from sklearn.metrics import adjusted_rand_score, normalized_mutual_info_score, \
                             homogeneity_completeness_v_measure, silhouette_score
 
@@ -214,11 +216,58 @@ def save_detailed_results(results, output_path="results.json", symbolic_tags=Non
         'final_accuracy': accuracy if accuracy is not None else "Not provided",
         'results': results
     }
+    summary = {
+        "final_acc": results["metrics"]["acc"],
+        "final_nmi": results["metrics"]["nmi"],
+        "final_silhouette": results["metrics"]["silhouette"]
+    }
+    output.update(summary)
 
     with open(output_path, 'w') as f:
         json.dump(output, f, indent=4)
 
     logging.info(f"Results saved to {output_path}")
+
+def plot_experiment_results(output_dir, mode, losses, embeddings, clusters):
+    """
+    Saves training loss curve and PCA 2D scatter of embeddings.
+
+    Args:
+        output_dir (str): Directory to save the plots.
+        mode (str): Experiment mode name ("baseline", "cae", "concat", etc.).
+        losses (list or np.ndarray): Training loss per epoch.
+        embeddings (np.ndarray): Embedding matrix (N x D).
+        clusters (np.ndarray): Cluster assignments for each sample.
+    """
+    os.makedirs(output_dir, exist_ok=True)
+
+    # Plot loss curve
+    if losses is not None and len(losses) > 0:
+        plt.figure()
+        plt.plot(range(1, len(losses) + 1), losses, marker='o')
+        plt.title(f"Training Loss per Epoch ({mode})")
+        plt.xlabel("Epoch")
+        plt.ylabel("Loss")
+        plt.grid(True)
+        loss_path = os.path.join(output_dir, f"results_{mode}_loss.png")
+        plt.savefig(loss_path, bbox_inches='tight')
+        plt.close()
+        logging.info(f"[Plot] Saved loss curve → {loss_path}")
+
+    # PCA 2D scatter of embeddings
+    if embeddings is not None and clusters is not None:
+        pca = PCA(n_components=2)
+        reduced = pca.fit_transform(embeddings)
+        plt.figure()
+        plt.scatter(reduced[:, 0], reduced[:, 1], c=clusters, s=20)
+        plt.title(f"PCA of Clustering Embeddings ({mode})")
+        plt.xlabel("PC1")
+        plt.ylabel("PC2")
+        plt.grid(True)
+        scatter_path = os.path.join(output_dir, f"results_{mode}_pca.png")
+        plt.savefig(scatter_path, bbox_inches='tight')
+        plt.close()
+        logging.info(f"[Plot] Saved PCA scatter → {scatter_path}")
 
 def generate_notebook(results_file, output_notebook):
     """

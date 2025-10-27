@@ -65,12 +65,7 @@ class ConstrainedAutoencoder(nn.Module):
         encoded = self.encoder(x)
         pooled = F.adaptive_avg_pool2d(encoded, 1)
         pooled = pooled.view(pooled.size(0), -1)
-
-        # Flatten the encoded output for the fully connected layer
-        # encoded_flat = encoded.view(encoded.size(0), -1)  # Flatten [batch_size, channels, height, width] -> [batch_size, features]
-
         predicted_tags = self.fc_tags(pooled)  # Predict tags
-
         decoded = self.decoder(encoded)
         return decoded, predicted_tags  # Return both the reconstructed image and the predicted tags
 
