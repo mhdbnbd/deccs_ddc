@@ -6,9 +6,14 @@ import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 from sklearn.metrics import homogeneity_score, silhouette_score
 from collections import Counter
+import argparse
 
 # Path to the JSON file containing clustering results
 CLUSTER_RESULTS_FILE = 'clustering_results.json'
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--results", required=True)
+args = parser.parse_args()
 
 # Function to load clustering results from a JSON file
 def load_clusters_from_json(file_path):

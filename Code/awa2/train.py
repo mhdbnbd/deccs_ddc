@@ -88,21 +88,29 @@ def train_constrained_autoencoder(dataloader, model, use_gpu):
             continue
         images = images.to(device)
         symbolic_tags = symbolic_tags.to(device)
+        if torch.isnan(symbolic_tags).any():
+            raise ValueError("NaNs in symbolic tags")
+        if symbolic_tags.min() < 0 or symbolic_tags.max() > 1:
+            logging.warning(
+                f"Tags outside [0,1]: min={symbolic_tags.min().item():.3f}, max={symbolic_tags.max().item():.3f}")
+            symbolic_tags = torch.clamp(symbolic_tags, 0.0, 1.0)
 
         # Forward pass through the autoencoder
         outputs, predicted_tags = model(images)  # Get both image reconstruction and tag predictions
         
         # Reconstruction loss (for images)
         recon_loss = criterion(outputs, images)
-        logging.info("reconstruction loss {recon_loss}")
 
         # Tag prediction loss
         tag_loss = tag_criterion(predicted_tags, symbolic_tags)
-        logging.info("tag loss {tag_loss}")
 
         # Total loss combines reconstruction loss and tag loss
         total_loss = recon_loss + tag_tuner * tag_loss
-        logging.info("total loss {total_loss} (reminder : tag_tuner might need adjustment (0.5-2))")
+        logging.info(
+            f"Reconstruction Loss: {recon_loss.item():.6f}, Tag Loss: {tag_loss.item():.6f}, "
+            f"Total: {total_loss.item():.6f}")
+        if tag_loss.item() < 0:
+            logging.error(f"negative tag_loss: {tag_loss.item():.6f} — targets out of [0,1]")
 
         # Backward pass
         optimizer.zero_grad()
