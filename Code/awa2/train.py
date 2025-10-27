@@ -97,14 +97,10 @@ def train_constrained_autoencoder(dataloader, model, use_gpu):
 
         # Forward pass through the autoencoder
         outputs, predicted_tags = model(images)  # Get both image reconstruction and tag predictions
-        
         # Reconstruction loss (for images)
         recon_loss = criterion(outputs, images)
-
         # Tag prediction loss
         tag_loss = tag_criterion(predicted_tags, symbolic_tags)
-
-        # Total loss combines reconstruction loss and tag loss
         total_loss = recon_loss + tag_tuner * tag_loss
         logging.info(
             f"Reconstruction Loss: {recon_loss.item():.6f}, Tag Loss: {tag_loss.item():.6f}, "

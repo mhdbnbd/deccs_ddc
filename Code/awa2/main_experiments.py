@@ -3,18 +3,18 @@ import logging
 import os
 
 import numpy as np
-from dataset import AwA2Dataset
-from model import Autoencoder, ConstrainedAutoencoder
 from torch.utils.data import DataLoader
 from torchvision import transforms
-from train import train_autoencoder, train_constrained_autoencoder, evaluate_autoencoder
+
+from dataset import AwA2Dataset
+from model import Autoencoder, ConstrainedAutoencoder
+from train import train_autoencoder, train_constrained_autoencoder
 from utils import (
     extract_embeddings,
     custom_collate,
     create_sample_dataset,
     setup_logging,
     save_detailed_results,
-    clustering_acc,
     evaluate_clustering,
     plot_experiment_results
 )
@@ -95,6 +95,7 @@ def main():
         results = evaluate_clustering(concat_features, true_labels, mode_desc="Oracle (tags post-training)")
     else:
         results = evaluate_clustering(embeddings, true_labels, mode_desc="Constrained AE (tags supervised)")
+
     save_detailed_results(
         results={
             "mode": args.mode,
@@ -104,13 +105,13 @@ def main():
         output_path=f"results_{args.mode}.json"
     )
     logging.info(f"Experiment '{args.mode}' complete. Results saved.")
-
+    clusters = np.array(results["clusters"])
     plot_experiment_results(
         output_dir=".",  # same directory as results JSON
         mode=args.mode,
         losses=training_losses,
         embeddings=embeddings if args.mode != "concat" else concat_features,
-        clusters=np.array(results["metrics"]["clusters"])
+        clusters=clusters
     )
 
 if __name__ == "__main__":
