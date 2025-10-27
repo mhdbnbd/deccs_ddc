@@ -1,17 +1,22 @@
 import json
 import logging
-import nbformat as nbf
 import os
 import random
 import shutil
-import torch
-import numpy as np
-from scipy.optimize import linear_sum_assignment
-from sklearn.cluster import KMeans
-from sklearn.decomposition import PCA
+
 import matplotlib.pyplot as plt
-from sklearn.metrics import adjusted_rand_score, normalized_mutual_info_score, \
-                            homogeneity_completeness_v_measure, silhouette_score
+import nbformat as nbf
+import numpy as np
+import torch
+from clustpy.ensemble import LCE
+from clustpy.utils import normalize_by_row
+from scipy.optimize import linear_sum_assignment
+from sklearn.cluster import KMeans, SpectralClustering, AgglomerativeClustering, DBSCAN
+from sklearn.decomposition import PCA
+from sklearn.metrics import adjusted_rand_score, normalized_mutual_info_score, silhouette_score
+from sklearn.mixture import GaussianMixture
+from sklearn.preprocessing import StandardScaler
+
 
 def setup_logging(log_filename='maintag2_sampled.log'):
     logger = logging.getLogger()
@@ -164,25 +169,73 @@ def custom_collate(batch):
         return None  # Instead of raising StopIteration, return an empty batch
     return torch.utils.data.default_collate(batch)
 
-def evaluate_clustering(embeddings, true_labels, mode_desc=""):
-    """Run KMeans and compute standard clustering metrics."""
-    k = len(np.unique(true_labels))
-    kmeans = KMeans(n_clusters=k, n_init=10, random_state=42)
-    clusters = kmeans.fit_predict(embeddings)
+def evaluate_clustering(embeddings, true_labels, k=None, mode_desc=""):
+    """
+    Perform consensus clustering on embeddings using multiple clustering algorithms,
+    following the DECCS paper setup (KMeans, GMM, Agglomerative, Spectral, DBSCAN),
+    and aggregate results using ClustPy's LCE (Local Cluster Ensemble).
 
-    acc = clustering_acc(true_labels, clusters)
-    ari = adjusted_rand_score(true_labels, clusters)
-    nmi = normalized_mutual_info_score(true_labels, clusters)
-    h, c, v = homogeneity_completeness_v_measure(true_labels, clusters)
-    sil = silhouette_score(embeddings, clusters)
+    Args:
+        embeddings (ndarray): Learned latent features (n_samples x n_features).
+        true_labels (array): Ground truth class labels (for evaluation only).
+        k (int): Number of clusters (defaults to number of unique labels).
+        mode_desc (str): Descriptor for logging.
 
-    logging.info(f"[{mode_desc}] ACC={acc:.4f}, ARI={ari:.4f}, NMI={nmi:.4f}, "
-                 f"H={h:.4f}, C={c:.4f}, V={v:.4f}, Sil={sil:.4f}")
+    Returns:
+        dict: Dictionary containing metrics and final cluster assignments.
+    """
+
+    if k is None:
+        k = len(np.unique(true_labels))
+
+    logging.info(f"Running DECCS-style ensemble clustering with {k} clusters...")
+
+    # Normalize embeddings
+    X = StandardScaler().fit_transform(embeddings)
+
+    # Define base clusterers (matching DECCS paper setup)
+    clusterers = {
+        "kmeans": KMeans(n_clusters=k, n_init=10, random_state=42),
+        "spectral": SpectralClustering(n_clusters=k, random_state=42, assign_labels='kmeans'),
+        "gmm": GaussianMixture(n_components=k, random_state=42),
+        "agglomerative": AgglomerativeClustering(n_clusters=k),
+        "dbscan": DBSCAN(eps=0.5, min_samples=5)
+    }
+
+    # Run base clusterings
+    base_labels = []
+    for name, algo in clusterers.items():
+        try:
+            labels = algo.fit_predict(X)
+            base_labels.append(labels)
+            logging.info(f"Base clustering '{name}' completed.")
+        except Exception as e:
+            logging.warning(f"Base clustering '{name}' failed: {e}")
+
+    base_labels = np.array(base_labels)
+    logging.info(f"Completed {len(base_labels)} base clusterings.")
+
+    # Consensus clustering with ClustPy’s LCE
+    ensemble = LCE(n_clusters=k, n_base_clusterings=len(base_labels))
+    final_labels = ensemble.fit_predict(X, base_clusterings=base_labels)
+
+    # Compute metrics
+    acc = clustering_acc(true_labels, final_labels)
+    ari = adjusted_rand_score(true_labels, final_labels)
+    nmi = normalized_mutual_info_score(true_labels, final_labels)
+    sil = silhouette_score(X, final_labels)
+
+    logging.info(
+        f"[{mode_desc}] "
+        f"ACC={acc:.4f}, ARI={ari:.4f}, NMI={nmi:.4f}, Sil={sil:.4f}"
+    )
+
     return {
-        "acc": acc, "ari": ari, "nmi": nmi,
-        "homogeneity": h, "completeness": c,
-        "v_measure": v, "silhouette": sil,
-        "clusters": clusters.tolist(),
+        "acc": float(acc),
+        "ari": float(ari),
+        "nmi": float(nmi),
+        "silhouette": float(sil),
+        "clusters": final_labels.tolist()
     }
 
 def clustering_acc(y_true, y_pred):
@@ -193,6 +246,17 @@ def clustering_acc(y_true, y_pred):
         D[y_true[i], y_pred[i]] += 1
     r, c = linear_sum_assignment(D.max() - D)
     return D[r, c].sum() / y_true.size
+
+# Convert all numpy/tensor values to standard Python types
+def default_serializer(o):
+    if isinstance(o, (np.floating, np.float32, np.float64)):
+        return float(o)
+    elif isinstance(o, (np.integer, np.int32, np.int64)):
+        return int(o)
+    elif hasattr(o, 'tolist'):
+        return o.tolist()
+    else:
+        return str(o)
 
 
 def save_detailed_results(results, output_path="results.json", symbolic_tags=None, losses=None, accuracy=None, epochs=None):
@@ -224,7 +288,7 @@ def save_detailed_results(results, output_path="results.json", symbolic_tags=Non
     output.update(summary)
 
     with open(output_path, 'w') as f:
-        json.dump(output, f, indent=4)
+        json.dump(output, f, indent=4, default=default_serializer)
 
     logging.info(f"Results saved to {output_path}")
 
@@ -252,7 +316,7 @@ def plot_experiment_results(output_dir, mode, losses, embeddings, clusters):
         loss_path = os.path.join(output_dir, f"results_{mode}_loss.png")
         plt.savefig(loss_path, bbox_inches='tight')
         plt.close()
-        logging.info(f"[Plot] Saved loss curve → {loss_path}")
+        logging.info(f"[Plot] Saved loss curve - {loss_path}")
 
     # PCA 2D scatter of embeddings
     if embeddings is not None and clusters is not None:
@@ -267,7 +331,7 @@ def plot_experiment_results(output_dir, mode, losses, embeddings, clusters):
         scatter_path = os.path.join(output_dir, f"results_{mode}_pca.png")
         plt.savefig(scatter_path, bbox_inches='tight')
         plt.close()
-        logging.info(f"[Plot] Saved PCA scatter → {scatter_path}")
+        logging.info(f"[Plot] Saved PCA scatter - {scatter_path}")
 
 def generate_notebook(results_file, output_notebook):
     """
