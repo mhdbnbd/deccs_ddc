@@ -8,12 +8,13 @@ import matplotlib.pyplot as plt
 import nbformat as nbf
 import numpy as np
 import torch
-from clustpy.ensemble import LCE
-from clustpy.utils import normalize_by_row
+import torch.nn.functional as F
+from clustpy.deep import DEC, DDC, DKM
 from scipy.optimize import linear_sum_assignment
 from sklearn.cluster import KMeans, SpectralClustering, AgglomerativeClustering, DBSCAN
 from sklearn.decomposition import PCA
-from sklearn.metrics import adjusted_rand_score, normalized_mutual_info_score, silhouette_score
+from sklearn.metrics import adjusted_rand_score, normalized_mutual_info_score, \
+    silhouette_score
 from sklearn.mixture import GaussianMixture
 from sklearn.preprocessing import StandardScaler
 
@@ -23,27 +24,20 @@ def setup_logging(log_filename='maintag2_sampled.log'):
     if logger.handlers:
         return
     logger.setLevel(logging.INFO)
-
-    # Create file handler
     file_handler = logging.FileHandler(log_filename)
     file_handler.setLevel(logging.INFO)
-
-    # Create console handler
     console_handler = logging.StreamHandler()
     console_handler.setLevel(logging.INFO)
-
-    # Define a common formatter and add it to both handlers
     formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
     file_handler.setFormatter(formatter)
     console_handler.setFormatter(formatter)
-
-    # Add both handlers to the logger
     logger.addHandler(file_handler)
     logger.addHandler(console_handler)
 
 def extract_embeddings(dataloader, model, use_gpu):
     """
     Extract embeddings using the trained autoencoder model.
+    Works whether dataset returns (img, tag) or (img, tag, idx).
     """
     device = torch.device('cuda' if use_gpu and torch.cuda.is_available() else 'cpu')
     model.to(device)
@@ -51,13 +45,22 @@ def extract_embeddings(dataloader, model, use_gpu):
     embeddings = []
 
     with torch.no_grad():
-        for batch_idx, (images, _) in enumerate(dataloader):
-            images = images.to(device)
-            logging.debug(f"Batch {batch_idx} processed with image shape: {images.shape}")
+        for batch_idx, batch in enumerate(dataloader):
+            if batch is None:
+                continue
 
-            # Forward pass through autoencoder encoder
+            # Handle both 2-tuple (img, tag) and 3-tuple (img, tag, idx)
+            if len(batch) == 3:
+                images, _, _ = batch
+            elif len(batch) == 2:
+                images, _ = batch
+            else:
+                raise ValueError(f"Unexpected batch structure: {len(batch)} elements")
+
+            images = images.to(device)
             encoded = model.encoder(images)
-            logging.debug(f"Encoded embeddings for batch {batch_idx}: {encoded.shape}")
+
+            # Global pooling (make embeddings flat)
             encoded = torch.nn.functional.adaptive_avg_pool2d(encoded, 1)
             embeddings.append(encoded.view(encoded.size(0), -1).cpu())
 
@@ -193,6 +196,10 @@ def evaluate_clustering(embeddings, true_labels, k=None, mode_desc=""):
     # Normalize embeddings
     X = StandardScaler().fit_transform(embeddings)
 
+    if isinstance(embeddings, torch.Tensor):
+        embeddings = embeddings.detach().cpu().numpy()
+    assert isinstance(embeddings, np.ndarray), "Embeddings must be a NumPy array or torch tensor"
+
     # Define base clusterers (matching DECCS paper setup)
     clusterers = {
         "kmeans": KMeans(n_clusters=k, n_init=10, random_state=42),
@@ -215,9 +222,15 @@ def evaluate_clustering(embeddings, true_labels, k=None, mode_desc=""):
     base_labels = np.array(base_labels)
     logging.info(f"Completed {len(base_labels)} base clusterings.")
 
-    # Consensus clustering with ClustPy’s LCE
-    ensemble = LCE(n_clusters=k, n_base_clusterings=len(base_labels))
-    final_labels = ensemble.fit_predict(X, base_clusterings=base_labels)
+    consensus_matrix = build_consensus_matrix(base_labels)
+
+    from sklearn.cluster import SpectralClustering
+    pred_labels = SpectralClustering(
+        n_clusters=k,
+        affinity="precomputed",
+        assign_labels="kmeans",
+        random_state=42
+    ).fit_predict(consensus_matrix)
 
     # Compute metrics
     acc = clustering_acc(true_labels, final_labels)
@@ -237,6 +250,37 @@ def evaluate_clustering(embeddings, true_labels, k=None, mode_desc=""):
         "silhouette": float(sil),
         "clusters": final_labels.tolist()
     }
+
+def get_base_clusterings(embeddings_np, n_clusters=10):
+    """Run multiple deep clustering algorithms (DEC, DDC, DKM) on global embeddings."""
+    from sklearn.preprocessing import StandardScaler
+    X = StandardScaler().fit_transform(embeddings_np)
+    clusterers = {"DEC": DEC(n_clusters=n_clusters), "DDC": DDC(n_clusters=n_clusters), "DKM": DKM(n_clusters=n_clusters)}
+    base = []
+    for name, algo in clusterers.items():
+        try:
+            base.append(algo.fit_predict(X))
+        except Exception:
+            continue
+    return np.array(base)
+
+def build_consensus_matrix(base_labels):
+    """Compute NxN co-association matrix across base clusterings."""
+    n_clusterers, n_samples = base_labels.shape
+    consensus = np.zeros((n_samples, n_samples), dtype=np.float32)
+    for labels in base_labels:
+        consensus += (labels[:, None] == labels[None, :]).astype(np.float32)
+    return consensus / n_clusterers
+
+def consensus_consistency_loss(embeddings, consensus_matrix_np):
+    """Encourage embedding cosine similarity to match consensus similarity."""
+    device = embeddings.device
+    consensus = torch.tensor(consensus_matrix_np, dtype=torch.float32, device=device)
+    z = F.normalize(embeddings, dim=1)
+    sim = torch.mm(z, z.T)
+    sim = (sim + 1.0) / 2.0
+    return F.mse_loss(sim, consensus)
+
 
 def clustering_acc(y_true, y_pred):
     y_true_u, y_true = np.unique(y_true, return_inverse=True)

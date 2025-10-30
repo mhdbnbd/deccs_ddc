@@ -1,5 +1,5 @@
 #model.py
-
+import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
@@ -69,3 +69,8 @@ class ConstrainedAutoencoder(nn.Module):
         decoded = self.decoder(encoded)
         return decoded, predicted_tags  # Return both the reconstructed image and the predicted tags
 
+def get_embeddings(self, x):
+    with torch.no_grad():
+        z = self.encoder(x)
+        pooled = F.adaptive_avg_pool2d(z, 1)
+        return pooled.view(pooled.size(0), -1)

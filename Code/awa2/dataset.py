@@ -121,5 +121,5 @@ class AwA2Dataset(Dataset):
         logging.debug(f"Image: {img_path}, Expected Label: {self.labels[idx]}, "
               f"Tag Vector Shape: {symbolic_tag.shape}, First 5 Tags: {symbolic_tag[:5]}")
 
-        return image, torch.tensor(symbolic_tag, dtype=torch.float32)
+        return image, torch.tensor(symbolic_tag, dtype=torch.float32), idx
 
