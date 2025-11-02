@@ -34,6 +34,10 @@ https://wakatime.com/dashboard
 2010 4h --"merge experiment pipelines"  
 2210 2h --"normalization fixes, improve logging"  
 2310 4h --"pipeline review, improve reporting"  
-2710 4h --"clustering consensus with clustPy"
-2810 2h --"clustering consensus with clustPy"
-2910 6h --"clustering consensus with clustPy"
+2710 4h --"clustering consensus with clustPy"  
+2810 2h --"clustering consensus with clustPy"  
+2910 6h --"clustering consensus with clustPy"  
+3010 4h --"clustering consensus with clustPy"  
+3110 2h --"clustering consensus with clustPy"  
+0211 8h --"dynamic consensus & tag loss weighting w/ hyperparameter tuning, 
+t-SNE visualization and per-cluster image sampling "

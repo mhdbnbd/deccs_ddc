@@ -1,9 +1,9 @@
 import logging
-import numpy as np
 import os
-import pandas as pd
+
+import numpy as np
 import torch
-from PIL import Image, UnidentifiedImageError
+from PIL import Image
 from torch.utils.data import Dataset
 
 
@@ -46,6 +46,8 @@ class AwA2Dataset(Dataset):
             self.image_paths = [self.image_paths[i] for i in test_idx]
             self.labels = [self.labels[i] for i in test_idx]
             self.symbolic_tags = self.symbolic_tags[test_idx]
+        self.images = self.image_paths
+        self.targets = self.labels
 
     def load_image_labels(self, attr_file, classes_file):
         """

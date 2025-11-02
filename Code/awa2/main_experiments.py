@@ -1,12 +1,18 @@
 import argparse
+import json
 import logging
 import os
+import random
+import time
 
+import GPUtil
 import numpy as np
+import torch
 from numpy._typing import NDArray
 from torch.utils.data import DataLoader
 from torchvision import transforms
 
+from visualize_clusters import plot_tsne, save_cluster_examples
 from dataset import AwA2Dataset
 from model import Autoencoder, ConstrainedAutoencoder
 from train import train_autoencoder, train_constrained_autoencoder
@@ -17,8 +23,22 @@ from utils import (
     setup_logging,
     save_detailed_results,
     evaluate_clustering,
-    plot_experiment_results, get_base_clusterings, build_consensus_matrix
+    plot_experiment_results, get_base_clusterings, build_consensus_matrix, describe_clusters,
+    summarize_clusters_with_attributes, generate_cluster_report
 )
+
+
+def select_device():
+    if torch.cuda.is_available():
+        gpus = GPUtil.getGPUs()
+        gpu = gpus[0]
+        logging.info(f"Using GPU: {gpu.name} ({gpu.memoryFree:.1f} MB free)")
+        return torch.device("cuda")
+    else:
+        logging.info("Using CPU")
+        return torch.device("cpu")
+
+device = select_device()
 
 setup_logging()
 
@@ -29,8 +49,11 @@ def main():
     parser.add_argument("--use_gpu", action="store_true")
     parser.add_argument("--use_sample", action="store_true")
     parser.add_argument("--epochs", type=int, default=4)
-    parser.add_argument("--lambda_consensus", type=float, default=0.05)
-    parser.add_argument("--k_clusters", type=int, default=10)
+    parser.add_argument("--lambda_consensus", type=float, default=0.2)
+    parser.add_argument("--tag_tuner", type=float, default=0.5,
+                        help="Weight for tag supervision loss (CAE/DDC branch).")
+    parser.add_argument("--output_json", type=str, default="results_deccs.json",
+                        help="Path to save experiment results JSON.")
     args = parser.parse_args()
 
     logging.info(f"=== Running mode: {args.mode.upper()} ===")
@@ -41,7 +64,7 @@ def main():
     classes_file = os.path.join(source_dir, "classes.txt")
 
     if args.use_sample:
-        create_sample_dataset(source_dir, dataset_dir, classes_file, sample_size=100)
+        create_sample_dataset(source_dir, dataset_dir, classes_file, sample_size=200)
         img_dir = os.path.join(dataset_dir, "JPEGImages")
         attr_file = os.path.join(dataset_dir, "AwA2-labels.txt")
     else:
@@ -74,21 +97,23 @@ def main():
     logging.info(f"Dataset created with {len(awa2_dataset)} samples.")
 
     if args.mode in ["ae", "oracle"]:
-        model = Autoencoder()
+        model = Autoencoder().to(device)
         train_fn = train_autoencoder
     else:
-        model = ConstrainedAutoencoder()
+        model = ConstrainedAutoencoder().to(device)
         train_fn = train_constrained_autoencoder
 
+    start = time.time()
     training_losses = []
     for epoch in range(args.epochs):
+
         logging.info(f"Epoch {epoch + 1}/{args.epochs} started.")
 
         # --- Compute global consensus once per epoch (DECCS only) ---
         consensus_matrix = None
         if args.mode == "deccs":
             embeddings_np = extract_embeddings(dataloader, model, args.use_gpu).numpy()
-            base_labels = get_base_clusterings(embeddings_np, n_clusters=args.k_clusters)
+            base_labels = get_base_clusterings(embeddings_np, n_clusters=len(np.unique(awa2_dataset.labels)))
             consensus_matrix = build_consensus_matrix(base_labels)
             logging.info(f"[DECCS] Consensus matrix built for epoch {epoch + 1}")
 
@@ -97,16 +122,41 @@ def main():
             dataloader,
             model,
             args.use_gpu,
-            consensus_matrix=consensus_matrix,  # <--- ADDED
-            lambda_consensus=args.lambda_consensus if args.mode == "deccs" else 0.0
+            consensus_matrix=consensus_matrix,
+            lambda_consensus=args.lambda_consensus if args.mode == "deccs" else 0.0,
+            tag_tuner=args.tag_tuner
         )
         training_losses.append(epoch_loss)
-        logging.info(f"Epoch {epoch + 1} completed. Loss: {epoch_loss:.6f}")
+        if isinstance(epoch_loss, dict):
+            logging.info(
+                f"Epoch {epoch + 1}/{args.epochs} completed. "
+                f"Recon={epoch_loss['recon']:.4f}, "
+                f"Tag={epoch_loss['tag']:.4f}, "
+                f"Total={epoch_loss['total']:.4f}"
+            )
+        else:
+            loss_val = float(np.mean(epoch_loss)) if isinstance(epoch_loss, (list, tuple)) else float(epoch_loss)
+            logging.info(f"Epoch {epoch + 1} completed. Loss: {loss_val:.6f}")
+
+        logging.info(f"Epoch time: {time.time() - start:.2f}s")
 
     embeddings = extract_embeddings(dataloader, model, args.use_gpu)
     embeddings_np: NDArray[np.float32] = embeddings.detach().cpu().numpy().astype(np.float32)
     true_labels = np.array(awa2_dataset.labels)
     symbolic_tags = awa2_dataset.symbolic_tags
+    cluster_labels, cluster_descriptions = describe_clusters(embeddings, symbolic_tags)
+    inspect_sample_clusters(awa2_dataset, cluster_labels)
+    plot_tsne(embeddings.cpu().numpy(), cluster_labels, "results_tsne.png")
+    save_cluster_examples(cluster_labels, awa2_dataset)
+
+    summarize_clusters_with_attributes(
+        cluster_labels=cluster_labels,
+        cluster_descriptions=cluster_descriptions,
+        dataset=awa2_dataset,
+        predicates_path="data/AwA2-data/Animals_with_Attributes2/predicates.txt",
+        top_k=5,
+        output_json="results_cluster_descriptions.json"
+    )
 
     if args.mode == "ae":
         results = evaluate_clustering(embeddings_np, true_labels)
@@ -122,9 +172,24 @@ def main():
             "training_losses": training_losses,
             "metrics": results,
         },
-        output_path=f"results_{args.mode}.json"
+        output_path=args.output_json
     )
     logging.info(f"Experiment '{args.mode}' complete. Results saved.")
+
+    report = {
+        "metrics": results,
+        "best_params": {
+            "lambda_consensus": args.lambda_consensus,
+            "tag_tuner": args.tag_tuner,
+        },
+        "device": str(device),
+        "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
+    }
+    with open("results_summary.json", "w") as f:
+        json.dump(report, f, indent=4)
+
+    logging.info("Summary written to results_summary.json")
+
     clusters = np.array(results["clusters"])
     plot_experiment_results(
         output_dir=".",
@@ -133,6 +198,22 @@ def main():
         embeddings=embeddings if args.mode != "oracle" else concat_features,
         clusters=clusters
     )
+    generate_cluster_report()
+    logging.info(f"Total time: {time.time() - start:.2f}s")
+
+def inspect_sample_clusters(dataset, cluster_labels, num_clusters=3, samples_per_cluster=3):
+    """
+    Print sample image paths from selected clusters for visual verification.
+    """
+    selected_clusters = random.sample(list(set(cluster_labels)), num_clusters)
+    for cluster in selected_clusters:
+        indices = np.where(cluster_labels == cluster)[0]
+        chosen = random.sample(list(indices), min(samples_per_cluster, len(indices)))
+        print(f"\nCluster {cluster}: showing {len(chosen)} samples")
+        for idx in chosen:
+            img_path = dataset.image_paths[idx]
+            label = dataset.labels[idx]
+            print(f"  - Image: {img_path} | Label: {label}")
 
 if __name__ == "__main__":
     main()

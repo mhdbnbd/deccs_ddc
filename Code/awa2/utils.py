@@ -1,3 +1,4 @@
+import inspect
 import json
 import logging
 import os
@@ -9,9 +10,12 @@ import nbformat as nbf
 import numpy as np
 import torch
 import torch.nn.functional as F
+from PIL import Image, ImageDraw
 from clustpy.deep import DEC, DDC, DKM
 from scipy.optimize import linear_sum_assignment
-from sklearn.cluster import KMeans, SpectralClustering, AgglomerativeClustering, DBSCAN
+from sklearn.cluster import (
+    KMeans, SpectralClustering, AgglomerativeClustering, DBSCAN
+)
 from sklearn.decomposition import PCA
 from sklearn.metrics import adjusted_rand_score, normalized_mutual_info_score, \
     silhouette_score
@@ -176,7 +180,7 @@ def evaluate_clustering(embeddings, true_labels, k=None, mode_desc=""):
     """
     Perform consensus clustering on embeddings using multiple clustering algorithms,
     following the DECCS paper setup (KMeans, GMM, Agglomerative, Spectral, DBSCAN),
-    and aggregate results using ClustPy's LCE (Local Cluster Ensemble).
+    and aggregate results via consensus spectral clustering.
 
     Args:
         embeddings (ndarray): Learned latent features (n_samples x n_features).
@@ -188,6 +192,10 @@ def evaluate_clustering(embeddings, true_labels, k=None, mode_desc=""):
         dict: Dictionary containing metrics and final cluster assignments.
     """
 
+    if isinstance(embeddings, torch.Tensor):
+        embeddings = embeddings.detach().cpu().numpy()
+    assert isinstance(embeddings, np.ndarray), "Embeddings must be a NumPy array or torch tensor"
+
     if k is None:
         k = len(np.unique(true_labels))
 
@@ -195,10 +203,6 @@ def evaluate_clustering(embeddings, true_labels, k=None, mode_desc=""):
 
     # Normalize embeddings
     X = StandardScaler().fit_transform(embeddings)
-
-    if isinstance(embeddings, torch.Tensor):
-        embeddings = embeddings.detach().cpu().numpy()
-    assert isinstance(embeddings, np.ndarray), "Embeddings must be a NumPy array or torch tensor"
 
     # Define base clusterers (matching DECCS paper setup)
     clusterers = {
@@ -222,25 +226,29 @@ def evaluate_clustering(embeddings, true_labels, k=None, mode_desc=""):
     base_labels = np.array(base_labels)
     logging.info(f"Completed {len(base_labels)} base clusterings.")
 
+    # === Build consensus matrix & cluster it ===
     consensus_matrix = build_consensus_matrix(base_labels)
-
-    from sklearn.cluster import SpectralClustering
-    pred_labels = SpectralClustering(
+    consensus_matrix /= consensus_matrix.max()
+    final_labels = SpectralClustering(
         n_clusters=k,
         affinity="precomputed",
         assign_labels="kmeans",
         random_state=42
     ).fit_predict(consensus_matrix)
 
-    # Compute metrics
+    # === Compute metrics ===
     acc = clustering_acc(true_labels, final_labels)
     ari = adjusted_rand_score(true_labels, final_labels)
     nmi = normalized_mutual_info_score(true_labels, final_labels)
-    sil = silhouette_score(X, final_labels)
+
+    try:
+        sil = silhouette_score(X, final_labels)
+    except Exception as e:
+        logging.warning(f"Silhouette computation failed: {e}")
+        sil = float('nan')
 
     logging.info(
-        f"[{mode_desc}] "
-        f"ACC={acc:.4f}, ARI={ari:.4f}, NMI={nmi:.4f}, Sil={sil:.4f}"
+        f"[{mode_desc}] ACC={acc:.4f}, ARI={ari:.4f}, NMI={nmi:.4f}, Sil={sil:.4f}"
     )
 
     return {
@@ -252,17 +260,63 @@ def evaluate_clustering(embeddings, true_labels, k=None, mode_desc=""):
     }
 
 def get_base_clusterings(embeddings_np, n_clusters=10):
-    """Run multiple deep clustering algorithms (DEC, DDC, DKM) on global embeddings."""
-    from sklearn.preprocessing import StandardScaler
+    """
+    Build a hybrid ensemble of deep + classical clusterers for DECCS.
+
+    Deep:  DEC, DDC, DKM  (from ClustPy)
+    Classical: KMeans, Spectral, GMM, Agglomerative, DBSCAN  (from scikit-learn)
+
+    This version automatically adapts to ClustPy API differences (v0.0.2+)
+    and produces a robust ensemble for consensus matrix construction.
+    """
+
+
+    # --- Normalize embeddings ---
     X = StandardScaler().fit_transform(embeddings_np)
-    clusterers = {"DEC": DEC(n_clusters=n_clusters), "DDC": DDC(n_clusters=n_clusters), "DKM": DKM(n_clusters=n_clusters)}
-    base = []
-    for name, algo in clusterers.items():
+
+    # --- Prepare ensemble containers ---
+    base_labels = []
+    deep_models = {"DEC": DEC, "DDC": DDC, "DKM": DKM}
+    classical_models = {
+        "KMeans": KMeans(n_clusters=n_clusters, n_init=10, random_state=42),
+        "Spectral": SpectralClustering(
+            n_clusters=n_clusters, random_state=42, assign_labels="kmeans"
+        ),
+        "GMM": GaussianMixture(n_components=n_clusters, random_state=42),
+        "Agglomerative": AgglomerativeClustering(n_clusters=n_clusters),
+        "DBSCAN": DBSCAN(eps=0.5, min_samples=5),
+    }
+
+    # --- Deep clustering ensemble ---
+    for name, Cls in deep_models.items():
+        sig = inspect.signature(Cls.__init__)
         try:
-            base.append(algo.fit_predict(X))
-        except Exception:
-            continue
-    return np.array(base)
+            if "n_clusters" in sig.parameters:
+                model = Cls(n_clusters=n_clusters)
+            else:
+                model = Cls()
+            labels = model.fit_predict(X)
+            base_labels.append(labels)
+            logging.info(f"[DECCS] Deep base clustering '{name}' completed.")
+        except Exception as e:
+            logging.warning(f"[DECCS] Deep clustering '{name}' failed: {e}")
+
+    # --- Classical clustering ensemble ---
+    for name, algo in classical_models.items():
+        try:
+            labels = algo.fit_predict(X)
+            base_labels.append(labels)
+            logging.info(f"[DECCS] Classical base clustering '{name}' completed.")
+        except Exception as e:
+            logging.warning(f"[DECCS] Classical clustering '{name}' failed: {e}")
+
+    # --- Combine results ---
+    base_labels = np.array(base_labels)
+    if base_labels.size == 0:
+        raise RuntimeError("All base clusterers failed.")
+
+    logging.info(f"[DECCS] {len(base_labels)} base clusterings successful. Shape={base_labels.shape}")
+    return base_labels
 
 def build_consensus_matrix(base_labels):
     """Compute NxN co-association matrix across base clusterings."""
@@ -301,6 +355,141 @@ def default_serializer(o):
         return o.tolist()
     else:
         return str(o)
+
+
+def describe_clusters(embeddings, tags, n_clusters=None):
+    """
+    Generate human-interpretable cluster descriptions based on tag vectors.
+
+    Args:
+        embeddings (np.ndarray): Latent features (N x d)
+        tags (np.ndarray): Symbolic tag matrix (N x T)
+        n_clusters (int or None): Number of clusters (if None, infer from tags)
+        method (str): clustering algorithm to use
+
+    Returns:
+        cluster_labels: cluster assignment per sample
+        cluster_descriptions: list of avg tag vectors per cluster
+    """
+    # Automatically infer number of clusters from tags
+    if n_clusters is None:
+        n_clusters = tags.shape[1]  # Number of attribute dimensions
+
+    clusterer = KMeans(n_clusters=n_clusters, random_state=42)
+    cluster_labels = clusterer.fit_predict(embeddings)
+
+    cluster_descriptions = []
+    for c in range(n_clusters):
+        cluster_mask = cluster_labels == c
+        if np.sum(cluster_mask) == 0:
+            cluster_descriptions.append(np.zeros(tags.shape[1]))
+            continue
+        # Average tag vector for cluster c
+        avg_tags = np.mean(tags[cluster_mask], axis=0)
+        cluster_descriptions.append(avg_tags)
+
+    return cluster_labels, np.array(cluster_descriptions)
+
+
+def load_attribute_names(predicates_path="data/AwA2-data/Animals_with_Attributes2/predicates.txt"):
+    """
+    Load AwA2 attribute names from predicates.txt.
+    Returns:
+        List[str]: Ordered list of 85 attribute names.
+    """
+    if not os.path.exists(predicates_path):
+        raise FileNotFoundError(f"Predicates file not found at {predicates_path}")
+
+    attribute_names = []
+    with open(predicates_path, "r") as f:
+        for line in f:
+            parts = line.strip().split()
+            if len(parts) == 2:
+                attribute_names.append(parts[1])
+    return attribute_names
+
+
+def summarize_clusters_with_attributes(
+    cluster_labels,
+    cluster_descriptions,
+    dataset,
+    predicates_path="data/AwA2-data/Animals_with_Attributes2/predicates.txt",
+    top_k=5,
+    output_json="results_cluster_descriptions.json"
+):
+    """
+    Generate human-readable cluster summaries and save them as JSON.
+    Each cluster includes top attributes and a few representative images.
+
+    Args:
+        cluster_labels (np.ndarray): Cluster label for each sample.
+        cluster_descriptions (np.ndarray): Averaged tag vectors per cluster.
+        dataset (Dataset): AwA2 dataset instance (with image_paths and labels).
+        predicates_path (str): Path to predicates.txt file.
+        top_k (int): Number of top attributes to show per cluster.
+        output_json (str): Path to save structured results.
+    """
+    attribute_names = load_attribute_names(predicates_path)
+    results = []
+
+    if cluster_descriptions.shape[1] != len(attribute_names):
+        logging.warning(f"Attribute count mismatch: {cluster_descriptions.shape[1]} vs {len(attribute_names)}")
+
+    for cluster_id, desc in enumerate(cluster_descriptions):
+        top_attrs = np.argsort(desc)[-top_k:][::-1]
+        readable_attrs = [attribute_names[j] for j in top_attrs]
+
+        # Get sample images from this cluster
+        indices = np.where(cluster_labels == cluster_id)[0]
+        sample_images = []
+        for idx in random.sample(list(indices), min(3, len(indices))):  # 3 representative samples
+            sample_images.append({
+                "image_path": dataset.image_paths[idx],
+                "label": int(dataset.labels[idx])
+            })
+
+        logging.info(f"Cluster {cluster_id:02d}: top attributes → {', '.join(readable_attrs)}")
+        results.append({
+            "cluster_id": int(cluster_id),
+            "num_samples": int(len(indices)),
+            "top_attributes": readable_attrs,
+            "sample_images": sample_images
+        })
+
+    # Save to JSON
+    with open(output_json, "w") as f:
+        with open("results_cluster_descriptions.json", "w") as f:
+            # Safe conversion for list, ndarray, or dict
+            if isinstance(results, dict):
+                json.dump(results, f, indent=2)
+            else:
+                # Handles lists/arrays of cluster attribute vectors
+                json.dump({str(i): np.asarray(desc).tolist() for i, desc in enumerate(results)}, f, indent=2)
+        logging.info(f"[DDC] Cluster descriptions saved ({len(results)} clusters) → results_cluster_descriptions.json")
+    logging.info(f"[DDC] Cluster descriptions saved to {output_json}")
+
+    return results
+
+def generate_cluster_report(samples_dir="cluster_samples", out="cluster_report"):
+    os.makedirs(out, exist_ok=True)
+    with open("results_cluster_descriptions.json") as f:
+        attrs = json.load(f)
+    if isinstance(attrs, list):
+        logging.warning("Cluster descriptions loaded as list — converting to dictionary format.")
+        attrs = {str(i): v for i, v in enumerate(attrs)}
+
+    for cid, desc in attrs.items():
+        canvas = Image.new("RGB", (800, 300), "white")
+        draw = ImageDraw.Draw(canvas)
+        txt = f"Cluster {cid}\nTop attributes:\n" + ", ".join(desc["top_attributes"])
+        draw.text((10,10), txt, fill="black")
+        cluster_dir = os.path.join(samples_dir, f"cluster_{int(cid):02d}")
+        x = 10
+        for img_name in os.listdir(cluster_dir)[:3]:
+            img = Image.open(os.path.join(cluster_dir,img_name)).resize((120,120))
+            canvas.paste(img, (x,150))
+            x += 130
+        canvas.save(os.path.join(out, f"cluster_{int(cid):02d}.png"))
 
 
 def save_detailed_results(results, output_path="results.json", symbolic_tags=None, losses=None, accuracy=None, epochs=None):
@@ -389,7 +578,7 @@ def generate_notebook(results_file, output_notebook):
     
     nb = nbf.v4.new_notebook()
 
-    # 1. Add introduction markdown cell
+    #Add introduction markdown cell
     intro_text = """# Results Notebook
 
 This notebook presents the results of the clustering process performed on the AwA2 dataset using autoencoders and KMeans clustering.
@@ -402,7 +591,7 @@ This notebook presents the results of the clustering process performed on the Aw
     """
     nb['cells'].append(nbf.v4.new_markdown_cell(intro_text))
 
-    # 2. Add a code cell for loading data
+    #Add a code cell for loading data
     data_loading_code = f"""
 import json
 import matplotlib.pyplot as plt
@@ -424,7 +613,7 @@ print("Clusters and embeddings extracted.")
 """
     nb['cells'].append(nbf.v4.new_code_cell(data_loading_code))
 
-    # 3. Add a code cell for plotting loss curves
+    #Add a code cell for plotting loss curves
     plot_loss_code = """
 # Plot the training loss over epochs
 epochs = results['epochs']
@@ -440,7 +629,7 @@ plt.show()
 """
     nb['cells'].append(nbf.v4.new_code_cell(plot_loss_code))
 
-    # 4. Add a code cell for clustering results visualization
+    #Add a code cell for clustering results visualization
     cluster_vis_code = """
 # Visualize the clustering results
 # Count how many samples per cluster
@@ -455,7 +644,7 @@ plt.show()
 """
     nb['cells'].append(nbf.v4.new_code_cell(cluster_vis_code))
 
-    # 5. Add embedding visualization (e.g., PCA or t-SNE)
+    #Add embedding visualization (e.g., PCA or t-SNE)
     embed_vis_code = """
 from sklearn.decomposition import PCA
 
@@ -474,7 +663,7 @@ plt.show()
 """
     nb['cells'].append(nbf.v4.new_code_cell(embed_vis_code))
 
-    # 6. Add a summary markdown cell
+    #Add a summary markdown cell
     summary_text = """
 ## Summary
 
@@ -484,7 +673,7 @@ plt.show()
     """
     nb['cells'].append(nbf.v4.new_markdown_cell(summary_text))
 
-    # Save the notebook
+    #Save the notebook
     with open(output_notebook, 'w') as f:
         nbf.write(nb, f)
 

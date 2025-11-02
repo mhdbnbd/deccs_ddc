@@ -9,8 +9,7 @@ import torch.optim as optim
 from tqdm import tqdm
 
 from utils import (
-    build_consensus_matrix,
-    consensus_consistency_loss, get_base_clusterings
+    consensus_consistency_loss
 )
 
 
@@ -117,11 +116,8 @@ def train_constrained_autoencoder(
     for epoch in range(num_epochs):
         running_loss = 0.0
 
-        for batch in tqdm(dataloader, desc=f"Epoch {epoch+1}/{num_epochs}"):
-            if batch is None:
-                continue
-            # Unpack batch
-            images, symbolic_tags, _ = batch
+        for batch in tqdm(dataloader, desc=f"Epoch {epoch + 1}/{num_epochs}"):
+            images, symbolic_tags, idx = batch
             images = images.to(device)
             symbolic_tags = symbolic_tags.to(device)
 
@@ -135,12 +131,16 @@ def train_constrained_autoencoder(
                 with torch.no_grad():
                     # Get embeddings for this batch (for alignment)
                     z = model.get_embeddings(images).detach()
-                consensus_loss = consensus_consistency_loss(z, consensus_matrix)
+                # Extract submatrix corresponding to current batch indices
+                if isinstance(idx, torch.Tensor):
+                    idx = idx.cpu().numpy()
+                consensus_sub = consensus_matrix[np.ix_(idx, idx)]
+                consensus_loss = consensus_consistency_loss(z, consensus_sub)
                 total_loss = recon_loss + tag_tuner * tag_loss + lambda_consensus * consensus_loss
             else:
                 total_loss = recon_loss + tag_tuner * tag_loss
 
-            optimizer.zero_grad()
+            optimizer.zero_grad(set_to_none=True)
             total_loss.backward()
             optimizer.step()
 
