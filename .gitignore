@@ -26,6 +26,7 @@ Code/awa2/results_notebook_main.ipynb
 __pycache__/
 Code/awa2/AwA2-data-sample
 Code/awa2/data/AwA2-data
+ Code/awa2/cluster_samples
 Code/awa2/.venv/
 Code/awa2/AwA2-sample/
 *.pyc

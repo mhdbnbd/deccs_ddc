@@ -1,9 +1,9 @@
 import logging
-import numpy as np
 import os
-import pandas as pd
+
+import numpy as np
 import torch
-from PIL import Image, UnidentifiedImageError
+from PIL import Image
 from torch.utils.data import Dataset
 
 
@@ -28,6 +28,9 @@ class AwA2Dataset(Dataset):
         # Assign symbolic tags to each image based on its label
         self.symbolic_tags = np.array([self.label_to_tags[label] if label in self.label_to_tags else np.zeros(85) for label in self.labels])
         assert self.symbolic_tags.shape[1] == 85, f"Expected 85 tags, got {self.symbolic_tags.shape[1]}"
+        missing_labels = [l for l in set(self.labels) if l not in self.label_to_tags]
+        if missing_labels:
+            logging.warning(f"Some labels missing tags: {missing_labels}")
 
         # Perform explicit train/test split
         rng = np.random.default_rng(42)
@@ -43,6 +46,8 @@ class AwA2Dataset(Dataset):
             self.image_paths = [self.image_paths[i] for i in test_idx]
             self.labels = [self.labels[i] for i in test_idx]
             self.symbolic_tags = self.symbolic_tags[test_idx]
+        self.images = self.image_paths
+        self.targets = self.labels
 
     def load_image_labels(self, attr_file, classes_file):
         """
@@ -89,8 +94,11 @@ class AwA2Dataset(Dataset):
             if pred_matrix.shape != (50, 85):
                 logging.warning(f"Expected (50, 85) shape, but got {pred_matrix.shape}")
 
-            # Ensure mapping adjusts for 1-based to 0-based index shift
-            return {i + 1: pred_matrix[i] for i in range(50)}  # Class ID 1 maps to index 0
+            # Normalize values into [0,1] range
+            pred_matrix = (pred_matrix - pred_matrix.min()) / (pred_matrix.max() - pred_matrix.min())
+            symbolic_tags = {i + 1: pred_matrix[i] for i in range(pred_matrix.shape[0])}
+            return symbolic_tags
+
         except Exception as e:
             logging.error(f"Error reading predicate file: {e}")
             return {}
@@ -115,5 +123,5 @@ class AwA2Dataset(Dataset):
         logging.debug(f"Image: {img_path}, Expected Label: {self.labels[idx]}, "
               f"Tag Vector Shape: {symbolic_tag.shape}, First 5 Tags: {symbolic_tag[:5]}")
 
-        return image, torch.tensor(symbolic_tag, dtype=torch.float32)
+        return image, torch.tensor(symbolic_tag, dtype=torch.float32), idx
 

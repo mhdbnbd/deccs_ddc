@@ -1,36 +1,40 @@
-#model.py
-
 import torch.nn as nn
 import torch.nn.functional as F
 
 class Autoencoder(nn.Module):
-    def __init__(self):
+    def __init__(self, embedding_dim=128):
         super(Autoencoder, self).__init__()
         self.encoder = nn.Sequential(
-            nn.Conv2d(3, 16, 3, stride=2, padding=1),  # (N, 3, 128, 128) -> (N, 16, 64, 64)
+            nn.Conv2d(3, 16, 3, stride=2, padding=1),   # (N, 3, 128, 128) → (N, 16, 64, 64)
             nn.ReLU(),
-            nn.Conv2d(16, 32, 3, stride=2, padding=1),  # (N, 16, 64, 64) -> (N, 32, 32, 32)
+            nn.Conv2d(16, 32, 3, stride=2, padding=1),  # (N, 16, 64, 64) → (N, 32, 32, 32)
             nn.ReLU(),
-            nn.Conv2d(32, 64, 3, stride=2, padding=1),  # (N, 32, 32, 32) -> (N, 64, 16, 16)
+            nn.Conv2d(32, 64, 3, stride=2, padding=1),  # (N, 32, 32, 32) → (N, 64, 16, 16)
             nn.ReLU(),
-            nn.Conv2d(64, 128, 3, stride=2, padding=1),  # (N, 64, 16, 16) -> (N, 128, 8, 8)
+            nn.Conv2d(64, 128, 3, stride=2, padding=1), # (N, 64, 16, 16) → (N, 128, 8, 8)
             nn.ReLU(),
         )
         self.decoder = nn.Sequential(
-            nn.ConvTranspose2d(128, 64, 3, stride=2, padding=1, output_padding=1),  # (N, 128, 8, 8) -> (N, 64, 16, 16)
+            nn.ConvTranspose2d(128, 64, 3, stride=2, padding=1, output_padding=1),
             nn.ReLU(),
-            nn.ConvTranspose2d(64, 32, 3, stride=2, padding=1, output_padding=1),  # (N, 64, 16, 16) -> (N, 32, 32, 32)
+            nn.ConvTranspose2d(64, 32, 3, stride=2, padding=1, output_padding=1),
             nn.ReLU(),
-            nn.ConvTranspose2d(32, 16, 3, stride=2, padding=1, output_padding=1),  # (N, 32, 32, 32) -> (N, 16, 64, 64)
+            nn.ConvTranspose2d(32, 16, 3, stride=2, padding=1, output_padding=1),
             nn.ReLU(),
-            nn.ConvTranspose2d(16, 3, 3, stride=2, padding=1, output_padding=1),  # (N, 16, 64, 64) -> (N, 3, 128, 128)
+            nn.ConvTranspose2d(16, 3, 3, stride=2, padding=1, output_padding=1),
             nn.Sigmoid(),
         )
 
     def forward(self, x):
-        x = self.encoder(x)
-        x = self.decoder(x)
-        return x
+        encoded = self.encoder(x)
+        decoded = self.decoder(encoded)
+        return decoded
+
+    def get_embeddings(self, x):
+        """Return pooled latent embeddings for clustering."""
+        z = self.encoder(x)
+        z = F.adaptive_avg_pool2d(z, 1)
+        return z.view(z.size(0), -1)
 
 
 class ConstrainedAutoencoder(nn.Module):
@@ -46,9 +50,8 @@ class ConstrainedAutoencoder(nn.Module):
             nn.Conv2d(64, 128, 3, stride=2, padding=1),
             nn.ReLU(),
         )
-        
-        # New fully connected layer to predict tags
-        self.fc_tags = nn.Linear(128, 85)  # Assuming 85 symbolic tags
+
+        self.fc_tags = nn.Linear(128, 85)  # Predict symbolic tags (85 dims)
 
         self.decoder = nn.Sequential(
             nn.ConvTranspose2d(128, 64, 3, stride=2, padding=1, output_padding=1),
@@ -65,12 +68,12 @@ class ConstrainedAutoencoder(nn.Module):
         encoded = self.encoder(x)
         pooled = F.adaptive_avg_pool2d(encoded, 1)
         pooled = pooled.view(pooled.size(0), -1)
-
-        # Flatten the encoded output for the fully connected layer
-        # encoded_flat = encoded.view(encoded.size(0), -1)  # Flatten [batch_size, channels, height, width] -> [batch_size, features]
-
-        predicted_tags = self.fc_tags(pooled)  # Predict tags
-
+        predicted_tags = self.fc_tags(pooled)
         decoded = self.decoder(encoded)
-        return decoded, predicted_tags  # Return both the reconstructed image and the predicted tags
+        return decoded, predicted_tags
 
+    def get_embeddings(self, x):
+        """Return latent embeddings used for clustering or consensus loss."""
+        z = self.encoder(x)
+        z = F.adaptive_avg_pool2d(z, 1)
+        return z.view(z.size(0), -1)
