@@ -5,7 +5,6 @@ import os
 import random
 import time
 
-import GPUtil
 import numpy as np
 import torch
 from numpy._typing import NDArray
@@ -30,13 +29,14 @@ from utils import (
 
 def select_device():
     if torch.cuda.is_available():
-        gpus = GPUtil.getGPUs()
-        gpu = gpus[0]
-        logging.info(f"Using GPU: {gpu.name} ({gpu.memoryFree:.1f} MB free)")
-        return torch.device("cuda")
+        device = torch.device("cuda")
+        gpu_name = torch.cuda.get_device_name(device)
+        total_mem = torch.cuda.get_device_properties(device).total_memory / (1024**3)
+        logging.info(f"Using GPU: {gpu_name} ({total_mem:.2f} GB total)")
     else:
+        device = torch.device("cpu")
         logging.info("Using CPU")
-        return torch.device("cpu")
+    return device
 
 device = select_device()
 
