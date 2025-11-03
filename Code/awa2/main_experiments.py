@@ -172,7 +172,9 @@ def main():
             "training_losses": training_losses,
             "metrics": results,
         },
-        output_path=args.output_json
+        output_path=args.output_json,
+        lambda_consensus=args.lambda_consensus,
+        tag_tuner=args.tag_tuner
     )
     logging.info(f"Experiment '{args.mode}' complete. Results saved.")
 

@@ -4,14 +4,17 @@ import logging
 import os
 import random
 import shutil
+import time
 
+
+from logging.handlers import RotatingFileHandler
 import matplotlib.pyplot as plt
 import nbformat as nbf
 import numpy as np
 import torch
 import torch.nn.functional as F
 from PIL import Image, ImageDraw
-from clustpy.deep import DEC, DDC, DKM
+from clustpy.deep import DEC, DDC
 from scipy.optimize import linear_sum_assignment
 from sklearn.cluster import (
     KMeans, SpectralClustering, AgglomerativeClustering, DBSCAN
@@ -28,7 +31,7 @@ def setup_logging(log_filename='maintag2_sampled.log'):
     if logger.handlers:
         return
     logger.setLevel(logging.INFO)
-    file_handler = logging.FileHandler(log_filename)
+    file_handler = RotatingFileHandler(log_filename, maxBytes=5e6, backupCount=3)
     file_handler.setLevel(logging.INFO)
     console_handler = logging.StreamHandler()
     console_handler.setLevel(logging.INFO)
@@ -61,7 +64,8 @@ def extract_embeddings(dataloader, model, use_gpu):
             else:
                 raise ValueError(f"Unexpected batch structure: {len(batch)} elements")
 
-            images = images.to(device)
+            torch.backends.cudnn.benchmark = True
+            images = images.to(device, non_blocking=True)
             encoded = model.encoder(images)
 
             # Global pooling (make embeddings flat)
@@ -206,11 +210,29 @@ def evaluate_clustering(embeddings, true_labels, k=None, mode_desc=""):
 
     # Define base clusterers (matching DECCS paper setup)
     clusterers = {
-        "kmeans": KMeans(n_clusters=k, n_init=10, random_state=42),
-        "spectral": SpectralClustering(n_clusters=k, random_state=42, assign_labels='kmeans'),
-        "gmm": GaussianMixture(n_components=k, random_state=42),
-        "agglomerative": AgglomerativeClustering(n_clusters=k),
-        "dbscan": DBSCAN(eps=0.5, min_samples=5)
+        "KMeans": KMeans(
+            n_clusters=k,
+            n_init=10,
+            max_iter=300,
+            algorithm="elkan",
+            random_state=42
+        ),
+        "Spectral": SpectralClustering(
+            n_clusters=k,
+            affinity="nearest_neighbors",     # avoids dense kernel matrix
+            n_neighbors=15,                  # build sparse graph instead of full
+            assign_labels="kmeans",
+            eigen_solver="arpack",            # stable small-memory solver
+            random_state=42
+        ),
+        "GMM": GaussianMixture(n_components=k, random_state=42,
+                               covariance_type="full", reg_covar=1e-4, max_iter=200),
+        "Agglomerative": AgglomerativeClustering(
+            n_clusters=k,
+            linkage="ward",          # Euclidean-space linkage
+            compute_full_tree=False  # avoids full dendrogram computation
+        ),
+        "DBSCAN": DBSCAN(eps=0.5, min_samples=5),
     }
 
     # Run base clusterings
@@ -251,6 +273,9 @@ def evaluate_clustering(embeddings, true_labels, k=None, mode_desc=""):
         f"[{mode_desc}] ACC={acc:.4f}, ARI={ari:.4f}, NMI={nmi:.4f}, Sil={sil:.4f}"
     )
 
+    with open("results_cluster_metrics.json", "w") as f:
+        json.dump({"acc": acc, "ari": ari, "nmi": nmi, "silhouette": sil}, f, indent=2)
+
     return {
         "acc": float(acc),
         "ari": float(ari),
@@ -263,52 +288,70 @@ def get_base_clusterings(embeddings_np, n_clusters=10):
     """
     Build a hybrid ensemble of deep + classical clusterers for DECCS.
 
-    Deep:  DEC, DDC, DKM  (from ClustPy)
+    Deep:  DEC, DDC  (from ClustPy)
     Classical: KMeans, Spectral, GMM, Agglomerative, DBSCAN  (from scikit-learn)
 
     This version automatically adapts to ClustPy API differences (v0.0.2+)
     and produces a robust ensemble for consensus matrix construction.
     """
 
-
     # --- Normalize embeddings ---
     X = StandardScaler().fit_transform(embeddings_np)
 
     # --- Prepare ensemble containers ---
     base_labels = []
-    deep_models = {"DEC": DEC, "DDC": DDC, "DKM": DKM}
+    deep_models = {"DEC": DEC, "DDC": DDC}
     classical_models = {
-        "KMeans": KMeans(n_clusters=n_clusters, n_init=10, random_state=42),
-        "Spectral": SpectralClustering(
-            n_clusters=n_clusters, random_state=42, assign_labels="kmeans"
+        "KMeans": KMeans(
+            n_clusters=n_clusters,
+            n_init=10,
+            max_iter=300,
+            algorithm="elkan",
+            random_state=42
         ),
-        "GMM": GaussianMixture(n_components=n_clusters, random_state=42),
-        "Agglomerative": AgglomerativeClustering(n_clusters=n_clusters),
+        "Spectral": SpectralClustering(
+            n_clusters=n_clusters,
+            affinity="nearest_neighbors",     # avoids dense kernel matrix
+            n_neighbors=15,                  # build sparse graph instead of full
+            assign_labels="kmeans",
+            eigen_solver="arpack",            # stable small-memory solver
+            random_state=42
+        ),
+        "GMM": GaussianMixture(n_components=n_clusters, random_state=42,
+                               covariance_type="full", reg_covar=1e-4, max_iter=200),
+        "Agglomerative": AgglomerativeClustering(
+            n_clusters=n_clusters,
+            linkage="ward",          # Euclidean-space linkage
+            compute_full_tree=False  # avoids full dendrogram computation
+        ),
         "DBSCAN": DBSCAN(eps=0.5, min_samples=5),
     }
 
     # --- Deep clustering ensemble ---
     for name, Cls in deep_models.items():
-        sig = inspect.signature(Cls.__init__)
+        start = time.time()
         try:
-            if "n_clusters" in sig.parameters:
-                model = Cls(n_clusters=n_clusters)
-            else:
-                model = Cls()
+            model = Cls(n_clusters=n_clusters) if "n_clusters" in inspect.signature(Cls).parameters else Cls()
             labels = model.fit_predict(X)
+            if np.isnan(labels).any():
+                logging.warning(f"{name} produced NaNs — skipping.")
+                continue
             base_labels.append(labels)
-            logging.info(f"[DECCS] Deep base clustering '{name}' completed.")
+            logging.info(f"[DECCS] Deep base clustering '{name}' completed in {time.time() - start:.2f}s.")
         except Exception as e:
             logging.warning(f"[DECCS] Deep clustering '{name}' failed: {e}")
 
     # --- Classical clustering ensemble ---
     for name, algo in classical_models.items():
+        start = time.time()
         try:
             labels = algo.fit_predict(X)
             base_labels.append(labels)
             logging.info(f"[DECCS] Classical base clustering '{name}' completed.")
+            logging.info(f"Base clustering '{name}' completed in {time.time() - start:.2f}s")
         except Exception as e:
             logging.warning(f"[DECCS] Classical clustering '{name}' failed: {e}")
+
 
     # --- Combine results ---
     base_labels = np.array(base_labels)
@@ -373,7 +416,7 @@ def describe_clusters(embeddings, tags, n_clusters=None):
     """
     # Automatically infer number of clusters from tags
     if n_clusters is None:
-        n_clusters = tags.shape[1]  # Number of attribute dimensions
+        n_clusters = len(np.unique(tags.argmax(axis=1))) if tags.ndim > 1 else np.unique(tags).size
 
     clusterer = KMeans(n_clusters=n_clusters, random_state=42)
     cluster_labels = clusterer.fit_predict(embeddings)
@@ -448,7 +491,7 @@ def summarize_clusters_with_attributes(
                 "label": int(dataset.labels[idx])
             })
 
-        logging.info(f"Cluster {cluster_id:02d}: top attributes → {', '.join(readable_attrs)}")
+        logging.info(f"Cluster {cluster_id:02d}: top attributes -> {', '.join(readable_attrs)}")
         results.append({
             "cluster_id": int(cluster_id),
             "num_samples": int(len(indices)),
@@ -458,16 +501,8 @@ def summarize_clusters_with_attributes(
 
     # Save to JSON
     with open(output_json, "w") as f:
-        with open("results_cluster_descriptions.json", "w") as f:
-            # Safe conversion for list, ndarray, or dict
-            if isinstance(results, dict):
-                json.dump(results, f, indent=2)
-            else:
-                # Handles lists/arrays of cluster attribute vectors
-                json.dump({str(i): np.asarray(desc).tolist() for i, desc in enumerate(results)}, f, indent=2)
-        logging.info(f"[DDC] Cluster descriptions saved ({len(results)} clusters) → results_cluster_descriptions.json")
-    logging.info(f"[DDC] Cluster descriptions saved to {output_json}")
-
+        json.dump(results, f, indent=2, default=default_serializer)
+    logging.info(f"[DDC] Cluster descriptions saved ({len(results)} clusters) → {output_json}")
     return results
 
 def generate_cluster_report(samples_dir="cluster_samples", out="cluster_report"):
@@ -476,10 +511,10 @@ def generate_cluster_report(samples_dir="cluster_samples", out="cluster_report")
         attrs = json.load(f)
     if isinstance(attrs, list):
         logging.warning("Cluster descriptions loaded as list — converting to dictionary format.")
-        attrs = {str(i): v for i, v in enumerate(attrs)}
+        attrs = {str(entry["cluster_id"]): entry for entry in attrs}
 
     for cid, desc in attrs.items():
-        canvas = Image.new("RGB", (800, 300), "white")
+        canvas = Image.new("RGB", (100, 100), "white")
         draw = ImageDraw.Draw(canvas)
         txt = f"Cluster {cid}\nTop attributes:\n" + ", ".join(desc["top_attributes"])
         draw.text((10,10), txt, fill="black")
@@ -492,7 +527,7 @@ def generate_cluster_report(samples_dir="cluster_samples", out="cluster_report")
         canvas.save(os.path.join(out, f"cluster_{int(cid):02d}.png"))
 
 
-def save_detailed_results(results, output_path="results.json", symbolic_tags=None, losses=None, accuracy=None, epochs=None):
+def save_detailed_results(results, output_path="results.json", lambda_consensus=0.2, tag_tuner=0.5, losses=None, accuracy=None, epochs=None):
     """
     Saves detailed results to a JSON file, including embeddings, clusters, labels, and tags.
 
@@ -507,12 +542,13 @@ def save_detailed_results(results, output_path="results.json", symbolic_tags=Non
     - accuracy (float or None): Final accuracy after clustering. Can be None if not available.
     - epochs (int or None): Number of epochs. Can be None if not applicable.
     """
-    output = {
-        'epochs': epochs if epochs is not None else "Not provided",
-        'training_losses': losses if losses is not None else "Not provided",
-        'final_accuracy': accuracy if accuracy is not None else "Not provided",
-        'results': results
-    }
+    output = {'epochs': epochs if epochs is not None else "Not provided",
+              'training_losses': losses if losses is not None else "Not provided",
+              'final_accuracy': accuracy if accuracy is not None else "Not provided", 'results': results,
+              'hyperparams': {
+                  "lambda_consensus": lambda_consensus,
+                  "tag_tuner": tag_tuner
+              }}
     summary = {
         "final_acc": results["metrics"]["acc"],
         "final_nmi": results["metrics"]["nmi"],
@@ -540,7 +576,7 @@ def plot_experiment_results(output_dir, mode, losses, embeddings, clusters):
 
     # Plot loss curve
     if losses is not None and len(losses) > 0:
-        plt.figure()
+        plt.figure(dpi=120)
         plt.plot(range(1, len(losses) + 1), losses, marker='o')
         plt.title(f"Training Loss per Epoch ({mode})")
         plt.xlabel("Epoch")
@@ -555,7 +591,7 @@ def plot_experiment_results(output_dir, mode, losses, embeddings, clusters):
     if embeddings is not None and clusters is not None:
         pca = PCA(n_components=2)
         reduced = pca.fit_transform(embeddings)
-        plt.figure()
+        plt.figure(dpi=120)
         plt.scatter(reduced[:, 0], reduced[:, 1], c=clusters, s=20)
         plt.title(f"PCA of Clustering Embeddings ({mode})")
         plt.xlabel("PC1")
