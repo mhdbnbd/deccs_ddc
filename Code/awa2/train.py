@@ -6,24 +6,34 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from torch.cuda.amp import autocast, GradScaler
 from tqdm import tqdm
+from utils import consensus_consistency_loss
 
-from utils import (
-    consensus_consistency_loss
-)
+try:
+    from torch.amp import autocast, GradScaler
+except ImportError:
+    from torch.cuda.amp import autocast, GradScaler
 
+def make_grad_scaler(device):
+    """
+    Version-safe GradScaler initialization.
+    Uses new torch.amp API if supported, else falls back to legacy CUDA AMP.
+    """
+    try:
+        return GradScaler(device_type=device, enabled=(device == "cuda"))
+    except TypeError:        
+        return GradScaler(enabled=(device == "cuda"))
 
 def _prepare_model_for_cuda(model):
     """
     Safely convert convolutional layers to channels_last memory format for GPU speedup.
     """
     for m in model.modules():
-        if isinstance(m, (torch.nn.Conv2d, torch.nn.ConvTranspose2d)):
-            m.weight.data = m.weight.data.contiguous(memory_format=torch.channels_last)
+        if isinstance(m, (nn.Conv2d, nn.ConvTranspose2d)):
+            m.to(memory_format=torch.channels_last)
     return model
 
-def train_autoencoder(dataloader, model, use_gpu, **kwargs):
+def train_autoencoder(dataloader, model, use_gpu, num_epochs=1, **kwargs):
     """
     Train the autoencoder model.
 
@@ -33,39 +43,44 @@ def train_autoencoder(dataloader, model, use_gpu, **kwargs):
     use_gpu (bool): Flag to indicate whether to use GPU if available.
     num_epochs (int): Number of epochs to train the model.
     """
-    device = torch.device('cuda' if use_gpu and torch.cuda.is_available() else 'cpu')
+    device = torch.device("cuda" if use_gpu and torch.cuda.is_available() else "cpu")
     model.to(device)
-    if device.type == 'cuda':
+    if device.type == "cuda":
         model = _prepare_model_for_cuda(model)
-    model.to(device)
 
     criterion = nn.MSELoss()
     optimizer = optim.Adam(model.parameters(), lr=1e-3)
-    scaler = GradScaler(enabled=(device.type == 'cuda'))
+    scaler = make_grad_scaler(device.type)
 
     model.train()
-    running_loss = 0.0
-    for batch in dataloader:
-        if batch is None:
-            continue
-        if len(batch) == 3:
-            images, _, _ = batch
-        else:
-            images, _ = batch
+    for epoch in range(num_epochs):
+        running_loss = 0.0
+        for batch in tqdm(dataloader, desc=f"Epoch {epoch + 1}/{num_epochs}"):
+            if batch is None:
+                continue
 
-        images = images.to(device, non_blocking=True).to(memory_format=torch.channels_last)
+            if len(batch) == 3:
+                images, _, _ = batch
+            else:
+                images, _ = batch
 
-        optimizer.zero_grad(set_to_none=True)
-        with autocast('cuda'):
-            outputs = model(images)
-            loss = criterion(outputs, images)
-        scaler.scale(loss).backward()
-        scaler.step(optimizer)
-        scaler.update()
+            images = images.to(device, non_blocking=True).to(memory_format=torch.channels_last)
+            optimizer.zero_grad(set_to_none=True)
 
-        running_loss += loss.item()
+            with autocast(device_type="cuda", enabled=(device.type == "cuda")):
+                outputs = model(images)
+                loss = criterion(outputs, images)
 
-    return running_loss / max(1, len(dataloader))
+            scaler.scale(loss).backward()
+            scaler.step(optimizer)
+            scaler.update()
+
+            running_loss += loss.item()
+
+        avg_loss = running_loss / len(dataloader)
+        logging.info(f"[AE] Epoch {epoch + 1}/{num_epochs} | Loss={avg_loss:.6f}")
+
+    return avg_loss
 
 def evaluate_autoencoder(dataloader, model, use_gpu):
     """
@@ -119,13 +134,12 @@ def train_constrained_autoencoder(
     model.to(device)
     if device.type == 'cuda':
         model = _prepare_model_for_cuda(model)
-    model.to(device)
 
     recon_loss_fn = nn.MSELoss()
     tag_loss_fn = nn.BCEWithLogitsLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
+    scaler = make_grad_scaler(device.type)
     all_losses = []
-    scaler = torch.amp.GradScaler(enabled=(device.type == 'cuda'))
 
     for epoch in range(num_epochs):
         running_loss = 0.0
@@ -138,7 +152,7 @@ def train_constrained_autoencoder(
             symbolic_tags = symbolic_tags.to(device, non_blocking=True)
 
             optimizer.zero_grad(set_to_none=True)
-            with torch.amp.autocast('cuda'):
+            with autocast(device_type='cuda', enabled=(device.type == 'cuda')):
                 recon, tag_logits = model(images)
                 recon_loss = recon_loss_fn(recon, images)
                 tag_loss = tag_loss_fn(tag_logits, symbolic_tags)
@@ -163,8 +177,8 @@ def train_constrained_autoencoder(
         epoch_loss = running_loss / len(dataloader)
         all_losses.append(epoch_loss)
         logging.info(f"Epoch {epoch+1}/{num_epochs} completed. "
-                     f"Recon={recon_loss.item():.4f}, Tag={tag_loss.item():.4f}, "
-                     f"Total={epoch_loss:.4f}")
+                    f"Recon={recon_loss.item():.4f}, Tag={tag_loss.item():.4f}, "
+                    f"Total={epoch_loss:.4f}")
 
         if torch.isnan(total_loss):
             logging.error("NaN detected in total_loss — check tag inputs or consensus matrix normalization.")
