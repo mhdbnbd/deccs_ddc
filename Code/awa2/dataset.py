@@ -117,7 +117,7 @@ class AwA2Dataset(Dataset):
                 image = self.transform(image)
         except Exception as e:
             logging.warning(f"Error loading image {img_path}: {e}")
-            return None, None  # Skip bad images
+            return None  # Skip bad images
 
         # Debugging the correct mapping
         logging.debug(f"Image: {img_path}, Expected Label: {self.labels[idx]}, "

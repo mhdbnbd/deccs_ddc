@@ -1,12 +1,23 @@
 import matplotlib.pyplot as plt
+import numpy as np
+from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
 
 
-def plot_tsne(embeddings, labels, save_path):
-    tsne = TSNE(n_components=2, perplexity=30, random_state=42)
-    reduced = tsne.fit_transform(embeddings)
+def plot_tsne(embeddings, labels, save_path, max_points=8000):
+    # downsample to PCA-50
+    X = embeddings
+    y = labels
+    if len(X) > max_points:
+        idx = np.random.choice(len(X), max_points, replace=False)
+        X = X[idx];
+        y = np.array(y)[idx]
+
+    X50 = PCA(n_components=50, random_state=42).fit_transform(X)
+    tsne = TSNE(n_components=2, perplexity=30, init="pca", learning_rate="auto", random_state=42)
+    reduced = tsne.fit_transform(X50)
     plt.tight_layout()
-    plt.scatter(reduced[:,0], reduced[:,1], c=labels, s=8)
+    plt.scatter(reduced[:,0], reduced[:,1], c=labels, s=84)
     plt.title("t-SNE projection of DECCS embeddings")
     plt.savefig(save_path, dpi=300)
     plt.close()

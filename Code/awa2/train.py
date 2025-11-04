@@ -6,12 +6,22 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.optim as optim
+from torch.cuda.amp import autocast, GradScaler
 from tqdm import tqdm
 
 from utils import (
     consensus_consistency_loss
 )
 
+
+def _prepare_model_for_cuda(model):
+    """
+    Safely convert convolutional layers to channels_last memory format for GPU speedup.
+    """
+    for m in model.modules():
+        if isinstance(m, (torch.nn.Conv2d, torch.nn.ConvTranspose2d)):
+            m.weight.data = m.weight.data.contiguous(memory_format=torch.channels_last)
+    return model
 
 def train_autoencoder(dataloader, model, use_gpu, **kwargs):
     """
@@ -25,36 +35,37 @@ def train_autoencoder(dataloader, model, use_gpu, **kwargs):
     """
     device = torch.device('cuda' if use_gpu and torch.cuda.is_available() else 'cpu')
     model.to(device)
+    if device.type == 'cuda':
+        model = _prepare_model_for_cuda(model)
+    model.to(device)
+
     criterion = nn.MSELoss()
     optimizer = optim.Adam(model.parameters(), lr=1e-3)
+    scaler = GradScaler(enabled=(device.type == 'cuda'))
 
     model.train()
     running_loss = 0.0
     for batch in dataloader:
         if batch is None:
             continue
-
-        # Flexible unpacking (2 or 3 elements)
         if len(batch) == 3:
             images, _, _ = batch
-        elif len(batch) == 2:
-            images, _ = batch
         else:
-            raise ValueError(f"Unexpected batch format: {len(batch)} elements")
+            images, _ = batch
 
-        images = images.to(device)
+        images = images.to(device, non_blocking=True).to(memory_format=torch.channels_last)
 
-        outputs = model(images)
-        loss = criterion(outputs, images)
-
-        optimizer.zero_grad()
-        loss.backward()
-        optimizer.step()
+        optimizer.zero_grad(set_to_none=True)
+        with autocast('cuda'):
+            outputs = model(images)
+            loss = criterion(outputs, images)
+        scaler.scale(loss).backward()
+        scaler.step(optimizer)
+        scaler.update()
 
         running_loss += loss.item()
 
-    epoch_loss = running_loss / len(dataloader)
-    return epoch_loss
+    return running_loss / max(1, len(dataloader))
 
 def evaluate_autoencoder(dataloader, model, use_gpu):
     """
@@ -103,48 +114,51 @@ def train_constrained_autoencoder(
         consensus_matrix (np.ndarray or None): Global consensus matrix (optional).
         lambda_consensus (float): Weight for consensus consistency loss.
     """
+
     device = torch.device('cuda' if use_gpu and torch.cuda.is_available() else 'cpu')
-    model = model.to(device)
-    model.train()
+    model.to(device)
+    if device.type == 'cuda':
+        model = _prepare_model_for_cuda(model)
+    model.to(device)
 
     recon_loss_fn = nn.MSELoss()
     tag_loss_fn = nn.BCEWithLogitsLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
-
     all_losses = []
+    scaler = torch.amp.GradScaler(enabled=(device.type == 'cuda'))
 
     for epoch in range(num_epochs):
         running_loss = 0.0
-
         for batch in tqdm(dataloader, desc=f"Epoch {epoch + 1}/{num_epochs}"):
+            if batch is None:
+                continue
+
             images, symbolic_tags, idx = batch
-            images = images.to(device)
-            symbolic_tags = symbolic_tags.to(device)
-
-            # Forward pass
-            recon, tag_logits = model(images)
-            recon_loss = recon_loss_fn(recon, images)
-            tag_loss = tag_loss_fn(tag_logits, symbolic_tags)
-
-            # Consensus loss (if global consensus provided)
-            if consensus_matrix is not None and lambda_consensus > 0:
-                with torch.no_grad():
-                    # Get embeddings for this batch (for alignment)
-                    z = model.get_embeddings(images).detach()
-                # Extract submatrix corresponding to current batch indices
-                if isinstance(idx, torch.Tensor):
-                    idx = idx.cpu().numpy()
-                consensus_sub = consensus_matrix[np.ix_(idx, idx)]
-                consensus_loss = consensus_consistency_loss(z, consensus_sub)
-                total_loss = recon_loss + tag_tuner * tag_loss + lambda_consensus * consensus_loss
-            else:
-                total_loss = recon_loss + tag_tuner * tag_loss
+            images = images.to(device, non_blocking=True).to(memory_format=torch.channels_last)
+            symbolic_tags = symbolic_tags.to(device, non_blocking=True)
 
             optimizer.zero_grad(set_to_none=True)
-            total_loss.backward()
-            optimizer.step()
+            with torch.amp.autocast('cuda'):
+                recon, tag_logits = model(images)
+                recon_loss = recon_loss_fn(recon, images)
+                tag_loss = tag_loss_fn(tag_logits, symbolic_tags)
 
-            running_loss += total_loss.item()
+                if consensus_matrix is not None and lambda_consensus > 0:
+                    with torch.no_grad():
+                        z = model.get_embeddings(images)
+                    if isinstance(idx, torch.Tensor):
+                        idx = idx.cpu().numpy()
+                    consensus_sub = consensus_matrix[np.ix_(idx, idx)]
+                    consensus_loss = consensus_consistency_loss(z, consensus_sub)
+                    total_loss = recon_loss + tag_tuner * tag_loss + lambda_consensus * consensus_loss
+                else:
+                    total_loss = recon_loss + tag_tuner * tag_loss
+
+            scaler.scale(total_loss).backward()
+            scaler.step(optimizer)
+            scaler.update()
+
+            running_loss += total_loss.detach().item()
 
         epoch_loss = running_loss / len(dataloader)
         all_losses.append(epoch_loss)

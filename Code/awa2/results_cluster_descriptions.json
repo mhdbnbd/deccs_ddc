@@ -1,801 +1,682 @@
 [
   {
     "cluster_id": 0,
-    "num_samples": 509,
+    "num_samples": 12,
     "top_attributes": [
       "quadrapedal",
+      "furry",
       "walks",
-      "ground",
-      "oldworld",
-      "furry"
+      "newworld",
+      "tail"
     ],
     "sample_images": [
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/seal/seal_10761.jpg",
-        "label": 24
+        "image_path": "AwA2-sample/JPEGImages/leopard/leopard_10042.jpg",
+        "label": 15
       },
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/elephant/elephant_10729.jpg",
-        "label": 19
+        "image_path": "AwA2-sample/JPEGImages/wolf/wolf_10029.jpg",
+        "label": 32
       },
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/humpback+whale/humpback+whale_10032.jpg",
-        "label": 18
+        "image_path": "AwA2-sample/JPEGImages/collie/collie_10126.jpg",
+        "label": 46
       }
     ]
   },
   {
     "cluster_id": 1,
-    "num_samples": 681,
+    "num_samples": 5,
     "top_attributes": [
       "quadrapedal",
-      "walks",
-      "oldworld",
+      "big",
       "ground",
-      "furry"
+      "oldworld",
+      "walks"
     ],
     "sample_images": [
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/german+shepherd/german+shepherd_10773.jpg",
-        "label": 8
+        "image_path": "AwA2-sample/JPEGImages/rhinoceros/rhinoceros_10298.jpg",
+        "label": 28
       },
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/grizzly+bear/grizzly+bear_10300.jpg",
-        "label": 2
+        "image_path": "AwA2-sample/JPEGImages/rhinoceros/rhinoceros_10373.jpg",
+        "label": 28
       },
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/dalmatian/dalmatian_10510.jpg",
+        "image_path": "AwA2-sample/JPEGImages/dalmatian/dalmatian_10248.jpg",
         "label": 5
       }
     ]
   },
   {
     "cluster_id": 2,
-    "num_samples": 285,
+    "num_samples": 7,
     "top_attributes": [
-      "quadrapedal",
-      "walks",
-      "ground",
+      "fast",
       "oldworld",
-      "furry"
+      "agility",
+      "active",
+      "quadrapedal"
     ],
     "sample_images": [
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/blue+whale/blue+whale_10040.jpg",
-        "label": 9
+        "image_path": "AwA2-sample/JPEGImages/dolphin/dolphin_10521.jpg",
+        "label": 50
       },
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/cow/cow_11283.jpg",
-        "label": 49
+        "image_path": "AwA2-sample/JPEGImages/deer/deer_10283.jpg",
+        "label": 40
       },
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/leopard/leopard_10084.jpg",
-        "label": 15
+        "image_path": "AwA2-sample/JPEGImages/seal/seal_10112.jpg",
+        "label": 24
       }
     ]
   },
   {
     "cluster_id": 3,
-    "num_samples": 1873,
+    "num_samples": 1,
     "top_attributes": [
-      "quadrapedal",
-      "walks",
+      "big",
       "oldworld",
-      "ground",
-      "furry"
+      "gray",
+      "toughskin",
+      "quadrapedal"
     ],
     "sample_images": [
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/german+shepherd/german+shepherd_11012.jpg",
-        "label": 8
-      },
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/pig/pig_10336.jpg",
-        "label": 42
-      },
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/sheep/sheep_10289.jpg",
-        "label": 23
+        "image_path": "AwA2-sample/JPEGImages/elephant/elephant_10822.jpg",
+        "label": 19
       }
     ]
   },
   {
     "cluster_id": 4,
-    "num_samples": 1143,
+    "num_samples": 3,
     "top_attributes": [
       "quadrapedal",
-      "walks",
-      "ground",
-      "oldworld",
-      "furry"
+      "meat",
+      "furry",
+      "paws",
+      "tail"
     ],
     "sample_images": [
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/pig/pig_10339.jpg",
-        "label": 42
+        "image_path": "AwA2-sample/JPEGImages/collie/collie_10594.jpg",
+        "label": 46
       },
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/rabbit/rabbit_10491.jpg",
-        "label": 29
+        "image_path": "AwA2-sample/JPEGImages/wolf/wolf_10271.jpg",
+        "label": 32
       },
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/rabbit/rabbit_10974.jpg",
-        "label": 29
+        "image_path": "AwA2-sample/JPEGImages/tiger/tiger_10480.jpg",
+        "label": 13
       }
     ]
   },
   {
     "cluster_id": 5,
-    "num_samples": 1247,
+    "num_samples": 6,
     "top_attributes": [
       "quadrapedal",
-      "walks",
-      "ground",
+      "tail",
       "oldworld",
-      "furry"
+      "furry",
+      "gray"
     ],
     "sample_images": [
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/deer/deer_10609.jpg",
-        "label": 40
+        "image_path": "AwA2-sample/JPEGImages/dolphin/dolphin_10264.jpg",
+        "label": 50
       },
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/sheep/sheep_10892.jpg",
-        "label": 23
+        "image_path": "AwA2-sample/JPEGImages/persian+cat/persian+cat_10244.jpg",
+        "label": 6
       },
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/cow/cow_10597.jpg",
-        "label": 49
+        "image_path": "AwA2-sample/JPEGImages/leopard/leopard_10601.jpg",
+        "label": 15
       }
     ]
   },
   {
     "cluster_id": 6,
-    "num_samples": 393,
+    "num_samples": 8,
     "top_attributes": [
-      "quadrapedal",
-      "walks",
-      "oldworld",
-      "ground",
+      "big",
+      "strong",
+      "fast",
+      "bulbous",
       "furry"
     ],
     "sample_images": [
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/grizzly+bear/grizzly+bear_10802.jpg",
+        "image_path": "AwA2-sample/JPEGImages/deer/deer_10908.jpg",
+        "label": 40
+      },
+      {
+        "image_path": "AwA2-sample/JPEGImages/grizzly+bear/grizzly+bear_10458.jpg",
         "label": 2
       },
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/dolphin/dolphin_10499.jpg",
-        "label": 50
-      },
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/horse/horse_11349.jpg",
-        "label": 7
+        "image_path": "AwA2-sample/JPEGImages/killer+whale/killer+whale_10242.jpg",
+        "label": 3
       }
     ]
   },
   {
     "cluster_id": 7,
-    "num_samples": 809,
+    "num_samples": 5,
     "top_attributes": [
-      "quadrapedal",
-      "walks",
       "oldworld",
-      "ground",
-      "big"
+      "fast",
+      "agility",
+      "tail",
+      "group"
     ],
     "sample_images": [
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/hippopotamus/hippopotamus_10634.jpg",
-        "label": 14
+        "image_path": "AwA2-sample/JPEGImages/lion/lion_10307.jpg",
+        "label": 43
       },
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/siamese+cat/siamese+cat_10335.jpg",
-        "label": 10
+        "image_path": "AwA2-sample/JPEGImages/persian+cat/persian+cat_10723.jpg",
+        "label": 6
       },
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/elephant/elephant_10645.jpg",
-        "label": 19
+        "image_path": "AwA2-sample/JPEGImages/seal/seal_10708.jpg",
+        "label": 24
       }
     ]
   },
   {
     "cluster_id": 8,
-    "num_samples": 529,
+    "num_samples": 2,
     "top_attributes": [
-      "quadrapedal",
-      "walks",
       "furry",
-      "ground",
-      "oldworld"
+      "brown",
+      "newworld",
+      "fish",
+      "forest"
     ],
     "sample_images": [
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/rabbit/rabbit_10590.jpg",
-        "label": 29
+        "image_path": "AwA2-sample/JPEGImages/grizzly+bear/grizzly+bear_10775.jpg",
+        "label": 2
       },
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/buffalo/buffalo_10219.jpg",
-        "label": 37
-      },
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/lion/lion_10239.jpg",
-        "label": 43
+        "image_path": "AwA2-sample/JPEGImages/otter/otter_10599.jpg",
+        "label": 36
       }
     ]
   },
   {
     "cluster_id": 9,
-    "num_samples": 1724,
+    "num_samples": 15,
     "top_attributes": [
       "quadrapedal",
+      "oldworld",
       "walks",
       "ground",
-      "oldworld",
-      "furry"
+      "big"
     ],
     "sample_images": [
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/elephant/elephant_10514.jpg",
-        "label": 19
+        "image_path": "AwA2-sample/JPEGImages/killer+whale/killer+whale_10119.jpg",
+        "label": 3
       },
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/zebra/zebra_10302.jpg",
-        "label": 38
+        "image_path": "AwA2-sample/JPEGImages/gorilla/gorilla_10514.jpg",
+        "label": 20
       },
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/horse/horse_11539.jpg",
+        "image_path": "AwA2-sample/JPEGImages/horse/horse_11387.jpg",
         "label": 7
       }
     ]
   },
   {
     "cluster_id": 10,
-    "num_samples": 793,
+    "num_samples": 5,
     "top_attributes": [
+      "tail",
+      "brown",
       "quadrapedal",
-      "walks",
-      "furry",
-      "ground",
-      "oldworld"
+      "fast",
+      "furry"
     ],
     "sample_images": [
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/persian+cat/persian+cat_10444.jpg",
-        "label": 6
+        "image_path": "AwA2-sample/JPEGImages/lion/lion_10082.jpg",
+        "label": 43
       },
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/buffalo/buffalo_10264.jpg",
-        "label": 37
+        "image_path": "AwA2-sample/JPEGImages/cow/cow_11100.jpg",
+        "label": 49
       },
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/giraffe/giraffe_10519.jpg",
-        "label": 31
+        "image_path": "AwA2-sample/JPEGImages/deer/deer_10103.jpg",
+        "label": 40
       }
     ]
   },
   {
     "cluster_id": 11,
-    "num_samples": 1359,
+    "num_samples": 1,
     "top_attributes": [
-      "quadrapedal",
-      "walks",
-      "ground",
-      "oldworld",
-      "furry"
+      "nocturnal",
+      "flys",
+      "black",
+      "fast",
+      "cave"
     ],
     "sample_images": [
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/chihuahua/chihuahua_10179.jpg",
-        "label": 33
-      },
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/rat/rat_10296.jpg",
-        "label": 34
-      },
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/rabbit/rabbit_10584.jpg",
-        "label": 29
-      }
-    ]
-  },
-  {
-    "cluster_id": 12,
-    "num_samples": 594,
-    "top_attributes": [
-      "quadrapedal",
-      "walks",
-      "ground",
-      "furry",
-      "oldworld"
-    ],
-    "sample_images": [
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/zebra/zebra_10052.jpg",
-        "label": 38
-      },
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/humpback+whale/humpback+whale_10307.jpg",
-        "label": 18
-      },
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/collie/collie_10041.jpg",
-        "label": 46
-      }
-    ]
-  },
-  {
-    "cluster_id": 13,
-    "num_samples": 1045,
-    "top_attributes": [
-      "quadrapedal",
-      "walks",
-      "oldworld",
-      "ground",
-      "furry"
-    ],
-    "sample_images": [
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/raccoon/raccoon_10318.jpg",
-        "label": 48
-      },
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/leopard/leopard_10506.jpg",
-        "label": 15
-      },
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/cow/cow_10102.jpg",
-        "label": 49
-      }
-    ]
-  },
-  {
-    "cluster_id": 14,
-    "num_samples": 161,
-    "top_attributes": [
-      "quadrapedal",
-      "walks",
-      "oldworld",
-      "ground",
-      "big"
-    ],
-    "sample_images": [
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/tiger/tiger_10020.jpg",
-        "label": 13
-      },
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/ox/ox_10052.jpg",
-        "label": 21
-      },
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/seal/seal_10211.jpg",
-        "label": 24
-      }
-    ]
-  },
-  {
-    "cluster_id": 15,
-    "num_samples": 381,
-    "top_attributes": [
-      "quadrapedal",
-      "walks",
-      "ground",
-      "oldworld",
-      "furry"
-    ],
-    "sample_images": [
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/siamese+cat/siamese+cat_10013.jpg",
-        "label": 10
-      },
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/squirrel/squirrel_10810.jpg",
-        "label": 27
-      },
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/sheep/sheep_10861.jpg",
-        "label": 23
-      }
-    ]
-  },
-  {
-    "cluster_id": 16,
-    "num_samples": 980,
-    "top_attributes": [
-      "quadrapedal",
-      "walks",
-      "oldworld",
-      "ground",
-      "furry"
-    ],
-    "sample_images": [
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/hamster/hamster_10729.jpg",
-        "label": 26
-      },
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/tiger/tiger_10342.jpg",
-        "label": 13
-      },
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/persian+cat/persian+cat_10018.jpg",
-        "label": 6
-      }
-    ]
-  },
-  {
-    "cluster_id": 17,
-    "num_samples": 78,
-    "top_attributes": [
-      "quadrapedal",
-      "walks",
-      "ground",
-      "oldworld",
-      "furry"
-    ],
-    "sample_images": [
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/cow/cow_10708.jpg",
-        "label": 49
-      },
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/giraffe/giraffe_10135.jpg",
-        "label": 31
-      },
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/raccoon/raccoon_10467.jpg",
-        "label": 48
-      }
-    ]
-  },
-  {
-    "cluster_id": 18,
-    "num_samples": 333,
-    "top_attributes": [
-      "quadrapedal",
-      "walks",
-      "oldworld",
-      "ground",
-      "big"
-    ],
-    "sample_images": [
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/squirrel/squirrel_10193.jpg",
-        "label": 27
-      },
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/squirrel/squirrel_10774.jpg",
-        "label": 27
-      },
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/zebra/zebra_10322.jpg",
-        "label": 38
-      }
-    ]
-  },
-  {
-    "cluster_id": 19,
-    "num_samples": 89,
-    "top_attributes": [
-      "quadrapedal",
-      "oldworld",
-      "walks",
-      "furry",
-      "tail"
-    ],
-    "sample_images": [
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/wolf/wolf_10585.jpg",
-        "label": 32
-      },
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/leopard/leopard_10386.jpg",
-        "label": 15
-      },
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/giant+panda/giant+panda_10203.jpg",
-        "label": 39
-      }
-    ]
-  },
-  {
-    "cluster_id": 20,
-    "num_samples": 577,
-    "top_attributes": [
-      "quadrapedal",
-      "walks",
-      "ground",
-      "oldworld",
-      "furry"
-    ],
-    "sample_images": [
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/chihuahua/chihuahua_10198.jpg",
-        "label": 33
-      },
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/sheep/sheep_11183.jpg",
-        "label": 23
-      },
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/giant+panda/giant+panda_10275.jpg",
-        "label": 39
-      }
-    ]
-  },
-  {
-    "cluster_id": 21,
-    "num_samples": 1963,
-    "top_attributes": [
-      "quadrapedal",
-      "walks",
-      "ground",
-      "oldworld",
-      "furry"
-    ],
-    "sample_images": [
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/horse/horse_10309.jpg",
-        "label": 7
-      },
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/cow/cow_10435.jpg",
-        "label": 49
-      },
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/bat/bat_10171.jpg",
+        "image_path": "AwA2-sample/JPEGImages/bat/bat_10022.jpg",
         "label": 30
       }
     ]
   },
   {
-    "cluster_id": 22,
-    "num_samples": 1474,
+    "cluster_id": 12,
+    "num_samples": 5,
+    "top_attributes": [
+      "newworld",
+      "brown",
+      "quadrapedal",
+      "furry",
+      "ground"
+    ],
+    "sample_images": [
+      {
+        "image_path": "AwA2-sample/JPEGImages/mouse/mouse_10060.jpg",
+        "label": 44
+      },
+      {
+        "image_path": "AwA2-sample/JPEGImages/wolf/wolf_10399.jpg",
+        "label": 32
+      },
+      {
+        "image_path": "AwA2-sample/JPEGImages/deer/deer_10445.jpg",
+        "label": 40
+      }
+    ]
+  },
+  {
+    "cluster_id": 13,
+    "num_samples": 9,
+    "top_attributes": [
+      "quadrapedal",
+      "white",
+      "oldworld",
+      "furry",
+      "walks"
+    ],
+    "sample_images": [
+      {
+        "image_path": "AwA2-sample/JPEGImages/rabbit/rabbit_10699.jpg",
+        "label": 29
+      },
+      {
+        "image_path": "AwA2-sample/JPEGImages/collie/collie_10261.jpg",
+        "label": 46
+      },
+      {
+        "image_path": "AwA2-sample/JPEGImages/deer/deer_10036.jpg",
+        "label": 40
+      }
+    ]
+  },
+  {
+    "cluster_id": 14,
+    "num_samples": 1,
+    "top_attributes": [
+      "arctic",
+      "white",
+      "big",
+      "furry",
+      "strong"
+    ],
+    "sample_images": [
+      {
+        "image_path": "AwA2-sample/JPEGImages/polar+bear/polar+bear_10553.jpg",
+        "label": 45
+      }
+    ]
+  },
+  {
+    "cluster_id": 15,
+    "num_samples": 14,
+    "top_attributes": [
+      "quadrapedal",
+      "tail",
+      "fast",
+      "active",
+      "walks"
+    ],
+    "sample_images": [
+      {
+        "image_path": "AwA2-sample/JPEGImages/german+shepherd/german+shepherd_10096.jpg",
+        "label": 8
+      },
+      {
+        "image_path": "AwA2-sample/JPEGImages/weasel/weasel_10199.jpg",
+        "label": 35
+      },
+      {
+        "image_path": "AwA2-sample/JPEGImages/collie/collie_10866.jpg",
+        "label": 46
+      }
+    ]
+  },
+  {
+    "cluster_id": 16,
+    "num_samples": 2,
+    "top_attributes": [
+      "jungle",
+      "furry",
+      "oldworld",
+      "group",
+      "fast"
+    ],
+    "sample_images": [
+      {
+        "image_path": "AwA2-sample/JPEGImages/lion/lion_10532.jpg",
+        "label": 43
+      },
+      {
+        "image_path": "AwA2-sample/JPEGImages/chimpanzee/chimpanzee_10385.jpg",
+        "label": 25
+      }
+    ]
+  },
+  {
+    "cluster_id": 17,
+    "num_samples": 9,
     "top_attributes": [
       "quadrapedal",
       "walks",
+      "big",
       "oldworld",
+      "ground"
+    ],
+    "sample_images": [
+      {
+        "image_path": "AwA2-sample/JPEGImages/horse/horse_10787.jpg",
+        "label": 7
+      },
+      {
+        "image_path": "AwA2-sample/JPEGImages/tiger/tiger_10758.jpg",
+        "label": 13
+      },
+      {
+        "image_path": "AwA2-sample/JPEGImages/elephant/elephant_10076.jpg",
+        "label": 19
+      }
+    ]
+  },
+  {
+    "cluster_id": 18,
+    "num_samples": 3,
+    "top_attributes": [
+      "newworld",
+      "brown",
       "ground",
+      "quadrapedal",
+      "tail"
+    ],
+    "sample_images": [
+      {
+        "image_path": "AwA2-sample/JPEGImages/seal/seal_10969.jpg",
+        "label": 24
+      },
+      {
+        "image_path": "AwA2-sample/JPEGImages/rat/rat_10295.jpg",
+        "label": 34
+      },
+      {
+        "image_path": "AwA2-sample/JPEGImages/moose/moose_10490.jpg",
+        "label": 16
+      }
+    ]
+  },
+  {
+    "cluster_id": 19,
+    "num_samples": 1,
+    "top_attributes": [
+      "meat",
+      "stalker",
+      "strong",
+      "hunter",
+      "meatteeth"
+    ],
+    "sample_images": [
+      {
+        "image_path": "AwA2-sample/JPEGImages/lion/lion_10131.jpg",
+        "label": 43
+      }
+    ]
+  },
+  {
+    "cluster_id": 20,
+    "num_samples": 6,
+    "top_attributes": [
+      "furry",
+      "fast",
+      "quadrapedal",
+      "walks",
       "big"
     ],
     "sample_images": [
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/grizzly+bear/grizzly+bear_10102.jpg",
+        "image_path": "AwA2-sample/JPEGImages/grizzly+bear/grizzly+bear_10302.jpg",
         "label": 2
       },
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/chihuahua/chihuahua_10038.jpg",
-        "label": 33
+        "image_path": "AwA2-sample/JPEGImages/bobcat/bobcat_10604.jpg",
+        "label": 41
       },
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/rabbit/rabbit_10620.jpg",
-        "label": 29
+        "image_path": "AwA2-sample/JPEGImages/killer+whale/killer+whale_10207.jpg",
+        "label": 3
+      }
+    ]
+  },
+  {
+    "cluster_id": 21,
+    "num_samples": 4,
+    "top_attributes": [
+      "quadrapedal",
+      "oldworld",
+      "walks",
+      "ground",
+      "black"
+    ],
+    "sample_images": [
+      {
+        "image_path": "AwA2-sample/JPEGImages/zebra/zebra_10976.jpg",
+        "label": 38
+      },
+      {
+        "image_path": "AwA2-sample/JPEGImages/zebra/zebra_10241.jpg",
+        "label": 38
+      },
+      {
+        "image_path": "AwA2-sample/JPEGImages/german+shepherd/german+shepherd_10191.jpg",
+        "label": 8
+      }
+    ]
+  },
+  {
+    "cluster_id": 22,
+    "num_samples": 3,
+    "top_attributes": [
+      "black",
+      "smart",
+      "fast",
+      "big",
+      "tail"
+    ],
+    "sample_images": [
+      {
+        "image_path": "AwA2-sample/JPEGImages/chimpanzee/chimpanzee_10376.jpg",
+        "label": 25
+      },
+      {
+        "image_path": "AwA2-sample/JPEGImages/dalmatian/dalmatian_10480.jpg",
+        "label": 5
+      },
+      {
+        "image_path": "AwA2-sample/JPEGImages/killer+whale/killer+whale_10051.jpg",
+        "label": 3
       }
     ]
   },
   {
     "cluster_id": 23,
-    "num_samples": 1674,
+    "num_samples": 3,
     "top_attributes": [
-      "quadrapedal",
-      "walks",
-      "ground",
       "oldworld",
-      "furry"
+      "walks",
+      "quadrapedal",
+      "black",
+      "big"
     ],
     "sample_images": [
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/squirrel/squirrel_10978.jpg",
-        "label": 27
+        "image_path": "AwA2-sample/JPEGImages/gorilla/gorilla_10204.jpg",
+        "label": 20
       },
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/buffalo/buffalo_10045.jpg",
-        "label": 37
+        "image_path": "AwA2-sample/JPEGImages/horse/horse_10596.jpg",
+        "label": 7
       },
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/pig/pig_10640.jpg",
-        "label": 42
+        "image_path": "AwA2-sample/JPEGImages/zebra/zebra_11084.jpg",
+        "label": 38
       }
     ]
   },
   {
     "cluster_id": 24,
-    "num_samples": 1412,
+    "num_samples": 6,
     "top_attributes": [
       "quadrapedal",
-      "walks",
-      "oldworld",
-      "ground",
-      "furry"
+      "brown",
+      "furry",
+      "black",
+      "newworld"
     ],
     "sample_images": [
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/deer/deer_11262.jpg",
-        "label": 40
+        "image_path": "AwA2-sample/JPEGImages/seal/seal_10268.jpg",
+        "label": 24
       },
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/antelope/antelope_10859.jpg",
-        "label": 1
+        "image_path": "AwA2-sample/JPEGImages/rhinoceros/rhinoceros_10652.jpg",
+        "label": 28
       },
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/buffalo/buffalo_10083.jpg",
-        "label": 37
+        "image_path": "AwA2-sample/JPEGImages/grizzly+bear/grizzly+bear_10074.jpg",
+        "label": 2
       }
     ]
   },
   {
     "cluster_id": 25,
-    "num_samples": 771,
+    "num_samples": 2,
     "top_attributes": [
-      "quadrapedal",
-      "walks",
-      "oldworld",
-      "ground",
-      "furry"
+      "fast",
+      "newworld",
+      "big",
+      "tail",
+      "strong"
     ],
     "sample_images": [
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/chimpanzee/chimpanzee_10336.jpg",
-        "label": 25
+        "image_path": "AwA2-sample/JPEGImages/dolphin/dolphin_10587.jpg",
+        "label": 50
       },
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/pig/pig_10153.jpg",
-        "label": 42
-      },
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/horse/horse_11307.jpg",
+        "image_path": "AwA2-sample/JPEGImages/horse/horse_11072.jpg",
         "label": 7
       }
     ]
   },
   {
     "cluster_id": 26,
-    "num_samples": 528,
+    "num_samples": 5,
     "top_attributes": [
-      "quadrapedal",
-      "walks",
-      "oldworld",
-      "ground",
-      "big"
+      "big",
+      "furry",
+      "strong",
+      "brown",
+      "newworld"
     ],
     "sample_images": [
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/weasel/weasel_10040.jpg",
-        "label": 35
+        "image_path": "AwA2-sample/JPEGImages/cow/cow_11313.jpg",
+        "label": 49
       },
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/humpback+whale/humpback+whale_10519.jpg",
-        "label": 18
+        "image_path": "AwA2-sample/JPEGImages/grizzly+bear/grizzly+bear_10502.jpg",
+        "label": 2
       },
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/spider+monkey/spider+monkey_10123.jpg",
-        "label": 17
+        "image_path": "AwA2-sample/JPEGImages/gorilla/gorilla_10250.jpg",
+        "label": 20
       }
     ]
   },
   {
     "cluster_id": 27,
-    "num_samples": 1978,
+    "num_samples": 8,
     "top_attributes": [
       "quadrapedal",
       "walks",
-      "oldworld",
       "ground",
-      "furry"
+      "oldworld",
+      "big"
     ],
     "sample_images": [
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/weasel/weasel_10093.jpg",
-        "label": 35
-      },
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/squirrel/squirrel_11115.jpg",
-        "label": 27
-      },
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/chihuahua/chihuahua_10490.jpg",
+        "image_path": "AwA2-sample/JPEGImages/chihuahua/chihuahua_10338.jpg",
         "label": 33
+      },
+      {
+        "image_path": "AwA2-sample/JPEGImages/horse/horse_11451.jpg",
+        "label": 7
+      },
+      {
+        "image_path": "AwA2-sample/JPEGImages/leopard/leopard_10110.jpg",
+        "label": 15
       }
     ]
   },
   {
     "cluster_id": 28,
-    "num_samples": 1372,
+    "num_samples": 9,
     "top_attributes": [
-      "quadrapedal",
-      "walks",
-      "ground",
-      "oldworld",
-      "furry"
+      "black",
+      "furry",
+      "big",
+      "brown",
+      "ground"
     ],
     "sample_images": [
       {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/giant+panda/giant+panda_10286.jpg",
+        "image_path": "AwA2-sample/JPEGImages/grizzly+bear/grizzly+bear_10259.jpg",
+        "label": 2
+      },
+      {
+        "image_path": "AwA2-sample/JPEGImages/weasel/weasel_10089.jpg",
+        "label": 35
+      },
+      {
+        "image_path": "AwA2-sample/JPEGImages/giant+panda/giant+panda_10737.jpg",
         "label": 39
-      },
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/rabbit/rabbit_10993.jpg",
-        "label": 29
-      },
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/fox/fox_10204.jpg",
-        "label": 22
-      }
-    ]
-  },
-  {
-    "cluster_id": 29,
-    "num_samples": 1723,
-    "top_attributes": [
-      "quadrapedal",
-      "walks",
-      "ground",
-      "oldworld",
-      "furry"
-    ],
-    "sample_images": [
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/tiger/tiger_10356.jpg",
-        "label": 13
-      },
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/deer/deer_10038.jpg",
-        "label": 40
-      },
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/antelope/antelope_10697.jpg",
-        "label": 1
-      }
-    ]
-  },
-  {
-    "cluster_id": 30,
-    "num_samples": 460,
-    "top_attributes": [
-      "quadrapedal",
-      "walks",
-      "oldworld",
-      "ground",
-      "furry"
-    ],
-    "sample_images": [
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/otter/otter_10116.jpg",
-        "label": 36
-      },
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/sheep/sheep_11317.jpg",
-        "label": 23
-      },
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/elephant/elephant_10549.jpg",
-        "label": 19
-      }
-    ]
-  },
-  {
-    "cluster_id": 31,
-    "num_samples": 919,
-    "top_attributes": [
-      "quadrapedal",
-      "walks",
-      "ground",
-      "oldworld",
-      "furry"
-    ],
-    "sample_images": [
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/siamese+cat/siamese+cat_10230.jpg",
-        "label": 10
-      },
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/polar+bear/polar+bear_10572.jpg",
-        "label": 45
-      },
-      {
-        "image_path": "data/AwA2-data/Animals_with_Attributes2/JPEGImages/persian+cat/persian+cat_10431.jpg",
-        "label": 6
       }
     ]
   }

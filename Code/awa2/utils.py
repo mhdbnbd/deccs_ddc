@@ -1,21 +1,21 @@
-import inspect
+import json
 import json
 import logging
 import os
 import random
 import shutil
 import time
-
-
 from logging.handlers import RotatingFileHandler
+
 import matplotlib.pyplot as plt
 import nbformat as nbf
 import numpy as np
 import torch
 import torch.nn.functional as F
 from PIL import Image, ImageDraw
-#from clustpy.deep import DEC
+# from clustpy.deep import DEC
 from scipy.optimize import linear_sum_assignment
+from scipy.sparse import lil_matrix
 from sklearn.cluster import (
     KMeans, SpectralClustering, AgglomerativeClustering, DBSCAN
 )
@@ -23,6 +23,7 @@ from sklearn.decomposition import PCA
 from sklearn.metrics import adjusted_rand_score, normalized_mutual_info_score, \
     silhouette_score
 from sklearn.mixture import GaussianMixture
+from sklearn.neighbors import NearestNeighbors, sort_graph_by_row_values
 from sklearn.preprocessing import StandardScaler
 
 
@@ -47,34 +48,35 @@ def extract_embeddings(dataloader, model, use_gpu):
     Works whether dataset returns (img, tag) or (img, tag, idx).
     """
     device = torch.device('cuda' if use_gpu and torch.cuda.is_available() else 'cpu')
-    model.to(device)
-    model.eval()
-    embeddings = []
+    model.to(device).eval()
 
-    with torch.no_grad():
-        for batch_idx, batch in enumerate(dataloader):
+    N = len(dataloader.dataset)
+    # infer embedding size from one mini-batch
+    with torch.inference_mode():
+        for first in dataloader:
+            if first is None:
+                continue
+            x = first[0] if len(first) == 2 else first[0]
+            x = x.to(device, non_blocking=True).to(memory_format=torch.channels_last)
+            z = model.get_embeddings(x)
+            D = z.shape[1]
+            break
+    out = torch.empty((N, D), dtype=z.dtype, device='cpu')
+
+    idx_write = 0
+    with torch.inference_mode():
+        for batch in dataloader:
             if batch is None:
                 continue
+            x = batch[0] if len(batch) == 2 else batch[0]
+            x = x.to(device, non_blocking=True).to(memory_format=torch.channels_last)
+            z = model.get_embeddings(x)
+            bsz = z.shape[0]
+            out[idx_write:idx_write + bsz].copy_(z.detach().cpu())
+            idx_write += bsz
 
-            # Handle both 2-tuple (img, tag) and 3-tuple (img, tag, idx)
-            if len(batch) == 3:
-                images, _, _ = batch
-            elif len(batch) == 2:
-                images, _ = batch
-            else:
-                raise ValueError(f"Unexpected batch structure: {len(batch)} elements")
-
-            torch.backends.cudnn.benchmark = True
-            images = images.to(device, non_blocking=True)
-            encoded = model.encoder(images)
-
-            # Global pooling (make embeddings flat)
-            encoded = torch.nn.functional.adaptive_avg_pool2d(encoded, 1)
-            embeddings.append(encoded.view(encoded.size(0), -1).cpu())
-
-    embeddings = torch.cat(embeddings, dim=0)
-    logging.info(f"Total extracted embeddings shape: {embeddings.shape}")
-    return embeddings
+    logging.info(f"Total extracted embeddings shape: {out.shape}")
+    return out
 
 
 def create_sample_dataset(source_dir, target_dir, classes_file, sample_size=100):
@@ -173,12 +175,36 @@ def generate_labels_file(img_dir, labels_file, classes_file):
 
 def custom_collate(batch):
     # Filter out None samples
-    batch = [b for b in batch if b[0] is not None]
-    
+    batch = [b for b in batch if b is not None and b[0] is not None]
     if len(batch) == 0:
         logging.warning("All samples in the batch are None. Skipping this batch.")
-        return None  # Instead of raising StopIteration, return an empty batch
-    return torch.utils.data.default_collate(batch)
+        return None
+
+    images, tags, idxs = zip(*batch)
+    return torch.stack(images, 0), torch.stack(tags, 0), torch.tensor(idxs)
+
+def build_sparse_consensus(base_labels, k=20):
+    n_clusterers, n_samples = base_labels.shape
+    A = lil_matrix((n_samples, n_samples), dtype=np.float32)
+
+    # Build kNN graph once (on features used to produce base_labels ideally, here we proxy with labels)
+    # We approximate: connect each point to its k nearest by index; for real kNN use the feature matrix.
+    nbrs = NearestNeighbors(n_neighbors=k, algorithm='auto').fit(
+        np.arange(n_samples).reshape(-1,1)
+    )
+    _, knn_idx = nbrs.kneighbors(np.arange(n_samples).reshape(-1,1))
+
+    for labels in base_labels:
+        for i in range(n_samples):
+            same = (labels[knn_idx[i]] == labels[i]).astype(np.float32)
+            A[i, knn_idx[i]] += same
+
+    A = (A + A.T).tocsr()
+    A /= float(n_clusterers)
+    A = sort_graph_by_row_values(A, warn_when_not_sorted=False)
+    return A
+
+
 
 def evaluate_clustering(embeddings, true_labels, k=None, mode_desc=""):
     """
@@ -247,8 +273,15 @@ def evaluate_clustering(embeddings, true_labels, k=None, mode_desc=""):
 
     base_labels = np.array(base_labels)
     logging.info(f"Completed {len(base_labels)} base clusterings.")
+    if base_labels.ndim != 2:
+        raise ValueError(f"Expected base_labels to be 2D, got shape {base_labels.shape}")
 
-    # === Build consensus matrix & cluster it ===
+    # === Build consensus matrix from base clusterings ===
+    consensus_matrix = build_consensus_matrix(base_labels)
+    consensus_matrix /= consensus_matrix.max()
+
+    # === Perform final consensus clustering ===
+
     consensus_matrix = build_consensus_matrix(base_labels)
     consensus_matrix /= consensus_matrix.max()
     final_labels = SpectralClustering(
@@ -304,7 +337,7 @@ def get_base_clusterings(embeddings_np, n_clusters=10):
     classical_models = {
         "KMeans": KMeans(
             n_clusters=n_clusters,
-            n_init=10,
+            n_init='auto',
             max_iter=300,
             algorithm="elkan",
             random_state=42
@@ -314,7 +347,7 @@ def get_base_clusterings(embeddings_np, n_clusters=10):
             affinity="nearest_neighbors",     # avoids dense kernel matrix
             n_neighbors=15,                  # build sparse graph instead of full
             assign_labels="kmeans",
-            eigen_solver="arpack",            # stable small-memory solver
+            eigen_solver="arpack",            # memory solver
             random_state=42
         ),
         "GMM": GaussianMixture(n_components=n_clusters, random_state=42,

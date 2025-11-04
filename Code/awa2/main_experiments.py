@@ -11,7 +11,6 @@ from numpy._typing import NDArray
 from torch.utils.data import DataLoader
 from torchvision import transforms
 
-from visualize_clusters import plot_tsne, save_cluster_examples
 from dataset import AwA2Dataset
 from model import Autoencoder, ConstrainedAutoencoder
 from train import train_autoencoder, train_constrained_autoencoder
@@ -25,6 +24,7 @@ from utils import (
     plot_experiment_results, get_base_clusterings, build_consensus_matrix, describe_clusters,
     summarize_clusters_with_attributes, generate_cluster_report
 )
+from visualize_clusters import plot_tsne, save_cluster_examples
 
 
 def select_device():
@@ -38,9 +38,11 @@ def select_device():
         logging.info("Using CPU")
     return device
 
-device = select_device()
-
 setup_logging()
+device = select_device()
+torch.backends.cudnn.benchmark = True
+if torch.cuda.is_available():
+    torch.set_float32_matmul_precision('high')
 
 def main():
     parser = argparse.ArgumentParser(description="AwA2 pipeline")
@@ -93,7 +95,16 @@ def main():
         per_class_var.append(v)
     logging.info(f"Mean per-class tag variance: {np.mean(per_class_var):.6f}")
 
-    dataloader = DataLoader(awa2_dataset, batch_size=32, shuffle=True, collate_fn=custom_collate)
+    dataloader = DataLoader(
+        awa2_dataset,
+        batch_size=256,
+        num_workers=8,
+        pin_memory=True,
+        persistent_workers=True,
+        prefetch_factor=4,
+        collate_fn=custom_collate,
+        shuffle=True)
+
     logging.info(f"Dataset created with {len(awa2_dataset)} samples.")
 
     if args.mode in ["ae", "oracle"]:
@@ -112,10 +123,11 @@ def main():
         # --- Compute global consensus once per epoch (DECCS only) ---
         consensus_matrix = None
         if args.mode == "deccs":
-            embeddings_np = extract_embeddings(dataloader, model, args.use_gpu).numpy()
-            base_labels = get_base_clusterings(embeddings_np, n_clusters=len(np.unique(awa2_dataset.labels)))
-            consensus_matrix = build_consensus_matrix(base_labels)
-            logging.info(f"[DECCS] Consensus matrix built for epoch {epoch + 1}")
+            if (epoch == 0) or (epoch % 5 == 4): # build consensus_matrix every 5 epochs
+                embeddings_np = extract_embeddings(dataloader, model, args.use_gpu).numpy()
+                base_labels = get_base_clusterings(embeddings_np, n_clusters=len(np.unique(awa2_dataset.labels)))
+                consensus_matrix = build_consensus_matrix(base_labels)
+                logging.info(f"[DECCS] Consensus matrix built for epoch {epoch + 1}")
 
         # --- Train epoch ---
         epoch_loss = train_fn(
