@@ -40,4 +40,5 @@ https://wakatime.com/dashboard
 3010 4h --"clustering consensus with clustPy"  
 3110 2h --"clustering consensus with clustPy"  
 0211 8h --"dynamic consensus & tag loss weighting w/ hyperparameter tuning, 
-t-SNE visualization and per-cluster image sampling "
+t-SNE visualization and per-cluster image sampling"  
+0311 5h --"refinements for running on luke/gpu"

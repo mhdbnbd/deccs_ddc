@@ -14,7 +14,7 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 from PIL import Image, ImageDraw
-from clustpy.deep import DEC, DDC
+#from clustpy.deep import DEC
 from scipy.optimize import linear_sum_assignment
 from sklearn.cluster import (
     KMeans, SpectralClustering, AgglomerativeClustering, DBSCAN
@@ -288,7 +288,7 @@ def get_base_clusterings(embeddings_np, n_clusters=10):
     """
     Build a hybrid ensemble of deep + classical clusterers for DECCS.
 
-    Deep:  DEC, DDC  (from ClustPy)
+    Deep:  DEC  (from ClustPy)
     Classical: KMeans, Spectral, GMM, Agglomerative, DBSCAN  (from scikit-learn)
 
     This version automatically adapts to ClustPy API differences (v0.0.2+)
@@ -300,7 +300,7 @@ def get_base_clusterings(embeddings_np, n_clusters=10):
 
     # --- Prepare ensemble containers ---
     base_labels = []
-    deep_models = {"DEC": DEC, "DDC": DDC}
+    #deep_models = {"DEC": DEC}
     classical_models = {
         "KMeans": KMeans(
             n_clusters=n_clusters,
@@ -328,18 +328,18 @@ def get_base_clusterings(embeddings_np, n_clusters=10):
     }
 
     # --- Deep clustering ensemble ---
-    for name, Cls in deep_models.items():
-        start = time.time()
-        try:
-            model = Cls(n_clusters=n_clusters) if "n_clusters" in inspect.signature(Cls).parameters else Cls()
-            labels = model.fit_predict(X)
-            if np.isnan(labels).any():
-                logging.warning(f"{name} produced NaNs — skipping.")
-                continue
-            base_labels.append(labels)
-            logging.info(f"[DECCS] Deep base clustering '{name}' completed in {time.time() - start:.2f}s.")
-        except Exception as e:
-            logging.warning(f"[DECCS] Deep clustering '{name}' failed: {e}")
+    #for name, Cls in deep_models.items():
+    #    start = time.time()
+    #    try:
+    #        model = Cls(n_clusters=n_clusters) if "n_clusters" in inspect.signature(Cls).parameters else Cls()
+    #        labels = model.fit_predict(X)
+    #        if np.isnan(labels).any():
+    #            logging.warning(f"{name} produced NaNs — skipping.")
+    #            continue
+    #        base_labels.append(labels)
+    #        logging.info(f"[DECCS] Deep base clustering '{name}' completed in {time.time() - start:.2f}s.")
+    #    except Exception as e:
+    #        logging.warning(f"[DECCS] Deep clustering '{name}' failed: {e}")
 
     # --- Classical clustering ensemble ---
     for name, algo in classical_models.items():
@@ -502,7 +502,6 @@ def summarize_clusters_with_attributes(
     # Save to JSON
     with open(output_json, "w") as f:
         json.dump(results, f, indent=2, default=default_serializer)
-    logging.info(f"[DDC] Cluster descriptions saved ({len(results)} clusters) → {output_json}")
     return results
 
 def generate_cluster_report(samples_dir="cluster_samples", out="cluster_report"):

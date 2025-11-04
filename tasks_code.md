@@ -1,9 +1,10 @@
 ToDo:  
-- optimise GPU usage (high prio)
+
 - Include some pseudo-code and/or schema to clarify steps.
 
 Ongoing/done(to be reviewed) :
 
+- optimise GPU usage (high prio)
 - apply different clustering methods and consensus
 - https://github.com/collinleiber/ClustPy/blob/main/clustpy/deep/_data_utils.py#L101
 - https://github.com/collinleiber/ClustPy/blob/main/clustpy/data/_utils.py#L99
