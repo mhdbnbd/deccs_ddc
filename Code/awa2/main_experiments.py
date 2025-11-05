@@ -159,7 +159,7 @@ def main():
     cluster_labels, cluster_descriptions = describe_clusters(embeddings, symbolic_tags)
     inspect_sample_clusters(awa2_dataset, cluster_labels)
     plot_tsne(embeddings.cpu().numpy(), cluster_labels, "results_tsne.png")
-    save_cluster_examples(cluster_labels, awa2_dataset)
+    save_cluster_examples(cluster_labels, awa2_dataset, mode=args.mode)
 
     summarize_clusters_with_attributes(
         cluster_labels=cluster_labels,
