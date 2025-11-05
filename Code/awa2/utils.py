@@ -6,6 +6,7 @@ import random
 import shutil
 import time
 from logging.handlers import RotatingFileHandler
+from joblib import parallel_backend
 
 import matplotlib.pyplot as plt
 import nbformat as nbf
@@ -249,7 +250,8 @@ def evaluate_clustering(embeddings, true_labels, k=None, mode_desc=""):
             n_neighbors=15,                  # build sparse graph instead of full
             assign_labels="kmeans",
             eigen_solver="arpack",            # stable small-memory solver
-            random_state=42
+            random_state=42,
+            n_jobs=1,
         ),
         "GMM": GaussianMixture(n_components=k, random_state=42,
                                covariance_type="full", reg_covar=1e-4, max_iter=200),
@@ -263,13 +265,16 @@ def evaluate_clustering(embeddings, true_labels, k=None, mode_desc=""):
 
     # Run base clusterings
     base_labels = []
-    for name, algo in clusterers.items():
-        try:
-            labels = algo.fit_predict(X)
-            base_labels.append(labels)
-            logging.info(f"Base clustering '{name}' completed.")
-        except Exception as e:
-            logging.warning(f"Base clustering '{name}' failed: {e}")
+    with parallel_backend('loky', n_jobs=1):
+        for name, algo in clusterers.items():
+            try:
+                labels = algo.fit_predict(X)
+                if np.unique(labels).size < 2:
+                    raise ValueError(f"{name} produced degenerate labels.")
+                base_labels.append(labels)
+                logging.info(f"Base clustering '{name}' completed.")
+            except Exception as e:
+                logging.warning(f"Base clustering '{name}' failed: {e}")
 
     base_labels = np.array(base_labels)
     logging.info(f"Completed {len(base_labels)} base clusterings.")

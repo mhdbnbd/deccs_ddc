@@ -4,7 +4,7 @@ ToDo:
 
 Ongoing/done(to be reviewed) :
 
-- optimise GPU usage (high prio)
+- optimise GPU usage
 - apply different clustering methods and consensus
 - https://github.com/collinleiber/ClustPy/blob/main/clustpy/deep/_data_utils.py#L101
 - https://github.com/collinleiber/ClustPy/blob/main/clustpy/data/_utils.py#L99
