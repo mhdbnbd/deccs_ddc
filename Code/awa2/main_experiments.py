@@ -2,6 +2,11 @@ import argparse
 import json
 import logging
 import os
+
+from sklearn.cluster import SpectralClustering
+from sklearn.metrics import adjusted_rand_score, normalized_mutual_info_score, silhouette_score
+
+# disable nested parallelism to prevent spectral threadpool deadlocks
 os.environ["OMP_NUM_THREADS"] = "1"
 os.environ["OPENBLAS_NUM_THREADS"] = "1"
 os.environ["MKL_NUM_THREADS"] = "1"
@@ -28,9 +33,9 @@ from utils import (
     save_detailed_results,
     evaluate_clustering,
     plot_experiment_results, get_base_clusterings, build_consensus_matrix, describe_clusters,
-    summarize_clusters_with_attributes, generate_cluster_report
+    summarize_clusters_with_attributes, generate_cluster_report, build_sparse_consensus, clustering_acc
 )
-from visualize_clusters import plot_tsne, save_cluster_examples
+from visualize_clusters import plot_tsne, save_cluster_examples, plot_deccs_loss
 
 
 def select_device():
@@ -132,7 +137,7 @@ def main():
             if (epoch == 0) or (epoch % 5 == 4): # build consensus_matrix every 5 epochs
                 embeddings_np = extract_embeddings(dataloader, model, args.use_gpu).numpy()
                 base_labels = get_base_clusterings(embeddings_np, n_clusters=len(np.unique(awa2_dataset.labels)))
-                consensus_matrix = build_consensus_matrix(base_labels)
+                consensus_matrix = build_sparse_consensus(base_labels, embeddings_np)
                 logging.info(f"[DECCS] Consensus matrix built for epoch {epoch + 1}")
 
         # --- Train epoch ---
@@ -181,7 +186,30 @@ def main():
     elif args.mode == "oracle":
         concat_features = np.concatenate([embeddings_np, symbolic_tags], axis=1)
         results = evaluate_clustering(concat_features, true_labels)
-    else:  # cae / deccs
+    elif args.mode == "deccs":
+        base_labels = get_base_clusterings(embeddings_np, n_clusters=len(np.unique(true_labels)))
+        consensus_matrix = build_consensus_matrix(base_labels)
+        consensus_matrix /= consensus_matrix.max()
+
+        final_labels = SpectralClustering(
+            n_clusters=len(np.unique(true_labels)),
+            affinity="precomputed",
+            assign_labels="kmeans",
+            random_state=42
+        ).fit_predict(consensus_matrix)
+
+        acc = clustering_acc(true_labels, final_labels)
+        ari = adjusted_rand_score(true_labels, final_labels)
+        nmi = normalized_mutual_info_score(true_labels, final_labels)
+        sil = silhouette_score(embeddings_np, final_labels)
+        results = {
+            "acc": float(acc),
+            "ari": float(ari),
+            "nmi": float(nmi),
+            "silhouette": float(sil),
+            "clusters": final_labels.tolist()
+        }
+    else:  # cae
         results = evaluate_clustering(embeddings_np, true_labels)
 
     save_detailed_results(
@@ -219,6 +247,7 @@ def main():
         clusters=clusters
     )
     generate_cluster_report()
+    plot_deccs_loss()
     logging.info(f"Total time: {time.time() - start:.2f}s")
 
 def inspect_sample_clusters(dataset, cluster_labels, num_clusters=3, samples_per_cluster=3):

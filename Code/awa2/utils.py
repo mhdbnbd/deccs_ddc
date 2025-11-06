@@ -6,7 +6,6 @@ import random
 import shutil
 import time
 from logging.handlers import RotatingFileHandler
-from joblib import parallel_backend
 
 import matplotlib.pyplot as plt
 import nbformat as nbf
@@ -14,6 +13,7 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 from PIL import Image, ImageDraw
+from joblib import parallel_backend
 # from clustpy.deep import DEC
 from scipy.optimize import linear_sum_assignment
 from scipy.sparse import lil_matrix
@@ -184,22 +184,21 @@ def custom_collate(batch):
     images, tags, idxs = zip(*batch)
     return torch.stack(images, 0), torch.stack(tags, 0), torch.tensor(idxs)
 
-def build_sparse_consensus(base_labels, k=20):
+def build_sparse_consensus(base_labels, embeddings_np, k=20):
     n_clusterers, n_samples = base_labels.shape
     A = lil_matrix((n_samples, n_samples), dtype=np.float32)
 
     # Build kNN graph once (on features used to produce base_labels ideally, here we proxy with labels)
     # We approximate: connect each point to its k nearest by index; for real kNN use the feature matrix.
-    nbrs = NearestNeighbors(n_neighbors=k, algorithm='auto').fit(
-        np.arange(n_samples).reshape(-1,1)
-    )
-    _, knn_idx = nbrs.kneighbors(np.arange(n_samples).reshape(-1,1))
+    X_norm = StandardScaler().fit_transform(embeddings_np)
+    nbrs = NearestNeighbors(n_neighbors=k, algorithm='auto', metric='euclidean')
+    nbrs.fit(X_norm)
+    _, knn_idx = nbrs.kneighbors(X_norm)
 
     for labels in base_labels:
         for i in range(n_samples):
             same = (labels[knn_idx[i]] == labels[i]).astype(np.float32)
             A[i, knn_idx[i]] += same
-
     A = (A + A.T).tocsr()
     A /= float(n_clusterers)
     A = sort_graph_by_row_values(A, warn_when_not_sorted=False)

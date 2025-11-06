@@ -64,6 +64,28 @@ def compute_silhouette_score(embeddings, clusters):
     silhouette_avg = silhouette_score(embeddings, clusters)
     print("Silhouette Score:", silhouette_avg)
 
+def compute_cluster_purity(true_labels, cluster_labels, save_path="cluster_purity.json"):
+    results = []
+    for c in np.unique(cluster_labels):
+        idx = np.where(cluster_labels == c)[0]
+        if len(idx) == 0:
+            continue
+        labels = true_labels[idx]
+        counts = Counter(labels)
+        purity = max(counts.values()) / len(labels)
+        entropy = -np.sum([(n/len(labels)) * np.log((n/len(labels)) + 1e-12) for n in counts.values()])
+        results.append({
+            "cluster": int(c),
+            "size": len(idx),
+            "purity": round(purity, 4),
+            "entropy": round(entropy, 4),
+            "dominant_label": int(max(counts, key=counts.get))
+        })
+    with open(save_path, "w") as f:
+        json.dump(results, f, indent=4)
+    print(f"Saved cluster purity results → {save_path}")
+
+
 # Run all validations
 def main():
     clusters = load_clusters_from_json(CLUSTER_RESULTS_FILE)
@@ -71,6 +93,7 @@ def main():
     # Replace these with actual data
     embeddings = np.random.rand(100, 2)  # Example 2D embeddings, replace with your actual embeddings
     true_labels = np.random.randint(0, 5, size=100)  # Example true labels, replace with your actual labels
+    compute_cluster_purity(true_labels, clusters)
 
     print_cluster_distribution(clusters)
     plot_clusters(embeddings, clusters)

@@ -174,6 +174,12 @@ def train_constrained_autoencoder(
 
             running_loss += total_loss.detach().item()
 
+        if 'loss_log' not in locals():
+            loss_log = {"total": [], "recon": [], "tag": []}
+        loss_log["total"].append(total_loss.item())
+        loss_log["recon"].append(recon_loss.item())
+        loss_log["tag"].append(tag_loss.item())
+
         epoch_loss = running_loss / len(dataloader)
         all_losses.append(epoch_loss)
         logging.info(f"Epoch {epoch+1}/{num_epochs} completed. "
@@ -183,5 +189,9 @@ def train_constrained_autoencoder(
         if torch.isnan(total_loss):
             logging.error("NaN detected in total_loss — check tag inputs or consensus matrix normalization.")
             continue
+        np.savez("results_deccs_loss_components.npz",
+                 total=np.array(loss_log["total"]),
+                 recon=np.array(loss_log["recon"]),
+                 tag=np.array(loss_log["tag"]))
 
     return all_losses

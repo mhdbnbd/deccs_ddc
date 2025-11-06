@@ -37,7 +37,7 @@ def plot_tsne(embeddings, labels, save_path, max_points=8000):
 
     # --- Plot the subsampled data ---
     plt.figure(figsize=(10, 8))
-    scatter = plt.scatter(reduced[:, 0], reduced[:, 1], c=y, s=8, cmap="tab20")
+    scatter = plt.scatter(reduced[:,0], reduced[:,1], c=y, s=8, cmap="tab20", alpha=0.8)
     plt.title("t-SNE projection of DECCS embeddings", fontsize=14)
     plt.colorbar(scatter)
     plt.tight_layout()
@@ -115,3 +115,20 @@ def save_cluster_examples(cluster_assignments, dataset, n_per_cluster=3, outdir=
 
     logging.info(f"Cluster sample saving complete — results stored in: {save_root}")
 
+def plot_deccs_loss(log_path="results_deccs_loss_components.npz", save_path="results_deccs_loss.png"):
+
+    data = np.load(log_path)
+    plt.figure()
+    epochs = np.arange(1, len(data["total"]) + 1)
+    for e in range(5, len(epochs), 5):
+        plt.axvline(x=e, color="gray", linestyle="--", alpha=0.3)
+    plt.plot(epochs, data["total"], label="Total Loss")
+    plt.plot(epochs, data["recon"], label="Reconstruction Loss", alpha=0.7)
+    plt.plot(epochs, data["tag"], label="Tag Loss", alpha=0.7)
+    plt.xlabel("Epochs")
+    plt.ylabel("Loss")
+    plt.title("DECCS Training Loss (component-wise)")
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(save_path, dpi=300)
+    plt.close()
