@@ -1,0 +1,313 @@
+\begin{thebibliography}{46}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Akata et~al.(2015)Akata, Reed, Walter, Lee, and Schiele]{Akata2015}
+Z.~Akata, S.~Reed, D.~Walter, H.~Lee, and B.~Schiele.
+\newblock Evaluation of output embeddings for fine-grained image
+  classification.
+\newblock In \emph{Proceedings of the IEEE Conference on Computer Vision and
+  Pattern Recognition (CVPR)}, pages 2927--2936, 2015.
+
+\bibitem[Akata et~al.(2016)Akata, Perronnin, Harchaoui, and Schmid]{Akata2016}
+Z.~Akata, F.~Perronnin, Z.~Harchaoui, and C.~Schmid.
+\newblock Label-embedding for image classification.
+\newblock volume~38, pages 1425--1438, 2016.
+
+\bibitem[Bengio et~al.(2013)Bengio, Courville, and Vincent]{Bengio2013}
+Y.~Bengio, A.~Courville, and P.~Vincent.
+\newblock Representation learning: A review and new perspectives.
+\newblock \emph{IEEE Transactions on Pattern Analysis and Machine
+  Intelligence}, 35\penalty0 (8):\penalty0 1798--1828, 2013.
+
+\bibitem[Caron et~al.(2018)Caron, Bojanowski, Joulin, and Douze]{Caron2018}
+M.~Caron, P.~Bojanowski, A.~Joulin, and M.~Douze.
+\newblock Deep clustering for unsupervised learning of visual features.
+\newblock In \emph{Proceedings of the European Conference on Computer Vision
+  (ECCV)}, pages 132--149, 2018.
+
+\bibitem[Caron et~al.(2020)Caron, Misra, Mairal, Goyal, Bojanowski, and
+  Joulin]{Caron2020}
+M.~Caron, I.~Misra, J.~Mairal, P.~Goyal, P.~Bojanowski, and A.~Joulin.
+\newblock Unsupervised learning of visual features by contrasting cluster
+  assignments.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, volume~33, pages 9912--9924, 2020.
+
+\bibitem[Chang et~al.(2017)Chang, Wang, Meng, Xiang, and Pan]{Chang2017}
+J.~Chang, L.~Wang, G.~Meng, S.~Xiang, and C.~Pan.
+\newblock Deep adaptive image clustering.
+\newblock In \emph{Proceedings of the IEEE International Conference on Computer
+  Vision (ICCV)}, pages 5879--5887, 2017.
+
+\bibitem[Chen et~al.(2020)Chen, Kornblith, Norouzi, and Hinton]{Chen2020}
+T.~Chen, S.~Kornblith, M.~Norouzi, and G.~Hinton.
+\newblock A simple framework for contrastive learning of visual
+  representations.
+\newblock In \emph{Proceedings of the 37th International Conference on Machine
+  Learning (ICML)}, pages 1597--1607, 2020.
+
+\bibitem[Chen and He(2021)]{Chen2021}
+X.~Chen and K.~He.
+\newblock Exploring simple siamese representation learning.
+\newblock pages 15750--15758, 2021.
+
+\bibitem[Crawshaw(2020)]{Crawshaw2020}
+M.~Crawshaw.
+\newblock Multi-task learning with deep neural networks: A survey.
+\newblock \emph{arXiv preprint arXiv:2009.09796}, 2020.
+
+\bibitem[Fred and Jain(2005)]{Fred2005}
+A.~L.~N. Fred and A.~K. Jain.
+\newblock Combining multiple clusterings using evidence accumulation.
+\newblock volume~27, pages 835--850, 2005.
+
+\bibitem[Grill et~al.(2020)Grill, Strub, Altch\'{e}, Tallec, Richemond,
+  Buchatskaya, Doersch, Pires, Guo, Azar, Piot, Kavukcuoglu, Munos, and
+  Valko]{Grill2020}
+J.-B. Grill, F.~Strub, F.~Altch\'{e}, C.~Tallec, P.~H. Richemond,
+  E.~Buchatskaya, C.~Doersch, B.~A. Pires, Z.~D. Guo, M.~G. Azar, B.~Piot,
+  K.~Kavukcuoglu, R.~Munos, and M.~Valko.
+\newblock Bootstrap your own latent: A new approach to self-supervised
+  learning.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, volume~33, pages 21271--21284, 2020.
+
+\bibitem[Guidotti et~al.(2018)Guidotti, Monreale, Ruggieri, Turini, Giannotti,
+  and Pedreschi]{Guidotti2018}
+R.~Guidotti, A.~Monreale, S.~Ruggieri, F.~Turini, F.~Giannotti, and
+  D.~Pedreschi.
+\newblock A survey of methods for explaining black box models.
+\newblock \emph{ACM Computing Surveys}, 51\penalty0 (5):\penalty0 1--42, 2018.
+
+\bibitem[Guo et~al.(2017)Guo, Gao, Liu, and Yin]{Guo2017}
+X.~Guo, L.~Gao, X.~Liu, and J.~Yin.
+\newblock Improved deep embedded clustering with local structure preservation.
+\newblock In \emph{Proceedings of the 26th International Joint Conference on
+  Artificial Intelligence (IJCAI)}, pages 1753--1759, 2017.
+
+\bibitem[He et~al.(2016)He, Zhang, Ren, and Sun]{He2016}
+K.~He, X.~Zhang, S.~Ren, and J.~Sun.
+\newblock Deep residual learning for image recognition.
+\newblock In \emph{Proceedings of the IEEE Conference on Computer Vision and
+  Pattern Recognition (CVPR)}, pages 770--778, 2016.
+
+\bibitem[He et~al.(2020)He, Fan, Wu, Xie, and Girshick]{He2020}
+K.~He, H.~Fan, Y.~Wu, S.~Xie, and R.~Girshick.
+\newblock Momentum contrast for unsupervised visual representation learning.
+\newblock In \emph{Proceedings of the IEEE/CVF Conference on Computer Vision
+  and Pattern Recognition (CVPR)}, pages 9729--9738, 2020.
+
+\bibitem[Ioffe and Szegedy(2015)]{Ioffe2015}
+S.~Ioffe and C.~Szegedy.
+\newblock Batch normalization: Accelerating deep network training by reducing
+  internal covariate shift.
+\newblock In \emph{Proceedings of the 32nd International Conference on Machine
+  Learning (ICML)}, pages 448--456, 2015.
+
+\bibitem[Jaiswal et~al.(2021)Jaiswal, Babu, Zadeh, Banerjee, and
+  Makedon]{Jaiswal2021}
+A.~Jaiswal, A.~R. Babu, M.~Z. Zadeh, D.~Banerjee, and F.~Makedon.
+\newblock A survey on contrastive self-supervised learning.
+\newblock \emph{Technologies}, 9\penalty0 (1):\penalty0 2, 2021.
+
+\bibitem[Jiang et~al.(2017)Jiang, Zheng, Tan, Tang, and Zhou]{Jiang2017}
+Z.~Jiang, Y.~Zheng, H.~Tan, B.~Tang, and H.~Zhou.
+\newblock Variational deep embedding: An unsupervised and generative approach
+  to clustering.
+\newblock In \emph{Proceedings of the 26th International Joint Conference on
+  Artificial Intelligence (IJCAI)}, pages 1965--1972, 2017.
+
+\bibitem[Kauffmann et~al.(2022)Kauffmann, Esders, Montavon, Samek, and
+  Müller]{Kauffmann2022}
+J.~Kauffmann, M.~Esders, G.~Montavon, W.~Samek, and K.-R. Müller.
+\newblock From clustering to cluster explanations via neural networks.
+\newblock \emph{IEEE Transactions on Neural Networks and Learning Systems},
+  2022.
+
+\bibitem[Kingma and Ba(2015)]{Kingma2015}
+D.~P. Kingma and J.~Ba.
+\newblock Adam: A method for stochastic optimization.
+\newblock In \emph{Proceedings of the International Conference on Learning
+  Representations (ICLR)}, 2015.
+
+\bibitem[Kingma and Welling(2014)]{Kingma2014}
+D.~P. Kingma and M.~Welling.
+\newblock Auto-encoding variational bayes.
+\newblock In \emph{Proceedings of the International Conference on Learning
+  Representations (ICLR)}, 2014.
+
+\bibitem[Lampert et~al.(2014)Lampert, Nickisch, and Harmeling]{Lampert2014}
+C.~H. Lampert, H.~Nickisch, and S.~Harmeling.
+\newblock Attribute-based classification for zero-shot visual object
+  categorization.
+\newblock \emph{IEEE Transactions on Pattern Analysis and Machine
+  Intelligence}, 36\penalty0 (3):\penalty0 453--465, 2014.
+
+\bibitem[LeCun et~al.(2015)LeCun, Bengio, and Hinton]{LeCun2015}
+Y.~LeCun, Y.~Bengio, and G.~Hinton.
+\newblock Deep learning.
+\newblock \emph{Nature}, 521\penalty0 (7553):\penalty0 436--444, 2015.
+
+\bibitem[Li et~al.(2021)Li, Hu, Liu, Peng, Zhou, and Peng]{Li2021}
+Y.~Li, P.~Hu, Z.~Liu, D.~Peng, J.~T. Zhou, and X.~Peng.
+\newblock Contrastive clustering.
+\newblock In \emph{Proceedings of the AAAI Conference on Artificial
+  Intelligence}, volume~35, pages 8547--8555, 2021.
+
+\bibitem[Mautz et~al.(2020)Mautz, Plant, and Böhm]{Mautz2020}
+D.~Mautz, C.~Plant, and C.~Böhm.
+\newblock Deep embedded cluster tree.
+\newblock In \emph{Proceedings of the IEEE International Conference on Data
+  Mining (ICDM)}, pages 1258--1263, 2020.
+
+\bibitem[McInnes et~al.(2018)McInnes, Healy, and Melville]{McInnes2018}
+L.~McInnes, J.~Healy, and J.~Melville.
+\newblock {UMAP}: Uniform manifold approximation and projection for dimension
+  reduction.
+\newblock \emph{arXiv preprint arXiv:1802.03426}, 2018.
+
+\bibitem[Miklautz et~al.(2021)Miklautz, Bauer, Mautz, Tschiatschek, Böhm, and
+  Plant]{Miklautz2021}
+L.~Miklautz, L.~Bauer, D.~Mautz, S.~Tschiatschek, C.~Böhm, and C.~Plant.
+\newblock Deep embedded clustering with consensus representations.
+\newblock In \emph{Proceedings of the IEEE International Conference on Data
+  Mining (ICDM)}, 2021.
+
+\bibitem[Min et~al.(2018)Min, Guo, Liu, Zhang, Cui, and Long]{Min2018}
+E.~Min, X.~Guo, Q.~Liu, G.~Zhang, J.~Cui, and J.~Long.
+\newblock A survey of clustering with deep learning: From the perspective of
+  network architecture.
+\newblock \emph{IEEE Access}, 6:\penalty0 39501--39514, 2018.
+
+\bibitem[Paszke et~al.(2019)Paszke, Gross, Massa, Lerer, Bradbury, Chanan,
+  Killeen, Lin, Gimelshein, Antiga, Desmaison, Köpf, Yang, DeVito, Raison,
+  Tejani, Chilamkurthy, Steiner, Fang, Bai, and Chintala]{Paszke2019}
+A.~Paszke, S.~Gross, F.~Massa, A.~Lerer, J.~Bradbury, G.~Chanan, T.~Killeen,
+  Z.~Lin, N.~Gimelshein, L.~Antiga, A.~Desmaison, A.~Köpf, E.~Yang, Z.~DeVito,
+  M.~Raison, A.~Tejani, S.~Chilamkurthy, B.~Steiner, L.~Fang, J.~Bai, and
+  S.~Chintala.
+\newblock {PyTorch}: An imperative style, high-performance deep learning
+  library.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, pages 8024--8035, 2019.
+
+\bibitem[Ren et~al.(2024)Ren, Pu, Yang, Xu, Li, Pu, Yu, and He]{Ren2024}
+Y.~Ren, J.~Pu, Z.~Yang, J.~Xu, G.~Li, X.~Pu, P.~S. Yu, and L.~He.
+\newblock Deep clustering: A comprehensive survey.
+\newblock \emph{IEEE Transactions on Neural Networks and Learning Systems},
+  2024.
+\newblock Early Access.
+
+\bibitem[Rousseeuw(1987)]{Rousseeuw1987}
+P.~J. Rousseeuw.
+\newblock Silhouettes: A graphical aid to the interpretation and validation of
+  cluster analysis.
+\newblock \emph{Journal of Computational and Applied Mathematics}, 20:\penalty0
+  53--65, 1987.
+\newblock Foundational metric paper.
+
+\bibitem[Ruder(2017)]{Ruder2017}
+S.~Ruder.
+\newblock An overview of multi-task learning in deep neural networks.
+\newblock \emph{arXiv preprint arXiv:1706.05098}, 2017.
+
+\bibitem[Saisubramanian et~al.(2020)Saisubramanian, Galhotra, and
+  Zilberstein]{Saisubramanian2020}
+S.~Saisubramanian, S.~Galhotra, and S.~Zilberstein.
+\newblock Balancing the tradeoff between clustering value and interpretability.
+\newblock In \emph{Proceedings of the AAAI/ACM Conference on AI, Ethics, and
+  Society (AIES)}, pages 351--357, 2020.
+
+\bibitem[Sambaturu et~al.(2020)Sambaturu, Gupta, Davidson, Ravi, Vullikanti,
+  and Warren]{Sambaturu2020}
+P.~Sambaturu, A.~Gupta, I.~Davidson, S.~S. Ravi, A.~Vullikanti, and A.~Warren.
+\newblock Efficient algorithms for generating provably near-optimal cluster
+  descriptors for explainability.
+\newblock In \emph{Proceedings of the AAAI Conference on Artificial
+  Intelligence}, volume~34, pages 1636--1643, 2020.
+
+\bibitem[Shen et~al.(2021)Shen, Shen, Wang, Qin, Torr, and Shao]{Shen2021}
+Y.~Shen, Z.~Shen, M.~Wang, J.~Qin, P.~Torr, and L.~Shao.
+\newblock You never cluster alone.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, volume~34, pages 27734--27746, 2021.
+
+\bibitem[Strehl and Ghosh(2002)]{Strehl2002}
+A.~Strehl and J.~Ghosh.
+\newblock Cluster ensembles -- a knowledge reuse framework for combining
+  multiple partitions.
+\newblock \emph{Journal of Machine Learning Research}, 3:\penalty0 583--617,
+  2002.
+
+\bibitem[van~der Maaten(2014)]{vanderMaaten2014}
+L.~van~der Maaten.
+\newblock Accelerating t-{SNE} using tree-based algorithms.
+\newblock \emph{Journal of Machine Learning Research}, 15\penalty0
+  (93):\penalty0 3221--3245, 2014.
+
+\bibitem[Vega-Pons and Ruiz-Shulcloper(2011)]{Vega-Pons2011}
+S.~Vega-Pons and J.~Ruiz-Shulcloper.
+\newblock A survey of clustering ensemble algorithms.
+\newblock \emph{International Journal of Pattern Recognition and Artificial
+  Intelligence}, 25\penalty0 (3):\penalty0 337--372, 2011.
+
+\bibitem[Vinh et~al.(2010)Vinh, Epps, and Bailey]{Vinh2010}
+N.~X. Vinh, J.~Epps, and J.~Bailey.
+\newblock Information theoretic measures for clusterings comparison: Variants,
+  properties, normalization and correction for chance.
+\newblock \emph{Journal of Machine Learning Research}, 11:\penalty0 2837--2854,
+  2010.
+
+\bibitem[Xian et~al.(2019)Xian, Lampert, Schiele, and Akata]{Xian2019}
+Y.~Xian, C.~H. Lampert, B.~Schiele, and Z.~Akata.
+\newblock Zero-shot learning -- a comprehensive evaluation of the good, the bad
+  and the ugly.
+\newblock \emph{IEEE Transactions on Pattern Analysis and Machine
+  Intelligence}, 41\penalty0 (9):\penalty0 2251--2265, 2019.
+
+\bibitem[Xie et~al.(2016)Xie, Girshick, and Farhadi]{Xie2016}
+J.~Xie, R.~Girshick, and A.~Farhadi.
+\newblock Unsupervised deep embedding for clustering analysis.
+\newblock In \emph{Proceedings of the 33rd International Conference on Machine
+  Learning (ICML)}, pages 478--487, 2016.
+
+\bibitem[Yang et~al.(2017)Yang, Fu, Sidiropoulos, and Hong]{Yang2017}
+B.~Yang, X.~Fu, N.~D. Sidiropoulos, and M.~Hong.
+\newblock Towards k-means-friendly spaces: Simultaneous deep learning and
+  clustering.
+\newblock In \emph{Proceedings of the 34th International Conference on Machine
+  Learning (ICML)}, pages 3861--3870, 2017.
+
+\bibitem[Yang et~al.(2016)Yang, Parikh, and Batra]{Yang2016}
+J.~Yang, D.~Parikh, and D.~Batra.
+\newblock Joint unsupervised learning of deep representations and image
+  clusters.
+\newblock In \emph{Proceedings of the IEEE Conference on Computer Vision and
+  Pattern Recognition (CVPR)}, pages 5147--5156, 2016.
+
+\bibitem[Zhang and Davidson(2021)]{Zhang2021}
+H.~Zhang and I.~Davidson.
+\newblock Deep descriptive clustering.
+\newblock In \emph{Proceedings of the 30th International Joint Conference on
+  Artificial Intelligence (IJCAI)}, pages 3670--3676, 2021.
+
+\bibitem[Zhong et~al.(2021)Zhong, Wu, Chen, Huang, Deng, Nie, Lin, and
+  Hua]{Zhong2021}
+H.~Zhong, J.~Wu, C.~Chen, J.~Huang, M.~Deng, L.~Nie, Z.~Lin, and X.-S. Hua.
+\newblock Graph contrastive clustering.
+\newblock In \emph{Proceedings of the IEEE/CVF International Conference on
+  Computer Vision (ICCV)}, pages 9224--9233, 2021.
+
+\bibitem[Zhou et~al.(2024)Zhou, Xu, Zheng, Chen, Li, Bu, Wu, Wang, Zhu, and
+  Ester]{Zhou2024}
+S.~Zhou, H.~Xu, Z.~Zheng, J.~Chen, Z.~Li, J.~Bu, J.~Wu, X.~Wang, W.~Zhu, and
+  M.~Ester.
+\newblock A comprehensive survey on deep clustering: Taxonomy, challenges, and
+  future directions.
+\newblock \emph{ACM Computing Surveys}, 56\penalty0 (4):\penalty0 1--40, 2024.
+
+\end{thebibliography}

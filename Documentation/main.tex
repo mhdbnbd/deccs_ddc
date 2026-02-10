@@ -18,6 +18,18 @@
 \usepackage{dsfont}
 \usepackage{algorithm}
 \usepackage{algorithmic}
+\usepackage{multirow}        % For spanning table rows
+\usepackage{multicol}        % For multi-column layouts
+\usepackage{pifont}          % For checkmarks/xmarks
+\usepackage{tikz}            % For diagrams
+\usepackage{enumitem}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{positioning,shapes,arrows}  % TikZ libraries needed
+
+% Define checkmark/xmark
+\newcommand{\cmark}{\ding{51}}
+\newcommand{\xmark}{\ding{55}}
 
 % Geometry settings
 \geometry{
@@ -92,7 +104,7 @@
 
         \vspace{0.5cm}
         \LARGE
-        for Enhanced Interpretability and Performance on AwA and APY Datasets
+        for Enhanced Interpretability and Performance on the AwA2 Dataset
 
         \vspace{1.5cm}
 
@@ -120,22 +132,14 @@
 % Abstract
 \begin{abstract}
     \addcontentsline{toc}{chapter}{Abstract}
-    This thesis introduces a novel approach to enhance the interpretability of the Deep Embedded Clustering with Consensus Representations (DECCS) algorithm by incorporating principles from the Deep Descriptive Clustering (DDC) framework. DECCS has shown significant advances in clustering precision but often falls short in terms of interpretability. This research aims to bridge this gap by refining the DECCS algorithm to not only generate clusters but also provide meaningful, cluster-level explanations that enhance transparency and comprehensibility in the clustering process.
+    This thesis investigates the integration of Deep Descriptive Clustering (DDC) principles into the Deep Embedded Clustering with Consensus Representations (DECCS) framework to address the challenge of interpretability in deep clustering systems. We develop a Constrained Autoencoder (CAE) architecture that combines reconstruction learning with semantic attribute prediction using the Animals with Attributes 2 (AwA2) dataset.
 
-The methodology involves adapting DECCS to effectively interface with specific datasets used in the DDC experimental framework, particularly the Animals with Attributes (AwA) and the aPascal \& aYahoo (aPY) datasets. This adaptation incorporates DDC’s symbolic level representations into DECCS, aiming to create a seamless integration between raw data clustering and semantic interpretability.
+Our implementation includes four experimental modes: a baseline autoencoder (AE), an oracle upper-bound using ground-truth attributes, a Constrained Autoencoder with tag supervision, and a DECCS mode with consensus clustering. The framework successfully trains and produces embeddings, though current results indicate that significant further work is needed to achieve meaningful clustering performance.
 
-A significant aspect of this thesis is the integration of DDC’s interpretative capabilities with DECCS’s clustering method. This integration strives to maintain the high quality of cluster formation inherent to DECCS while elevating the level of interpretability. The dual focus ensures that the resulting predictions are both accurate and comprehensible, providing insights into the underlying structure and relationships within the data.
+\textbf{Current Status:} The implementation is functional but preliminary results show clustering metrics near random-chance levels, suggesting issues with either the training procedure, hyperparameter configuration, or architectural choices that require further investigation. This thesis documents the methodology, implementation, and identifies specific areas for improvement.
 
-This thesis evaluates the integrated approach through extensive experiments, assessing both clustering performance and the quality of explanations generated. The evaluation includes comparisons with recent advancements and foundational algorithms in the field, demonstrating the efficacy of combining DECCS with DDC principles. By highlighting the advantages of this combination in practical clustering applications, the research contributes to the field of data clustering by offering a novel methodology that combines the efficiency of DECCS with the interpretative power of DDC.
-
-Overall, this research sets a new benchmark for transparent, understandable, and insightful data analysis in various domains, addressing the increasing demand for interpretability and accountability in complex data clustering.
+The codebase provides a modular foundation for future work, including data loading pipelines, model architectures, consensus matrix construction, and visualization tools. We discuss the challenges encountered and propose concrete next steps for achieving the research objectives.
 \end{abstract}
-
-% Acknowledgements
-%\begin{acknowledgements}
-%    \addcontentsline{toc}{chapter}{Acknowledgements}
-%    Write your acknowledgements here. Thank those who helped you with your research and thesis.
-%\end{acknowledgements}
 
 % Table of Contents
 \tableofcontents
@@ -163,10 +167,10 @@ Overall, this research sets a new benchmark for transparent, understandable, and
 
 % Appendices
 \appendix
-\chapter{Appendix A}
+\chapter{Appendix A: Implementation Details}
 \input{appendices/appendix_a}
 
-\chapter{Appendix B}
+\chapter{Appendix B: Visualizations}
 \input{appendices/appendix_b}
 
 \bibliographystyle{plainnat}

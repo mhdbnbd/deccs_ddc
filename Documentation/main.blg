@@ -1,0 +1,53 @@
+This is BibTeX, Version 0.99d (TeX Live 2025/dev/Debian)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+The style file: plainnat.bst
+Database file #1: bibliography.bib
+Warning--empty booktitle in Akata2016
+Warning--can't use both volume and number fields in Akata2016
+Warning--empty journal in Chen2021
+Warning--empty booktitle in Fred2005
+Warning--can't use both volume and number fields in Fred2005
+Warning--can't use both volume and number fields in Li2021
+You've used 46 entries,
+            2773 wiz_defined-function locations,
+            880 strings with 13362 characters,
+and the built_in function-call counts, 29848 in all, are:
+= -- 2642
+> -- 2002
+< -- 44
++ -- 670
+- -- 624
+* -- 2459
+:= -- 4323
+add.period$ -- 140
+call.type$ -- 46
+change.case$ -- 346
+chr.to.int$ -- 46
+cite$ -- 98
+duplicate$ -- 1297
+empty$ -- 2198
+format.name$ -- 686
+if$ -- 6415
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 46
+newline$ -- 240
+num.names$ -- 184
+pop$ -- 746
+preamble$ -- 1
+purify$ -- 300
+quote$ -- 0
+skip$ -- 1174
+stack$ -- 0
+substring$ -- 1383
+swap$ -- 349
+text.length$ -- 32
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 506
+warning$ -- 6
+while$ -- 238
+width$ -- 0
+write$ -- 605
+(There were 6 warnings)

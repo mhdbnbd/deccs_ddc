@@ -1,11 +1,156 @@
-The integration of Deep Descriptive Clustering (DDC) into the Deep Embedded Clustering with Consensus Representations (DECCS) framework represents an innovative application of data clustering. This research should demonstrate that the fusion of these two methodologies can effectively address the dual challenge of achieving high-precision clustering while enhancing interpretability and transparency in complex datasets like Animals with Attributes (AwA) and aPascal \& aYahoo (aPY).
+\section{Overview}
 
-One of the key strengths of this integrated approach is its ability to leverage the interpretative capabilities of DDC to inform and refine the clustering process in DECCS. By incorporating explanations that are both concise and meaningful, this methodology provides valuable insights into the structure and relationships within the data, which were mostly obscured in standard clustering approaches. This aspect is especially crucial in dealing with complex and high-dimensional datasets, where traditional clustering techniques often struggle to provide clear insights.
+This chapter provides a critical analysis of our experimental findings. We examine the promising results from hyperparameter tuning on a sample subset, the poor results from earlier full-dataset runs, and discuss what these discrepancies reveal about the challenges of integrating semantic supervision into the DECCS framework.
 
-The iterative process of alternating between clustering updates (using DECCS) and generating explanations (using DDC) should ensure that both components inform and enhance each other. This synergy should not only improve the clustering performance but also the relevance and quality of the explanations generated, thus making the clustering results more understandable and actionable.
+\section{Analysis of Sample-Based Tuning Results}
 
-The combination of DECCS and DDC into a unified methodology marks a notable innovation in the field of data clustering. This approach should not only maintain the high quality of cluster formation inherent in DECCS but also should also elevate the level of interpretability through DDC’s explanatory framework. The successful application of this integrated method to the AwA and aPY datasets should serve as a testament to its efficacy and potential applicability in various other domains.
+\subsection{Promising Metrics on Small Sample}
 
-Furthermore, this research should contribute to the broader objective of making machine learning models, particularly in unsupervised learning scenarios like clustering, more transparent and interpretable. The ability to generate understandable and meaningful explanations for clustering decisions is a significant step forward in the field of explainable AI.
+The hyperparameter tuning on a 160-image sample achieved NMI=0.642 and ACC=0.319 with the best configuration ($\lambda_{consensus}=0.2$, $\lambda_{tag}=0.5$). These metrics significantly exceed random chance and suggest the approach has potential.
 
-In summary, this study should set a new benchmark in data clustering, offering a methodology that is not only technically proficient but also inherently comprehensible. It should pave the way for future research in developing more transparent, understandable, and insightful data analysis techniques, thereby enhancing the utility and trustworthiness of clustering algorithms in a wide range of applications.
+\textbf{However, caution is warranted:}
+
+\begin{enumerate}
+    \item \textbf{Small sample bias}: With only 160 images across 50 classes ($\sim$3 images per class), the clustering problem is much easier than the full-scale version.
+    
+    \item \textbf{Potential overfitting}: The model may find patterns specific to the sample that don't generalize.
+    
+    \item \textbf{Metric inflation}: NMI and ACC can be inflated on small datasets where random chance has higher variance.
+\end{enumerate}
+
+\subsection{Why Did Earlier Full-Scale Runs Fail?}
+
+Earlier experiments on the full dataset (37,322 images) produced near-random metrics (NMI $\approx$ 0.012, ACC $\approx$ 0.038). Possible explanations:
+
+\begin{enumerate}
+    \item \textbf{Suboptimal hyperparameters}: The earlier runs may not have used the best $\lambda$ values
+    
+    \item \textbf{Training instability}: The periodic loss spikes (Figure~\ref{fig:training_loss_deccs}) indicate the consensus matrix updates disrupt training
+    
+    \item \textbf{Insufficient epochs}: 4 epochs (the default in some runs) may be insufficient for the full dataset
+    
+    \item \textbf{Scaling issues}: Problems that don't manifest on 160 samples may emerge at scale
+\end{enumerate}
+
+\section{The Central Question}
+
+The key unresolved question is:
+
+We cannot answer this without running the experiment. The sample results are encouraging but not conclusive.
+
+\section{Relationship to Prior Work}
+
+Our findings can be contextualized within the broader deep clustering literature. The baseline autoencoder's ability to learn meaningful representations aligns with foundational work on representation learning \citep{Bengio2013} and the effectiveness of variational approaches \citep{Kingma2014}. The challenges we encountered with multi-objective optimization echo known difficulties in multi-task learning \citep{Ruder2017, Crawshaw2020}.
+
+The original DECCS framework \citep{Miklautz2021} was designed for simpler features (e.g., MNIST), while DDC \citep{Zhang2021} requires sufficient semantic attribute quality. The AwA2 dataset's class-level (rather than instance-level) attributes may limit the semantic signal available for per-image supervision.
+
+Recent surveys on deep clustering \citep{Ren2024, Zhou2024} highlight that joint optimization of representation learning and clustering remains challenging, particularly when additional objectives like interpretability are introduced. Our experience confirms these observations, suggesting that careful balancing of loss terms and training dynamics is essential.
+
+\section{Analysis of Training Dynamics}
+
+\subsection{Loss Curve Evidence}
+
+The loss curves provide diagnostic information:
+
+\textbf{AE Loss} (Figure~\ref{fig:training_loss_ae}): Smooth convergence from 0.032 to 0.006. This indicates:
+\begin{itemize}
+    \item The autoencoder architecture is sound
+    \item The data loading pipeline works correctly
+    \item Optimization is functioning properly
+\end{itemize}
+
+\textbf{CAE Loss} (Figure~\ref{fig:training_loss_cae}): Decreasing loss with multiple components. This indicates:
+\begin{itemize}
+    \item Multi-task optimization is working
+    \item Tag prediction is being learned (loss decreases)
+    \item No obvious training instability
+\end{itemize}
+
+\textbf{DECCS Loss} (Figure~\ref{fig:training_loss_deccs}): Periodic spikes every 5 epochs. This indicates:
+\begin{itemize}
+    \item Consensus matrix rebuild causes discontinuity
+    \item The model must readapt to new consensus targets
+    \item This pattern may contribute to poor full-scale performance
+\end{itemize}
+
+\subsection{Hypothesis: Scale-Dependent Instability}
+
+The training instability from consensus updates may be more severe at scale:
+\begin{itemize}
+    \item On 160 samples, the consensus matrix is 160×160 = 25,600 entries
+    \item On 37,322 samples, it would be $\sim$1.4 billion entries (or sparse approximation)
+    \item Larger matrices may have more drastic changes between rebuilds
+\end{itemize}
+
+\section{Research Questions: Partial Answers}
+
+\subsection{RQ1: How can DDC be integrated into DECCS?}
+
+\textbf{Answered (implementation).} We successfully implemented:
+\begin{itemize}
+    \item Constrained autoencoder with tag prediction branch
+    \item Multi-objective loss combining reconstruction, tag prediction, and consensus
+    \item Training pipeline with consensus matrix integration
+\end{itemize}
+
+\textbf{Not fully validated (performance).} The integration works on small samples but full-scale validation is pending.
+
+\subsection{RQ2: Impact on Clustering Performance}
+
+\textbf{Promising on sample}: NMI=0.642 suggests semantic supervision helps.
+
+\textbf{Unknown at scale}: Earlier full-scale runs failed.
+
+\subsection{RQ3: Performance on AwA2 Dataset}
+
+\textbf{Not yet achieved at full scale.} The sample results are encouraging but cannot be claimed as AwA2 benchmark performance.
+
+\section{Lessons Learned}
+
+\subsection{Hyperparameter Sensitivity}
+
+The approach is sensitive to hyperparameter choices. The grid search revealed:
+\begin{itemize}
+    \item NMI ranges from 0.597 to 0.642 on the sample across configurations
+    \item This 7.5\% variation suggests careful tuning is important
+    \item What works on small samples may not transfer to full scale
+\end{itemize}
+
+\subsection{The Importance of Scale}
+
+A critical lesson is that \textbf{sample-based development can be misleading}:
+\begin{itemize}
+    \item Fast iteration on samples is valuable for debugging
+    \item But final claims must be validated at full scale
+\end{itemize}
+
+\subsection{Proposed Path Forward}
+
+\begin{itemize}
+    \item Report validated metrics
+    \item Compare against published baselines
+    \item Generate and evaluate cluster explanations
+\end{itemize}
+
+\subsection{If Full-Scale Results Are Poor}
+
+\begin{itemize}
+    \item Investigate scale-dependent issues
+    \item Try smoother consensus updates (EMA instead of rebuild)
+    \item Consider pre-trained backbone to improve initial embeddings
+\end{itemize}
+
+\section{Summary}
+
+This discussion has analyzed the current state of our implementation:
+
+\begin{enumerate}
+    \item \textbf{Sample Results}: Hyperparameter tuning on 160 images achieved NMI=0.642 with $\lambda_{cons}=0.2$, $\lambda_{tag}=0.5$
+    
+    \item \textbf{Full-Scale Gap}: Earlier full-dataset runs produced near-random metrics, creating uncertainty about generalization
+    
+    \item \textbf{Training Dynamics}: Periodic loss spikes during consensus updates may cause scale-dependent instability
+    \item
+\end{enumerate}
+
+The following chapter concludes the thesis and outlines the remaining work.

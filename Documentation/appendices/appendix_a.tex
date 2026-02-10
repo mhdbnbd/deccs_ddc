@@ -1,0 +1,274 @@
+\section{Code Architecture}
+
+The implementation is organized into the following modules:
+
+\begin{table}[H]
+    \centering
+    \caption{Codebase structure}
+    \begin{tabular}{lp{8cm}}
+        \hline
+        \textbf{File} & \textbf{Purpose} \\
+        \hline
+        \texttt{main\_experiments.py} & Entry point; handles argument parsing and orchestrates training/evaluation \\
+        \texttt{dataset.py} & Custom PyTorch Dataset for AwA2 \\
+        \texttt{model.py} & Autoencoder and Constrained Autoencoder architectures \\
+        \texttt{train.py} & Training loops for AE, CAE, and DECCS modes \\
+        \texttt{utils.py} & Utility functions: embeddings, consensus matrix, metrics \\
+        \texttt{tune\_hyperparams.py} & Grid search for optimal loss weights \\
+        \texttt{visualize\_clusters.py} & t-SNE, PCA plots, loss curves, cluster samples \\
+        \texttt{validate\_clusters.py} & Cluster validation and purity analysis \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\section{Hyperparameter Tuning Script}
+
+The \texttt{tune\_hyperparams.py} script automates grid search over loss weights:
+
+\begin{lstlisting}[language=Python, caption=Hyperparameter tuning script structure]
+import json
+import itertools
+import subprocess
+
+lambda_grid = [0.05, 0.1, 0.2]
+tag_tuner_grid = [0.5, 1.0, 1.5]
+epochs = 10
+mode = "deccs"
+
+def run_experiment(lc, tt):
+    """Run DECCS with given hyperparams."""
+    out_json = f"results_tune_lc{lc}_tt{tt}.json"
+    cmd = [
+        "python3", "main_experiments.py",
+        "--mode", mode,
+        "--epochs", str(epochs),
+        "--use_sample",
+        "--lambda_consensus", str(lc),
+        "--tag_tuner", str(tt),
+        "--output_json", out_json
+    ]
+    subprocess.run(cmd, check=True)
+    # Parse and return metrics from JSON
+    ...
+
+# Run all 9 configurations
+for lc, tt in itertools.product(lambda_grid, tag_tuner_grid):
+    metrics = run_experiment(lc, tt)
+    results.append(metrics)
+
+# Find best configuration by NMI
+best = max(results, key=lambda x: x["nmi"])
+\end{lstlisting}
+
+\section{Model Architecture Details}
+
+\subsection{Autoencoder Architecture}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Autoencoder Architecture]
+    \textbf{Encoder:}
+    \begin{itemize}
+        \item Conv2D(3 $\rightarrow$ 16, kernel=3, stride=2, padding=1) + ReLU
+        \item Conv2D(16 $\rightarrow$ 32, kernel=3, stride=2, padding=1) + ReLU
+        \item Conv2D(32 $\rightarrow$ 64, kernel=3, stride=2, padding=1) + ReLU
+        \item Conv2D(64 $\rightarrow$ 128, kernel=3, stride=2, padding=1) + ReLU
+        \item AdaptiveAvgPool2D(1$\times$1) $\rightarrow$ Flatten $\rightarrow$ 128-dim embedding
+    \end{itemize}
+
+    \textbf{Tag Prediction Branch (CAE only):}
+    \begin{itemize}
+        \item Linear(128 $\rightarrow$ 85) + BCEWithLogitsLoss
+    \end{itemize}
+
+    \textbf{Decoder:}
+    \begin{itemize}
+        \item ConvTranspose2D(128 $\rightarrow$ 64, kernel=3, stride=2, padding=1, output\_padding=1) + ReLU
+        \item ConvTranspose2D(64 $\rightarrow$ 32, kernel=3, stride=2, padding=1, output\_padding=1) + ReLU
+        \item ConvTranspose2D(32 $\rightarrow$ 16, kernel=3, stride=2, padding=1, output\_padding=1) + ReLU
+        \item ConvTranspose2D(16 $\rightarrow$ 3, kernel=3, stride=2, padding=1, output\_padding=1) + Sigmoid
+    \end{itemize}
+\end{tcolorbox}
+
+\subsection{Parameter Count}
+
+Approximate parameter counts:
+\begin{itemize}
+    \item Encoder: $\sim$300K parameters
+    \item Decoder: $\sim$300K parameters
+    \item Tag head: $128 \times 85 + 85 = 10,965$ parameters
+    \item Total (CAE): $\sim$600K parameters
+\end{itemize}
+
+\section{Training Configuration}
+
+\begin{table}[H]
+    \centering
+    \caption{Training hyperparameters used in experiments}
+    \label{tab:training_config}
+    \begin{tabular}{ll}
+        \hline
+        \textbf{Parameter} & \textbf{Value} \\
+        \hline
+        Optimizer & Adam \\
+        Learning Rate & 0.001 \\
+        Batch Size & 256 \\
+        Weight Decay & 0 \\
+        LR Scheduler & None \\
+        Gradient Clipping & None \\
+        Mixed Precision & Yes (FP16) \\
+        Data Augmentation & Resize(128$\times$128), ToTensor only \\
+        Num Workers & 8 \\
+        Pin Memory & True \\
+        Persistent Workers & True \\
+        Random Seed & 42 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\section{Loss Configuration}
+
+\begin{table}[H]
+    \centering
+    \caption{Loss weights used in experiments}
+    \begin{tabular}{lcc}
+        \hline
+        \textbf{Loss Component} & \textbf{Weight} & \textbf{Mode} \\
+        \hline
+        Reconstruction (MSE) & 1.0 & All modes \\
+        Tag Prediction (BCE) & 0.5 & CAE, DECCS \\
+        Consensus Consistency & 0.2 & DECCS only \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Note:} These weights were selected based on initial experiments but have not been systematically optimized. The Discussion chapter recommends reducing $\lambda_{consensus}$ to 0.01 or lower to address training instability.
+
+\section{Ensemble Clustering Configuration}
+
+\begin{table}[H]
+    \centering
+    \caption{Base clustering algorithms in ensemble}
+    \begin{tabular}{llp{5cm}}
+        \hline
+        \textbf{Algorithm} & \textbf{Library} & \textbf{Parameters} \\
+        \hline
+        K-Means & scikit-learn & n\_clusters=50, init='k-means++', n\_init=10 \\
+        Spectral & scikit-learn & n\_clusters=50, affinity='rbf', assign\_labels='kmeans' \\
+        GMM & scikit-learn & n\_components=50, covariance\_type='full' \\
+        Agglomerative & scikit-learn & n\_clusters=50, linkage='ward' \\
+        DBSCAN & scikit-learn & eps=0.5, min\_samples=5 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Note on DBSCAN:} DBSCAN may produce fewer than 50 clusters or label some points as noise (-1). The code handles this by filtering out noise points and adjusting cluster counts accordingly.
+
+\section{Consensus Matrix Construction}
+
+The consensus matrix is built in \texttt{utils.py} using the following logic:
+
+\begin{algorithm}[H]
+    \caption{build\_sparse\_consensus()}
+    \begin{algorithmic}[1]
+        \REQUIRE Base clusterings $\{\pi_1, ..., \pi_M\}$, embeddings $Z$, k=20
+        \STATE Compute k-NN graph from embeddings $Z$
+        \STATE Initialize consensus matrix $C$ as sparse matrix
+        \FOR{each sample pair $(i, j)$ in k-NN neighborhood}
+            \STATE $C_{ij} = \frac{1}{M} \sum_{m=1}^{M} \mathds{1}[\pi_m(i) = \pi_m(j)]$
+        \ENDFOR
+        \STATE Symmetrize: $C = (C + C^T) / 2$
+        \ENSURE Sparse consensus matrix $C$
+    \end{algorithmic}
+\end{algorithm}
+
+\section{Command Line Interface}
+
+The main experiment script accepts the following arguments:
+
+\begin{lstlisting}[language=bash]
+python main_experiments.py --mode {ae,oracle,cae,deccs}
+                          [--use_gpu]
+                          [--use_sample]
+                          [--epochs EPOCHS]
+                          [--lambda_consensus LAMBDA]
+                          [--tag_tuner TAG_WEIGHT]
+                          [--output_json PATH]
+\end{lstlisting}
+
+\textbf{Arguments:}
+\begin{description}
+    \item[\texttt{--mode}] Required. Experiment mode: \texttt{ae} (baseline), \texttt{oracle}, \texttt{cae}, or \texttt{deccs}
+    \item[\texttt{--use\_gpu}] Enable GPU training if available
+    \item[\texttt{--use\_sample}] Use small sample subset (200 images) for rapid testing
+    \item[\texttt{--epochs}] Number of training epochs (default: 4)
+    \item[\texttt{--lambda\_consensus}] Weight for consensus loss in DECCS mode (default: 0.2)
+    \item[\texttt{--tag\_tuner}] Weight for tag prediction loss (default: 0.5)
+    \item[\texttt{--output\_json}] Path to save results JSON (default: results\_deccs.json)
+\end{description}
+
+\section{Output Files}
+
+The pipeline produces the following output files:
+
+\begin{table}[H]
+    \centering
+    \caption{Output files generated by experiments}
+    \begin{tabular}{lp{7cm}}
+        \hline
+        \textbf{File} & \textbf{Contents} \\
+        \hline
+        \texttt{results\_\{mode\}.json} & Clustering metrics, loss history, hyperparameters \\
+        \texttt{results\_summary.json} & Final metrics summary \\
+        \texttt{results\_\{mode\}\_loss.png} & Training loss curve plot \\
+        \texttt{results\_\{mode\}\_pca.png} & PCA projection of embeddings \\
+        \texttt{results\_tsne.png} & t-SNE visualization \\
+        \texttt{results\_deccs\_loss\_components.npz} & Component-wise loss history \\
+        \texttt{cluster\_samples/} & Directory with sample images per cluster \\
+        \texttt{results\_cluster\_descriptions.json} & Top attributes per cluster \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\section{Reproducibility}
+
+To reproduce experiments:
+
+\begin{enumerate}
+    \item \textbf{Environment}: Python 3.8+, PyTorch 2.0+, scikit-learn 1.2+
+    
+    \item \textbf{Data Setup}:
+    \begin{lstlisting}[language=bash]
+# Download AwA2 dataset
+# Place in data/AwA2-data/Animals_with_Attributes2/
+# Ensure predicate-matrix-continuous.txt and classes.txt exist
+    \end{lstlisting}
+    
+    \item \textbf{Run Experiments}:
+    \begin{lstlisting}[language=bash]
+# Baseline autoencoder
+python main_experiments.py --mode ae --use_gpu --epochs 30
+
+# Constrained autoencoder
+python main_experiments.py --mode cae --use_gpu --epochs 30
+
+# DECCS mode
+python main_experiments.py --mode deccs --use_gpu --epochs 30
+    \end{lstlisting}
+    
+    \item \textbf{Random Seeds}: Fixed at 42 in code for reproducibility
+\end{enumerate}
+
+\section{Known Issues and Workarounds}
+
+\begin{enumerate}
+    \item \textbf{CUDA Out of Memory}: Reduce batch size from 256 to 128 or 64
+    
+    \item \textbf{Spectral Clustering Deadlock}: Threading environment variables are set in \texttt{main\_experiments.py} to prevent this:
+    \begin{lstlisting}[language=python]
+os.environ["OMP_NUM_THREADS"] = "1"
+os.environ["OPENBLAS_NUM_THREADS"] = "1"
+    \end{lstlisting}
+    
+    \item \textbf{Corrupted Images}: The Dataset class handles corrupted images by returning None and the collate function filters them out
+    
+    \item \textbf{Missing Predicate Matrix}: Ensure \texttt{predicate-matrix-continuous.txt} exists; the code uses continuous attributes, not binary
+\end{enumerate}
