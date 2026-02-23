@@ -1,177 +1,134 @@
-\section{Summary of Work Completed}
+\section{Summary of Work}
 
-This thesis investigated the integration of Deep Descriptive Clustering (DDC) principles into the Deep Embedded Clustering with Consensus Representations (DECCS) framework. Our goal was to create a clustering system that achieves both meaningful clustering performance and human-interpretable explanations through semantic supervision.
+This thesis investigated the integration of Deep Descriptive Clustering (DDC) principles into the Deep Embedded Clustering with Consensus Representations (DECCS) framework to address the challenge of interpretability in deep clustering systems.
 
-\subsection{Implementation Contributions}
-
-We developed a complete implementation pipeline consisting of:
+\subsection{What Was Accomplished}
 
 \begin{enumerate}
-    \item \textbf{Data Loading Module} (\texttt{dataset.py}): Custom PyTorch Dataset class for AwA2 that handles:
-    \begin{itemize}
-        \item Image loading with automatic error handling
-        \item Class-to-attribute mapping via predicate matrix
-        \item Train/test splitting with reproducible random seeds
-        \item Support for sample subsets for rapid prototyping
-    \end{itemize}
+    \item \textbf{Framework Design}: We proposed an architecture that combines DECCS's consensus-based clustering with DDC's semantic supervision through a multi-objective loss function.
 
-    \item \textbf{Model Architectures} (\texttt{model.py}):
-    \begin{itemize}
-        \item Baseline Autoencoder: 4-layer CNN encoder/decoder with 128-dim embeddings
-        \item Constrained Autoencoder: Extends baseline with 85-dim tag prediction head
-    \end{itemize}
+    \item \textbf{Implementation}: We developed a complete experimental pipeline including modular model architectures, ensemble clustering with consensus matrix construction, and visualization tools.
 
-    \item \textbf{Training Procedures} (\texttt{train.py}):
-    \begin{itemize}
-        \item Autoencoder training with MSE reconstruction loss
-        \item Constrained autoencoder training with multi-task objective
-        \item DECCS training with consensus matrix integration
-        \item Mixed precision training support for GPU efficiency
-    \end{itemize}
-
-    \item \textbf{Consensus Clustering} (\texttt{utils.py}):
-    \begin{itemize}
-        \item Ensemble clustering with K-Means, Spectral, GMM, Agglomerative, DBSCAN
-        \item Consensus matrix construction from co-association
-        \item Sparse k-NN based consensus for scalability
-    \end{itemize}
-
-    \item \textbf{Hyperparameter Tuning} (\texttt{tune\_hyperparams.py}):
-    \begin{itemize}
-        \item Systematic grid search over loss weights
-        \item Automated experiment execution and result logging
-        \item Configuration comparison and best model selection
-    \end{itemize}
-
-    \item \textbf{Evaluation and Visualization}:
-    \begin{itemize}
-        \item Standard clustering metrics: NMI, ARI, ACC, Silhouette
-        \item t-SNE and PCA embedding visualizations
-        \item Loss curve plotting and cluster sample inspection
-    \end{itemize}
+    \item \textbf{Hyperparameter Analysis}: We conducted grid search experiments on sample data, achieving NMI=0.642 on a subset of 160 samples.
 \end{enumerate}
 
-\section{Current Status: Honest Assessment}
-
-\subsection{What We Know}
+\subsection{What Did Not Work}
 
 \begin{enumerate}
-    \item \textbf{Implementation is complete}: All components work and produce outputs
-    
-    \item \textbf{Sample-based tuning is promising}: On 160 images, best configuration achieves NMI=0.642, ACC=0.319
-    
-    \item \textbf{Full-scale results are poor}: Earlier runs on 37k images produced near-random metrics (NMI$\approx$0.012)
-    
-    \item \textbf{Hyperparameters matter}: Grid search found $\lambda_{cons}=0.2$, $\lambda_{tag}=0.5$ works best on sample
+    \item \textbf{Full-Scale Failure}: When applied to the full AwA2 dataset (N=37,322), the approach achieved only NMI=0.012 and ACC=0.038---effectively random clustering.
+
+    \item \textbf{Hyperparameter Transfer}: Configurations tuned on small samples did not generalize to the full dataset.
+
+    \item \textbf{Incomplete Integration}: We did not implement DDC's pairwise consistency loss, which may be essential for the approach to work.
 \end{enumerate}
-
-\subsection{What We Don't Know}
-
-The critical uncertainty is whether the tuned hyperparameters will work at full scale. The sample results cannot be claimed as final performance.
 
 \begin{table}[H]
     \centering
-    \caption{Summary of experimental results}
+    \caption{Summary of Results}
     \begin{tabular}{lccc}
         \hline
-        \textbf{Experiment} & \textbf{N} & \textbf{NMI} & \textbf{Status} \\
+        \textbf{Scale} & \textbf{NMI} & \textbf{ACC} & \textbf{Status} \\
         \hline
-        Sample tuning (best) & 160 & 0.642 & Promising \\
-        Full-scale (old config) & 37,322 & 0.012 & Failed \\
-        Full-scale (tuned config) & 37,322 & ? & \textbf{NOT RUN} \\
+        Sample (N=160) & 0.642 & -- & Promising \\
+        Full-scale (N=37,322) & 0.012 & 0.038 & \textbf{Failed} \\
         \hline
     \end{tabular}
 \end{table}
 
-\section{Research Questions: Status}
+\section{Research Questions Answered}
+
+Returning to our original research objectives:
 
 \subsection{RQ1: How can DDC be integrated into DECCS?}
 
-\textbf{Answered (implementation).} We demonstrated a working integration:
+We proposed an integration through:
 \begin{itemize}
-    \item Tag prediction branch for semantic supervision
-    \item Multi-objective loss with $\lambda_{tag}$ and $\lambda_{cons}$ weights
-    \item Consensus matrix from ensemble clustering
+    \item \textbf{Architectural modification}: Adding a tag prediction branch to the autoencoder encoder
+    \item \textbf{Loss augmentation}: Incorporating tag prediction loss (BCE) alongside reconstruction loss
+    \item \textbf{Consensus integration}: Building sparse consensus matrices from ensemble clusterings
 \end{itemize}
+
+\textbf{However, the integration is incomplete}---we did not implement DDC's pairwise consistency loss, and the full-scale results suggest fundamental issues with the current approach.
 
 \subsection{RQ2: Impact on Clustering Performance}
 
-\textbf{Partially answered.} Sample results suggest positive impact, but full-scale validation is required.
+\textbf{Cannot be conclusively answered.} With NMI=0.012 on the full dataset, we cannot draw meaningful conclusions about whether semantic supervision improves or harms clustering performance. The approach failed before this question could be properly evaluated.
 
 \subsection{RQ3: Performance on AwA2 Dataset}
 
-\textbf{Not yet achieved.} Successful full-scale evaluation has not been completed.
+On the Animals with Attributes 2 dataset:
+\begin{itemize}
+    \item \textbf{Sample data (N=160)}: NMI=0.642, showing promise
+    \item \textbf{Full-scale (N=37,322)}: NMI=0.012, ACC=0.038---\textbf{effectively random}
+\end{itemize}
 
-\section{Concrete Next Steps}
-
-\begin{enumerate}
-    \item Investigate scale-dependent issues:
-    \begin{itemize}
-        \item Consensus matrix size and sparsity
-        \item Batch sampling effects
-        \item Training stability at scale
-    \end{itemize}
-    
-    \item Try alternative approaches:
-    \begin{itemize}
-        \item Exponential moving average for consensus updates
-        \item Pre-trained ResNet backbone
-        \item Contrastive learning augmentation
-    \end{itemize}
-\end{enumerate}
+The approach failed to achieve meaningful clustering on the full dataset.
 
 \section{Lessons Learned}
 
-\subsection{On Experimental Methodology}
+This work provides important lessons for deep clustering research:
+
+\subsection{Full-Scale Validation is Essential}
+
+Promising results on small samples do not guarantee scalability. Our sample-scale results (NMI=0.642) would have suggested success, but full-scale evaluation revealed fundamental failure (NMI=0.012).
+
+\subsection{Multi-Objective Optimization is Difficult}
+
+Combining reconstruction, semantic supervision, and consensus clustering creates a complex optimization landscape. The interaction between these objectives at scale is not well understood.
+
+\subsection{Negative Results Have Value}
+
+This thesis documents an approach that did not work. While less satisfying than reporting success, honest negative results help the research community avoid repeating unsuccessful approaches and understand the difficulty of the problem.
+
+\section{Limitations}
 
 \begin{enumerate}
-    \item \textbf{Sample results $\neq$ final results}: Small samples are useful for debugging but claims must be validated at scale
-    
-    \item \textbf{State dataset size clearly}: Always report N when presenting metrics
-    
-    \item \textbf{Hyperparameter tuning is essential}: Arbitrary choices led to misleading failure conclusions
+    \item \textbf{Scaling Failure}: The approach failed to produce meaningful clustering on the full dataset.
+
+    \item \textbf{Incomplete Integration}: Missing DDC's pairwise consistency loss, which may be essential.
+
+    \item \textbf{Single Dataset}: Only evaluated on AwA2.
+
+    \item \textbf{Potential Bugs}: The discrepancy between t-SNE visualizations (showing some structure) and clustering metrics (near-random) suggests possible metric calculation issues.
+
+    \item \textbf{Fixed Architecture}: Simple convolutional autoencoder may be insufficient for complex images.
 \end{enumerate}
 
-\subsection{On Honest Reporting}
+\section{Future Work}
 
-This thesis demonstrates the importance of:
-\begin{itemize}
-    \item Distinguishing between exploratory and confirmatory experiments
-    \item Acknowledging uncertainties and limitations
-    \item Not over-claiming based on preliminary results
-\end{itemize}
+Based on our negative results, the following work is needed before the approach can be considered viable:
 
-\section{Broader Contributions}
-
-Despite the incomplete evaluation, this thesis contributes:
+\subsection{Immediate Priorities}
 
 \begin{enumerate}
-    \item \textbf{Working codebase}: Complete, modular implementation ready for continued development
-    
-    \item \textbf{Methodology documentation}: Detailed description of the integration approach
-    
-    \item \textbf{Hyperparameter insights}: Grid search results showing parameter sensitivity
-    
-    \item \textbf{Diagnostic analysis}: Loss curve analysis identifying training dynamics issues
+    \item \textbf{Implement Pairwise Consistency Loss}: DDC's pairwise loss may be essential for aligning clustering with semantic supervision.
+
+    \item \textbf{Investigate Metric Calculation}: The discrepancy between t-SNE visualizations and clustering metrics warrants investigation of potential bugs.
+
+    \item \textbf{Use Pre-trained Backbone}: A pre-trained feature extractor (ResNet, ViT) may provide better representations than training from scratch.
+
+    \item \textbf{EMA Consensus Updates}: Exponential moving average for consensus matrix updates may improve stability.
+\end{enumerate}
+
+\subsection{Longer-Term Research}
+
+\begin{enumerate}
+    \item \textbf{Progressive Scaling}: Develop methods to gradually increase dataset size during training.
+
+    \item \textbf{Alternative Loss Balancing}: Explore gradient-based methods for balancing multi-objective optimization.
+
+    \item \textbf{Theoretical Analysis}: Understand why sample-scale success does not transfer to full-scale.
 \end{enumerate}
 
 \section{Final Remarks}
 
-This thesis aimed to enhance deep clustering interpretability by integrating DECCS with DDC principles. The implementation is complete and hyperparameter tuning on a sample subset shows promising results (NMI=0.642).
+This thesis set out to integrate Deep Descriptive Clustering principles into the DECCS framework for interpretable deep clustering. While we successfully implemented the framework and achieved promising results on sample data (NMI=0.642 on N=160), \textbf{the approach fundamentally failed when applied to the full dataset} (NMI=0.012 on N=37,322).
 
-\textbf{However}, the critical full-scale validation has not been performed. The thesis therefore cannot claim success on the AwA2 benchmark.
-
-\textbf{Key deliverables:}
+This negative result is honest and important. It demonstrates that:
 \begin{itemize}
-    \item Complete implementation pipeline
-    \item Hyperparameter tuning results (sample-based)
-    \item Analysis of training dynamics and identified issues
-    \item Clear path forward for validation
+    \item Integrating complex deep clustering frameworks is more difficult than it appears
+    \item Sample-scale validation is insufficient---full-scale experiments are essential
+    \item Multi-objective optimization in deep clustering remains a challenging open problem
 \end{itemize}
 
-\textbf{Key uncertainty:}
-\begin{itemize}
-    \item Whether tuned hyperparameters generalize to full scale
-\end{itemize}
-
-The code and documentation provide a foundation for completing this validation. The sample results suggest the approach has potential, but this must be confirmed with full-scale experiments before claiming meaningful clustering performance on AwA2.
+The vision of clustering that is both accurate and interpretable remains compelling. However, achieving this vision requires more careful methodology than our current approach provides. We hope this honest reporting of failure contributes to the research community's understanding of the challenges involved in interpretable deep clustering.

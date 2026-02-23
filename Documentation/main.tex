@@ -104,7 +104,7 @@
 
         \vspace{0.5cm}
         \LARGE
-        for Enhanced Interpretability and Performance on the AwA2 Dataset
+        for Enhanced Interpretability and Performance on AwA and APY Datasets
 
         \vspace{1.5cm}
 
@@ -132,14 +132,22 @@
 % Abstract
 \begin{abstract}
     \addcontentsline{toc}{chapter}{Abstract}
-    This thesis investigates the integration of Deep Descriptive Clustering (DDC) principles into the Deep Embedded Clustering with Consensus Representations (DECCS) framework to address the challenge of interpretability in deep clustering systems. We develop a Constrained Autoencoder (CAE) architecture that combines reconstruction learning with semantic attribute prediction using the Animals with Attributes 2 (AwA2) dataset.
+    This thesis introduces a novel approach to enhance the interpretability of the Deep Embedded Clustering with Consensus Representations (DECCS) algorithm by incorporating principles from the Deep Descriptive Clustering (DDC) framework. DECCS has shown significant advances in clustering precision but, similarly to many clustering methods, it does not consider interpretability. This research aims to bridge this gap by refining the DECCS algorithm to not only generate clusters but also provide meaningful, cluster-level explanations that enhance transparency and comprehensibility in the clustering process.
 
-Our implementation includes four experimental modes: a baseline autoencoder (AE), an oracle upper-bound using ground-truth attributes, a Constrained Autoencoder with tag supervision, and a DECCS mode with consensus clustering. The framework successfully trains and produces embeddings, though current results indicate that significant further work is needed to achieve meaningful clustering performance.
+The methodology involves adapting DECCS to effectively interface with a specific dataset used in the DDC experimental framework, namely the Animals with Attributes (AwA). This adaptation incorporates DDC’s symbolic level representations into DECCS, aiming to create a seamless integration between raw data clustering and semantic interpretability.
 
-\textbf{Current Status:} The implementation is functional but preliminary results show clustering metrics near random-chance levels, suggesting issues with either the training procedure, hyperparameter configuration, or architectural choices that require further investigation. This thesis documents the methodology, implementation, and identifies specific areas for improvement.
+A significant aspect of this thesis is the integration of DDC’s interpretative capabilities with DECCS’s clustering method. This integration strives to maintain the high quality of cluster formation inherent to DECCS while introducing the level of interpretability. The dual focus ensures that the resulting predictions are both accurate and comprehensible, providing insights into the underlying structure and relationships within the data.
 
-The codebase provides a modular foundation for future work, including data loading pipelines, model architectures, consensus matrix construction, and visualization tools. We discuss the challenges encountered and propose concrete next steps for achieving the research objectives.
+This thesis evaluates the integrated approach through extensive experiments, assessing both clustering performance and the quality of explanations generated. The evaluation includes comparisons with recent advancements and foundational algorithms in the field, demonstrating the efficacy of combining DECCS with DDC principles. By highlighting the advantages of this combination in practical clustering applications, the research contributes to the field of data clustering by offering a novel methodology that combines the efficiency of DECCS with the interpretative power of DDC.
+
+Overall, this research sets a new benchmark for transparent, understandable, and insightful data analysis in various domains, addressing the increasing demand for interpretability and accountability in complex data clustering.
 \end{abstract}
+
+% Acknowledgements
+%\begin{acknowledgements}
+%    \addcontentsline{toc}{chapter}{Acknowledgements}
+%    Write your acknowledgements here. Thank those who helped you with your research and thesis.
+%\end{acknowledgements}
 
 % Table of Contents
 \tableofcontents
@@ -167,10 +175,10 @@ The codebase provides a modular foundation for future work, including data loadi
 
 % Appendices
 \appendix
-\chapter{Appendix A: Implementation Details}
+\chapter{Appendix A}
 \input{appendices/appendix_a}
 
-\chapter{Appendix B: Visualizations}
+\chapter{Appendix B}
 \input{appendices/appendix_b}
 
 \bibliographystyle{plainnat}

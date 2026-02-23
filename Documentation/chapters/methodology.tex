@@ -41,8 +41,8 @@ Figure~\ref{fig:methodology_overview} illustrates the overall pipeline.
         \node (input) [block] {Input Images};
         \node (encoder) [block, below of=input] {Encoder Network};
         \node (embedding) [block, below of=encoder] {Embedding Space};
-        \node (decoder) [block, left of=embedding, xshift=-3cm] {Decoder};
-        \node (tagpred) [block, right of=embedding, xshift=3cm] {Tag Predictor};
+        \node (decoder) [block, left of=embedding, xshift=-3cm] {  Decoder};
+        \node (tagpred) [block, right of=embedding, xshift=3cm] {  Predictor};
         \node (recon) [block, below of=decoder] {Reconstructed Image};
         \node (tags) [block, below of=tagpred] {Predicted Tags};
         \node (consensus) [block, below of=embedding, yshift=-2cm] {Consensus Clustering};
@@ -58,7 +58,7 @@ Figure~\ref{fig:methodology_overview} illustrates the overall pipeline.
         \draw[arrow] (consensus) -- (explanation);
 
         \node[draw=none, text width=2.5cm, align=left] at (-5, -3) {$\mathcal{L}_{recon}$};
-        \node[draw=none, text width=2.5cm, align=left] at (5, -3) {$\mathcal{L}_{tag}$};
+        \node[draw=none, text width=2.5cm, align=left] at (4, -3) {$\mathcal{L}_{tag}$};
 
     \end{tikzpicture}
     \caption{Overview of our integrated methodology combining semantic supervision, representation learning, and consensus clustering}
@@ -88,7 +88,7 @@ The predicate matrix $\mathbf{P} \in \mathbb{R}^{C \times T}$ encodes semantic a
 
 where $p_{c,t} \in [0, 1]$ represents the strength of attribute $t$ for class $c$.
 
-\textbf{Example attributes include:}
+\textbf{List of semantic attributes:}
 \begin{multicols}{3}
     \begin{itemize}
         \item black
@@ -230,6 +230,7 @@ Our custom \texttt{AwA2Dataset} class (implemented in \texttt{dataset.py}) handl
     \item \textbf{Image-label mapping}: Read from \texttt{AwA2-labels.txt}
     \item \textbf{Class-attribute mapping}: Read from \texttt{predicate-matrix-continuous.txt}
     \item \textbf{Image-to-attribute assignment}: Map each image to its class's attribute vector
+    \item \textbf{Error handling}: Skip corrupted images gracefully
 \end{enumerate}
 
 The dataset returns triplets $(\mathbf{x}_i, \mathbf{t}_i, i)$ where:
@@ -240,8 +241,6 @@ The dataset returns triplets $(\mathbf{x}_i, \mathbf{t}_i, i)$ where:
 \end{itemize}
 
 \section{Model Architecture}
-
-Our implementation leverages modern deep learning frameworks and architectures. All models are implemented in PyTorch \citep{Paszke2019} and use standard optimization techniques including the Adam optimizer \citep{Kingma2015} with batch normalization \citep{Ioffe2015}. The encoder architecture draws inspiration from residual networks \citep{He2016} but uses a simpler feed-forward design suitable for the AwA2 feature dimensions.
 
 \subsection{Baseline Autoencoder (AE)}
 
@@ -355,7 +354,7 @@ where:
 
 \subsubsection{Ensemble Clustering Algorithms}
 
-Our ensemble includes five diverse algorithms, following the principle of using heterogeneous clustering methods to improve robustness \citep{Yang2017}. This approach learns representations that are simultaneously suitable for multiple clustering objectives:
+Our ensemble includes five diverse algorithms, following the principle of using heterogeneous clustering methods to improve robustness \citep{Yang2017}:
 
 \begin{table}[H]
     \centering
@@ -433,10 +432,10 @@ with hyperparameters:
 
 \begin{itemize}
     \item \textbf{Optimizer}: Adam \citep{Kingma2015}
-    \item \textbf{Learning rate}: $\alpha = 10^{-3}$
-    \item \textbf{Momentum parameters}: $\beta_1 = 0.9, \beta_2 = 0.999$
-    \item \textbf{Epsilon}: $\epsilon = 10^{-8}$
-    \item \textbf{Weight decay}: None (no L2 regularization)
+    \item \textbf{Learning rate}: $\alpha = 10^{-3}$ (Pytorch default)
+    \item \textbf{Momentum parameters}: $\beta_1 = 0.9, \beta_2 = 0.999$ (Pytorch default)
+    \item \textbf{Epsilon}: $\epsilon = 10^{-8}$ (Pytorch default)
+    \item \textbf{Weight decay}: None (Pytorch default)
 \end{itemize}
 
 \subsubsection{Batch Processing}
@@ -590,34 +589,35 @@ For evaluation, we run the full ensemble:
 
 We evaluate clustering quality using four standard metrics:
 
-\paragraph{Normalized Mutual Information (NMI)}
+\paragraph{Normalized Mutual Information (NMI)} \citep{Vinh2010}
 
 \begin{equation}
-    \text{NMI}(\pi, \ell) = \frac{2 \cdot I(\pi; \ell)}{H(\pi) + H(\ell)}
+    NMI(\pi, l) = \frac{2 \cdot I(\pi; l)}{H(\pi) + H(l)}
 \end{equation}
 
-where $I(\cdot; \cdot)$ is mutual information, $H(\cdot)$ is entropy, $\pi$ are predicted clusters, and $\ell$ are true labels.
+where $I(\cdot; \cdot)$ is mutual information, $H(\cdot)$ is entropy, $\pi$ are predicted clusters, and $l$ are true labels. NMI ranges from 0 (no mutual information) to 1 (perfect correlation).
 
-\paragraph{Adjusted Rand Index (ARI)}
+
+\paragraph{Adjusted Rand Index (ARI)} \citep{Hubert1985}
 
 \begin{equation}
-\text{ARI}
-    (\pi, \ell) = \frac{\sum_{ij} \binom{n_{ij}}{2} - \left[\sum_i \binom{a_i}{2} \sum_j \binom{b_j}{2}\right] / \binom{n}{2}}{\frac{1}{2}\left[\sum_i \binom{a_i}{2} + \sum_j \binom{b_j}{2}\right] - \left[\sum_i \binom{a_i}{2} \sum_j \binom{b_j}{2}\right] / \binom{n}{2}}
+    ARI(\pi, l) = \frac{\sum_{ij} \binom{n_{ij}}{2} - \left[\sum_i \binom{a_i}{2} \sum_j \binom{b_j}{2}\right] / \binom{n}{2}}{\frac{1}{2}\left[\sum_i \binom{a_i}{2} + \sum_j \binom{b_j}{2}\right] - \left[\sum_i \binom{a_i}{2} \sum_j \binom{b_j}{2}\right] / \binom{n}{2}}
 \end{equation}
 
+where $n_{ij}$ is the contingency table, $a_i$ and $b_j$ are row and column sums. ARI is adjusted for chance, ranging from -1 to 1, with 0 indicating random labeling.
 
-\paragraph{Clustering Accuracy (ACC)}
+
+\paragraph{Clustering Accuracy (ACC)} \citep{Kuhn1955}
 
 \begin{equation}
-    \text{ACC}(\pi, \ell) = \max_{\sigma} \frac{1}{N} \sum_{i=1}^{N} \mathds{1}[\ell_i = \sigma(\pi_i)]
+    ACC(\pi, l) = \max_{\sigma} \frac{1}{N} \sum_{i=1}^{N} \mathds{1}[l_i = \sigma(\pi_i)]
 \end{equation}
 
-where $\sigma$ is the optimal permutation found via Hungarian algorithm.
+where $\sigma$ is the optimal permutation found via the Hungarian algorithm, which finds the best one-to-one mapping between predicted clusters and true labels.
 
 
-\paragraph{Silhouette Score}
+\paragraph{Silhouette Score} \citep{Rousseeuw1987}
 
-The Silhouette score \citep{Rousseeuw1987} measures how similar each sample is to its own cluster compared to other clusters:
 
 \begin{equation}
     s(i) = \frac{b(i) - a(i)}{\max\{a(i), b(i)\}}
@@ -673,7 +673,7 @@ This provides human-interpretable cluster descriptions.
 
 
 \begin{itemize}
-\item \textbf{Deep Learning}: PyTorch 2.0+
+\item \textbf{Deep Learning}: PyTorch 2.0+ \citep{Paszke2019}
 \item \textbf{Clustering}: scikit-learn 1.2+
 \item \textbf{Data Processing}: NumPy, Pandas
 \item \textbf{Visualization}: Matplotlib, t-SNE (scikit-learn)
@@ -685,9 +685,8 @@ This provides human-interpretable cluster descriptions.
 
 Experiments were conducted on:
 \begin{itemize}
-\item \textbf{CPU}: Intel Core i7/AMD Ryzen (local experiments)
-\item \textbf{GPU}: NVIDIA GPU with CUDA support (when available)
-\item \textbf{Memory}: 16-32 GB RAM
+\item \textbf{CPU}: Intel Core i7 (local sample experiments)
+\item \textbf{GPU}: NVIDIA GPU with CUDA support, Luke server (full scale experiments)
 \end{itemize}
 
 
@@ -697,7 +696,6 @@ Experiments were conducted on:
 To ensure reproducibility:
 \begin{itemize}
 \item Fixed random seeds: 42
-\item Deterministic algorithms enabled
 \item Complete hyperparameter logging
 \end{itemize}
 
@@ -743,54 +741,11 @@ To ensure reproducibility:
     \item Simpler implementation and analysis
 \end{itemize}
 
-\section{Hyperparameter Selection}
-
-\subsection{Grid Search on Sample Subset}
-
-To identify promising hyperparameters efficiently, we conducted a grid search on a \textbf{small sample subset} (N=160 images). A tuning script (\texttt{tune\_hyperparams.py}) was developed to automate this process.
-
-\textbf{Search Space:}
-\begin{itemize}
-    \item $\lambda_{consensus} \in \{0.05, 0.1, 0.2\}$
-    \item $\lambda_{tag} \in \{0.5, 1.0, 1.5\}$
-    \item Epochs: 10
-    \item Dataset: Sample subset (\texttt{--use\_sample} flag, N=160)
-\end{itemize}
-
-\textbf{Limitation:} These tuning results are from a small sample and may not generalize to the full dataset. Full-scale validation is required before claiming final performance.
-
-\subsection{Tuning Results Summary}
-
-Table~\ref{tab:hyperparam_tuning} presents the results from sample-based tuning.
-
-\begin{table}[H]
-    \centering
-    \caption{Hyperparameter tuning results on sample subset (N=160)}
-    \label{tab:hyperparam_tuning}
-    \begin{tabular}{cc|cccc}
-        \hline
-        $\lambda_{cons}$ & $\lambda_{tag}$ & \textbf{NMI} & \textbf{ACC} & \textbf{ARI} & \textbf{Silhouette} \\
-        \hline
-        0.05 & 0.5 & 0.616 & 0.288 & -0.008 & 0.228 \\
-        0.05 & 1.0 & 0.597 & 0.269 & -0.009 & 0.193 \\
-        0.05 & 1.5 & 0.637 & 0.306 & -0.004 & 0.278 \\
-        0.1 & 0.5 & 0.612 & 0.294 & -0.003 & 0.216 \\
-        0.1 & 1.0 & 0.621 & 0.294 & -0.005 & 0.265 \\
-        0.1 & 1.5 & 0.637 & 0.294 & 0.000 & 0.277 \\
-        \textbf{0.2} & \textbf{0.5} & \textbf{0.642} & \textbf{0.319} & \textbf{0.008} & \textbf{0.275} \\
-        0.2 & 1.0 & 0.632 & 0.294 & 0.002 & 0.209 \\
-        0.2 & 1.5 & 0.603 & 0.275 & -0.003 & 0.234 \\
-        \hline
-    \end{tabular}
-\end{table}
-
-\textbf{Selected Configuration:} Based on sample tuning, we select $\lambda_{consensus}=0.2$, $\lambda_{tag}=0.5$ for further experiments.
-
 \section{Summary of Methodological Choices}
 
 \begin{table}[H]
     \centering
-    \caption{Final configuration summary}
+    \caption{Complete configuration summary}
     \begin{tabular}{ll}
         \hline
         \textbf{Component} & \textbf{Configuration} \\
@@ -799,11 +754,10 @@ Table~\ref{tab:hyperparam_tuning} presents the results from sample-based tuning.
         Encoder architecture & 4-layer CNN \\
         Optimizer & Adam ($\alpha=10^{-3}$) \\
         Batch size & 256 \\
-        $\lambda_{tag}$ & 0.5 (from sample tuning) \\
-        $\lambda_{consensus}$ & 0.2 (from sample tuning) \\
+        $\lambda_{tag}$ & 0.5 \\
+        $\lambda_{consensus}$ & 0.2 \\
         Ensemble size & 5 algorithms \\
-        k-NN neighbors & 20 \\
-        Random seed & 42 \\
+        k-NN neighbors & 15 \\
         \hline
     \end{tabular}\label{tab:table}
 \end{table}

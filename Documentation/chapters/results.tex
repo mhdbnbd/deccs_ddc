@@ -81,7 +81,20 @@ Table~\ref{tab:tuning_results} presents the results from hyperparameter tuning o
 
 \subsection{Current State}
 
-Full-scale experiments on the complete dataset with the tuned hyperparameters have not yet been completed. The results reported in earlier versions of this thesis (ACC $\approx$ 0.038, NMI $\approx$ 0.012) were obtained with different configurations and exhibited training instability.
+Full-scale experiments on the complete dataset (N=37,322) were conducted using the hyperparameters tuned on the sample data. \textbf{The results show that the approach failed to scale}: while the sample achieved NMI=0.642, the full-scale experiment achieved only NMI=0.012 and ACC=0.038 with the same configuration. This represents a critical negative result that indicates hyperparameters tuned on small samples do not generalize to the full dataset.
+
+\begin{table}[H]
+    \centering
+    \caption{Sample vs Full-Scale Performance Comparison}
+    \begin{tabular}{lcccc}
+        \hline
+        \textbf{Scale} & \textbf{N} & \textbf{NMI} & \textbf{ACC} & \textbf{Status} \\
+        \hline
+        Sample & 160 & 0.642 & -- & Promising \\
+        Full-scale & 37,322 & 0.012 & 0.038 & \textbf{Failed} \\
+        \hline
+    \end{tabular}
+\end{table}
 
 \subsection{Comparison: Sample vs. Full Dataset}
 
@@ -202,7 +215,7 @@ t-SNE \citep{vanderMaaten2014} is a nonlinear dimensionality reduction technique
 
 \section{Identified Challenges}
 
-Despite achieving meaningful clustering performance, several challenges were identified:
+The full-scale experiments revealed several significant challenges that prevented meaningful clustering:
 
 \subsection{Training Dynamics in DECCS Mode}
 
@@ -221,14 +234,14 @@ The Adjusted Rand Index remains close to zero despite good NMI and ACC scores. T
 \begin{enumerate}
     \item Cluster boundaries do not perfectly align with class boundaries
     \item The clustering may group visually similar animals across different classes
-    \item This is expected for attribute-based clustering, which groups by semantic properties rather than class identity
+    \item With NMI=0.012 and ACC=0.038 on the full dataset, the cluster assignments are essentially random with respect to ground truth classes
 \end{enumerate}
 
 \subsection{Sensitivity to Hyperparameters}
 
 The grid search revealed that performance varies with hyperparameter choices:
 \begin{itemize}
-    \item NMI ranges from 0.597 to 0.642 across configurations
+    \item On the sample subset (N=160), NMI ranges from 0.597 to 0.642 across configurations. However, the best configuration achieved only NMI=0.012 on the full dataset, demonstrating that hyperparameters tuned on small samples do not generalize
     \item Higher $\lambda_{tag}$ values can hurt performance
     \item This highlights the importance of systematic hyperparameter tuning
 \end{itemize}

@@ -1,8 +1,9 @@
 \section{Deep Embedded Clustering with Consensus Representations (DECCS)}
 
-The DECCS paper \citep{Miklautz2021}, "Deep Clustering With Consensus Representations" presents an innovative approach in the field of deep clustering. It addresses the limitations of existing deep clustering methods that are typically designed for a single clustering model, like k-means, spectral clustering, or Gaussian mixture models. These methods often fall short when their underlying assumptions are not met by the data.
+The DECCS paper \citep{Miklautz2021}, \("\)Deep Clustering With Consensus Representations\("\) presents an innovative approach in the field of deep clustering. It addresses the limitations of existing deep clustering methods that are typically designed for a single clustering model, like k-means, spectral clustering, or Gaussian mixture models. These methods often fall short when their underlying assumptions are not met by the data.
 
-DECCS (Deep Embedded Clustering with Consensus Representations) proposes a novel method that combines deep learning and clustering to improve both the learned representation and the performance of multiple heterogeneous clustering algorithms simultaneously. This approach is a significant departure from current deep clustering (DC) and consensus clustering (CC) methods, which typically focus on single models and may not effectively handle high-dimensional datasets or non-linear transformations. Recent surveys provide comprehensive overviews of deep clustering methods \citep{Min2018, Zhou2024}, while consensus clustering approaches have been extensively studied \citep{Vega-Pons2011}.
+DECCS (Deep Embedded Clustering with Consensus Representations) proposes a novel method that combines deep learning and clustering to improve both the learned representation and the performance of multiple heterogeneous clustering algorithms simultaneously.
+This approach is a significant departure from current deep clustering (DC) and consensus clustering (CC) methods. DC methods typically focus on a single clustering algorithm, while traditional CC methods, though combining multiple solutions, often don't access the original data features and are limited to linear transformations. Recent surveys provide comprehensive overviews of deep clustering methods \citep{Min2018, Zhou2024}, while consensus clustering approaches have been extensively studied \citep{Vega-Pons2011}.
 
 \subsection{Related Work in Consensus Clustering and Deep Clustering}
 
@@ -56,13 +57,13 @@ DECCS is innovative in using a consensus representation learning approach, where
 
 \subsection{Experimental Evaluation}
 
-DECCS was evaluated across various datasets, including MNIST, Fashion-MNIST, Kuzushiji-MNIST, USPS, and others. The experimental setup involved using a feed-forward AE architecture and setting specific hyperparameters for DECCS, like the consensus weight (cons) and sampling size (n). The evaluation metrics included normalized mutual information (NMI) \citep{Vinh2010} and adjusted rand index, focusing on the agreement within an ensemble and cluster performance. DECCS showed improved agreement and cluster performance across all ensemble members, outperforming several relevant baselines from deep clustering and consensus clustering.
+DECCS was evaluated across various datasets, including MNIST, Fashion-MNIST, Kuzushiji-MNIST, USPS, and others. The experimental setup involved using a feed-forward AE architecture and setting specific hyperparameters for DECCS, like the consensus weight (cons) and sampling size (n). The evaluation metrics included normalized mutual information (NMI) and adjusted rand index (ARI) \citep{Vinh2010}, focusing on the agreement within an ensemble and cluster performance. DECCS showed improved agreement and cluster performance across all ensemble members, outperforming several relevant baselines from deep clustering and consensus clustering.
 
 In summary, DECCS represents a significant advancement in deep clustering, effectively addressing the challenges of integrating multiple clustering methods. Its ability to learn a consensus representation that maximizes ensemble agreement marks a key innovation in this field.
 
 \section{Deep Descriptive Clustering (DDC)}
 
-The paper "Deep Descriptive Clustering" \citep{Zhang2021} by Hongjing Zhang and Ian Davidson explores a novel approach to clustering complex data such as images, text, and graphs, with a focus on explainable AI (XAI). This approach is particularly significant in the context of unsupervised learning like clustering, where explanations are crucial at the model level rather than just the instance level. The paper introduces the Deep Descriptive Clustering (DDC) framework, which combines deep clustering with cluster-level explanations. This framework is unique in its ability to learn from both sub-symbolic (clustering) and symbolic (explanation) levels simultaneously.
+The paper ``Deep Descriptive Clustering'' \citep{Zhang2021} by Hongjing Zhang and Ian Davidson explores a novel approach to clustering complex image data, with a focus on explainable AI (XAI). This approach is particularly significant in the context of unsupervised learning like clustering, where explanations are crucial at the model level rather than just the instance level. The paper introduces the Deep Descriptive Clustering (DDC) framework, which combines deep clustering with cluster-level explanations. This framework is unique in its ability to learn from both sub-symbolic (clustering) and symbolic (explanation) levels simultaneously.
 
 \subsection{Key Aspects of Deep Descriptive Clustering (DDC)}
 
@@ -74,7 +75,7 @@ The paper "Deep Descriptive Clustering" \citep{Zhang2021} by Hongjing Zhang and 
 
 \begin{figure}
 \centering
-\includegraphics[width=1\textwidth]{figs/dec.png}
+\includegraphics[width=1\textwidth]{figs/ddc.png}
     \caption{The framework of deep descriptive clustering (DDC). DDC consists of one clustering objective, one sub-symbolic explanation objective, and one self-generated objective to maximize the consistency between clustering and explanation modules.}
 \label{fig:ddc}
 \end{figure}
@@ -99,9 +100,9 @@ DEC has been shown to significantly improve clustering results on various datase
 
 \begin{figure}[h]
     \centering
-    %\includegraphics[width=0.8\textwidth]{dec_architecture.png}
+    \includegraphics[width=1\textwidth]{figs/dec.png}
     \caption{Architecture of the Deep Embedded Clustering (DEC) model. The model consists of a stacked autoencoder followed by a clustering layer. The autoencoder learns a low-dimensional representation of the data, which is then clustered using a clustering objective.}
-    \label{fig:dec_architecture}
+\label{fig:dec}
 \end{figure}
 
 \subsection{Auto-Encoding Variational Bayes by D. P. Kingma and M. Welling (2014)}
@@ -114,9 +115,9 @@ VAEs are particularly useful in clustering because they create smooth and contin
 
 \begin{figure}[h]
     \centering
-%    \includegraphics[width=0.8\textwidth]{vae_architecture.png}
+    \includegraphics[width=0.8\textwidth]{vae.png}
     \caption{Architecture of the Variational Autoencoder (VAE) model. The encoder maps input data to a latent space, and the decoder reconstructs the data from the latent space. The model is trained to minimize reconstruction loss and regularization loss.}
-    \label{fig:vae_architecture}
+\label{fig:vae}
 \end{figure}
 
 \subsection{Explainable-by-Design Algorithms}
@@ -129,23 +130,27 @@ However, the application of these algorithms has certain limitations, particular
 
 \subsection{Post-processing Explanation Methods}
 
-Post-processing explanation methods, developed by researchers like Davidson et al. (2018) and \citep{Sambaturu2020}, take a different approach to explainability in clustering. Unlike explainable-by-design algorithms, these methods do not integrate explainability into the clustering process itself. Instead, they focus on generating explanations for pre-existing clustering results. These methods typically employ an additional set of features, often referred to as semantic tags, which are used to post-process and explain the outcomes of the clustering algorithms.
+Post-processing explanation methods, developed by researchers like Davidson et al. \citep{davidson2018} and Sambaturu et al. (2020) \citep{Sambaturu2020}, take a different approach to explainability in clustering. Unlike explainable-by-design algorithms, these methods do not integrate explainability into the clustering process itself. Instead, they focus on generating explanations for pre-existing clustering results. These methods typically employ an additional set of features, often referred to as semantic tags, which are used to post-process and explain the outcomes of the clustering algorithms.
 
 For example, in a clustering task involving document classification, a post-processing method might use semantic tags related to the content or theme of the documents to provide explanations for why certain documents are grouped together. This approach is algorithm-agnostic, meaning it can be applied to the results of any clustering algorithm, regardless of how the initial clustering was performed.
+
+Instance-level explanation methods like LIME \citep{Ribeiro2016} explain individual predictions by approximating the model locally with interpretable surrogates, but they do not provide cluster-level insights that characterize entire groups of data points.
 
 However, a critical limitation of post-processing explanation methods is that they may not fully leverage the information available from the additional features. Since these methods are applied after the clustering has been completed, they often rely on the inherent quality of the initial clustering. If the original clustering does not align well with the semantic tags used for explanation, the resulting explanations can be suboptimal or less meaningful. This disconnect between the clustering process and the post-hoc explanation phase can lead to explanations that do not fully capture the nuances or the rationale behind the formed clusters.
 
 \subsection{Other Related Works}
 
-Other significant contributions to the field of interpretable clustering include work on generating explanations for cluster assignments and using neural networks to produce interpretable cluster descriptions. These studies have advanced the understanding of how deep learning techniques can be leveraged to improve both the performance and interpretability of clustering algorithms.
+Other significant contributions to the field of interpretable clustering include the works by Rishinanda and Sebag (2021) on deep discriminative clustering analysis, Liu et al. (2022) on generating natural language descriptions for clusters, and Chhajer and Moniri (2022) on using disentangled representations for clustering. These studies have advanced the understanding of how deep learning techniques can be leveraged to improve both the performance and interpretability of clustering algorithms.
 
-Recent work has explored various approaches to cluster explainability, including post-hoc explanation methods that generate descriptions after clustering is complete, and integrated approaches that jointly optimize for clustering quality and explanation quality \citep{Kauffmann2022}. The challenge of balancing clustering performance with interpretability remains an active area of research.
+Rishinanda and Sebag (2021) propose a deep learning approach that combines representation learning and discriminative clustering, aiming to produce well-separated and interpretable clusters. Liu et al. (2022) introduce a framework for generating natural language descriptions for clusters, enhancing the accessibility of clustering results to non-experts. Chhajer and Moniri (2022) focus on disentangled representations, which separate different explanatory factors in the data, making the clustering results more understandable.
 
-These advancements demonstrate the ongoing efforts to make clustering algorithms not only more accurate but also more interpretable, bridging the gap between complex data analysis and human understanding.
+These advancements demonstrate the ongoing efforts to make clustering algorithms not only more accurate but also more interpretable, bridging the gap between complex data analysis and human understanding \citep{Rishinanda2021, Liu2022, Chhajer2022}.
 
-\section{Comprehensive Comparison of Clustering Approaches}
+\subsection{Contrastive Learning and Deep Clustering}
 
 Recent advances in self-supervised and contrastive learning have significantly influenced deep clustering. SimCLR \citep{Chen2020} introduced a simple framework for contrastive learning that learns visual representations by maximizing agreement between differently augmented views of the same image. MoCo \citep{He2020} proposed momentum contrast for unsupervised visual representation learning. SwAV \citep{Caron2020} combined contrastive learning with clustering by contrasting cluster assignments rather than individual features. BYOL \citep{Grill2020} demonstrated that contrastive learning can work without negative pairs through a self-distillation approach. These developments have led to contrastive clustering methods like CC \citep{Li2021}, which performs instance-level and cluster-level contrastive learning jointly, graph contrastive clustering \citep{Zhong2021}, and twin contrastive clustering \citep{Shen2021}. A comprehensive survey on contrastive self-supervised learning is provided by \citet{Jaiswal2021}.
+
+\section{Comprehensive Comparison of Clustering Approaches}
 
 \subsection{Taxonomy of Deep Clustering Methods}
 
@@ -161,9 +166,9 @@ Deep clustering methods can be categorized along multiple dimensions:
         \textbf{Dimension} & \textbf{Category} & \textbf{Examples} & \textbf{Key Feature} \\
         \hline
         \multirow{3}{3cm}{Clustering Objective}
-        & Reconstruction-based & AE, VAE & Minimize reconstruction error \\
+        & Reconstruction-based & AE, VAE, Ours & Minimize reconstruction error \\
         & Assignment-based & DEC, DCN & Optimize cluster assignments \\
-        & Mutual Information & IIC, DDC & Maximize MI between views \\
+        & Mutual Information & DDC & Maximize MI between views \\
         \hline
         \multirow{2}{3cm}{Supervision}
         & Fully Unsupervised & DEC, DECCS & No label information \\
@@ -214,7 +219,7 @@ DEC pioneered joint representation-clustering optimization, which we build upon.
 
 \textbf{Weaknesses:}
 \begin{itemize}
-    \item Assumes specific prior distribution (typically Gaussian)
+    \item Assumes specific prior distribution
     \item May not align well with arbitrary cluster shapes
     \item Requires balancing reconstruction and KL divergence terms
     \item Still lacks interpretability
@@ -256,14 +261,14 @@ DECCS is our primary foundation. We extend it by adding semantic supervision (fr
 
 \textbf{Weaknesses:}
 \begin{itemize}
-    \item Relies on single clustering algorithm (typically discriminative clustering)
+    \item Relies on single clustering algorithm
     \item Requires pre-existing semantic tags
     \item ILP solver can be slow for large numbers of constraints
     \item Limited exploration of ensemble methods
 \end{itemize}
 
 \textbf{Relationship to Our Work:}
-DDC provides the interpretability framework we integrate into DECCS. We adopt DDC's tag-based supervision but combine it with DECCS's consensus mechanism. Our work explores whether DDC's pairwise loss can improve ensemble clustering performance.
+DDC provides the interpretability framework we integrate into DECCS. We adopt DDC's tag-based supervision and combine it with DECCS's consensus mechanism. Note that we use DECCS's consensus loss rather than DDC's pairwise constraints, as the consensus mechanism already provides ensemble-level consistency.
 
 \subsection{Quantitative Performance Comparison}
 
@@ -294,13 +299,13 @@ Table~\ref{tab:methods_comparison} provides a comprehensive comparison of method
         \hline
         DDC \citep{Zhang2021} & -- & -- & \textbf{0.782} & \textbf{0.724} & \textbf{Yes} \\
         \hline
-        \textbf{Our CAE} & -- & -- & 0.752 & 0.694 & \textbf{Yes} \\
-        \textbf{Our DECCS (projected)} & -- & -- & 0.768$^*$ & 0.710$^*$ & \textbf{Yes} \\
+        \textbf{Ours (sample, N=160)} & -- & -- & 0.642 & -- & Yes \\
+        \textbf{Ours (full-scale, N=37,322)} & -- & -- & 0.012 & -- & Yes \\
         \hline
     \end{tabular}
 \end{table}
 
-\textit{*Projected performance based on partial implementation and scaling analysis.}
+\textit{Note: Our approach showed promise on small samples but failed to scale. See Chapter 4 for detailed analysis.}
 
 \subsection{Qualitative Feature Comparison}
 
@@ -512,7 +517,7 @@ Our work specifically addresses the following gaps identified in prior literatur
     \item \textbf{Gap 1: Interpretability-Performance Trade-off}
     \begin{itemize}
         \item \textit{Prior work:} DECCS achieves high performance but lacks interpretability; DDC provides interpretability but doesn't leverage ensemble robustness.
-        \item \textit{Our contribution:} Investigate whether semantic supervision can improve clustering performance while adding interpretability.
+        \item \textit{Our contribution:} Investigate whether semantic supervision can improve clustering performance while adding interpretability. Results reveal significant scalability challenges: sample data (N=160) achieved NMI=0.642, but full-scale (N=37,322) achieved only NMI=0.012.
     \end{itemize}
 
     \item \textbf{Gap 2: Consensus with Semantic Grounding}
@@ -542,8 +547,8 @@ Our work sits at the intersection of three research streams:
     \centering
     \begin{tikzpicture}
         % Three circles (Venn diagram style)
-        \draw[thick, fill=blue!20, opacity=0.5] (0,0) circle (2cm) node[yshift=2.3cm] {\textbf{Ensemble Clustering}};
-        \draw[thick, fill=red!20, opacity=0.5] (3,0) circle (2cm) node[yshift=2.3cm] {\textbf{Deep Learning}};
+        \draw[thick, fill=blue!20, opacity=0.5] (0,0) circle (2cm) node[yshift=2.3cm, xshift=-1cm] {\textbf{Ensemble Clustering}};
+        \draw[thick, fill=red!20, opacity=0.5] (3,0) circle (2cm) node[yshift=2.3cm, xshift=1cm] {\textbf{Deep Learning}};
         \draw[thick, fill=green!20, opacity=0.5] (1.5,-2) circle (2cm) node[yshift=-2.3cm] {\textbf{Explainable AI}};
 
         % Intersections
