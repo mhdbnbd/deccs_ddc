@@ -3,58 +3,51 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
 The style file: plainnat.bst
 Database file #1: bibliography.bib
-Warning--I didn't find a database entry for "Miklautz2021"
-Warning--I didn't find a database entry for "Ruder2017"
-Warning--I didn't find a database entry for "Crawshaw2020"
-Warning--I didn't find a database entry for "Xie2016"
-Warning--I didn't find a database entry for "Kingma2014"
-Warning--I didn't find a database entry for "davidson2018"
-Warning--I didn't find a database entry for "Kingma2015"
 Warning--empty booktitle in Akata2016
 Warning--can't use both volume and number fields in Akata2016
 Warning--empty journal in Chen2021
 Warning--empty booktitle in Fred2005
 Warning--can't use both volume and number fields in Fred2005
 Warning--can't use both volume and number fields in Li2021
-You've used 47 entries,
+You've used 53 entries,
             2773 wiz_defined-function locations,
-            917 strings with 14350 characters,
-and the built_in function-call counts, 29969 in all, are:
-= -- 2660
-> -- 1998
-< -- 41
-+ -- 668
-- -- 621
-* -- 2493
-:= -- 4368
-add.period$ -- 154
-call.type$ -- 47
-change.case$ -- 348
-chr.to.int$ -- 47
-cite$ -- 100
-duplicate$ -- 1294
-empty$ -- 2222
-format.name$ -- 688
-if$ -- 6429
+            936 strings with 15176 characters,
+and the built_in function-call counts, 32853 in all, are:
+= -- 2918
+> -- 2147
+< -- 47
++ -- 719
+- -- 666
+* -- 2677
+:= -- 4778
+add.period$ -- 173
+call.type$ -- 53
+change.case$ -- 381
+chr.to.int$ -- 53
+cite$ -- 112
+duplicate$ -- 1462
+empty$ -- 2477
+format.name$ -- 743
+if$ -- 7074
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 47
-newline$ -- 256
-num.names$ -- 188
-pop$ -- 736
+missing$ -- 53
+newline$ -- 286
+num.names$ -- 212
+pop$ -- 820
 preamble$ -- 1
-purify$ -- 301
+purify$ -- 328
 quote$ -- 0
-skip$ -- 1152
+skip$ -- 1288
 stack$ -- 0
-substring$ -- 1360
-swap$ -- 324
-text.length$ -- 28
+substring$ -- 1426
+swap$ -- 366
+text.length$ -- 30
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 517
+type$ -- 583
 warning$ -- 6
-while$ -- 235
+while$ -- 257
 width$ -- 0
-write$ -- 638
-(There were 13 warnings)
+write$ -- 715
+(There were 6 warnings)

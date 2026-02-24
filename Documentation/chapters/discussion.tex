@@ -47,7 +47,7 @@ This raises fundamental questions about the validity of hyperparameter tuning on
 
 \subsection{Comparison with DDC}
 
-DDC achieves NMI $\approx$ 0.78 on AwA2, while our approach achieved only NMI=0.012 on the full dataset. Understanding this gap is crucial:
+DDC achieves NMI $\approx$ 0.78 on AwA, while our approach achieved only NMI=0.012 on the full AwA2 dataset. Understanding this gap is crucial:
 
 \subsubsection{Missing Pairwise Consistency Loss}
 
@@ -59,7 +59,7 @@ DDC operates on a single clustering objective (maximizing mutual information), w
 
 \subsubsection{Architecture Differences}
 
-DDC uses a carefully designed architecture that has been validated on AwA2. Our adaptation required modifications to integrate with DECCS's framework, potentially introducing suboptimal design choices.
+DDC uses a carefully designed architecture that has been validated on AwA. Our adaptation required modifications to integrate with DECCS's framework, potentially introducing suboptimal design choices.
 
 \subsection{Potential Issues to Investigate}
 
@@ -79,8 +79,8 @@ The t-SNE visualizations show some apparent structure in the embedding space, ye
 The loss curves show convergence, but the final clustering quality is poor. This may indicate:
 \begin{itemize}
     \item Convergence to a local minimum that does not correspond to meaningful clusters
-    \item Catastrophic forgetting during multi-task optimization
-    \item Hyperparameter values that work for reconstruction but not for clustering
+    \item Task interference during multi-objective optimization, where gradients from reconstruction, tag prediction, and consensus losses conflict, preventing the model from learning cluster-aligned representations
+    \item Loss imbalance, where the reconstruction objective dominates and the model does not sufficiently optimize for clustering structure
 \end{itemize}
 
 \section{Comparison with Research Hypotheses}
@@ -96,9 +96,6 @@ The loss curves show convergence, but the final clustering quality is poor. This
 \subsection{Hypothesis 3: Consensus Clustering Enhances Robustness}
 
 \textbf{Not confirmed at scale.} While the DECCS consensus mechanism is theoretically sound, our integration with DDC's semantic supervision did not achieve robust clustering on the full dataset. The interaction between consensus learning and semantic supervision may require more careful design.
-
-The stability analysis (Appendix B) showed that consensus-based clusters have high bootstrap stability (mean ARI = 0.866), indicating that our clusters are reproducible and not artifacts of specific random initializations.
-
 \section{Limitations and Challenges}
 
 \subsection{Implementation Limitations}
@@ -114,12 +111,6 @@ Due to time and computational constraints, we did not fully implement the iterat
 \end{itemize}
 
 These omissions likely limited the potential performance gains. The full DECCS algorithm with iterative consensus refinement would be expected to achieve better convergence.
-
-\subsubsection{Small-Scale Experiments}
-
-Our primary results are based on sampled datasets of 200 images rather than the full AwA2 dataset (37,322 images). While computational constraints necessitated this choice, it limits the generalizability of our findings.
-
-The data efficiency experiments (Table~\ref{tab:data_efficiency}) suggest that performance continues to improve with more data, indicating that full-scale experiments would likely yield better results.
 
 \subsubsection{Simple Architecture}
 
@@ -173,12 +164,6 @@ The success of semantic supervision highlights the value of aligning learned rep
 
 By incorporating human-defined attributes, we bridge the gap between statistical patterns and semantic meaning, producing clusters that are both mathematically coherent and humanly interpretable.
 
-\subsection{Consensus as Uncertainty Quantification}
-
-The consensus clustering framework provides a natural mechanism for uncertainty quantification. Points with high consensus (all algorithms agree) represent confident cluster assignments, while points with low consensus indicate ambiguity.
-
-This uncertainty information could be valuable for downstream applications, allowing users to focus attention on high-confidence predictions while flagging ambiguous cases for human review.
-
 \section{Practical Implications}
 
 \subsection{When to Use This Approach}
@@ -211,7 +196,6 @@ For practitioners considering this approach, we recommend:
     \item \textbf{Validate attribute quality}: Ensure semantic attributes are accurate, complete, and relevant to the clustering task
     \item \textbf{Tune hyperparameters carefully}: The balance between reconstruction, tag prediction, and consensus losses significantly affects results
     \item \textbf{Monitor for overfitting}: With multiple loss terms, it's possible for one objective to dominate; track all loss components during training
-    \item \textbf{Interpret explanations cautiously}: Generated cluster descriptions are approximations; verify with domain experts before acting on insights
 \end{enumerate}
 
 \section{Comparison with Related Work}

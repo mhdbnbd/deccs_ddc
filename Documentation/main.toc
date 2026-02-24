@@ -1,230 +1,211 @@
 \contentsline {chapter}{Abstract}{1}{Doc-Start}%
 \contentsline {chapter}{Contents}{1}{chapter*.1}%
-\contentsline {chapter}{List of Figures}{6}{chapter*.2}%
-\contentsline {chapter}{List of Tables}{8}{chapter*.3}%
-\contentsline {chapter}{\numberline {1}Introduction}{9}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Background}{9}{section.1.1}%
-\contentsline {section}{\numberline {1.2}Problem Statement}{10}{section.1.2}%
-\contentsline {subsection}{\numberline {1.2.1}Formal Problem Definition}{10}{subsection.1.2.1}%
-\contentsline {subsection}{\numberline {1.2.2}Key Challenges}{10}{subsection.1.2.2}%
-\contentsline {section}{\numberline {1.3}Research Objectives}{11}{section.1.3}%
-\contentsline {section}{\numberline {1.4}Contributions}{11}{section.1.4}%
-\contentsline {subsection}{\numberline {1.4.1}Methodological Contributions}{11}{subsection.1.4.1}%
-\contentsline {subsection}{\numberline {1.4.2}Empirical Contributions}{12}{subsection.1.4.2}%
-\contentsline {subsection}{\numberline {1.4.3}Practical Contributions}{12}{subsection.1.4.3}%
-\contentsline {section}{\numberline {1.5}Thesis Structure}{12}{section.1.5}%
-\contentsline {section}{\numberline {1.6}Scope and Delimitations}{13}{section.1.6}%
-\contentsline {subsection}{\numberline {1.6.1}In Scope}{13}{subsection.1.6.1}%
-\contentsline {subsection}{\numberline {1.6.2}Out of Scope}{13}{subsection.1.6.2}%
-\contentsline {chapter}{\numberline {2}Literature Review}{15}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Deep Embedded Clustering with Consensus Representations (DECCS)}{15}{section.2.1}%
-\contentsline {subsection}{\numberline {2.1.1}Related Work in Consensus Clustering and Deep Clustering}{15}{subsection.2.1.1}%
-\contentsline {subsection}{\numberline {2.1.2}Methodology of DECCS}{17}{subsection.2.1.2}%
-\contentsline {subsection}{\numberline {2.1.3}Experimental Evaluation}{17}{subsection.2.1.3}%
-\contentsline {section}{\numberline {2.2}Deep Descriptive Clustering (DDC)}{18}{section.2.2}%
-\contentsline {subsection}{\numberline {2.2.1}Key Aspects of Deep Descriptive Clustering (DDC)}{18}{subsection.2.2.1}%
-\contentsline {subsection}{\numberline {2.2.2}Experiments and Findings}{19}{subsection.2.2.2}%
-\contentsline {subsection}{\numberline {2.2.3}Conclusion and Future Directions}{19}{subsection.2.2.3}%
-\contentsline {section}{\numberline {2.3}Related Works}{19}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1}Deep Embedded Clustering: A General Approach to Clustering Arbitrary Similarity Measures by J. Xie, R. Girshick, and A. Farhadi (2016)}{19}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.3.2}Auto-Encoding Variational Bayes by D. P. Kingma and M. Welling (2014)}{20}{subsection.2.3.2}%
-\contentsline {subsection}{\numberline {2.3.3}Explainable-by-Design Algorithms}{21}{subsection.2.3.3}%
-\contentsline {subsection}{\numberline {2.3.4}Post-processing Explanation Methods}{22}{subsection.2.3.4}%
-\contentsline {subsection}{\numberline {2.3.5}Other Related Works}{22}{subsection.2.3.5}%
-\contentsline {subsection}{\numberline {2.3.6}Contrastive Learning and Deep Clustering}{23}{subsection.2.3.6}%
-\contentsline {section}{\numberline {2.4}Comprehensive Comparison of Clustering Approaches}{23}{section.2.4}%
-\contentsline {subsection}{\numberline {2.4.1}Taxonomy of Deep Clustering Methods}{23}{subsection.2.4.1}%
-\contentsline {subsection}{\numberline {2.4.2}Detailed Method Comparison}{24}{subsection.2.4.2}%
-\contentsline {subsubsection}{Deep Embedded Clustering (DEC)}{24}{subsection.2.4.2}%
-\contentsline {subsubsection}{Variational Autoencoders for Clustering (VAE-based)}{24}{subsection.2.4.2}%
-\contentsline {subsubsection}{Deep Clustering with Consensus Representations (DECCS)}{25}{subsection.2.4.2}%
-\contentsline {subsubsection}{Deep Descriptive Clustering (DDC)}{25}{subsection.2.4.2}%
-\contentsline {subsection}{\numberline {2.4.3}Quantitative Performance Comparison}{26}{subsection.2.4.3}%
-\contentsline {subsection}{\numberline {2.4.4}Qualitative Feature Comparison}{26}{subsection.2.4.4}%
-\contentsline {subsection}{\numberline {2.4.5}Computational Complexity Analysis}{26}{subsection.2.4.5}%
-\contentsline {subsection}{\numberline {2.4.6}Applicability Analysis}{27}{subsection.2.4.6}%
-\contentsline {subsection}{\numberline {2.4.7}Key Innovations by Method}{27}{subsection.2.4.7}%
-\contentsline {subsection}{\numberline {2.4.8}Limitations Comparison}{28}{subsection.2.4.8}%
-\contentsline {section}{\numberline {2.5}Evolution of Deep Clustering Paradigms}{28}{section.2.5}%
-\contentsline {subsection}{\numberline {2.5.1}Research Gaps Addressed}{29}{subsection.2.5.1}%
-\contentsline {subsection}{\numberline {2.5.2}Positioning in the Literature}{29}{subsection.2.5.2}%
-\contentsline {section}{\numberline {2.6}Summary and Implications for This Research}{30}{section.2.6}%
-\contentsline {subsection}{\numberline {2.6.1}Key Insights from the Literature}{30}{subsection.2.6.1}%
-\contentsline {subsection}{\numberline {2.6.2}Research Gap}{31}{subsection.2.6.2}%
-\contentsline {subsection}{\numberline {2.6.3}Positioning of Our Work}{31}{subsection.2.6.3}%
-\contentsline {chapter}{\numberline {3}Methodology}{32}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Overview}{32}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}Methodological Contributions}{32}{subsection.3.1.1}%
-\contentsline {subsection}{\numberline {3.1.2}Research Design}{32}{subsection.3.1.2}%
-\contentsline {section}{\numberline {3.2}Dataset Preparation}{33}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}Animals with Attributes 2 (AwA2) Dataset}{33}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2}Semantic Attribute Structure}{33}{subsection.3.2.2}%
-\contentsline {subsection}{\numberline {3.2.3}Data Preprocessing Pipeline}{35}{subsection.3.2.3}%
-\contentsline {subsubsection}{Image Preprocessing}{35}{subsection.3.2.3}%
-\contentsline {subsubsection}{Attribute Normalization}{35}{ALC@unique.3}%
-\contentsline {subsubsection}{Dataset Splitting}{35}{equation.3.2}%
-\contentsline {subsection}{\numberline {3.2.4}Data Loading Implementation}{35}{subsection.3.2.4}%
-\contentsline {section}{\numberline {3.3}Model Architecture}{36}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}Baseline Autoencoder (AE)}{36}{subsection.3.3.1}%
-\contentsline {subsubsection}{Encoder Architecture}{36}{subsection.3.3.1}%
-\contentsline {subsubsection}{Decoder Architecture}{36}{equation.3.3}%
-\contentsline {subsubsection}{Baseline Loss Function}{36}{equation.3.4}%
-\contentsline {subsection}{\numberline {3.3.2}Constrained Autoencoder (CAE)}{36}{subsection.3.3.2}%
-\contentsline {subsubsection}{Architecture Extension}{36}{subsection.3.3.2}%
-\contentsline {subsubsection}{Multi-Objective Loss Function}{37}{equation.3.6}%
-\contentsline {subsubsection}{Hyperparameter Selection}{37}{equation.3.10}%
-\contentsline {subsection}{\numberline {3.3.3}Consensus Clustering Integration (DECCS)}{37}{subsection.3.3.3}%
-\contentsline {subsubsection}{Consensus Representation Learning}{37}{subsection.3.3.3}%
-\contentsline {subsubsection}{Ensemble Clustering Algorithms}{38}{equation.3.11}%
-\contentsline {subsubsection}{Consensus Matrix Construction}{38}{table.3.1}%
-\contentsline {subsubsection}{Consensus Consistency Loss}{38}{equation.3.13}%
-\contentsline {subsubsection}{Full DECCS Loss}{38}{equation.3.15}%
-\contentsline {section}{\numberline {3.4}Training Procedure}{39}{section.3.4}%
-\contentsline {subsection}{\numberline {3.4.1}Optimization Strategy}{39}{subsection.3.4.1}%
-\contentsline {subsubsection}{Optimizer Configuration}{39}{subsection.3.4.1}%
-\contentsline {subsubsection}{Batch Processing}{39}{subsection.3.4.1}%
-\contentsline {subsubsection}{Mixed Precision Training}{39}{subsection.3.4.1}%
-\contentsline {subsection}{\numberline {3.4.2}Training Algorithms}{40}{subsection.3.4.2}%
-\contentsline {subsubsection}{Baseline Autoencoder Training}{40}{subsection.3.4.2}%
-\contentsline {subsubsection}{Constrained Autoencoder Training}{40}{ALC@unique.20}%
-\contentsline {subsubsection}{DECCS Training with Consensus}{41}{ALC@unique.32}%
-\contentsline {section}{\numberline {3.5}Clustering and Evaluation}{41}{section.3.5}%
-\contentsline {subsection}{\numberline {3.5.1}Embedding Extraction}{41}{subsection.3.5.1}%
-\contentsline {subsection}{\numberline {3.5.2}Consensus Clustering}{41}{subsection.3.5.2}%
-\contentsline {subsubsection}{Ensemble Execution}{41}{subsection.3.5.2}%
-\contentsline {subsection}{\numberline {3.5.3}Evaluation Metrics}{42}{subsection.3.5.3}%
-\contentsline {subsubsection}{Clustering Performance Metrics}{42}{subsection.3.5.3}%
-\contentsline {paragraph}{Normalized Mutual Information (NMI)}{42}{subsection.3.5.3}%
-\contentsline {paragraph}{Adjusted Rand Index (ARI)}{42}{equation.3.17}%
-\contentsline {paragraph}{Clustering Accuracy (ACC)}{42}{equation.3.18}%
-\contentsline {paragraph}{Silhouette Score}{42}{equation.3.19}%
-\contentsline {section}{\numberline {3.6}Cluster Explanation Generation}{43}{section.3.6}%
-\contentsline {subsection}{\numberline {3.6.1}Attribute-Based Characterization}{43}{subsection.3.6.1}%
-\contentsline {subsection}{\numberline {3.6.2}Top-K Attribute Selection}{43}{subsection.3.6.2}%
-\contentsline {subsection}{\numberline {3.6.3}Explanation Quality Metrics}{43}{subsection.3.6.3}%
-\contentsline {subsubsection}{Cluster Purity}{43}{subsection.3.6.3}%
-\contentsline {subsubsection}{Attribute Discriminativeness}{43}{equation.3.23}%
-\contentsline {section}{\numberline {3.7}Implementation Details}{43}{section.3.7}%
-\contentsline {subsection}{\numberline {3.7.1}Software Framework}{43}{subsection.3.7.1}%
-\contentsline {subsection}{\numberline {3.7.2}Hardware Configuration}{43}{subsection.3.7.2}%
-\contentsline {subsection}{\numberline {3.7.3}Reproducibility}{44}{subsection.3.7.3}%
-\contentsline {section}{\numberline {3.8}Limitations and Design Choices}{44}{section.3.8}%
-\contentsline {subsection}{\numberline {3.8.1}Methodological Limitations}{44}{subsection.3.8.1}%
-\contentsline {subsection}{\numberline {3.8.2}Design Rationale}{44}{subsection.3.8.2}%
-\contentsline {section}{\numberline {3.9}Summary of Methodological Choices}{45}{section.3.9}%
-\contentsline {chapter}{\numberline {4}Results}{46}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Experimental Setup}{46}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Hyperparameters}{46}{subsection.4.1.1}%
-\contentsline {section}{\numberline {4.2}Hyperparameter Tuning on Sample Subset}{46}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Grid Search Configuration}{47}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Sample-Based Tuning Results}{47}{subsection.4.2.2}%
-\contentsline {section}{\numberline {4.3}Full-Scale Results}{48}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Current State}{48}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Comparison: Sample vs. Full Dataset}{48}{subsection.4.3.2}%
-\contentsline {section}{\numberline {4.4}Training Dynamics}{48}{section.4.4}%
-\contentsline {subsection}{\numberline {4.4.1}Loss Curves}{48}{subsection.4.4.1}%
-\contentsline {section}{\numberline {4.5}Embedding Space Visualization}{51}{section.4.5}%
-\contentsline {subsection}{\numberline {4.5.1}PCA Projections}{51}{subsection.4.5.1}%
+\contentsline {chapter}{List of Figures}{5}{chapter*.2}%
+\contentsline {chapter}{List of Tables}{7}{chapter*.3}%
+\contentsline {chapter}{\numberline {1}Introduction}{8}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Background}{8}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Problem Statement}{9}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}Formal Problem Definition}{9}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}Key Challenges}{9}{subsection.1.2.2}%
+\contentsline {section}{\numberline {1.3}Research Objectives}{10}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Contributions}{10}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}Methodological Contributions}{10}{subsection.1.4.1}%
+\contentsline {subsection}{\numberline {1.4.2}Empirical Contributions}{11}{subsection.1.4.2}%
+\contentsline {subsection}{\numberline {1.4.3}Practical Contributions}{11}{subsection.1.4.3}%
+\contentsline {section}{\numberline {1.5}Thesis Structure}{11}{section.1.5}%
+\contentsline {section}{\numberline {1.6}Scope and Delimitations}{12}{section.1.6}%
+\contentsline {subsection}{\numberline {1.6.1}In Scope}{12}{subsection.1.6.1}%
+\contentsline {subsection}{\numberline {1.6.2}Out of Scope}{12}{subsection.1.6.2}%
+\contentsline {chapter}{\numberline {2}Literature Review}{13}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Deep Embedded Clustering with Consensus Representations (DECCS)}{13}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Related Work in Consensus Clustering and Deep Clustering}{13}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Methodology of DECCS}{15}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.1.3}Experimental Evaluation}{15}{subsection.2.1.3}%
+\contentsline {section}{\numberline {2.2}Deep Descriptive Clustering (DDC)}{16}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Key Aspects of Deep Descriptive Clustering (DDC)}{16}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Experiments and Findings}{17}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}Conclusion and Future Directions}{17}{subsection.2.2.3}%
+\contentsline {section}{\numberline {2.3}Related Works}{17}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Deep Embedded Clustering: A General Approach to Clustering Arbitrary Similarity Measures by J. Xie, R. Girshick, and A. Farhadi (2016)}{17}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Auto-Encoding Variational Bayes by D. P. Kingma and M. Welling (2014)}{18}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Explainable-by-Design Algorithms}{19}{subsection.2.3.3}%
+\contentsline {subsection}{\numberline {2.3.4}Post-processing Explanation Methods}{19}{subsection.2.3.4}%
+\contentsline {subsection}{\numberline {2.3.5}Other Related Works}{20}{subsection.2.3.5}%
+\contentsline {subsection}{\numberline {2.3.6}Contrastive Learning and Deep Clustering}{20}{subsection.2.3.6}%
+\contentsline {section}{\numberline {2.4}Comprehensive Comparison of Clustering Approaches}{21}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Taxonomy of Deep Clustering Methods}{21}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Detailed Method Comparison}{21}{subsection.2.4.2}%
+\contentsline {subsubsection}{Deep Embedded Clustering (DEC)}{21}{subsection.2.4.2}%
+\contentsline {subsubsection}{Variational Autoencoders for Clustering (VAE-based)}{22}{subsection.2.4.2}%
+\contentsline {subsubsection}{Deep Clustering with Consensus Representations (DECCS)}{22}{subsection.2.4.2}%
+\contentsline {subsubsection}{Deep Descriptive Clustering (DDC)}{23}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.3}Quantitative Performance Comparison}{23}{subsection.2.4.3}%
+\contentsline {subsection}{\numberline {2.4.4}Qualitative Feature Comparison}{24}{subsection.2.4.4}%
+\contentsline {subsection}{\numberline {2.4.5}Computational Complexity Analysis}{24}{subsection.2.4.5}%
+\contentsline {subsection}{\numberline {2.4.6}Applicability Analysis}{25}{subsection.2.4.6}%
+\contentsline {subsection}{\numberline {2.4.7}Key Innovations by Method}{25}{subsection.2.4.7}%
+\contentsline {subsection}{\numberline {2.4.8}Limitations Comparison}{26}{subsection.2.4.8}%
+\contentsline {section}{\numberline {2.5}Evolution of Deep Clustering Paradigms}{26}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}Research Gaps Addressed}{26}{subsection.2.5.1}%
+\contentsline {subsection}{\numberline {2.5.2}Positioning in the Literature}{27}{subsection.2.5.2}%
+\contentsline {section}{\numberline {2.6}Summary and Implications for This Research}{28}{section.2.6}%
+\contentsline {subsection}{\numberline {2.6.1}Key Insights from the Literature}{28}{subsection.2.6.1}%
+\contentsline {subsection}{\numberline {2.6.2}Research Gap}{28}{subsection.2.6.2}%
+\contentsline {subsection}{\numberline {2.6.3}Positioning of Our Work}{28}{subsection.2.6.3}%
+\contentsline {chapter}{\numberline {3}Methodology}{30}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Overview}{30}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Methodological Contributions}{30}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Research Design}{30}{subsection.3.1.2}%
+\contentsline {section}{\numberline {3.2}Dataset Preparation}{31}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Animals with Attributes 2 (AwA2) Dataset}{31}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Semantic Attribute Structure}{31}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Data Preprocessing Pipeline}{33}{subsection.3.2.3}%
+\contentsline {subsubsection}{Image Preprocessing}{33}{subsection.3.2.3}%
+\contentsline {subsubsection}{Attribute Normalization}{33}{ALC@unique.3}%
+\contentsline {subsubsection}{Dataset Splitting}{33}{equation.3.2}%
+\contentsline {subsection}{\numberline {3.2.4}Data Loading Implementation}{33}{subsection.3.2.4}%
+\contentsline {section}{\numberline {3.3}Model Architecture}{34}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Baseline Autoencoder (AE)}{34}{subsection.3.3.1}%
+\contentsline {subsubsection}{Encoder Architecture}{34}{subsection.3.3.1}%
+\contentsline {subsubsection}{Decoder Architecture}{34}{equation.3.3}%
+\contentsline {subsubsection}{Baseline Loss Function}{34}{equation.3.4}%
+\contentsline {subsection}{\numberline {3.3.2}Constrained Autoencoder (CAE)}{34}{subsection.3.3.2}%
+\contentsline {subsubsection}{Architecture Extension}{34}{subsection.3.3.2}%
+\contentsline {subsubsection}{Multi-Objective Loss Function}{35}{equation.3.6}%
+\contentsline {subsubsection}{Hyperparameter Selection}{35}{equation.3.10}%
+\contentsline {subsection}{\numberline {3.3.3}Consensus Clustering Integration (DECCS)}{35}{subsection.3.3.3}%
+\contentsline {subsubsection}{Consensus Representation Learning}{35}{subsection.3.3.3}%
+\contentsline {subsubsection}{Ensemble Clustering Algorithms}{36}{equation.3.11}%
+\contentsline {subsubsection}{Consensus Matrix Construction}{36}{table.3.1}%
+\contentsline {subsubsection}{Consensus Consistency Loss}{36}{equation.3.13}%
+\contentsline {subsubsection}{Full DECCS Loss}{36}{equation.3.15}%
+\contentsline {section}{\numberline {3.4}Training Procedure}{37}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Optimization Strategy}{37}{subsection.3.4.1}%
+\contentsline {subsubsection}{Optimizer Configuration}{37}{subsection.3.4.1}%
+\contentsline {subsubsection}{Batch Processing}{37}{subsection.3.4.1}%
+\contentsline {subsubsection}{Mixed Precision Training}{37}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Training Algorithms}{38}{subsection.3.4.2}%
+\contentsline {subsubsection}{Baseline Autoencoder Training}{38}{subsection.3.4.2}%
+\contentsline {subsubsection}{Constrained Autoencoder Training}{38}{ALC@unique.20}%
+\contentsline {subsubsection}{DECCS Training with Consensus}{39}{ALC@unique.32}%
+\contentsline {section}{\numberline {3.5}Clustering and Evaluation}{39}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}Embedding Extraction}{39}{subsection.3.5.1}%
+\contentsline {subsection}{\numberline {3.5.2}Consensus Clustering}{39}{subsection.3.5.2}%
+\contentsline {subsubsection}{Ensemble Execution}{39}{subsection.3.5.2}%
+\contentsline {subsection}{\numberline {3.5.3}Evaluation Metrics}{40}{subsection.3.5.3}%
+\contentsline {subsubsection}{Clustering Performance Metrics}{40}{subsection.3.5.3}%
+\contentsline {paragraph}{Normalized Mutual Information (NMI)}{40}{subsection.3.5.3}%
+\contentsline {paragraph}{Adjusted Rand Index (ARI)}{40}{equation.3.17}%
+\contentsline {paragraph}{Clustering Accuracy (ACC)}{40}{equation.3.18}%
+\contentsline {paragraph}{Silhouette Score}{40}{equation.3.19}%
+\contentsline {section}{\numberline {3.6}Cluster Explanation Generation}{41}{section.3.6}%
+\contentsline {subsection}{\numberline {3.6.1}Attribute-Based Characterization}{41}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {3.6.2}Top-K Attribute Selection}{41}{subsection.3.6.2}%
+\contentsline {subsection}{\numberline {3.6.3}Explanation Quality Metrics}{41}{subsection.3.6.3}%
+\contentsline {subsubsection}{Cluster Purity}{41}{subsection.3.6.3}%
+\contentsline {subsubsection}{Attribute Discriminativeness}{41}{equation.3.23}%
+\contentsline {section}{\numberline {3.7}Implementation Details}{41}{section.3.7}%
+\contentsline {subsection}{\numberline {3.7.1}Software Framework}{41}{subsection.3.7.1}%
+\contentsline {subsection}{\numberline {3.7.2}Hardware Configuration}{41}{subsection.3.7.2}%
+\contentsline {subsection}{\numberline {3.7.3}Reproducibility}{42}{subsection.3.7.3}%
+\contentsline {section}{\numberline {3.8}Limitations and Design Choices}{42}{section.3.8}%
+\contentsline {subsection}{\numberline {3.8.1}Methodological Limitations}{42}{subsection.3.8.1}%
+\contentsline {subsection}{\numberline {3.8.2}Design Rationale}{42}{subsection.3.8.2}%
+\contentsline {section}{\numberline {3.9}Summary of Methodological Choices}{43}{section.3.9}%
+\contentsline {chapter}{\numberline {4}Results}{44}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Experimental Setup}{44}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Hyperparameters}{44}{subsection.4.1.1}%
+\contentsline {section}{\numberline {4.2}Hyperparameter Tuning on Sample Subset}{44}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Grid Search Configuration}{45}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Sample-Based Tuning Results}{45}{subsection.4.2.2}%
+\contentsline {section}{\numberline {4.3}Full-Scale Results}{46}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Current State}{46}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Comparison: Sample vs. Full Dataset}{46}{subsection.4.3.2}%
+\contentsline {section}{\numberline {4.4}Training Dynamics}{46}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Loss Curves}{46}{subsection.4.4.1}%
+\contentsline {section}{\numberline {4.5}Embedding Space Visualization}{49}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}PCA Projections}{49}{subsection.4.5.1}%
 \contentsline {subsection}{\numberline {4.5.2}t-SNE Visualization}{53}{subsection.4.5.2}%
 \contentsline {section}{\numberline {4.6}Identified Challenges}{54}{section.4.6}%
 \contentsline {subsection}{\numberline {4.6.1}Training Dynamics in DECCS Mode}{54}{subsection.4.6.1}%
-\contentsline {subsection}{\numberline {4.6.2}ARI Near Zero}{55}{subsection.4.6.2}%
-\contentsline {subsection}{\numberline {4.6.3}Sensitivity to Hyperparameters}{55}{subsection.4.6.3}%
+\contentsline {subsection}{\numberline {4.6.2}ARI Near Zero}{54}{subsection.4.6.2}%
+\contentsline {subsection}{\numberline {4.6.3}Sensitivity to Hyperparameters}{54}{subsection.4.6.3}%
 \contentsline {section}{\numberline {4.7}Summary of Results}{55}{section.4.7}%
-\contentsline {chapter}{\numberline {5}Discussion}{57}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Overview}{57}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Interpretation of Results}{57}{section.5.2}%
-\contentsline {subsection}{\numberline {5.2.1}Analysis of Scaling Failure}{57}{subsection.5.2.1}%
-\contentsline {subsubsection}{Consensus Matrix Scalability}{57}{subsection.5.2.1}%
-\contentsline {subsubsection}{Multi-Objective Optimization Challenges}{57}{subsection.5.2.1}%
-\contentsline {subsubsection}{Sample Representativeness}{58}{equation.5.1}%
-\contentsline {subsection}{\numberline {5.2.2}Comparison with DDC}{58}{subsection.5.2.2}%
-\contentsline {subsubsection}{Missing Pairwise Consistency Loss}{58}{subsection.5.2.2}%
-\contentsline {subsubsection}{Single Model vs. Ensemble Complexity}{58}{subsection.5.2.2}%
-\contentsline {subsubsection}{Architecture Differences}{59}{subsection.5.2.2}%
-\contentsline {subsection}{\numberline {5.2.3}Potential Issues to Investigate}{59}{subsection.5.2.3}%
-\contentsline {subsubsection}{Metric Calculation}{59}{subsection.5.2.3}%
-\contentsline {subsubsection}{Training Dynamics}{59}{subsection.5.2.3}%
-\contentsline {section}{\numberline {5.3}Comparison with Research Hypotheses}{59}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}Hypothesis 1: DDC Integration Improves Interpretability}{59}{subsection.5.3.1}%
-\contentsline {subsection}{\numberline {5.3.2}Hypothesis 2: Interpretability Does Not Compromise Performance}{59}{subsection.5.3.2}%
-\contentsline {subsection}{\numberline {5.3.3}Hypothesis 3: Consensus Clustering Enhances Robustness}{60}{subsection.5.3.3}%
-\contentsline {section}{\numberline {5.4}Limitations and Challenges}{60}{section.5.4}%
-\contentsline {subsection}{\numberline {5.4.1}Implementation Limitations}{60}{subsection.5.4.1}%
-\contentsline {subsubsection}{Incomplete DECCS Integration}{60}{subsection.5.4.1}%
-\contentsline {subsubsection}{Small-Scale Experiments}{60}{subsection.5.4.1}%
-\contentsline {subsubsection}{Simple Architecture}{60}{subsection.5.4.1}%
-\contentsline {subsection}{\numberline {5.4.2}Methodological Limitations}{61}{subsection.5.4.2}%
-\contentsline {subsubsection}{Dependence on Predefined Attributes}{61}{subsection.5.4.2}%
-\contentsline {subsubsection}{Class-Level vs. Instance-Level Attributes}{61}{subsection.5.4.2}%
-\contentsline {subsubsection}{Binary Clustering Evaluation}{61}{subsection.5.4.2}%
-\contentsline {subsection}{\numberline {5.4.3}Dataset-Specific Challenges}{61}{subsection.5.4.3}%
-\contentsline {subsubsection}{Class Imbalance}{61}{subsection.5.4.3}%
-\contentsline {subsubsection}{Attribute Noise}{61}{subsection.5.4.3}%
-\contentsline {section}{\numberline {5.5}Theoretical Implications}{61}{section.5.5}%
-\contentsline {subsection}{\numberline {5.5.1}Multi-Task Learning for Clustering}{61}{subsection.5.5.1}%
-\contentsline {subsection}{\numberline {5.5.2}The Value of Human-Aligned Representations}{62}{subsection.5.5.2}%
-\contentsline {subsection}{\numberline {5.5.3}Consensus as Uncertainty Quantification}{62}{subsection.5.5.3}%
-\contentsline {section}{\numberline {5.6}Practical Implications}{62}{section.5.6}%
-\contentsline {subsection}{\numberline {5.6.1}When to Use This Approach}{62}{subsection.5.6.1}%
-\contentsline {subsection}{\numberline {5.6.2}When Other Methods May Be Preferable}{62}{subsection.5.6.2}%
-\contentsline {subsection}{\numberline {5.6.3}Deployment Considerations}{63}{subsection.5.6.3}%
-\contentsline {section}{\numberline {5.7}Comparison with Related Work}{63}{section.5.7}%
-\contentsline {subsection}{\numberline {5.7.1}Comparison with Original DECCS}{63}{subsection.5.7.1}%
-\contentsline {subsection}{\numberline {5.7.2}Comparison with Original DDC}{63}{subsection.5.7.2}%
-\contentsline {section}{\numberline {5.8}Summary}{64}{section.5.8}%
-\contentsline {chapter}{\numberline {6}Conclusion}{65}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Summary of Work}{65}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}What Was Accomplished}{65}{subsection.6.1.1}%
-\contentsline {subsection}{\numberline {6.1.2}What Did Not Work}{65}{subsection.6.1.2}%
-\contentsline {section}{\numberline {6.2}Research Questions Answered}{65}{section.6.2}%
-\contentsline {subsection}{\numberline {6.2.1}RQ1: How can DDC be integrated into DECCS?}{66}{subsection.6.2.1}%
-\contentsline {subsection}{\numberline {6.2.2}RQ2: Impact on Clustering Performance}{66}{subsection.6.2.2}%
-\contentsline {subsection}{\numberline {6.2.3}RQ3: Performance on AwA2 Dataset}{66}{subsection.6.2.3}%
-\contentsline {section}{\numberline {6.3}Lessons Learned}{66}{section.6.3}%
-\contentsline {subsection}{\numberline {6.3.1}Full-Scale Validation is Essential}{66}{subsection.6.3.1}%
-\contentsline {subsection}{\numberline {6.3.2}Multi-Objective Optimization is Difficult}{66}{subsection.6.3.2}%
-\contentsline {subsection}{\numberline {6.3.3}Negative Results Have Value}{67}{subsection.6.3.3}%
-\contentsline {section}{\numberline {6.4}Limitations}{67}{section.6.4}%
-\contentsline {section}{\numberline {6.5}Future Work}{67}{section.6.5}%
-\contentsline {subsection}{\numberline {6.5.1}Immediate Priorities}{67}{subsection.6.5.1}%
-\contentsline {subsection}{\numberline {6.5.2}Longer-Term Research}{67}{subsection.6.5.2}%
-\contentsline {section}{\numberline {6.6}Final Remarks}{68}{section.6.6}%
-\contentsline {chapter}{\numberline {A}Appendix A}{69}{appendix.A}%
-\contentsline {chapter}{\numberline {B}Appendix A: Hyperparameter Optimization}{70}{appendix.B}%
-\contentsline {section}{\numberline {B.1}Grid Search Configuration}{70}{section.B.1}%
-\contentsline {section}{\numberline {B.2}Complete Results Table}{70}{section.B.2}%
-\contentsline {section}{\numberline {B.3}Analysis of Hyperparameter Effects}{70}{section.B.3}%
-\contentsline {subsection}{\numberline {B.3.1}Impact of Consensus Weight ($\lambda _{consensus}$)}{70}{subsection.B.3.1}%
-\contentsline {subsection}{\numberline {B.3.2}Impact of Tag Supervision Weight ($\lambda _{tag}$)}{71}{subsection.B.3.2}%
-\contentsline {section}{\numberline {B.4}Best Configuration}{72}{section.B.4}%
-\contentsline {section}{\numberline {B.5}Convergence Analysis}{72}{section.B.5}%
-\contentsline {section}{\numberline {B.6}Sensitivity Analysis}{73}{section.B.6}%
-\contentsline {subsection}{\numberline {B.6.1}Robustness to Initialization}{73}{subsection.B.6.1}%
-\contentsline {section}{\numberline {B.7}Computational Cost Analysis}{73}{section.B.7}%
-\contentsline {chapter}{\numberline {C}Appendix B}{74}{appendix.C}%
-\contentsline {chapter}{\numberline {D}Appendix B: Additional Visualizations and Cluster Analysis}{75}{appendix.D}%
-\contentsline {section}{\numberline {D.1}Detailed Cluster Descriptions}{75}{section.D.1}%
-\contentsline {subsection}{\numberline {D.1.1}Complete Cluster Attribute Analysis}{75}{subsection.D.1.1}%
-\contentsline {subsection}{\numberline {D.1.2}Cluster Purity Analysis}{75}{subsection.D.1.2}%
-\contentsline {section}{\numberline {D.2}Embedding Space Analysis}{76}{section.D.2}%
-\contentsline {subsection}{\numberline {D.2.1}Comparison of Embedding Visualizations Across Methods}{76}{subsection.D.2.1}%
-\contentsline {subsection}{\numberline {D.2.2}t-SNE Visualization}{78}{subsection.D.2.2}%
-\contentsline {subsection}{\numberline {D.2.3}Embedding Dimension Analysis}{79}{subsection.D.2.3}%
-\contentsline {section}{\numberline {D.3}Training Dynamics}{80}{section.D.3}%
-\contentsline {subsection}{\numberline {D.3.1}Loss Curves Comparison}{80}{subsection.D.3.1}%
-\contentsline {section}{\numberline {D.4}Error Analysis}{82}{section.D.4}%
-\contentsline {subsection}{\numberline {D.4.1}Common Misclassification Patterns}{82}{subsection.D.4.1}%
-\contentsline {section}{\numberline {D.5}Attribute Importance Analysis}{83}{section.D.5}%
-\contentsline {subsection}{\numberline {D.5.1}Most Discriminative Attributes}{83}{subsection.D.5.1}%
-\contentsline {section}{\numberline {D.6}Cluster Stability Analysis}{84}{section.D.6}%
-\contentsline {subsection}{\numberline {D.6.1}Bootstrap Stability}{84}{subsection.D.6.1}%
-\contentsline {section}{\numberline {D.7}Implementation Details}{85}{section.D.7}%
-\contentsline {subsection}{\numberline {D.7.1}Model Architecture Specifications}{85}{subsection.D.7.1}%
-\contentsline {subsection}{\numberline {D.7.2}Training Configuration}{86}{subsection.D.7.2}%
-\contentsline {section}{\numberline {D.8}Dataset Statistics}{86}{section.D.8}%
-\contentsline {subsection}{\numberline {D.8.1}AwA2 Dataset Breakdown}{86}{subsection.D.8.1}%
-\contentsline {subsection}{\numberline {D.8.2}Attribute Distribution}{86}{subsection.D.8.2}%
-\contentsline {section}{\numberline {D.9}Ensemble Clustering Details}{87}{section.D.9}%
-\contentsline {subsection}{\numberline {D.9.1}Base Clustering Algorithms}{87}{subsection.D.9.1}%
-\contentsline {chapter}{Bibliography}{88}{appendix*.4}%
+\contentsline {chapter}{\numberline {5}Discussion}{56}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Overview}{56}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Interpretation of Results}{56}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Analysis of Scaling Failure}{56}{subsection.5.2.1}%
+\contentsline {subsubsection}{Consensus Matrix Scalability}{56}{subsection.5.2.1}%
+\contentsline {subsubsection}{Multi-Objective Optimization Challenges}{56}{subsection.5.2.1}%
+\contentsline {subsubsection}{Sample Representativeness}{57}{equation.5.1}%
+\contentsline {subsection}{\numberline {5.2.2}Comparison with DDC}{57}{subsection.5.2.2}%
+\contentsline {subsubsection}{Missing Pairwise Consistency Loss}{57}{subsection.5.2.2}%
+\contentsline {subsubsection}{Single Model vs. Ensemble Complexity}{57}{subsection.5.2.2}%
+\contentsline {subsubsection}{Architecture Differences}{58}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Potential Issues to Investigate}{58}{subsection.5.2.3}%
+\contentsline {subsubsection}{Metric Calculation}{58}{subsection.5.2.3}%
+\contentsline {subsubsection}{Training Dynamics}{58}{subsection.5.2.3}%
+\contentsline {section}{\numberline {5.3}Comparison with Research Hypotheses}{58}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Hypothesis 1: DDC Integration Improves Interpretability}{58}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Hypothesis 2: Interpretability Does Not Compromise Performance}{58}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}Hypothesis 3: Consensus Clustering Enhances Robustness}{59}{subsection.5.3.3}%
+\contentsline {section}{\numberline {5.4}Limitations and Challenges}{59}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Implementation Limitations}{59}{subsection.5.4.1}%
+\contentsline {subsubsection}{Incomplete DECCS Integration}{59}{subsection.5.4.1}%
+\contentsline {subsubsection}{Simple Architecture}{59}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}Methodological Limitations}{59}{subsection.5.4.2}%
+\contentsline {subsubsection}{Dependence on Predefined Attributes}{59}{subsection.5.4.2}%
+\contentsline {subsubsection}{Class-Level vs. Instance-Level Attributes}{60}{subsection.5.4.2}%
+\contentsline {subsubsection}{Binary Clustering Evaluation}{60}{subsection.5.4.2}%
+\contentsline {subsection}{\numberline {5.4.3}Dataset-Specific Challenges}{60}{subsection.5.4.3}%
+\contentsline {subsubsection}{Class Imbalance}{60}{subsection.5.4.3}%
+\contentsline {subsubsection}{Attribute Noise}{60}{subsection.5.4.3}%
+\contentsline {section}{\numberline {5.5}Theoretical Implications}{60}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}Multi-Task Learning for Clustering}{60}{subsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.5.2}The Value of Human-Aligned Representations}{60}{subsection.5.5.2}%
+\contentsline {section}{\numberline {5.6}Practical Implications}{61}{section.5.6}%
+\contentsline {subsection}{\numberline {5.6.1}When to Use This Approach}{61}{subsection.5.6.1}%
+\contentsline {subsection}{\numberline {5.6.2}When Other Methods May Be Preferable}{61}{subsection.5.6.2}%
+\contentsline {subsection}{\numberline {5.6.3}Deployment Considerations}{61}{subsection.5.6.3}%
+\contentsline {section}{\numberline {5.7}Comparison with Related Work}{62}{section.5.7}%
+\contentsline {subsection}{\numberline {5.7.1}Comparison with Original DECCS}{62}{subsection.5.7.1}%
+\contentsline {subsection}{\numberline {5.7.2}Comparison with Original DDC}{62}{subsection.5.7.2}%
+\contentsline {section}{\numberline {5.8}Summary}{62}{section.5.8}%
+\contentsline {chapter}{\numberline {6}Conclusion}{64}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Summary of Work}{64}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}What Was Accomplished}{64}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}What Did Not Work}{64}{subsection.6.1.2}%
+\contentsline {section}{\numberline {6.2}Research Questions Answered}{64}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}RQ1: How can DDC be integrated into DECCS?}{65}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}RQ2: Impact on Clustering Performance}{65}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}RQ3: Performance on AwA2 Dataset}{65}{subsection.6.2.3}%
+\contentsline {section}{\numberline {6.3}Lessons Learned}{65}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Full-Scale Validation is Essential}{65}{subsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.3.2}Multi-Objective Optimization is Difficult}{65}{subsection.6.3.2}%
+\contentsline {section}{\numberline {6.4}Limitations}{66}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Future Work}{66}{section.6.5}%
+\contentsline {subsection}{\numberline {6.5.1}Immediate Priorities}{66}{subsection.6.5.1}%
+\contentsline {subsection}{\numberline {6.5.2}Longer-Term Research}{66}{subsection.6.5.2}%
+\contentsline {section}{\numberline {6.6}Final Remarks}{67}{section.6.6}%
+\contentsline {chapter}{\numberline {A}Appendix A}{68}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Hyperparameter Optimization: Grid Search Configuration}{68}{section.A.1}%
+\contentsline {section}{\numberline {A.2}Complete Results Table}{68}{section.A.2}%
+\contentsline {section}{\numberline {A.3}Analysis of Hyperparameter Effects}{68}{section.A.3}%
+\contentsline {subsection}{\numberline {A.3.1}Impact of Consensus Weight ($\lambda _{consensus}$)}{68}{subsection.A.3.1}%
+\contentsline {subsection}{\numberline {A.3.2}Impact of Tag Supervision Weight ($\lambda _{tag}$)}{69}{subsection.A.3.2}%
+\contentsline {section}{\numberline {A.4}Best Configuration}{70}{section.A.4}%
+\contentsline {section}{\numberline {A.5}Convergence Analysis}{70}{section.A.5}%
+\contentsline {chapter}{\numberline {B}Appendix B}{71}{appendix.B}%
+\contentsline {section}{\numberline {B.1}Additional Visualizations and Cluster Analysis: Detailed Cluster Descriptions}{71}{section.B.1}%
+\contentsline {subsection}{\numberline {B.1.1}Complete Cluster Attribute Analysis}{71}{subsection.B.1.1}%
+\contentsline {subsection}{\numberline {B.1.2}Cluster Purity Analysis}{71}{subsection.B.1.2}%
+\contentsline {section}{\numberline {B.2}Attribute Importance Analysis}{71}{section.B.2}%
+\contentsline {subsection}{\numberline {B.2.1}Most Discriminative Attributes}{71}{subsection.B.2.1}%
+\contentsline {section}{\numberline {B.3}Implementation Details}{73}{section.B.3}%
+\contentsline {subsection}{\numberline {B.3.1}Model Architecture Specifications}{73}{subsection.B.3.1}%
+\contentsline {subsection}{\numberline {B.3.2}Training Configuration}{74}{subsection.B.3.2}%
+\contentsline {section}{\numberline {B.4}Dataset Statistics}{74}{section.B.4}%
+\contentsline {subsection}{\numberline {B.4.1}AwA2 Dataset Breakdown}{74}{subsection.B.4.1}%
+\contentsline {section}{\numberline {B.5}Ensemble Clustering Details}{74}{section.B.5}%
+\contentsline {subsection}{\numberline {B.5.1}Base Clustering Algorithms}{74}{subsection.B.5.1}%
+\contentsline {chapter}{Bibliography}{76}{appendix*.4}%

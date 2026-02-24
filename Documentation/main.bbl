@@ -1,4 +1,4 @@
-\begin{thebibliography}{47}
+\begin{thebibliography}{53}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -71,6 +71,19 @@ M.~Chhajer and M.~Moniri.
   Learning (ICML)}, 2022.
 \newblock URL \url{https://proceedings.mlr.press/v162/chhajer22a.html}.
 
+\bibitem[Crawshaw(2020)]{Crawshaw2020}
+M.~Crawshaw.
+\newblock Multi-task learning with deep neural networks: A survey.
+\newblock \emph{arXiv preprint arXiv:2009.09796}, 2020.
+
+\bibitem[Davidson et~al.(2018)Davidson, Gourru, and Ravi]{davidson2018}
+Ian Davidson, Antoine Gourru, and S.~S. Ravi.
+\newblock The cluster description problem - complexity results, formulations
+  and approximations.
+\newblock In \emph{Proceedings of the 32nd International Conference on Neural
+  Information Processing Systems}, NIPS'18, page 6193–6203, Red Hook, NY,
+  USA, 2018. Curran Associates Inc.
+
 \bibitem[Fred and Jain(2005)]{Fred2005}
 A.~L.~N. Fred and A.~K. Jain.
 \newblock Combining multiple clusterings using evidence accumulation.
@@ -125,6 +138,18 @@ Z.~Jiang, Y.~Zheng, H.~Tan, B.~Tang, and H.~Zhou.
 \newblock In \emph{Proceedings of the 26th International Joint Conference on
   Artificial Intelligence (IJCAI)}, pages 1965--1972, 2017.
 
+\bibitem[Kingma and Ba(2015)]{Kingma2015}
+D.~P. Kingma and J.~Ba.
+\newblock Adam: A method for stochastic optimization.
+\newblock In \emph{Proceedings of the International Conference on Learning
+  Representations (ICLR)}, 2015.
+
+\bibitem[Kingma and Welling(2014)]{Kingma2014}
+D.~P. Kingma and M.~Welling.
+\newblock Auto-encoding variational bayes.
+\newblock In \emph{Proceedings of the International Conference on Learning
+  Representations (ICLR)}, 2014.
+
 \bibitem[Kuhn(1955)]{Kuhn1955}
 H.~W. Kuhn.
 \newblock The hungarian method for the assignment problem.
@@ -162,11 +187,12 @@ D.~Mautz, C.~Plant, and C.~Böhm.
 \newblock In \emph{Proceedings of the IEEE International Conference on Data
   Mining (ICDM)}, pages 1258--1263, 2020.
 
-\bibitem[McInnes et~al.(2018)McInnes, Healy, and Melville]{McInnes2018}
-L.~McInnes, J.~Healy, and J.~Melville.
-\newblock {UMAP}: Uniform manifold approximation and projection for dimension
-  reduction.
-\newblock \emph{arXiv preprint arXiv:1802.03426}, 2018.
+\bibitem[Miklautz et~al.(2021)Miklautz, Bauer, Mautz, Tschiatschek, Böhm, and
+  Plant]{Miklautz2021}
+L.~Miklautz, L.~Bauer, D.~Mautz, S.~Tschiatschek, C.~Böhm, and C.~Plant.
+\newblock Deep embedded clustering with consensus representations.
+\newblock In \emph{Proceedings of the IEEE International Conference on Data
+  Mining (ICDM)}, 2021.
 
 \bibitem[Min et~al.(2018)Min, Guo, Liu, Zhang, Cui, and Long]{Min2018}
 E.~Min, X.~Guo, Q.~Liu, G.~Zhang, J.~Cui, and J.~Long.
@@ -228,6 +254,11 @@ P.~J. Rousseeuw.
 \newblock \emph{Journal of Computational and Applied Mathematics}, 20:\penalty0
   53--65, 1987.
 \newblock Foundational metric paper.
+
+\bibitem[Ruder(2017)]{Ruder2017}
+S.~Ruder.
+\newblock An overview of multi-task learning in deep neural networks.
+\newblock \emph{arXiv preprint arXiv:1706.05098}, 2017.
 
 \bibitem[Saisubramanian et~al.(2019)Saisubramanian, Galhotra, and
   Zilberstein]{Saisubramanian2019}
@@ -293,6 +324,12 @@ Y.~Xian, C.~H. Lampert, B.~Schiele, and Z.~Akata.
   and the ugly.
 \newblock \emph{IEEE Transactions on Pattern Analysis and Machine
   Intelligence}, 41\penalty0 (9):\penalty0 2251--2265, 2019.
+
+\bibitem[Xie et~al.(2016)Xie, Girshick, and Farhadi]{Xie2016}
+J.~Xie, R.~Girshick, and A.~Farhadi.
+\newblock Unsupervised deep embedding for clustering analysis.
+\newblock In \emph{Proceedings of the 33rd International Conference on Machine
+  Learning (ICML)}, pages 478--487, 2016.
 
 \bibitem[Yang et~al.(2017)Yang, Fu, Sidiropoulos, and Hong]{Yang2017}
 B.~Yang, X.~Fu, N.~D. Sidiropoulos, and M.~Hong.

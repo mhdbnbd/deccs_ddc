@@ -1,6 +1,4 @@
-\chapter{Appendix A: Hyperparameter Optimization}
-
-\section{Grid Search Configuration}
+\section{Hyperparameter Optimization: Grid Search Configuration}
 
 We performed systematic hyperparameter tuning using the grid search implementation in \texttt{tune\_hyperparams.py}. The search space was defined as:
 
@@ -193,50 +191,3 @@ Figure~\ref{fig:convergence_best} shows the training convergence for the best co
     \item All loss components decrease consistently, indicating balanced optimization
     \item Minimal improvement after epoch 7, suggesting early stopping could be applied
 \end{itemize}
-
-\section{Sensitivity Analysis}
-
-\subsection{Robustness to Initialization}
-
-We ran the best configuration with 5 different random seeds to assess robustness:
-
-\begin{table}[H]
-    \centering
-    \caption{Performance variance across random seeds}
-    \label{tab:seed_variance}
-    \begin{tabular}{ccccc}
-        \hline
-        \textbf{Seed} & \textbf{NMI} & \textbf{ARI} & \textbf{ACC} & \textbf{Silhouette} \\
-        \hline
-        42 & 0.752 & 0.594 & 0.694 & 0.431 \\
-        123 & 0.748 & 0.588 & 0.689 & 0.425 \\
-        456 & 0.755 & 0.597 & 0.698 & 0.434 \\
-        789 & 0.749 & 0.590 & 0.691 & 0.427 \\
-        2023 & 0.751 & 0.593 & 0.693 & 0.430 \\
-        \hline
-        \textbf{Mean} & \textbf{0.751} & \textbf{0.592} & \textbf{0.693} & \textbf{0.429} \\
-        \textbf{Std} & \textbf{0.003} & \textbf{0.003} & \textbf{0.003} & \textbf{0.003} \\
-        \hline
-    \end{tabular}
-\end{table}
-
-Low standard deviation ($< 0.005$) across all metrics indicates robust performance independent of initialization.
-
-\section{Computational Cost Analysis}
-
-\begin{table}[H]
-    \centering
-    \caption{Training time per epoch for different configurations}
-    \label{tab:timing}
-    \begin{tabular}{ccc}
-        \hline
-        \textbf{Configuration} & \textbf{Time/Epoch (s)} & \textbf{Total (10 epochs)} \\
-        \hline
-        Baseline AE & 12.3 & 2m 03s \\
-        CAE ($\lambda_{tag}=0.5$) & 14.8 & 2m 28s \\
-        DECCS (full) & 24.5 & 4m 05s \\
-        \hline
-    \end{tabular}
-\end{table}
-
-The additional computational cost of symbolic supervision (20\% overhead) and consensus matrix construction (100\% overhead for full DECCS) is reasonable given the performance improvements.
