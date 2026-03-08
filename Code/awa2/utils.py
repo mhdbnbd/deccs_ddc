@@ -206,15 +206,10 @@ def build_sparse_consensus(base_labels, embeddings_np, k=20):
 
 def evaluate_clustering(embeddings, true_labels, k=None, mode_desc=""):
     """
-    Perform consensus clustering on embeddings using multiple clustering algorithms,
-    following the DECCS paper setup (KMeans, GMM, Agglomerative, Spectral),
-    and aggregate results via consensus spectral clustering.
+    Perform consensus clustering on embeddings and compute evaluation metrics.
 
-    Note: DBSCAN is excluded from the ensemble because it is incompatible with
-    consensus clustering in high-dimensional spaces. With fixed eps in d=128
-    dimensions, all points become noise (label=-1), and the co-association matrix
-    falsely counts all noise pairs as co-clustered, corrupting the consensus signal.
-    Neither the original DECCS nor DDC papers use DBSCAN in their ensembles.
+    Uses get_base_clusterings() for the ensemble (single source of truth),
+    then builds a consensus matrix and applies spectral clustering.
 
     Args:
         embeddings (ndarray): Learned latent features (n_samples x n_features).
@@ -235,55 +230,10 @@ def evaluate_clustering(embeddings, true_labels, k=None, mode_desc=""):
 
     logging.info(f"Running DECCS-style ensemble clustering with {k} clusters...")
 
-    # Normalize embeddings
-    X = StandardScaler().fit_transform(embeddings)
+    # Reuse the same ensemble definition used during training
+    base_labels = get_base_clusterings(embeddings, n_clusters=k)
 
-    # Define base clusterers (matching DECCS paper: all produce exactly k clusters)
-    clusterers = {
-        "KMeans": KMeans(
-            n_clusters=k,
-            n_init=10,
-            max_iter=300,
-            algorithm="elkan",
-            random_state=42
-        ),
-        "Spectral": SpectralClustering(
-            n_clusters=k,
-            affinity="nearest_neighbors",
-            n_neighbors=15,
-            assign_labels="kmeans",
-            eigen_solver="arpack",
-            random_state=42,
-            n_jobs=1,
-        ),
-        "GMM": GaussianMixture(n_components=k, random_state=42,
-                               covariance_type="full", reg_covar=1e-4, max_iter=200),
-        "Agglomerative": AgglomerativeClustering(
-            n_clusters=k,
-            linkage="ward",
-            compute_full_tree=False
-        ),
-    }
-
-    # Run base clusterings
-    base_labels = []
-    with parallel_backend('loky', n_jobs=1):
-        for name, algo in clusterers.items():
-            try:
-                labels = algo.fit_predict(X)
-                if np.unique(labels).size < 2:
-                    raise ValueError(f"{name} produced degenerate labels.")
-                base_labels.append(labels)
-                logging.info(f"Base clustering '{name}' completed.")
-            except Exception as e:
-                logging.warning(f"Base clustering '{name}' failed: {e}")
-
-    base_labels = np.array(base_labels)
-    logging.info(f"Completed {len(base_labels)} base clusterings.")
-    if base_labels.ndim != 2:
-        raise ValueError(f"Expected base_labels to be 2D, got shape {base_labels.shape}")
-
-    # === Build consensus matrix and perform final clustering ===
+    # Build consensus matrix and perform final clustering
     consensus_matrix = build_consensus_matrix(base_labels)
     consensus_matrix /= consensus_matrix.max()
     final_labels = SpectralClustering(
@@ -293,7 +243,8 @@ def evaluate_clustering(embeddings, true_labels, k=None, mode_desc=""):
         random_state=42
     ).fit_predict(consensus_matrix)
 
-    # === Compute metrics ===
+    # Compute metrics
+    X = StandardScaler().fit_transform(embeddings)
     acc = clustering_acc(true_labels, final_labels)
     ari = adjusted_rand_score(true_labels, final_labels)
     nmi = normalized_mutual_info_score(true_labels, final_labels)
@@ -473,12 +424,12 @@ def load_attribute_names(predicates_path="data/AwA2-data/Animals_with_Attributes
 
 
 def summarize_clusters_with_attributes(
-    cluster_labels,
-    cluster_descriptions,
-    dataset,
-    predicates_path="data/AwA2-data/Animals_with_Attributes2/predicates.txt",
-    top_k=5,
-    output_json="results_cluster_descriptions.json"
+        cluster_labels,
+        cluster_descriptions,
+        dataset,
+        predicates_path="data/AwA2-data/Animals_with_Attributes2/predicates.txt",
+        top_k=5,
+        output_json="results_cluster_descriptions.json"
 ):
     """
     Generate human-readable cluster summaries and save them as JSON.
@@ -624,7 +575,7 @@ def plot_experiment_results(output_dir, mode, losses, embeddings, clusters):
 def generate_notebook(results_file, output_notebook):
     """
     Generates a Jupyter notebook to present the results and the steps taken to achieve them.
-    
+
     Args:
     - results_file (str): Path to the JSON file containing the results (e.g., clustering results, embeddings, etc.).
     - output_notebook (str): Path to save the generated notebook.

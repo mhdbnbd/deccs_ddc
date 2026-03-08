@@ -1,0 +1,16 @@
+{
+    "results_dir": "results",
+    "hp_dir": "results/ae_settings",
+    "data": "DatasetsUci",
+    "device": "cuda:0",
+    "model_type": null,
+    "ae_layers": null,
+    "dropout": null,
+    "nr_aes": 10,
+    "lr": null,
+    "train_split": 0.8,
+    "batch_size": 256,
+    "patience": 200,
+    "weight_decay": null,
+    "max_iterations": 50000
+}

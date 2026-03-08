@@ -32,8 +32,12 @@ from utils import (
     setup_logging,
     save_detailed_results,
     evaluate_clustering,
-    plot_experiment_results, get_base_clusterings, build_consensus_matrix, describe_clusters,
-    summarize_clusters_with_attributes, generate_cluster_report, build_sparse_consensus, clustering_acc
+    plot_experiment_results,
+    get_base_clusterings,
+    summarize_clusters_with_attributes,
+    generate_cluster_report,
+    build_sparse_consensus,
+    clustering_acc
 )
 from visualize_clusters import plot_tsne, save_cluster_examples, plot_deccs_loss
 
