@@ -1,5 +1,4 @@
 import json
-import json
 import logging
 import os
 import random
@@ -14,11 +13,10 @@ import torch
 import torch.nn.functional as F
 from PIL import Image, ImageDraw
 from joblib import parallel_backend
-# from clustpy.deep import DEC
 from scipy.optimize import linear_sum_assignment
 from scipy.sparse import lil_matrix
 from sklearn.cluster import (
-    KMeans, SpectralClustering, AgglomerativeClustering, DBSCAN
+    KMeans, SpectralClustering, AgglomerativeClustering
 )
 from sklearn.decomposition import PCA
 from sklearn.metrics import adjusted_rand_score, normalized_mutual_info_score, \
@@ -209,8 +207,14 @@ def build_sparse_consensus(base_labels, embeddings_np, k=20):
 def evaluate_clustering(embeddings, true_labels, k=None, mode_desc=""):
     """
     Perform consensus clustering on embeddings using multiple clustering algorithms,
-    following the DECCS paper setup (KMeans, GMM, Agglomerative, Spectral, DBSCAN),
+    following the DECCS paper setup (KMeans, GMM, Agglomerative, Spectral),
     and aggregate results via consensus spectral clustering.
+
+    Note: DBSCAN is excluded from the ensemble because it is incompatible with
+    consensus clustering in high-dimensional spaces. With fixed eps in d=128
+    dimensions, all points become noise (label=-1), and the co-association matrix
+    falsely counts all noise pairs as co-clustered, corrupting the consensus signal.
+    Neither the original DECCS nor DDC papers use DBSCAN in their ensembles.
 
     Args:
         embeddings (ndarray): Learned latent features (n_samples x n_features).
@@ -234,7 +238,7 @@ def evaluate_clustering(embeddings, true_labels, k=None, mode_desc=""):
     # Normalize embeddings
     X = StandardScaler().fit_transform(embeddings)
 
-    # Define base clusterers (matching DECCS paper setup)
+    # Define base clusterers (matching DECCS paper: all produce exactly k clusters)
     clusterers = {
         "KMeans": KMeans(
             n_clusters=k,
@@ -245,10 +249,10 @@ def evaluate_clustering(embeddings, true_labels, k=None, mode_desc=""):
         ),
         "Spectral": SpectralClustering(
             n_clusters=k,
-            affinity="nearest_neighbors",     # avoids dense kernel matrix
-            n_neighbors=15,                  # build sparse graph instead of full
+            affinity="nearest_neighbors",
+            n_neighbors=15,
             assign_labels="kmeans",
-            eigen_solver="arpack",            # stable small-memory solver
+            eigen_solver="arpack",
             random_state=42,
             n_jobs=1,
         ),
@@ -256,10 +260,9 @@ def evaluate_clustering(embeddings, true_labels, k=None, mode_desc=""):
                                covariance_type="full", reg_covar=1e-4, max_iter=200),
         "Agglomerative": AgglomerativeClustering(
             n_clusters=k,
-            linkage="ward",          # Euclidean-space linkage
-            compute_full_tree=False  # avoids full dendrogram computation
+            linkage="ward",
+            compute_full_tree=False
         ),
-        "DBSCAN": DBSCAN(eps=0.5, min_samples=5),
     }
 
     # Run base clusterings
@@ -280,12 +283,7 @@ def evaluate_clustering(embeddings, true_labels, k=None, mode_desc=""):
     if base_labels.ndim != 2:
         raise ValueError(f"Expected base_labels to be 2D, got shape {base_labels.shape}")
 
-    # === Build consensus matrix from base clusterings ===
-    consensus_matrix = build_consensus_matrix(base_labels)
-    consensus_matrix /= consensus_matrix.max()
-
-    # === Perform final consensus clustering ===
-
+    # === Build consensus matrix and perform final clustering ===
     consensus_matrix = build_consensus_matrix(base_labels)
     consensus_matrix /= consensus_matrix.max()
     final_labels = SpectralClustering(
@@ -323,13 +321,14 @@ def evaluate_clustering(embeddings, true_labels, k=None, mode_desc=""):
 
 def get_base_clusterings(embeddings_np, n_clusters=10):
     """
-    Build a hybrid ensemble of deep + classical clusterers for DECCS.
+    Build an ensemble of classical clusterers for DECCS consensus.
 
-    Deep:  DEC  (from ClustPy)
-    Classical: KMeans, Spectral, GMM, Agglomerative, DBSCAN  (from scikit-learn)
+    Classical: KMeans, Spectral, GMM, Agglomerative  (from scikit-learn)
 
-    This version automatically adapts to ClustPy API differences (v0.0.2+)
-    and produces a robust ensemble for consensus matrix construction.
+    DBSCAN is excluded: in high-dimensional embedding spaces (d=128),
+    fixed-eps DBSCAN labels all points as noise, which corrupts the
+    consensus matrix by falsely co-associating all noise pairs.
+    Neither DECCS nor DDC use DBSCAN in their ensembles.
     """
 
     # --- Normalize embeddings ---
@@ -337,7 +336,6 @@ def get_base_clusterings(embeddings_np, n_clusters=10):
 
     # --- Prepare ensemble containers ---
     base_labels = []
-    #deep_models = {"DEC": DEC}
     classical_models = {
         "KMeans": KMeans(
             n_clusters=n_clusters,
@@ -348,37 +346,22 @@ def get_base_clusterings(embeddings_np, n_clusters=10):
         ),
         "Spectral": SpectralClustering(
             n_clusters=n_clusters,
-            affinity="nearest_neighbors",     # avoids dense kernel matrix
-            n_neighbors=15,                  # build sparse graph instead of full
+            affinity="nearest_neighbors",
+            n_neighbors=15,
             assign_labels="kmeans",
-            eigen_solver="arpack",            # memory solver
+            eigen_solver="arpack",
             random_state=42
         ),
         "GMM": GaussianMixture(n_components=n_clusters, random_state=42,
                                covariance_type="full", reg_covar=1e-4, max_iter=200),
         "Agglomerative": AgglomerativeClustering(
             n_clusters=n_clusters,
-            linkage="ward",          # Euclidean-space linkage
-            compute_full_tree=False  # avoids full dendrogram computation
+            linkage="ward",
+            compute_full_tree=False
         ),
-        "DBSCAN": DBSCAN(eps=0.5, min_samples=5),
     }
 
-    # --- Deep clustering ensemble ---
-    #for name, Cls in deep_models.items():
-    #    start = time.time()
-    #    try:
-    #        model = Cls(n_clusters=n_clusters) if "n_clusters" in inspect.signature(Cls).parameters else Cls()
-    #        labels = model.fit_predict(X)
-    #        if np.isnan(labels).any():
-    #            logging.warning(f"{name} produced NaNs — skipping.")
-    #            continue
-    #        base_labels.append(labels)
-    #        logging.info(f"[DECCS] Deep base clustering '{name}' completed in {time.time() - start:.2f}s.")
-    #    except Exception as e:
-    #        logging.warning(f"[DECCS] Deep clustering '{name}' failed: {e}")
-
-    # --- Classical clustering ensemble ---
+    # --- Run classical clustering ensemble ---
     for name, algo in classical_models.items():
         start = time.time()
         try:
@@ -647,7 +630,7 @@ def generate_notebook(results_file, output_notebook):
     - output_notebook (str): Path to save the generated notebook.
     """
     logging.info(f"Generating notebook at {output_notebook}")
-    
+
     nb = nbf.v4.new_notebook()
 
     #Add introduction markdown cell

@@ -1,27 +1,26 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {2.1}{\ignorespaces Taxonomy of deep clustering approaches}}{21}{table.2.1}%
-\contentsline {table}{\numberline {2.2}{\ignorespaces Performance comparison of deep clustering methods on benchmark datasets}}{23}{table.2.2}%
-\contentsline {table}{\numberline {2.3}{\ignorespaces Qualitative comparison of clustering method features}}{24}{table.2.3}%
-\contentsline {table}{\numberline {2.4}{\ignorespaces Computational complexity comparison}}{24}{table.2.4}%
-\contentsline {table}{\numberline {2.5}{\ignorespaces Method applicability to different data types and scenarios}}{25}{table.2.5}%
-\contentsline {table}{\numberline {2.6}{\ignorespaces Method limitations and failure modes}}{26}{table.2.6}%
+\contentsline {table}{\numberline {2.1}{\ignorespaces Taxonomy of deep clustering approaches}}{18}{table.2.1}%
+\contentsline {table}{\numberline {2.2}{\ignorespaces Qualitative comparison of clustering method features}}{20}{table.2.2}%
+\contentsline {table}{\numberline {2.3}{\ignorespaces Computational complexity comparison}}{21}{table.2.3}%
+\contentsline {table}{\numberline {2.4}{\ignorespaces Method applicability to different data types and scenarios}}{22}{table.2.4}%
+\contentsline {table}{\numberline {2.5}{\ignorespaces Method limitations and failure modes}}{23}{table.2.5}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {3.1}{\ignorespaces Ensemble clustering algorithms and their characteristics}}{36}{table.3.1}%
-\contentsline {table}{\numberline {3.2}{\ignorespaces Complete configuration summary}}{43}{table.3.2}%
+\contentsline {table}{\numberline {3.1}{\ignorespaces Ensemble clustering algorithms and their characteristics}}{33}{table.3.1}%
+\contentsline {table}{\numberline {3.2}{\ignorespaces Complete configuration summary}}{40}{table.3.2}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {4.1}{\ignorespaces Hyperparameter tuning results on sample subset (N=160). \textbf {Caution:} These results may not generalize to the full dataset.}}{45}{table.4.1}%
-\contentsline {table}{\numberline {4.2}{\ignorespaces Sample vs Full-Scale Performance Comparison}}{46}{table.4.2}%
-\contentsline {table}{\numberline {4.3}{\ignorespaces Comparison of sample-based tuning vs. earlier full-dataset runs}}{46}{table.4.3}%
-\contentsline {table}{\numberline {4.4}{\ignorespaces Summary of implementation status and results}}{55}{table.4.4}%
+\contentsline {table}{\numberline {4.1}{\ignorespaces Hyperparameter tuning results on sample subset (N=160). \textbf {Caution:} These results may not generalize to the full dataset.}}{42}{table.4.1}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Sample vs Full-Scale Performance Comparison}}{43}{table.4.2}%
+\contentsline {table}{\numberline {4.3}{\ignorespaces Comparison of sample-based tuning vs. earlier full-dataset runs}}{43}{table.4.3}%
+\contentsline {table}{\numberline {4.4}{\ignorespaces Summary of implementation status and results}}{52}{table.4.4}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {6.1}{\ignorespaces Summary of Results}}{64}{table.6.1}%
+\contentsline {table}{\numberline {6.1}{\ignorespaces Summary of Results}}{61}{table.6.1}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {A.1}{\ignorespaces Complete hyperparameter grid search results for DECCS mode}}{68}{table.A.1}%
+\contentsline {table}{\numberline {A.1}{\ignorespaces Complete hyperparameter grid search results for DECCS mode}}{73}{table.A.1}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {B.1}{\ignorespaces Representative cluster characterizations with top-5 attributes}}{71}{table.B.1}%
-\contentsline {table}{\numberline {B.2}{\ignorespaces Top 15 most discriminative attributes}}{72}{table.B.2}%
-\contentsline {table}{\numberline {B.3}{\ignorespaces Complete training configuration}}{74}{table.B.3}%
-\contentsline {table}{\numberline {B.4}{\ignorespaces AwA2 dataset statistics}}{74}{table.B.4}%
-\contentsline {table}{\numberline {B.5}{\ignorespaces Ensemble clustering algorithms and configurations}}{75}{table.B.5}%
+\contentsline {table}{\numberline {B.1}{\ignorespaces Representative cluster characterizations with top-5 attributes}}{76}{table.B.1}%
+\contentsline {table}{\numberline {B.2}{\ignorespaces Top 15 most discriminative attributes}}{77}{table.B.2}%
+\contentsline {table}{\numberline {B.3}{\ignorespaces Complete training configuration}}{79}{table.B.3}%
+\contentsline {table}{\numberline {B.4}{\ignorespaces AwA2 dataset statistics}}{79}{table.B.4}%
+\contentsline {table}{\numberline {B.5}{\ignorespaces Ensemble clustering algorithms and configurations}}{80}{table.B.5}%

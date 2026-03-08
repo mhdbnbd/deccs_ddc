@@ -270,43 +270,6 @@ DECCS is our primary foundation. We extend it by adding semantic supervision (fr
 \textbf{Relationship to Our Work:}
 DDC provides the interpretability framework we integrate into DECCS. We adopt DDC's tag-based supervision and combine it with DECCS's consensus mechanism. Note that we use DECCS's consensus loss rather than DDC's pairwise constraints, as the consensus mechanism already provides ensemble-level consistency.
 
-\subsection{Quantitative Performance Comparison}
-
-Table~\ref{tab:methods_comparison} provides a comprehensive comparison of methods on common datasets.
-
-\begin{table}[H]
-    \centering
-    \caption{Performance comparison of deep clustering methods on benchmark datasets}
-    \label{tab:methods_comparison}
-    \small
-    \begin{tabular}{lccccc}
-        \hline
-        \multirow{2}{*}{\textbf{Method}} & \multicolumn{2}{c}{\textbf{MNIST}} & \multicolumn{2}{c}{\textbf{AwA2}} & \textbf{Interpretable} \\
-        \cline{2-5}
-        & NMI & ACC & NMI & ACC & \\
-        \hline
-        K-Means (pixels) & 0.499 & 0.572 & 0.412 & 0.389 & No \\
-        K-Means (ResNet) & 0.734 & 0.812 & 0.623 & 0.591 & No \\
-        \hline
-        DEC \citep{Xie2016} & 0.816 & 0.843 & 0.706 & 0.653 & No \\
-        IDEC & 0.881 & 0.887 & 0.729 & 0.681 & No \\
-        VaDE & 0.876 & 0.879 & 0.715 & 0.669 & No \\
-        \hline
-        SpectralNet & 0.811 & 0.834 & 0.697 & 0.645 & No \\
-        Deep Spectral & 0.824 & 0.851 & 0.712 & 0.662 & No \\
-        \hline
-        DECCS \citep{Miklautz2021} & \textbf{0.927} & \textbf{0.948} & 0.761 & 0.703 & No \\
-        \hline
-        DDC \citep{Zhang2021} & -- & -- & \textbf{0.782} & \textbf{0.724} & \textbf{Yes} \\
-        \hline
-        \textbf{Ours (sample, N=160)} & -- & -- & 0.642 & -- & Yes \\
-        \textbf{Ours (full-scale, N=37,322)} & -- & -- & 0.012 & -- & Yes \\
-        \hline
-    \end{tabular}
-\end{table}
-
-\textit{Note: Our approach showed promise on small samples but failed to scale. See Chapter 4 for detailed analysis.}
-
 \subsection{Qualitative Feature Comparison}
 
 \begin{table}[H]

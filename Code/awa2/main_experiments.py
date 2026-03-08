@@ -167,20 +167,8 @@ def main():
     embeddings_np: NDArray[np.float32] = embeddings.detach().cpu().numpy().astype(np.float32)
     true_labels = np.array(awa2_dataset.labels)
     symbolic_tags = awa2_dataset.symbolic_tags
-    cluster_labels, cluster_descriptions = describe_clusters(embeddings, symbolic_tags)
-    inspect_sample_clusters(awa2_dataset, cluster_labels)
-    plot_tsne(embeddings.cpu().numpy(), cluster_labels, "results_tsne.png")
-    save_cluster_examples(cluster_labels, awa2_dataset, mode=args.mode)
 
-    summarize_clusters_with_attributes(
-        cluster_labels=cluster_labels,
-        cluster_descriptions=cluster_descriptions,
-        dataset=awa2_dataset,
-        predicates_path="data/AwA2-data/Animals_with_Attributes2/predicates.txt",
-        top_k=5,
-        output_json="results_cluster_descriptions.json"
-    )
-
+    # --- Perform mode-specific clustering first, then visualize with same labels ---
     if args.mode == "ae":
         results = evaluate_clustering(embeddings_np, true_labels)
     elif args.mode == "oracle":
@@ -188,8 +176,8 @@ def main():
         results = evaluate_clustering(concat_features, true_labels)
     elif args.mode == "deccs":
         base_labels = get_base_clusterings(embeddings_np, n_clusters=len(np.unique(true_labels)))
-        consensus_matrix = build_consensus_matrix(base_labels)
-        consensus_matrix /= consensus_matrix.max()
+        # Use sparse consensus (consistent with training loop which uses build_sparse_consensus)
+        consensus_matrix = build_sparse_consensus(base_labels, embeddings_np)
 
         final_labels = SpectralClustering(
             n_clusters=len(np.unique(true_labels)),
@@ -211,6 +199,33 @@ def main():
         }
     else:  # cae
         results = evaluate_clustering(embeddings_np, true_labels)
+
+    # --- Use the SAME cluster labels for visualization and descriptions ---
+    cluster_labels = np.array(results["clusters"])
+
+    # Compute attribute descriptions using the actual evaluation cluster labels
+    # (not a separate KMeans run, which would be inconsistent)
+    cluster_descriptions = []
+    for c in sorted(np.unique(cluster_labels)):
+        mask = cluster_labels == c
+        if mask.sum() > 0:
+            cluster_descriptions.append(np.mean(symbolic_tags[mask], axis=0))
+        else:
+            cluster_descriptions.append(np.zeros(symbolic_tags.shape[1]))
+    cluster_descriptions = np.array(cluster_descriptions)
+
+    inspect_sample_clusters(awa2_dataset, cluster_labels)
+    plot_tsne(embeddings.cpu().numpy(), cluster_labels, "results_tsne.png")
+    save_cluster_examples(cluster_labels, awa2_dataset, mode=args.mode)
+
+    summarize_clusters_with_attributes(
+        cluster_labels=cluster_labels,
+        cluster_descriptions=cluster_descriptions,
+        dataset=awa2_dataset,
+        predicates_path="data/AwA2-data/Animals_with_Attributes2/predicates.txt",
+        top_k=5,
+        output_json="results_cluster_descriptions.json"
+    )
 
     save_detailed_results(
         results={

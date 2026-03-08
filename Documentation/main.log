@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian) (preloaded format=pdflatex 2026.1.18)  24 FEB 2026 20:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian) (preloaded format=pdflatex 2026.1.18)  6 MAR 2026 20:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1129,7 +1129,7 @@ Package hyperref Info: Link coloring OFF on input line 95.
 Package pgfplots notification 'compat/show suggested version=true': document ha
 s been generated with the most recent feature set (\pgfplotsset{compat=1.18}).
 
-<figs/Uni_Logo_2016.png, id=666, 481.8pt x 240.9pt>
+<figs/Uni_Logo_2016.png, id=662, 481.8pt x 240.9pt>
 File: figs/Uni_Logo_2016.png Graphic file (type png)
 <use figs/Uni_Logo_2016.png>
 Package pdftex.def Info: figs/Uni_Logo_2016.png  used on input line 121.
@@ -1148,17 +1148,17 @@ been already used, duplicate ignored
                    \relax 
 l.144 \end{abstract}
                      [1] (./main.toc
-LaTeX Font Info:    Trying to load font information for U+msa on input line 6.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 4.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 6.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 4.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (5.7749pt too wide) in paragraph at lines 30--30
+Overfull \hbox (5.7749pt too wide) in paragraph at lines 28--28
  [][] [][]\OT1/cmr/m/n/12 Auto-Encoding Vari-a-tional Bayes by D. P. Kingma and
  M. Welling 
  []
@@ -1170,7 +1170,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.33 ...Other Related Works}{20}{subsection.2.3.5}
+l.35 ...d Method Comparison}{18}{subsection.2.4.2}
                                                   % [1
 
 ]
@@ -1183,41 +1183,11 @@ l.33 ...Other Related Works}{20}{subsection.2.3.5}
 
 
 
-[4] (./main.lof
-
-[5
-
-]
-Overfull \hbox (15.0072pt too wide) in paragraph at lines 23--23
- [][] [][]\OT1/cmr/m/n/12 Effect of tag su-per-vi-sion weight on clus-ter-ing p
-er-for-mance (with $\OML/cmm/m/it/12 ^^U[] \OT1/cmr/m/n/12 = 
- []
-
-)
-\tf@lof=\write6
-\openout6 = `main.lof'.
-
-
-
-[6] (./main.lot
-Overfull \hbox (1.91801pt too wide) in paragraph at lines 4--4
- [][] [][]\OT1/cmr/m/n/12 Performance com-par-i-son of deep clus-ter-ing meth-o
-ds on bench-mark datasets[] [][]  
- []
-
-)
-\tf@lot=\write7
-\openout7 = `main.lot'.
-
-
-
-[7
-
-]
+[4]
 Chapter 1.
 (./chapters/introduction.tex
 
-[8
+[5
 
 ]
 Overfull \hbox (12.04486pt too wide) in paragraph at lines 61--62
@@ -1227,7 +1197,7 @@ p-re-sen-ta-tions from DDC into DECCS
 
 
 
-[9{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
+[6{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
 Overfull \hbox (5.12132pt too wide) in paragraph at lines 71--72
 []\OT1/cmr/bx/n/12 Objective\OT1/cmr/m/n/12 : Test the in-te-grated DECCS-DDC a
 p-proach on the AwA2 dataset
@@ -1235,13 +1205,13 @@ p-proach on the AwA2 dataset
 
 
 
-[10]
+[7]
 
-[11])
+[8])
 
-[12]
+[9]
 Chapter 2.
-(./chapters/literature_review.tex
+(./chapters/related_works.tex
 Overfull \hbox (33.85524pt too wide) in paragraph at lines 3--4
 \OT1/cmr/m/n/12 The DECCS pa-per [[]Mik-lautz et al.[], []2021[]], $"$Deep Clus
 -ter-ing With Con-sen-sus Representations$"$
@@ -1249,40 +1219,40 @@ Overfull \hbox (33.85524pt too wide) in paragraph at lines 3--4
 
 
 
-[13
+[10
 
 ]
 
-[14]
-<figs/deccs.png, id=1138, 597.73312pt x 171.64125pt>
+[11]
+<figs/deccs.png, id=996, 597.73312pt x 171.64125pt>
 File: figs/deccs.png Graphic file (type png)
 <use figs/deccs.png>
 Package pdftex.def Info: figs/deccs.png  used on input line 53.
 (pdftex.def)             Requested size: 441.01773pt x 126.64061pt.
 
 
-[15
+[12
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2.1}) 
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.67 
       <./figs/deccs.png (PNG copy)>]
-<figs/ddc.png, id=1152, 502.12593pt x 235.63031pt>
+<figs/ddc.png, id=1011, 502.12593pt x 235.63031pt>
 File: figs/ddc.png Graphic file (type png)
 <use figs/ddc.png>
 Package pdftex.def Info: figs/ddc.png  used on input line 78.
 (pdftex.def)             Requested size: 441.01773pt x 206.967pt.
 
 
-[16
+[13
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2.2}) 
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.86 
       <./figs/ddc.png (PNG copy)>]
-<figs/dec.png, id=1160, 716.6775pt x 377.91188pt>
+<figs/dec.png, id=1020, 716.6775pt x 377.91188pt>
 File: figs/dec.png Graphic file (type png)
 <use figs/dec.png>
 Package pdftex.def Info: figs/dec.png  used on input line 103.
@@ -1293,8 +1263,8 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 
 
-[17]
-<figs/vae.png, id=1169, 740.7675pt x 216.05719pt>
+[14]
+<figs/vae.png, id=1028, 740.7675pt x 216.05719pt>
 File: figs/vae.png Graphic file (type png)
 <use figs/vae.png>
 Package pdftex.def Info: figs/vae.png  used on input line 118.
@@ -1305,7 +1275,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 
 
-[18
+[15
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2.3}) 
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
@@ -1319,7 +1289,7 @@ clas-si-fi-ca-tion, a post-processing
 
 
 
-[19
+[16
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2.4}) 
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
@@ -1327,7 +1297,7 @@ has been already used, duplicate ignored
 l.136 
        <./figs/vae.png>]
 
-[20]
+[17]
 Underfull \hbox (badness 10000) in paragraph at lines 169--169
 []\OT1/cmr/m/n/10.95 Reconstruction-
  []
@@ -1374,7 +1344,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 183--184
 
 
 
-[21
+[18
 pdfTeX warning (ext4): destination with the same identifier (name{table.2.1}) h
 as been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
@@ -1382,161 +1352,155 @@ as been already used, duplicate ignored
 l.210 ... Autoencoders for Clustering (VAE-based)}
                                                   ]
 
-[22]
+[19]
 
-[23
+[20
 pdfTeX warning (ext4): destination with the same identifier (name{table.2.2}) h
 as been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.331 
+l.315 
       ]
-Underfull \hbox (badness 2753) in paragraph at lines 373--374
+Underfull \hbox (badness 2753) in paragraph at lines 336--337
 \OT1/cmr/m/n/12 vi-sion lever-ages
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 373--374
+Underfull \hbox (badness 10000) in paragraph at lines 336--337
 \OT1/cmr/m/n/12 do-main knowl-
  []
 
 
-Underfull \hbox (badness 5504) in paragraph at lines 375--375
+Underfull \hbox (badness 5504) in paragraph at lines 338--338
 []\OT1/cmr/m/n/12 Large-scale im-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 375--376
+Underfull \hbox (badness 10000) in paragraph at lines 338--339
 []\OT1/cmr/m/n/12 Ensemble ro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 375--376
+Underfull \hbox (badness 10000) in paragraph at lines 338--339
 \OT1/cmr/m/n/12 bust-ness helps
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 377--377
+Underfull \hbox (badness 10000) in paragraph at lines 340--340
 []\OT1/cmr/m/n/12 Requires in-ter-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 377--378
+Underfull \hbox (badness 10000) in paragraph at lines 340--341
 []\OT1/cmr/m/n/12 Only meth-ods
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 377--378
+Underfull \hbox (badness 10000) in paragraph at lines 340--341
 \OT1/cmr/m/n/12 with ex-pla-na-
  []
 
 
-Underfull \hbox (badness 1902) in paragraph at lines 379--379
+Underfull \hbox (badness 1902) in paragraph at lines 342--342
 []\OT1/cmr/m/n/12 Limited la-beled
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 381--381
+Underfull \hbox (badness 10000) in paragraph at lines 344--344
 []\OT1/cmr/m/n/12 Arbitrary data
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 381--382
+Underfull \hbox (badness 10000) in paragraph at lines 344--345
 []\OT1/cmr/m/n/12 Ensemble han-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 381--382
+Underfull \hbox (badness 10000) in paragraph at lines 344--345
 \OT1/cmr/m/n/12 dles di-verse
  []
 
 
-Underfull \hbox (badness 5741) in paragraph at lines 383--384
+Underfull \hbox (badness 5741) in paragraph at lines 346--347
 []\OT1/cmr/m/n/12 Can use word
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 383--384
+Underfull \hbox (badness 10000) in paragraph at lines 346--347
 \OT1/cmr/m/n/12 em-bed-dings as
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 387--387
+Underfull \hbox (badness 10000) in paragraph at lines 350--350
 []\OT1/cmr/m/n/12 Multi-modal
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 387--388
+Underfull \hbox (badness 10000) in paragraph at lines 350--351
 []\OT1/cmr/m/n/12 Can in-cor-po-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 387--388
+Underfull \hbox (badness 10000) in paragraph at lines 350--351
 \OT1/cmr/m/n/12 rate mul-ti-ple
  []
 
 
 
-[24
+[21
 pdfTeX warning (ext4): destination with the same identifier (name{table.2.3}) h
 as been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.391 
-      
-pdfTeX warning (ext4): destination with the same identifier (name{table.2.4}) h
-as been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.391 
+l.354 
       ]
-Underfull \hbox (badness 1137) in paragraph at lines 466--467
+Underfull \hbox (badness 1137) in paragraph at lines 429--430
 []\OT1/cmr/m/n/10.95 Missing at-tribute an-no-ta-
  []
 
 
 
-[25
+[22
+pdfTeX warning (ext4): destination with the same identifier (name{table.2.4}) h
+as been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.435 
+      ]
+
+[23
 pdfTeX warning (ext4): destination with the same identifier (name{table.2.5}) h
 as been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.472 
-      ]
-
-[26
-pdfTeX warning (ext4): destination with the same identifier (name{table.2.6}) h
-as been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.521     \end{itemize}
+l.484     \end{itemize}
                        
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2.5}) 
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.521     \end{itemize}
+l.484     \end{itemize}
                        ]
 
-[27
+[24
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2.6}) 
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.572 ...section{Key Insights from the Literature}
+l.535 ...section{Key Insights from the Literature}
                                                   ]
 
-[28])
+[25])
 
-[29]
+[26]
 Chapter 3.
 (./chapters/methodology.tex
 
-[30
+[27
 
 ]
 
-[31
+[28
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3.1}) 
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
@@ -1544,23 +1508,23 @@ has been already used, duplicate ignored
 l.93     \begin
                {itemize}]
 
-[32]
+[29]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
 put line 189.
 
 
-[33]
+[30]
 
-[34]
+[31]
 
-[35]
+[32]
 LaTeX Font Info:    Trying to load font information for U+dsrom on input line 3
 81.
  (/usr/share/texlive/texmf-dist/tex/latex/doublestroke/Udsrom.fd
 File: Udsrom.fd 1995/08/01 v0.1 Double stroke roman font definitions
 )
 
-[36
+[33
 pdfTeX warning (ext4): destination with the same identifier (name{table.3.1}) h
 as been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
@@ -1568,47 +1532,47 @@ as been already used, duplicate ignored
 l.425 \end{itemize}
                    ]
 
+[34]
+
+[35]
+
+[36]
+
 [37]
 
-[38]
+[38])
 
 [39]
 
-[40]
-
-[41])
-
-[42]
-
-[43
+[40
 pdfTeX warning (ext4): destination with the same identifier (name{table.3.2}) h
 as been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.167 \chapter
-              {Results}]
+l.166 \chapter
+              {Experiments}]
 Chapter 4.
-(./chapters/results.tex
+(./chapters/experiments.tex
 
-[44
+[41
 
 ]
 
-[45
+[42
 pdfTeX warning (ext4): destination with the same identifier (name{table.4.1}) h
 as been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.85 
      ]
-<figs/results_ae_loss.png, id=1518, 422.7795pt x 328.8285pt>
+<figs/results_ae_loss.png, id=1383, 422.7795pt x 328.8285pt>
 File: figs/results_ae_loss.png Graphic file (type png)
 <use figs/results_ae_loss.png>
 Package pdftex.def Info: figs/results_ae_loss.png  used on input line 129.
 (pdftex.def)             Requested size: 352.81552pt x 274.42783pt.
 
 
-[46
+[43
 pdfTeX warning (ext4): destination with the same identifier (name{table.4.2}) h
 as been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
@@ -1621,70 +1585,70 @@ as been already used, duplicate ignored
                                                   \__shipout_drop_firstpage_...
 l.134 
       ]
-<figs/results_cae_loss.png, id=1525, 416.757pt x 328.8285pt>
+<figs/results_cae_loss.png, id=1394, 416.757pt x 328.8285pt>
 File: figs/results_cae_loss.png Graphic file (type png)
 <use figs/results_cae_loss.png>
 Package pdftex.def Info: figs/results_cae_loss.png  used on input line 139.
 (pdftex.def)             Requested size: 352.81552pt x 278.3766pt.
 
 
-[47
+[44
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4.1}) 
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.143 
        <./figs/results_ae_loss.png>]
-<figs/results_deccs_loss.png, id=1532, 423.38174pt x 328.8285pt>
+<figs/results_deccs_loss.png, id=1400, 423.38174pt x 328.8285pt>
 File: figs/results_deccs_loss.png Graphic file (type png)
 <use figs/results_deccs_loss.png>
 Package pdftex.def Info: figs/results_deccs_loss.png  used on input line 148.
 (pdftex.def)             Requested size: 352.81552pt x 274.02141pt.
 
 
-[48
+[45
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4.2}) 
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.152 
        <./figs/results_cae_loss.png>]
-<figs/results_ae_pca.png, id=1540, 415.5525pt x 328.8285pt>
+<figs/results_ae_pca.png, id=1409, 415.5525pt x 328.8285pt>
 File: figs/results_ae_pca.png Graphic file (type png)
 <use figs/results_ae_pca.png>
 Package pdftex.def Info: figs/results_ae_pca.png  used on input line 171.
 (pdftex.def)             Requested size: 374.86775pt x 296.64537pt.
 
 
-[49
+[46
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4.3}) 
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.175 
        <./figs/results_deccs_loss.png>]
-<figs/results_cae_pca.png, id=1546, 408.92775pt x 328.8285pt>
+<figs/results_cae_pca.png, id=1418, 408.92775pt x 328.8285pt>
 File: figs/results_cae_pca.png Graphic file (type png)
 <use figs/results_cae_pca.png>
 Package pdftex.def Info: figs/results_cae_pca.png  used on input line 178.
 (pdftex.def)             Requested size: 374.86775pt x 301.45215pt.
 
 
-[50
+[47
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4.4}) 
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.182 
        <./figs/results_ae_pca.png>]
-<figs/results_deccs_pca.png, id=1552, 415.5525pt x 328.8285pt>
+<figs/results_deccs_pca.png, id=1425, 415.5525pt x 328.8285pt>
 File: figs/results_deccs_pca.png Graphic file (type png)
 <use figs/results_deccs_pca.png>
 Package pdftex.def Info: figs/results_deccs_pca.png  used on input line 185.
 (pdftex.def)             Requested size: 374.86775pt x 296.64537pt.
 
 
-[51
+[48
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4.5}) 
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
@@ -1698,21 +1662,21 @@ ct em-bed-ding shapes---elliptical (AE),
 
 
 
-[52
+[49
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4.6}) 
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.201 
        <./figs/results_deccs_pca.png>]
-<figs/results_tsne.png, id=1565, 722.7pt x 578.16pt>
+<figs/results_tsne.png, id=1439, 722.7pt x 578.16pt>
 File: figs/results_tsne.png Graphic file (type png)
 <use figs/results_tsne.png>
 Package pdftex.def Info: figs/results_tsne.png  used on input line 204.
 (pdftex.def)             Requested size: 418.96548pt x 335.17424pt.
 
 
-[53
+[50
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4.7}) 
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
@@ -1720,39 +1684,39 @@ has been already used, duplicate ignored
 l.220 \subsection{Training Dynamics in DECCS Mode}
                                                    <./figs/results_tsne.png>]
 
-[54])
+[51])
 
-[55
+[52
 pdfTeX warning (ext4): destination with the same identifier (name{table.4.4}) h
 as been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.170 \chapter
+l.169 \chapter
               {Discussion}]
 Chapter 5.
 (./chapters/discussion.tex
 
-[56
+[53
 
 ]
+
+[54]
+
+[55]
+
+[56]
 
 [57]
 
 [58]
 
-[59]
+[59])
 
 [60]
-
-[61]
-
-[62])
-
-[63]
 Chapter 6.
 (./chapters/conclusion.tex
 
-[64
+[61
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{table.6.1}) h
@@ -1763,11 +1727,47 @@ l.46     \item \textbf
                       {Architectural modification}: Adding a tag prediction ...
 ]
 
-[65]
+[62]
 
-[66])
+[63]) (./main.bbl
+
+[64]
+
+[65
+
+]
+
+[66]
 
 [67]
+
+[68])
+
+[69] (./main.lof
+
+[70
+
+]
+Overfull \hbox (15.0072pt too wide) in paragraph at lines 23--23
+ [][] [][]\OT1/cmr/m/n/12 Effect of tag su-per-vi-sion weight on clus-ter-ing p
+er-for-mance (with $\OML/cmm/m/it/12 ^^U[] \OT1/cmr/m/n/12 = 
+ []
+
+)
+\tf@lof=\write6
+\openout6 = `main.lof'.
+
+
+
+[71] (./main.lot)
+\tf@lot=\write7
+\openout7 = `main.lot'.
+
+
+
+[72
+
+]
 Appendix A.
 (./appendices/appendix_a.tex
 
@@ -1788,7 +1788,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 
 
 
-[68
+[73
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{table.A.1}) h
@@ -1821,7 +1821,7 @@ Underfull \hbox (badness 1028) in paragraph at lines 100--100
 
 
 
-[69
+[74
 pdfTeX warning (ext4): destination with the same identifier (name{figure.A.1}) 
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
@@ -1840,17 +1840,17 @@ Overfull \hbox (17.12242pt too wide) in paragraph at lines 182--183
 
 )
 
-[70
+[75
 pdfTeX warning (ext4): destination with the same identifier (name{figure.A.3}) 
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.181 \chapter
+l.186 \chapter
               {Appendix B}]
 Appendix B.
 (./appendices/appendix_b.tex
 
-[71
+[76
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{table.B.1}) h
@@ -1884,7 +1884,7 @@ r-nel=3, stride=2, padding=1, out-
 
 
 
-[72
+[77
 pdfTeX warning (ext4): destination with the same identifier (name{table.B.2}) h
 as been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
@@ -1892,7 +1892,7 @@ as been already used, duplicate ignored
 l.106 
       ]
 
-[73]
+[78]
 Underfull \hbox (badness 10000) in paragraph at lines 174--175
 []\OT1/cmr/m/n/12 Probabilistic, al-lows el-lip-ti-cal
  []
@@ -1904,7 +1904,7 @@ Underfull \hbox (badness 6380) in paragraph at lines 175--176
 
 
 
-[74
+[79
 pdfTeX warning (ext4): destination with the same identifier (name{table.B.3}) h
 as been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
@@ -1916,42 +1916,30 @@ as been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.179 
-      ]) (./main.bbl
+      ])
 
-[75
+[80
 pdfTeX warning (ext4): destination with the same identifier (name{table.B.5}) h
 as been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1 \begin{thebibliography}{53}
-                               ]
-
-[76
-
-]
-
-[77]
-
-[78]
-
-[79])
-
-[80] (./main.aux)
+l.189 \end{document}
+                    ] (./main.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 66430DE2A96D496698F43932ACBF2168;32240.
+(rerunfilecheck)             Checksum: 133876B20F0742823CE77BD4D3E1F46D;31995.
  ) 
 Here is how much of TeX's memory you used:
- 40621 strings out of 475102
- 939207 string characters out of 5764877
- 1454650 words of memory out of 5000000
- 62438 multiletter control sequences out of 15000+600000
+ 40617 strings out of 475102
+ 939138 string characters out of 5764877
+ 1451692 words of memory out of 5000000
+ 62436 multiletter control sequences out of 15000+600000
  574558 words of font info for 98 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
- 84i,19n,91p,1593b,2253s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,19n,91p,1589b,2253s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texl
@@ -1971,10 +1959,10 @@ exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive
 t/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf/fonts/type1/
 public/cm-super/sfrm1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm
 1200.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on main.pdf (82 pages, 2331709 bytes).
+Output written on main.pdf (82 pages, 2324601 bytes).
 PDF statistics:
- 1965 PDF objects out of 2073 (max. 8388607)
- 1797 compressed objects within 18 object streams
- 512 named destinations out of 1000 (max. 500000)
- 1385 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1950 PDF objects out of 2073 (max. 8388607)
+ 1782 compressed objects within 18 object streams
+ 510 named destinations out of 1000 (max. 500000)
+ 1377 words of extra memory for PDF output out of 10000 (max. 10000000)
 
