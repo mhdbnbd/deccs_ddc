@@ -114,6 +114,7 @@ def save_cluster_examples(cluster_assignments, dataset, n_per_cluster=3, outdir=
             logging.warning(f"Failed to save image {img_path}: {e}")
 
     logging.info(f"Cluster sample saving complete — results stored in: {save_root}")
+    return save_root
 
 def plot_deccs_loss(log_path="results_deccs_loss_components.npz", save_path="results_deccs_loss.png"):
 

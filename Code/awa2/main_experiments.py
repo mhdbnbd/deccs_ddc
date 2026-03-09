@@ -32,12 +32,8 @@ from utils import (
     setup_logging,
     save_detailed_results,
     evaluate_clustering,
-    plot_experiment_results,
-    get_base_clusterings,
-    summarize_clusters_with_attributes,
-    generate_cluster_report,
-    build_sparse_consensus,
-    clustering_acc
+    plot_experiment_results, get_base_clusterings, build_consensus_matrix, describe_clusters,
+    summarize_clusters_with_attributes, generate_cluster_report, build_sparse_consensus, clustering_acc
 )
 from visualize_clusters import plot_tsne, save_cluster_examples, plot_deccs_loss
 
@@ -131,6 +127,7 @@ def main():
 
     start = time.time()
     training_losses = []
+    loss_log = {"total": [], "recon": [], "tag": []}  # accumulate across epochs for npz
     for epoch in range(args.epochs):
 
         logging.info(f"Epoch {epoch + 1}/{args.epochs} started.")
@@ -155,6 +152,13 @@ def main():
         )
         training_losses.append(epoch_loss)
         if isinstance(epoch_loss, dict):
+            loss_log["total"].append(epoch_loss["total"])
+            loss_log["recon"].append(epoch_loss["recon"])
+            loss_log["tag"].append(epoch_loss["tag"])
+            np.savez("results_deccs_loss_components.npz",
+                     total=np.array(loss_log["total"]),
+                     recon=np.array(loss_log["recon"]),
+                     tag=np.array(loss_log["tag"]))
             logging.info(
                 f"Epoch {epoch + 1}/{args.epochs} completed. "
                 f"Recon={epoch_loss['recon']:.4f}, "
@@ -172,7 +176,7 @@ def main():
     true_labels = np.array(awa2_dataset.labels)
     symbolic_tags = awa2_dataset.symbolic_tags
 
-    # --- Perform mode-specific clustering first, then visualize with same labels ---
+    # --- Perform mode-specific clustering FIRST, then visualize with same labels ---
     if args.mode == "ae":
         results = evaluate_clustering(embeddings_np, true_labels)
     elif args.mode == "oracle":
@@ -220,7 +224,7 @@ def main():
 
     inspect_sample_clusters(awa2_dataset, cluster_labels)
     plot_tsne(embeddings.cpu().numpy(), cluster_labels, "results_tsne.png")
-    save_cluster_examples(cluster_labels, awa2_dataset, mode=args.mode)
+    samples_dir = save_cluster_examples(cluster_labels, awa2_dataset, mode=args.mode)
 
     summarize_clusters_with_attributes(
         cluster_labels=cluster_labels,
@@ -258,15 +262,18 @@ def main():
     logging.info("Summary written to results_summary.json")
 
     clusters = np.array(results["clusters"])
+    # Normalize losses to flat list for plotting (CAE/DECCS return dicts)
+    plot_losses = [l["total"] if isinstance(l, dict) else float(l) for l in training_losses]
     plot_experiment_results(
         output_dir=".",
         mode=args.mode,
-        losses=training_losses,
-        embeddings=embeddings if args.mode != "oracle" else concat_features,
+        losses=plot_losses,
+        embeddings=embeddings_np if args.mode != "oracle" else concat_features,
         clusters=clusters
     )
-    generate_cluster_report()
-    plot_deccs_loss()
+    generate_cluster_report(samples_dir=samples_dir)
+    if args.mode in ["cae", "deccs"]:
+        plot_deccs_loss()
     logging.info(f"Total time: {time.time() - start:.2f}s")
 
 def inspect_sample_clusters(dataset, cluster_labels, num_clusters=3, samples_per_cluster=3):

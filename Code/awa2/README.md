@@ -6,19 +6,19 @@ This project processes the Animals with Attributes 2 (AwA2) dataset by creating 
 
 ## Directory Structure
 
-awa2/
-│
-├── data/
-│   └── AwA2-data/
-│       └── Animals_with_Attributes2/
-│           ├── JPEGImages/
-│           └── AwA2-labels.txt
-├── awa2/
-│   ├── main.py
-│   ├── dataset.py
-│   ├── model.py
-│   ├── train.py
-│   └── utils.py
+awa2/  
+│  
+├── data/  
+│   └── AwA2-data/  
+│       └── Animals_with_Attributes2/  
+│           ├── JPEGImages/  
+│           └── AwA2-labels.txt  
+├── awa2/  
+│   ├── main.py  
+│   ├── dataset.py  
+│   ├── model.py  
+│   ├── train.py  
+│   └── utils.py  
 └── README.md
 
 

@@ -21,7 +21,7 @@ def make_grad_scaler(device):
     """
     try:
         return GradScaler(device_type=device, enabled=(device == "cuda"))
-    except TypeError:        
+    except TypeError:
         return GradScaler(enabled=(device == "cuda"))
 
 def _prepare_model_for_cuda(model):
@@ -108,23 +108,26 @@ def evaluate_autoencoder(dataloader, model, use_gpu):
 
 
 def train_constrained_autoencoder(
-    dataloader,
-    model,
-    use_gpu,
-    num_epochs=4,
-    tag_tuner=0.5,
-    consensus_matrix=None,
-    lambda_consensus=0.0,
-    **kwargs
+        dataloader,
+        model,
+        use_gpu,
+        num_epochs=1,
+        tag_tuner=0.5,
+        consensus_matrix=None,
+        lambda_consensus=0.0,
+        **kwargs
 ):
     """
-    Train a constrained autoencoder with optional DECCS global consensus loss.
+    Train a constrained autoencoder for one epoch with optional DECCS consensus loss.
+
+    Called once per outer epoch by main_experiments.py. Returns a dict with
+    component losses so the caller can accumulate them across epochs.
 
     Args:
         dataloader (DataLoader): Training data loader.
         model (nn.Module): ConstrainedAutoencoder instance.
         use_gpu (bool): Whether to use GPU.
-        num_epochs (int): Number of epochs.
+        num_epochs (int): Number of inner epochs (default 1; outer loop handles epoch count).
         tag_tuner (float): Weight for tag supervision loss.
         consensus_matrix (np.ndarray or None): Global consensus matrix (optional).
         lambda_consensus (float): Weight for consensus consistency loss.
@@ -139,59 +142,61 @@ def train_constrained_autoencoder(
     tag_loss_fn = nn.BCEWithLogitsLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
     scaler = make_grad_scaler(device.type)
-    all_losses = []
 
-    for epoch in range(num_epochs):
-        running_loss = 0.0
-        for batch in tqdm(dataloader, desc=f"Epoch {epoch + 1}/{num_epochs}"):
-            if batch is None:
-                continue
+    model.train()
+    running_loss = 0.0
+    running_recon = 0.0
+    running_tag = 0.0
+    n_batches = 0
 
-            images, symbolic_tags, idx = batch
-            images = images.to(device, non_blocking=True).to(memory_format=torch.channels_last)
-            symbolic_tags = symbolic_tags.to(device, non_blocking=True)
-
-            optimizer.zero_grad(set_to_none=True)
-            with autocast(device_type='cuda', enabled=(device.type == 'cuda')):
-                recon, tag_logits = model(images)
-                recon_loss = recon_loss_fn(recon, images)
-                tag_loss = tag_loss_fn(tag_logits, symbolic_tags)
-
-                if consensus_matrix is not None and lambda_consensus > 0:
-                    with torch.no_grad():
-                        z = model.get_embeddings(images)
-                    if isinstance(idx, torch.Tensor):
-                        idx = idx.cpu().numpy()
-                    consensus_sub = consensus_matrix[np.ix_(idx, idx)]
-                    consensus_loss = consensus_consistency_loss(z, consensus_sub)
-                    total_loss = recon_loss + tag_tuner * tag_loss + lambda_consensus * consensus_loss
-                else:
-                    total_loss = recon_loss + tag_tuner * tag_loss
-
-            scaler.scale(total_loss).backward()
-            scaler.step(optimizer)
-            scaler.update()
-
-            running_loss += total_loss.detach().item()
-
-        if 'loss_log' not in locals():
-            loss_log = {"total": [], "recon": [], "tag": []}
-        loss_log["total"].append(total_loss.item())
-        loss_log["recon"].append(recon_loss.item())
-        loss_log["tag"].append(tag_loss.item())
-
-        epoch_loss = running_loss / len(dataloader)
-        all_losses.append(epoch_loss)
-        logging.info(f"Epoch {epoch+1}/{num_epochs} completed. "
-                    f"Recon={recon_loss.item():.4f}, Tag={tag_loss.item():.4f}, "
-                    f"Total={epoch_loss:.4f}")
-
-        if torch.isnan(total_loss):
-            logging.error("NaN detected in total_loss — check tag inputs or consensus matrix normalization.")
+    for batch in tqdm(dataloader, desc="Training"):
+        if batch is None:
             continue
-        np.savez("results_deccs_loss_components.npz",
-                 total=np.array(loss_log["total"]),
-                 recon=np.array(loss_log["recon"]),
-                 tag=np.array(loss_log["tag"]))
 
-    return all_losses
+        images, symbolic_tags, idx = batch
+        images = images.to(device, non_blocking=True).to(memory_format=torch.channels_last)
+        symbolic_tags = symbolic_tags.to(device, non_blocking=True)
+
+        optimizer.zero_grad(set_to_none=True)
+        with autocast(device_type='cuda', enabled=(device.type == 'cuda')):
+            recon, tag_logits = model(images)
+            recon_loss = recon_loss_fn(recon, images)
+            tag_loss = tag_loss_fn(tag_logits, symbolic_tags)
+
+            if consensus_matrix is not None and lambda_consensus > 0:
+                with torch.no_grad():
+                    z = model.get_embeddings(images)
+                if isinstance(idx, torch.Tensor):
+                    idx = idx.cpu().numpy()
+                consensus_sub = consensus_matrix[np.ix_(idx, idx)]
+                # Convert sparse sub-matrix to dense (batch_size x batch_size is small)
+                if hasattr(consensus_sub, 'toarray'):
+                    consensus_sub = consensus_sub.toarray()
+                consensus_loss = consensus_consistency_loss(z, consensus_sub)
+                total_loss = recon_loss + tag_tuner * tag_loss + lambda_consensus * consensus_loss
+            else:
+                total_loss = recon_loss + tag_tuner * tag_loss
+
+        scaler.scale(total_loss).backward()
+        scaler.step(optimizer)
+        scaler.update()
+
+        running_loss += total_loss.detach().item()
+        running_recon += recon_loss.detach().item()
+        running_tag += tag_loss.detach().item()
+        n_batches += 1
+
+    if n_batches == 0:
+        logging.warning("No valid batches in epoch.")
+        return {"total": 0.0, "recon": 0.0, "tag": 0.0}
+
+    if torch.isnan(total_loss):
+        logging.error("NaN detected in total_loss — check tag inputs or consensus matrix normalization.")
+
+    avg_total = running_loss / n_batches
+    avg_recon = running_recon / n_batches
+    avg_tag = running_tag / n_batches
+
+    logging.info(f"Recon={avg_recon:.4f}, Tag={avg_tag:.4f}, Total={avg_total:.4f}")
+
+    return {"total": avg_total, "recon": avg_recon, "tag": avg_tag}
