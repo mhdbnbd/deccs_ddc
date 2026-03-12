@@ -1,4 +1,5 @@
 import json
+import json
 import logging
 import os
 import random
@@ -13,6 +14,7 @@ import torch
 import torch.nn.functional as F
 from PIL import Image, ImageDraw
 from joblib import parallel_backend
+# from clustpy.deep import DEC
 from scipy.optimize import linear_sum_assignment
 from scipy.sparse import lil_matrix
 from sklearn.cluster import (
@@ -259,9 +261,6 @@ def evaluate_clustering(embeddings, true_labels, k=None, mode_desc=""):
         f"[{mode_desc}] ACC={acc:.4f}, ARI={ari:.4f}, NMI={nmi:.4f}, Sil={sil:.4f}"
     )
 
-    with open("results_cluster_metrics.json", "w") as f:
-        json.dump({"acc": acc, "ari": ari, "nmi": nmi, "silhouette": sil}, f, indent=2)
-
     return {
         "acc": float(acc),
         "ari": float(ari),
@@ -475,9 +474,12 @@ def summarize_clusters_with_attributes(
         json.dump(results, f, indent=2, default=default_serializer)
     return results
 
-def generate_cluster_report(samples_dir="cluster_samples", out="cluster_report"):
+def generate_cluster_report(samples_dir="cluster_samples", out="cluster_report", descriptions_json="results_cluster_descriptions.json"):
     os.makedirs(out, exist_ok=True)
-    with open("results_cluster_descriptions.json") as f:
+    if not os.path.exists(descriptions_json):
+        logging.warning(f"Cluster descriptions file not found: {descriptions_json} — skipping report.")
+        return
+    with open(descriptions_json) as f:
         attrs = json.load(f)
     if isinstance(attrs, list):
         logging.warning("Cluster descriptions loaded as list — converting to dictionary format.")
@@ -684,4 +686,3 @@ plt.show()
         nbf.write(nb, f)
 
     logging.info(f"Notebook saved to {output_notebook}")
-

@@ -23,7 +23,11 @@ from torch.utils.data import DataLoader
 from torchvision import transforms
 
 from dataset import AwA2Dataset
-from model import Autoencoder, ConstrainedAutoencoder
+from model import (
+    Autoencoder, ConstrainedAutoencoder,
+    ResNetAutoencoder, ResNetConstrainedAutoencoder,
+    LargeAutoencoder, LargeConstrainedAutoencoder,
+)
 from train import train_autoencoder, train_constrained_autoencoder
 from utils import (
     extract_embeddings,
@@ -59,17 +63,27 @@ def main():
     parser = argparse.ArgumentParser(description="AwA2 pipeline")
     parser.add_argument("--mode", type=str, choices=["ae", "oracle", "cae", "deccs"],
                         required=True, help="Experiment mode")
+    parser.add_argument("--arch", type=str, choices=["small", "resnet", "large"],
+                        default="small",
+                        help="Encoder architecture: 'small' (original 4-layer CNN, 128x128), "
+                             "'resnet' (pretrained ResNet-18, 224x224), "
+                             "'large' (deeper CNN from scratch, 224x224)")
     parser.add_argument("--use_gpu", action="store_true")
     parser.add_argument("--use_sample", action="store_true")
     parser.add_argument("--epochs", type=int, default=4)
     parser.add_argument("--lambda_consensus", type=float, default=0.2)
     parser.add_argument("--tag_tuner", type=float, default=0.5,
                         help="Weight for tag supervision loss (CAE/DDC branch).")
-    parser.add_argument("--output_json", type=str, default="results_deccs.json",
-                        help="Path to save experiment results JSON.")
+    parser.add_argument("--output_json", type=str, default=None,
+                        help="Path to save experiment results JSON (auto-generated if not set).")
     args = parser.parse_args()
 
-    logging.info(f"=== Running mode: {args.mode.upper()} ===")
+    logging.info(f"=== Running mode: {args.mode.upper()} | arch: {args.arch.upper()} ===")
+
+    # --- Build a unique prefix for all output files ---
+    run_tag = f"{args.mode}_{args.arch}"
+    if args.output_json is None:
+        args.output_json = f"results_{run_tag}.json"
 
     source_dir = "data/AwA2-data/Animals_with_Attributes2"
     dataset_dir = "AwA2-sample"
@@ -77,17 +91,26 @@ def main():
     classes_file = os.path.join(source_dir, "classes.txt")
 
     if args.use_sample:
-        create_sample_dataset(source_dir, dataset_dir, classes_file, sample_size=200)
+        create_sample_dataset(source_dir, dataset_dir, classes_file, sample_size=1000)
         img_dir = os.path.join(dataset_dir, "JPEGImages")
         attr_file = os.path.join(dataset_dir, "AwA2-labels.txt")
     else:
         img_dir = os.path.join(source_dir, "JPEGImages")
         attr_file = os.path.join(source_dir, "AwA2-labels.txt")
 
-    transform = transforms.Compose([
-        transforms.Resize((128, 128)),
-        transforms.ToTensor(),
-    ])
+    # --- Select transforms based on architecture ---
+    if args.arch == "small":
+        transform = transforms.Compose([
+            transforms.Resize((128, 128)),
+            transforms.ToTensor(),
+        ])
+    else:  # resnet or large: both use 224x224
+        transform = transforms.Compose([
+            transforms.Resize((224, 224)),
+            transforms.ToTensor(),
+            transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                                 std=[0.229, 0.224, 0.225]),
+        ])
 
     awa2_dataset = AwA2Dataset(
         img_dir=img_dir,
@@ -117,13 +140,29 @@ def main():
         shuffle=True)
 
     logging.info(f"Dataset created with {len(awa2_dataset)} samples.")
+    logging.info(f"Architecture: {args.arch}")
 
+    # --- Select model based on architecture and mode ---
     if args.mode in ["ae", "oracle"]:
-        model = Autoencoder().to(device)
+        if args.arch == "small":
+            model = Autoencoder().to(device)
+        elif args.arch == "resnet":
+            model = ResNetAutoencoder().to(device)
+        else:  # large
+            model = LargeAutoencoder().to(device)
         train_fn = train_autoencoder
-    else:
-        model = ConstrainedAutoencoder().to(device)
+    else:  # cae or deccs
+        if args.arch == "small":
+            model = ConstrainedAutoencoder().to(device)
+        elif args.arch == "resnet":
+            model = ResNetConstrainedAutoencoder().to(device)
+        else:  # large
+            model = LargeConstrainedAutoencoder().to(device)
         train_fn = train_constrained_autoencoder
+
+    n_params = sum(p.numel() for p in model.parameters())
+    n_trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
+    logging.info(f"Model params: {n_params:,} total, {n_trainable:,} trainable")
 
     start = time.time()
     training_losses = []
@@ -155,7 +194,7 @@ def main():
             loss_log["total"].append(epoch_loss["total"])
             loss_log["recon"].append(epoch_loss["recon"])
             loss_log["tag"].append(epoch_loss["tag"])
-            np.savez("results_deccs_loss_components.npz",
+            np.savez(f"results_{run_tag}_loss_components.npz",
                      total=np.array(loss_log["total"]),
                      recon=np.array(loss_log["recon"]),
                      tag=np.array(loss_log["tag"]))
@@ -223,8 +262,8 @@ def main():
     cluster_descriptions = np.array(cluster_descriptions)
 
     inspect_sample_clusters(awa2_dataset, cluster_labels)
-    plot_tsne(embeddings.cpu().numpy(), cluster_labels, "results_tsne.png")
-    samples_dir = save_cluster_examples(cluster_labels, awa2_dataset, mode=args.mode)
+    plot_tsne(embeddings.cpu().numpy(), cluster_labels, f"results_{run_tag}_tsne.png")
+    samples_dir = save_cluster_examples(cluster_labels, awa2_dataset, mode=run_tag)
 
     summarize_clusters_with_attributes(
         cluster_labels=cluster_labels,
@@ -232,12 +271,13 @@ def main():
         dataset=awa2_dataset,
         predicates_path="data/AwA2-data/Animals_with_Attributes2/predicates.txt",
         top_k=5,
-        output_json="results_cluster_descriptions.json"
+        output_json=f"results_{run_tag}_cluster_descriptions.json"
     )
 
     save_detailed_results(
         results={
             "mode": args.mode,
+            "arch": args.arch,
             "training_losses": training_losses,
             "metrics": results,
         },
@@ -245,35 +285,44 @@ def main():
         lambda_consensus=args.lambda_consensus,
         tag_tuner=args.tag_tuner
     )
-    logging.info(f"Experiment '{args.mode}' complete. Results saved.")
+    logging.info(f"Experiment '{run_tag}' complete. Results saved to {args.output_json}")
 
     report = {
         "metrics": results,
+        "arch": args.arch,
         "best_params": {
             "lambda_consensus": args.lambda_consensus,
             "tag_tuner": args.tag_tuner,
         },
+        "model_params_total": n_params,
+        "model_params_trainable": n_trainable,
         "device": str(device),
         "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
     }
-    with open("results_summary.json", "w") as f:
+    with open(f"results_{run_tag}_summary.json", "w") as f:
         json.dump(report, f, indent=4)
 
-    logging.info("Summary written to results_summary.json")
+    logging.info(f"Summary written to results_{run_tag}_summary.json")
 
     clusters = np.array(results["clusters"])
     # Normalize losses to flat list for plotting (CAE/DECCS return dicts)
     plot_losses = [l["total"] if isinstance(l, dict) else float(l) for l in training_losses]
     plot_experiment_results(
         output_dir=".",
-        mode=args.mode,
+        mode=run_tag,
         losses=plot_losses,
         embeddings=embeddings_np if args.mode != "oracle" else concat_features,
         clusters=clusters
     )
-    generate_cluster_report(samples_dir=samples_dir)
-    if args.mode in ["cae", "deccs"]:
-        plot_deccs_loss()
+    generate_cluster_report(
+        samples_dir=samples_dir,
+        descriptions_json=f"results_{run_tag}_cluster_descriptions.json"
+    )
+
+    # Component-wise loss plot (only for modes that produce it)
+    npz_path = f"results_{run_tag}_loss_components.npz"
+    if args.mode in ["cae", "deccs"] and os.path.exists(npz_path):
+        plot_deccs_loss(log_path=npz_path, save_path=f"results_{run_tag}_loss_components.png")
     logging.info(f"Total time: {time.time() - start:.2f}s")
 
 def inspect_sample_clusters(dataset, cluster_labels, num_clusters=3, samples_per_cluster=3):
