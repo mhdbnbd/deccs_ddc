@@ -486,11 +486,13 @@ def generate_cluster_report(samples_dir="cluster_samples", out="cluster_report",
         attrs = {str(entry["cluster_id"]): entry for entry in attrs}
 
     for cid, desc in attrs.items():
+        cluster_dir = os.path.join(samples_dir, f"cluster_{int(cid):02d}")
+        if not os.path.isdir(cluster_dir):
+            continue
         canvas = Image.new("RGB", (100, 100), "white")
         draw = ImageDraw.Draw(canvas)
         txt = f"Cluster {cid}\nTop attributes:\n" + ", ".join(desc["top_attributes"])
         draw.text((10,10), txt, fill="black")
-        cluster_dir = os.path.join(samples_dir, f"cluster_{int(cid):02d}")
         x = 10
         for img_name in os.listdir(cluster_dir)[:3]:
             img = Image.open(os.path.join(cluster_dir,img_name)).resize((120,120))

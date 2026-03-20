@@ -1,0 +1,1228 @@
+2026-03-13 13:48:04,972 - INFO - Using CPU
+2026-03-13 13:48:04,973 - INFO - === Running mode: AE | arch: SMALL ===
+2026-03-13 13:48:06,347 - INFO - Sample of 1000 images created in AwA2-sample/JPEGImages
+2026-03-13 13:48:06,347 - INFO - Sample labels file created at AwA2-sample/AwA2-labels.txt
+2026-03-13 13:48:06,356 - INFO - Mean per-class tag variance: 0.000000
+2026-03-13 13:48:06,356 - INFO - Dataset created with 800 samples.
+2026-03-13 13:48:06,357 - INFO - Architecture: small
+2026-03-13 13:48:06,370 - INFO - Model params: 194,755 total, 194,755 trainable
+2026-03-13 13:48:06,371 - INFO - Epoch 1/10 started.
+Epoch 1/1:   0%|          | 0/4 [00:00<?, ?it/s]/home/benabed/.pyenv/versions/3.13.3/lib/python3.13/site-packages/torch/utils/data/dataloader.py:1118: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.
+  super().__init__(loader)
+Epoch 1/1:  25%|██▌       | 1/4 [00:04<00:14,  4.77s/it]Epoch 1/1:  50%|█████     | 2/4 [00:06<00:06,  3.13s/it]Epoch 1/1:  75%|███████▌  | 3/4 [00:08<00:02,  2.51s/it]Epoch 1/1: 100%|██████████| 4/4 [00:08<00:00,  1.61s/it]Epoch 1/1: 100%|██████████| 4/4 [00:08<00:00,  2.19s/it]
+2026-03-13 13:48:15,119 - INFO - [AE] Epoch 1/1 | Loss=0.061707
+2026-03-13 13:48:15,121 - INFO - Epoch 1 completed. Loss: 0.061707
+2026-03-13 13:48:15,121 - INFO - Epoch time: 8.75s
+2026-03-13 13:48:15,121 - INFO - Epoch 2/10 started.
+Epoch 1/1:   0%|          | 0/4 [00:00<?, ?it/s]Epoch 1/1:  25%|██▌       | 1/4 [00:04<00:14,  4.79s/it]Epoch 1/1:  50%|█████     | 2/4 [00:06<00:05,  2.83s/it]Epoch 1/1:  75%|███████▌  | 3/4 [00:08<00:02,  2.56s/it]Epoch 1/1: 100%|██████████| 4/4 [00:08<00:00,  1.63s/it]Epoch 1/1: 100%|██████████| 4/4 [00:08<00:00,  2.17s/it]
+2026-03-13 13:48:23,803 - INFO - [AE] Epoch 1/1 | Loss=0.063184
+2026-03-13 13:48:23,808 - INFO - Epoch 2 completed. Loss: 0.063184
+2026-03-13 13:48:23,808 - INFO - Epoch time: 17.44s
+2026-03-13 13:48:23,809 - INFO - Epoch 3/10 started.
+Epoch 1/1:   0%|          | 0/4 [00:00<?, ?it/s]Epoch 1/1:  25%|██▌       | 1/4 [00:06<00:20,  6.95s/it]Epoch 1/1:  50%|█████     | 2/4 [00:08<00:07,  3.75s/it]Epoch 1/1:  75%|███████▌  | 3/4 [00:09<00:02,  2.72s/it]Epoch 1/1: 100%|██████████| 4/4 [00:10<00:00,  1.71s/it]Epoch 1/1: 100%|██████████| 4/4 [00:10<00:00,  2.53s/it]
+2026-03-13 13:48:33,932 - INFO - [AE] Epoch 1/1 | Loss=0.062910
+2026-03-13 13:48:33,935 - INFO - Epoch 3 completed. Loss: 0.062910
+2026-03-13 13:48:33,935 - INFO - Epoch time: 27.56s
+2026-03-13 13:48:33,935 - INFO - Epoch 4/10 started.
+Epoch 1/1:   0%|          | 0/4 [00:00<?, ?it/s]Epoch 1/1:  25%|██▌       | 1/4 [00:04<00:13,  4.60s/it]Epoch 1/1:  50%|█████     | 2/4 [00:06<00:05,  2.77s/it]Epoch 1/1:  75%|███████▌  | 3/4 [00:07<00:02,  2.21s/it]Epoch 1/1: 100%|██████████| 4/4 [00:07<00:00,  1.40s/it]Epoch 1/1: 100%|██████████| 4/4 [00:07<00:00,  1.95s/it]
+2026-03-13 13:48:41,732 - INFO - [AE] Epoch 1/1 | Loss=0.058658
+2026-03-13 13:48:41,735 - INFO - Epoch 4 completed. Loss: 0.058658
+2026-03-13 13:48:41,735 - INFO - Epoch time: 35.36s
+2026-03-13 13:48:41,735 - INFO - Epoch 5/10 started.
+Epoch 1/1:   0%|          | 0/4 [00:00<?, ?it/s]Epoch 1/1:  25%|██▌       | 1/4 [00:04<00:14,  4.72s/it]Epoch 1/1:  50%|█████     | 2/4 [00:06<00:05,  2.82s/it]Epoch 1/1:  75%|███████▌  | 3/4 [00:07<00:02,  2.21s/it]Epoch 1/1: 100%|██████████| 4/4 [00:07<00:00,  1.40s/it]Epoch 1/1: 100%|██████████| 4/4 [00:07<00:00,  1.96s/it]
+2026-03-13 13:48:49,576 - INFO - [AE] Epoch 1/1 | Loss=0.056452
+2026-03-13 13:48:49,579 - INFO - Epoch 5 completed. Loss: 0.056452
+2026-03-13 13:48:49,579 - INFO - Epoch time: 43.21s
+2026-03-13 13:48:49,579 - INFO - Epoch 6/10 started.
+Epoch 1/1:   0%|          | 0/4 [00:00<?, ?it/s]Epoch 1/1:  25%|██▌       | 1/4 [00:05<00:17,  5.73s/it]Epoch 1/1:  50%|█████     | 2/4 [00:07<00:07,  3.58s/it]Epoch 1/1:  75%|███████▌  | 3/4 [00:10<00:02,  3.00s/it]Epoch 1/1: 100%|██████████| 4/4 [00:10<00:00,  1.90s/it]Epoch 1/1: 100%|██████████| 4/4 [00:10<00:00,  2.58s/it]
+2026-03-13 13:48:59,906 - INFO - [AE] Epoch 1/1 | Loss=0.051199
+2026-03-13 13:48:59,911 - INFO - Epoch 6 completed. Loss: 0.051199
+2026-03-13 13:48:59,911 - INFO - Epoch time: 53.54s
+2026-03-13 13:48:59,911 - INFO - Epoch 7/10 started.
+Epoch 1/1:   0%|          | 0/4 [00:00<?, ?it/s]Epoch 1/1:  25%|██▌       | 1/4 [00:06<00:18,  6.03s/it]Epoch 1/1:  50%|█████     | 2/4 [00:07<00:06,  3.44s/it]Epoch 1/1:  75%|███████▌  | 3/4 [00:09<00:02,  2.53s/it]Epoch 1/1: 100%|██████████| 4/4 [00:09<00:00,  1.59s/it]Epoch 1/1: 100%|██████████| 4/4 [00:09<00:00,  2.32s/it]
+2026-03-13 13:49:09,173 - INFO - [AE] Epoch 1/1 | Loss=0.052622
+2026-03-13 13:49:09,174 - INFO - Epoch 7 completed. Loss: 0.052622
+2026-03-13 13:49:09,174 - INFO - Epoch time: 62.80s
+2026-03-13 13:49:09,174 - INFO - Epoch 8/10 started.
+Epoch 1/1:   0%|          | 0/4 [00:00<?, ?it/s]Epoch 1/1:  25%|██▌       | 1/4 [00:04<00:14,  4.68s/it]Epoch 1/1:  50%|█████     | 2/4 [00:06<00:05,  2.91s/it]Epoch 1/1:  75%|███████▌  | 3/4 [00:08<00:02,  2.38s/it]Epoch 1/1: 100%|██████████| 4/4 [00:08<00:00,  1.50s/it]Epoch 1/1: 100%|██████████| 4/4 [00:08<00:00,  2.06s/it]
+2026-03-13 13:49:17,431 - INFO - [AE] Epoch 1/1 | Loss=0.045782
+2026-03-13 13:49:17,435 - INFO - Epoch 8 completed. Loss: 0.045782
+2026-03-13 13:49:17,436 - INFO - Epoch time: 71.07s
+2026-03-13 13:49:17,436 - INFO - Epoch 9/10 started.
+Epoch 1/1:   0%|          | 0/4 [00:00<?, ?it/s]Epoch 1/1:  25%|██▌       | 1/4 [00:04<00:14,  4.82s/it]Epoch 1/1:  50%|█████     | 2/4 [00:07<00:06,  3.37s/it]Epoch 1/1:  75%|███████▌  | 3/4 [00:09<00:02,  2.80s/it]Epoch 1/1: 100%|██████████| 4/4 [00:09<00:00,  1.80s/it]Epoch 1/1: 100%|██████████| 4/4 [00:09<00:00,  2.39s/it]
+2026-03-13 13:49:27,002 - INFO - [AE] Epoch 1/1 | Loss=0.047085
+2026-03-13 13:49:27,004 - INFO - Epoch 9 completed. Loss: 0.047085
+2026-03-13 13:49:27,004 - INFO - Epoch time: 80.63s
+2026-03-13 13:49:27,004 - INFO - Epoch 10/10 started.
+Epoch 1/1:   0%|          | 0/4 [00:00<?, ?it/s]Epoch 1/1:  25%|██▌       | 1/4 [00:07<00:22,  7.52s/it]Epoch 1/1:  50%|█████     | 2/4 [00:09<00:08,  4.07s/it]Epoch 1/1:  75%|███████▌  | 3/4 [00:10<00:02,  2.91s/it]Epoch 1/1: 100%|██████████| 4/4 [00:10<00:00,  1.82s/it]Epoch 1/1: 100%|██████████| 4/4 [00:10<00:00,  2.72s/it]
+2026-03-13 13:49:37,867 - INFO - [AE] Epoch 1/1 | Loss=0.041574
+2026-03-13 13:49:37,868 - INFO - Epoch 10 completed. Loss: 0.041574
+2026-03-13 13:49:37,869 - INFO - Epoch time: 91.50s
+2026-03-13 13:49:45,570 - INFO - Total extracted embeddings shape: torch.Size([800, 128])
+2026-03-13 13:49:45,578 - INFO - Running DECCS-style ensemble clustering with 50 clusters...
+2026-03-13 13:49:45,645 - INFO - [DECCS] Classical base clustering 'KMeans' completed.
+2026-03-13 13:49:45,645 - INFO - Base clustering 'KMeans' completed in 0.06s
+2026-03-13 13:49:46,247 - INFO - [DECCS] Classical base clustering 'Spectral' completed.
+2026-03-13 13:49:46,247 - INFO - Base clustering 'Spectral' completed in 0.60s
+2026-03-13 13:49:47,668 - INFO - [DECCS] Classical base clustering 'GMM' completed.
+2026-03-13 13:49:47,668 - INFO - Base clustering 'GMM' completed in 1.42s
+2026-03-13 13:49:47,798 - INFO - [DECCS] Classical base clustering 'Agglomerative' completed.
+2026-03-13 13:49:47,799 - INFO - Base clustering 'Agglomerative' completed in 0.13s
+2026-03-13 13:49:47,799 - INFO - [DECCS] 4 base clusterings successful. Shape=(4, 800)
+2026-03-13 13:49:48,319 - INFO - [] ACC=0.1200, ARI=0.0009, NMI=0.3045, Sil=0.2213
+2026-03-13 13:49:52,163 - INFO - Cluster 37: saved deer_11205.jpg (label=40)
+2026-03-13 13:49:52,163 - INFO - Cluster 36: saved otter_10455.jpg (label=36)
+2026-03-13 13:49:52,164 - INFO - Cluster 07: saved mouse_10106.jpg (label=44)
+2026-03-13 13:49:52,164 - INFO - Cluster 47: saved horse_11370.jpg (label=7)
+2026-03-13 13:49:52,164 - INFO - Cluster 11: saved sheep_10935.jpg (label=23)
+2026-03-13 13:49:52,165 - INFO - Cluster 01: saved ox_10094.jpg (label=21)
+2026-03-13 13:49:52,165 - INFO - Cluster 40: saved chihuahua_10067.jpg (label=33)
+2026-03-13 13:49:52,166 - INFO - Cluster 35: saved polar+bear_10520.jpg (label=45)
+2026-03-13 13:49:52,166 - INFO - Cluster 39: saved sheep_10863.jpg (label=23)
+2026-03-13 13:49:52,166 - INFO - Cluster 35: saved chimpanzee_10268.jpg (label=25)
+2026-03-13 13:49:52,167 - INFO - Cluster 22: saved giant+panda_10011.jpg (label=39)
+2026-03-13 13:49:52,167 - INFO - Cluster 12: saved german+shepherd_10974.jpg (label=8)
+2026-03-13 13:49:52,167 - INFO - Cluster 12: saved mouse_10005.jpg (label=44)
+2026-03-13 13:49:52,168 - INFO - Cluster 23: saved persian+cat_10084.jpg (label=6)
+2026-03-13 13:49:52,168 - INFO - Cluster 32: saved fox_10007.jpg (label=22)
+2026-03-13 13:49:52,168 - INFO - Cluster 28: saved pig_10151.jpg (label=42)
+2026-03-13 13:49:52,169 - INFO - Cluster 02: saved leopard_10291.jpg (label=15)
+2026-03-13 13:49:52,169 - INFO - Cluster 34: saved hamster_10022.jpg (label=26)
+2026-03-13 13:49:52,169 - INFO - Cluster 35: saved giant+panda_10133.jpg (label=39)
+2026-03-13 13:49:52,170 - INFO - Cluster 36: saved hippopotamus_10466.jpg (label=14)
+2026-03-13 13:49:52,170 - INFO - Cluster 28: saved collie_10830.jpg (label=46)
+2026-03-13 13:49:52,171 - INFO - Cluster 22: saved moose_10247.jpg (label=16)
+2026-03-13 13:49:52,171 - INFO - Cluster 11: saved squirrel_10416.jpg (label=27)
+2026-03-13 13:49:52,171 - INFO - Cluster 34: saved beaver_10103.jpg (label=4)
+2026-03-13 13:49:52,172 - INFO - Cluster 45: saved polar+bear_10822.jpg (label=45)
+2026-03-13 13:49:52,172 - INFO - Cluster 01: saved gorilla_10015.jpg (label=20)
+2026-03-13 13:49:52,172 - INFO - Cluster 40: saved giraffe_10993.jpg (label=31)
+2026-03-13 13:49:52,173 - INFO - Cluster 40: saved zebra_11108.jpg (label=38)
+2026-03-13 13:49:52,173 - INFO - Cluster 14: saved raccoon_10453.jpg (label=48)
+2026-03-13 13:49:52,173 - INFO - Cluster 39: saved chihuahua_10195.jpg (label=33)
+2026-03-13 13:49:52,174 - INFO - Cluster 03: saved tiger_10413.jpg (label=13)
+2026-03-13 13:49:52,174 - INFO - Cluster 17: saved seal_10780.jpg (label=24)
+2026-03-13 13:49:52,175 - INFO - Cluster 10: saved cow_10831.jpg (label=49)
+2026-03-13 13:49:52,175 - INFO - Cluster 12: saved lion_10158.jpg (label=43)
+2026-03-13 13:49:52,175 - INFO - Cluster 32: saved humpback+whale_10144.jpg (label=18)
+2026-03-13 13:49:52,176 - INFO - Cluster 18: saved squirrel_10739.jpg (label=27)
+2026-03-13 13:49:52,176 - INFO - Cluster 45: saved squirrel_10105.jpg (label=27)
+2026-03-13 13:49:52,177 - INFO - Cluster 14: saved german+shepherd_10600.jpg (label=8)
+2026-03-13 13:49:52,177 - INFO - Cluster 01: saved polar+bear_10807.jpg (label=45)
+2026-03-13 13:49:52,177 - INFO - Cluster 00: saved hippopotamus_10675.jpg (label=14)
+2026-03-13 13:49:52,178 - INFO - Cluster 38: saved horse_11055.jpg (label=7)
+2026-03-13 13:49:52,178 - INFO - Cluster 38: saved hippopotamus_10560.jpg (label=14)
+2026-03-13 13:49:52,179 - INFO - Cluster 39: saved ox_10663.jpg (label=21)
+2026-03-13 13:49:52,179 - INFO - Cluster 07: saved giraffe_10520.jpg (label=31)
+2026-03-13 13:49:52,179 - INFO - Cluster 30: saved giraffe_10042.jpg (label=31)
+2026-03-13 13:49:52,180 - INFO - Cluster 44: saved skunk_10097.jpg (label=11)
+2026-03-13 13:49:52,180 - INFO - Cluster 33: saved dolphin_10503.jpg (label=50)
+2026-03-13 13:49:52,180 - INFO - Cluster 33: saved otter_10018.jpg (label=36)
+2026-03-13 13:49:52,181 - INFO - Cluster 38: saved buffalo_10335.jpg (label=37)
+2026-03-13 13:49:52,181 - INFO - Cluster 43: saved deer_11206.jpg (label=40)
+2026-03-13 13:49:52,181 - INFO - Cluster 16: saved bat_10148.jpg (label=30)
+2026-03-13 13:49:52,182 - INFO - Cluster 22: saved rabbit_10210.jpg (label=29)
+2026-03-13 13:49:52,182 - INFO - Cluster 29: saved collie_10329.jpg (label=46)
+2026-03-13 13:49:52,182 - INFO - Cluster 26: saved cow_10940.jpg (label=49)
+2026-03-13 13:49:52,183 - INFO - Cluster 45: saved hippopotamus_10331.jpg (label=14)
+2026-03-13 13:49:52,183 - INFO - Cluster 49: saved dalmatian_10427.jpg (label=5)
+2026-03-13 13:49:52,183 - INFO - Cluster 32: saved collie_10744.jpg (label=46)
+2026-03-13 13:49:52,184 - INFO - Cluster 31: saved cow_10858.jpg (label=49)
+2026-03-13 13:49:52,184 - INFO - Cluster 31: saved rabbit_10366.jpg (label=29)
+2026-03-13 13:49:52,184 - INFO - Cluster 23: saved giant+panda_10775.jpg (label=39)
+2026-03-13 13:49:52,185 - INFO - Cluster 19: saved antelope_10898.jpg (label=1)
+2026-03-13 13:49:52,185 - INFO - Cluster 00: saved zebra_11086.jpg (label=38)
+2026-03-13 13:49:52,186 - INFO - Cluster 34: saved horse_10655.jpg (label=7)
+2026-03-13 13:49:52,186 - INFO - Cluster 46: saved grizzly+bear_10790.jpg (label=2)
+2026-03-13 13:49:52,186 - INFO - Cluster 02: saved collie_10624.jpg (label=46)
+2026-03-13 13:49:52,187 - INFO - Cluster 49: saved killer+whale_10168.jpg (label=3)
+2026-03-13 13:49:52,187 - INFO - Cluster 26: saved ox_10495.jpg (label=21)
+2026-03-13 13:49:52,187 - INFO - Cluster 30: saved sheep_11194.jpg (label=23)
+2026-03-13 13:49:52,188 - INFO - Cluster 11: saved persian+cat_10159.jpg (label=6)
+2026-03-13 13:49:52,188 - INFO - Cluster 26: saved horse_11613.jpg (label=7)
+2026-03-13 13:49:52,188 - INFO - Cluster 49: saved collie_10821.jpg (label=46)
+2026-03-13 13:49:52,188 - INFO - Cluster 16: saved mouse_10166.jpg (label=44)
+2026-03-13 13:49:52,189 - INFO - Cluster 37: saved deer_10502.jpg (label=40)
+2026-03-13 13:49:52,189 - INFO - Cluster 30: saved humpback+whale_10524.jpg (label=18)
+2026-03-13 13:49:52,189 - INFO - Cluster 44: saved polar+bear_10657.jpg (label=45)
+2026-03-13 13:49:52,190 - INFO - Cluster 21: saved raccoon_10199.jpg (label=48)
+2026-03-13 13:49:52,190 - INFO - Cluster 37: saved sheep_11335.jpg (label=23)
+2026-03-13 13:49:52,191 - INFO - Cluster 47: saved sheep_10619.jpg (label=23)
+2026-03-13 13:49:52,191 - INFO - Cluster 27: saved elephant_10360.jpg (label=19)
+2026-03-13 13:49:52,191 - INFO - Cluster 20: saved blue+whale_10104.jpg (label=9)
+2026-03-13 13:49:52,192 - INFO - Cluster 25: saved zebra_10355.jpg (label=38)
+2026-03-13 13:49:52,192 - INFO - Cluster 04: saved grizzly+bear_10364.jpg (label=2)
+2026-03-13 13:49:52,193 - INFO - Cluster 08: saved blue+whale_10081.jpg (label=9)
+2026-03-13 13:49:52,193 - INFO - Cluster 21: saved dolphin_10035.jpg (label=50)
+2026-03-13 13:49:52,193 - INFO - Cluster 04: saved sheep_10572.jpg (label=23)
+2026-03-13 13:49:52,194 - INFO - Cluster 18: saved dalmatian_10343.jpg (label=5)
+2026-03-13 13:49:52,194 - INFO - Cluster 04: saved buffalo_10283.jpg (label=37)
+2026-03-13 13:49:52,194 - INFO - Cluster 43: saved dalmatian_10262.jpg (label=5)
+2026-03-13 13:49:52,195 - INFO - Cluster 06: saved leopard_10191.jpg (label=15)
+2026-03-13 13:49:52,195 - INFO - Cluster 43: saved deer_11210.jpg (label=40)
+2026-03-13 13:49:52,195 - INFO - Cluster 07: saved collie_10645.jpg (label=46)
+2026-03-13 13:49:52,196 - INFO - Cluster 19: saved giraffe_11199.jpg (label=31)
+2026-03-13 13:49:52,196 - INFO - Cluster 31: saved hamster_10389.jpg (label=26)
+2026-03-13 13:49:52,196 - INFO - Cluster 33: saved zebra_10588.jpg (label=38)
+2026-03-13 13:49:52,197 - INFO - Cluster 47: saved buffalo_10750.jpg (label=37)
+2026-03-13 13:49:52,197 - INFO - Cluster 41: saved leopard_10714.jpg (label=15)
+2026-03-13 13:49:52,197 - INFO - Cluster 24: saved cow_10285.jpg (label=49)
+2026-03-13 13:49:52,198 - INFO - Cluster 10: saved ox_10211.jpg (label=21)
+2026-03-13 13:49:52,198 - INFO - Cluster 19: saved persian+cat_10395.jpg (label=6)
+2026-03-13 13:49:52,199 - INFO - Cluster 09: saved buffalo_10253.jpg (label=37)
+2026-03-13 13:49:52,199 - INFO - Cluster 29: saved weasel_10082.jpg (label=35)
+2026-03-13 13:49:52,199 - INFO - Cluster 18: saved cow_10726.jpg (label=49)
+2026-03-13 13:49:52,200 - INFO - Cluster 28: saved horse_10051.jpg (label=7)
+2026-03-13 13:49:52,200 - INFO - Cluster 00: saved moose_10557.jpg (label=16)
+2026-03-13 13:49:52,200 - INFO - Cluster 41: saved otter_10755.jpg (label=36)
+2026-03-13 13:49:52,201 - INFO - Cluster 09: saved sheep_10410.jpg (label=23)
+2026-03-13 13:49:52,201 - INFO - Cluster 41: saved squirrel_11009.jpg (label=27)
+2026-03-13 13:49:52,202 - INFO - Cluster 27: saved raccoon_10057.jpg (label=48)
+2026-03-13 13:49:52,202 - INFO - Cluster 09: saved leopard_10383.jpg (label=15)
+2026-03-13 13:49:52,202 - INFO - Cluster 36: saved sheep_10705.jpg (label=23)
+2026-03-13 13:49:52,203 - INFO - Cluster 46: saved buffalo_10444.jpg (label=37)
+2026-03-13 13:49:52,203 - INFO - Cluster 24: saved horse_11233.jpg (label=7)
+2026-03-13 13:49:52,203 - INFO - Cluster 27: saved skunk_10184.jpg (label=11)
+2026-03-13 13:49:52,204 - INFO - Cluster 23: saved persian+cat_10503.jpg (label=6)
+2026-03-13 13:49:52,204 - INFO - Cluster 21: saved zebra_11167.jpg (label=38)
+2026-03-13 13:49:52,205 - INFO - Cluster 10: saved horse_10316.jpg (label=7)
+2026-03-13 13:49:52,205 - INFO - Cluster 02: saved ox_10062.jpg (label=21)
+2026-03-13 13:49:52,206 - INFO - Cluster 06: saved tiger_10044.jpg (label=13)
+2026-03-13 13:49:52,206 - INFO - Cluster 44: saved cow_10337.jpg (label=49)
+2026-03-13 13:49:52,206 - INFO - Cluster 29: saved moose_10509.jpg (label=16)
+2026-03-13 13:49:52,207 - INFO - Cluster 46: saved elephant_10161.jpg (label=19)
+2026-03-13 13:49:52,207 - INFO - Cluster 03: saved humpback+whale_10105.jpg (label=18)
+2026-03-13 13:49:52,208 - INFO - Cluster 03: saved mole_10097.jpg (label=12)
+2026-03-13 13:49:52,208 - INFO - Cluster 48: saved leopard_10603.jpg (label=15)
+2026-03-13 13:49:52,209 - INFO - Cluster 48: saved dalmatian_10052.jpg (label=5)
+2026-03-13 13:49:52,209 - INFO - Cluster 24: saved giraffe_10230.jpg (label=31)
+2026-03-13 13:49:52,210 - INFO - Cluster 20: saved sheep_11089.jpg (label=23)
+2026-03-13 13:49:52,210 - INFO - Cluster 15: saved moose_10463.jpg (label=16)
+2026-03-13 13:49:52,211 - INFO - Cluster 48: saved elephant_10575.jpg (label=19)
+2026-03-13 13:49:52,211 - INFO - Cluster 15: saved deer_10691.jpg (label=40)
+2026-03-13 13:49:52,212 - INFO - Cluster 14: saved raccoon_10466.jpg (label=48)
+2026-03-13 13:49:52,212 - INFO - Cluster 15: saved rabbit_10369.jpg (label=29)
+2026-03-13 13:49:52,212 - INFO - Cluster 16: saved polar+bear_10384.jpg (label=45)
+2026-03-13 13:49:52,213 - INFO - Cluster 06: saved polar+bear_10849.jpg (label=45)
+2026-03-13 13:49:52,214 - INFO - Cluster 25: saved elephant_10658.jpg (label=19)
+2026-03-13 13:49:52,215 - INFO - Cluster 20: saved ox_10181.jpg (label=21)
+2026-03-13 13:49:52,215 - INFO - Cluster 05: saved sheep_11104.jpg (label=23)
+2026-03-13 13:49:52,216 - INFO - Cluster 13: saved giraffe_10732.jpg (label=31)
+2026-03-13 13:49:52,216 - INFO - Cluster 42: saved deer_10635.jpg (label=40)
+2026-03-13 13:49:52,217 - INFO - Cluster 13: saved german+shepherd_10002.jpg (label=8)
+2026-03-13 13:49:52,217 - INFO - Cluster 42: saved persian+cat_10203.jpg (label=6)
+2026-03-13 13:49:52,218 - INFO - Cluster 08: saved chimpanzee_10236.jpg (label=25)
+2026-03-13 13:49:52,219 - INFO - Cluster 05: saved squirrel_10870.jpg (label=27)
+2026-03-13 13:49:52,219 - INFO - Cluster 05: saved moose_10386.jpg (label=16)
+2026-03-13 13:49:52,219 - INFO - Cluster 25: saved lion_10467.jpg (label=43)
+2026-03-13 13:49:52,220 - INFO - Cluster 08: saved killer+whale_10120.jpg (label=3)
+2026-03-13 13:49:52,225 - INFO - Cluster 13: saved giant+panda_10725.jpg (label=39)
+2026-03-13 13:49:52,226 - INFO - Cluster 42: saved bobcat_10185.jpg (label=41)
+2026-03-13 13:49:52,226 - INFO - Cluster sample saving complete — results stored in: cluster_samples/ae_small_20260313_134952
+2026-03-13 13:49:52,232 - INFO - Cluster 00: top attributes -> big, quadrapedal, strong, walks, ground
+2026-03-13 13:49:52,233 - INFO - Cluster 01: top attributes -> quadrapedal, walks, ground, oldworld, big
+2026-03-13 13:49:52,233 - INFO - Cluster 02: top attributes -> quadrapedal, walks, ground, oldworld, tail
+2026-03-13 13:49:52,233 - INFO - Cluster 03: top attributes -> big, tail, strong, oldworld, fast
+2026-03-13 13:49:52,234 - INFO - Cluster 04: top attributes -> newworld, big, quadrapedal, furry, walks
+2026-03-13 13:49:52,234 - INFO - Cluster 05: top attributes -> quadrapedal, big, walks, vegetation, oldworld
+2026-03-13 13:49:52,234 - INFO - Cluster 06: top attributes -> furry, quadrapedal, walks, fierce, meat
+2026-03-13 13:49:52,234 - INFO - Cluster 07: top attributes -> quadrapedal, ground, walks, tail, oldworld
+2026-03-13 13:49:52,234 - INFO - Cluster 08: top attributes -> big, strong, oldworld, fast, tail
+2026-03-13 13:49:52,234 - INFO - Cluster 09: top attributes -> quadrapedal, walks, oldworld, big, ground
+2026-03-13 13:49:52,234 - INFO - Cluster 10: top attributes -> quadrapedal, ground, big, walks, tail
+2026-03-13 13:49:52,235 - INFO - Cluster 11: top attributes -> quadrapedal, walks, ground, furry, newworld
+2026-03-13 13:49:52,235 - INFO - Cluster 12: top attributes -> quadrapedal, walks, ground, furry, big
+2026-03-13 13:49:52,235 - INFO - Cluster 13: top attributes -> quadrapedal, walks, big, oldworld, patches
+2026-03-13 13:49:52,235 - INFO - Cluster 14: top attributes -> quadrapedal, walks, newworld, tail, ground
+2026-03-13 13:49:52,235 - INFO - Cluster 15: top attributes -> newworld, quadrapedal, tail, brown, furry
+2026-03-13 13:49:52,235 - INFO - Cluster 16: top attributes -> quadrapedal, walks, oldworld, furry, ground
+2026-03-13 13:49:52,235 - INFO - Cluster 17: top attributes -> ocean, black, swims, water, flippers
+2026-03-13 13:49:52,235 - INFO - Cluster 18: top attributes -> furry, newworld, tail, quadrapedal, fast
+2026-03-13 13:49:52,235 - INFO - Cluster 19: top attributes -> quadrapedal, oldworld, walks, big, ground
+2026-03-13 13:49:52,235 - INFO - Cluster 20: top attributes -> big, oldworld, bulbous, quadrapedal, vegetation
+2026-03-13 13:49:52,235 - INFO - Cluster 21: top attributes -> quadrapedal, fast, walks, ground, oldworld
+2026-03-13 13:49:52,236 - INFO - Cluster 22: top attributes -> quadrapedal, furry, newworld, ground, tail
+2026-03-13 13:49:52,236 - INFO - Cluster 23: top attributes -> quadrapedal, walks, oldworld, furry, tail
+2026-03-13 13:49:52,236 - INFO - Cluster 24: top attributes -> quadrapedal, oldworld, walks, ground, vegetation
+2026-03-13 13:49:52,236 - INFO - Cluster 25: top attributes -> oldworld, big, quadrapedal, ground, walks
+2026-03-13 13:49:52,236 - INFO - Cluster 26: top attributes -> quadrapedal, walks, big, oldworld, ground
+2026-03-13 13:49:52,236 - INFO - Cluster 27: top attributes -> quadrapedal, tail, newworld, ground, walks
+2026-03-13 13:49:52,236 - INFO - Cluster 28: top attributes -> fast, quadrapedal, furry, brown, ground
+2026-03-13 13:49:52,236 - INFO - Cluster 29: top attributes -> quadrapedal, walks, ground, newworld, brown
+2026-03-13 13:49:52,236 - INFO - Cluster 30: top attributes -> quadrapedal, tail, vegetation, walks, furry
+2026-03-13 13:49:52,236 - INFO - Cluster 31: top attributes -> quadrapedal, furry, walks, oldworld, ground
+2026-03-13 13:49:52,237 - INFO - Cluster 32: top attributes -> tail, quadrapedal, walks, furry, oldworld
+2026-03-13 13:49:52,237 - INFO - Cluster 33: top attributes -> quadrapedal, tail, fast, oldworld, big
+2026-03-13 13:49:52,237 - INFO - Cluster 34: top attributes -> quadrapedal, walks, ground, oldworld, tail
+2026-03-13 13:49:52,237 - INFO - Cluster 35: top attributes -> quadrapedal, walks, furry, ground, oldworld
+2026-03-13 13:49:52,237 - INFO - Cluster 36: top attributes -> furry, quadrapedal, big, walks, oldworld
+2026-03-13 13:49:52,237 - INFO - Cluster 37: top attributes -> quadrapedal, walks, furry, newworld, ground
+2026-03-13 13:49:52,237 - INFO - Cluster 38: top attributes -> quadrapedal, walks, furry, big, ground
+2026-03-13 13:49:52,237 - INFO - Cluster 39: top attributes -> quadrapedal, walks, ground, oldworld, fast
+2026-03-13 13:49:52,238 - INFO - Cluster 40: top attributes -> quadrapedal, walks, ground, furry, fast
+2026-03-13 13:49:52,238 - INFO - Cluster 41: top attributes -> quadrapedal, walks, furry, newworld, big
+2026-03-13 13:49:52,238 - INFO - Cluster 42: top attributes -> quadrapedal, furry, walks, agility, tail
+2026-03-13 13:49:52,238 - INFO - Cluster 43: top attributes -> big, fast, quadrapedal, strong, newworld
+2026-03-13 13:49:52,238 - INFO - Cluster 44: top attributes -> quadrapedal, walks, ground, tail, oldworld
+2026-03-13 13:49:52,238 - INFO - Cluster 45: top attributes -> quadrapedal, newworld, fast, tail, walks
+2026-03-13 13:49:52,238 - INFO - Cluster 46: top attributes -> quadrapedal, big, walks, furry, ground
+2026-03-13 13:49:52,238 - INFO - Cluster 47: top attributes -> quadrapedal, fast, walks, newworld, ground
+2026-03-13 13:49:52,239 - INFO - Cluster 48: top attributes -> quadrapedal, big, ground, walks, tail
+2026-03-13 13:49:52,239 - INFO - Cluster 49: top attributes -> big, strong, tail, quadrapedal, fast
+2026-03-13 13:49:52,241 - INFO - Results saved to results_ae_small.json
+2026-03-13 13:49:52,241 - INFO - Experiment 'ae_small' complete. Results saved to results_ae_small.json
+2026-03-13 13:49:52,242 - INFO - Summary written to results_ae_small_summary.json
+2026-03-13 13:49:52,414 - INFO - [Plot] Saved loss curve - ./results_ae_small_loss.png
+2026-03-13 13:49:52,775 - INFO - [Plot] Saved PCA scatter - ./results_ae_small_pca.png
+2026-03-13 13:49:52,776 - WARNING - Cluster descriptions loaded as list — converting to dictionary format.
+2026-03-13 13:49:56,086 - INFO - Total time: 109.72s
+
+Cluster 21: showing 3 samples
+  - Image: AwA2-sample/JPEGImages/zebra/zebra_11167.jpg | Label: 38
+  - Image: AwA2-sample/JPEGImages/bobcat/bobcat_10425.jpg | Label: 41
+  - Image: AwA2-sample/JPEGImages/deer/deer_11142.jpg | Label: 40
+
+Cluster 22: showing 3 samples
+  - Image: AwA2-sample/JPEGImages/siamese+cat/siamese+cat_10116.jpg | Label: 10
+  - Image: AwA2-sample/JPEGImages/skunk/skunk_10159.jpg | Label: 11
+  - Image: AwA2-sample/JPEGImages/polar+bear/polar+bear_10110.jpg | Label: 45
+
+Cluster 23: showing 3 samples
+  - Image: AwA2-sample/JPEGImages/dalmatian/dalmatian_10377.jpg | Label: 5
+  - Image: AwA2-sample/JPEGImages/persian+cat/persian+cat_10503.jpg | Label: 6
+  - Image: AwA2-sample/JPEGImages/chimpanzee/chimpanzee_10065.jpg | Label: 25
+[INFO] t-SNE plot saved to results_ae_small_tsne.png
+2026-03-13 13:50:05,239 - INFO - Using CPU
+2026-03-13 13:50:05,241 - INFO - === Running mode: CAE | arch: SMALL ===
+2026-03-13 13:50:06,407 - INFO - Sample of 1000 images created in AwA2-sample/JPEGImages
+2026-03-13 13:50:06,407 - INFO - Sample labels file created at AwA2-sample/AwA2-labels.txt
+2026-03-13 13:50:06,414 - INFO - Mean per-class tag variance: 0.000000
+2026-03-13 13:50:06,415 - INFO - Dataset created with 800 samples.
+2026-03-13 13:50:06,415 - INFO - Architecture: small
+2026-03-13 13:50:06,419 - INFO - Model params: 205,720 total, 205,720 trainable
+2026-03-13 13:50:06,419 - INFO - Epoch 1/10 started.
+Training:   0%|          | 0/4 [00:00<?, ?it/s]/home/benabed/.pyenv/versions/3.13.3/lib/python3.13/site-packages/torch/utils/data/dataloader.py:1118: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.
+  super().__init__(loader)
+2026-03-13 13:50:10,993 - INFO - Model produces reconstruction — using recon + tag loss
+Training:  25%|██▌       | 1/4 [00:05<00:16,  5.59s/it]Training:  50%|█████     | 2/4 [00:07<00:06,  3.29s/it]Training:  75%|███████▌  | 3/4 [00:09<00:02,  2.61s/it]Training: 100%|██████████| 4/4 [00:09<00:00,  1.65s/it]Training: 100%|██████████| 4/4 [00:09<00:00,  2.31s/it]
+2026-03-13 13:50:15,680 - INFO - Recon=0.0618, Tag=0.6844, Total=0.4040
+2026-03-13 13:50:15,682 - INFO - Epoch 1/10 completed. Recon=0.0618, Tag=0.6844, Total=0.4040
+2026-03-13 13:50:15,682 - INFO - Epoch time: 9.26s
+2026-03-13 13:50:15,683 - INFO - Epoch 2/10 started.
+Training:   0%|          | 0/4 [00:00<?, ?it/s]2026-03-13 13:50:20,528 - INFO - Model produces reconstruction — using recon + tag loss
+Training:  25%|██▌       | 1/4 [00:05<00:17,  5.98s/it]Training:  50%|█████     | 2/4 [00:07<00:06,  3.38s/it]Training:  75%|███████▌  | 3/4 [00:09<00:02,  2.88s/it]Training: 100%|██████████| 4/4 [00:10<00:00,  1.83s/it]Training: 100%|██████████| 4/4 [00:10<00:00,  2.51s/it]
+2026-03-13 13:50:25,730 - INFO - Recon=0.0623, Tag=0.6428, Total=0.3837
+2026-03-13 13:50:25,732 - INFO - Epoch 2/10 completed. Recon=0.0623, Tag=0.6428, Total=0.3837
+2026-03-13 13:50:25,732 - INFO - Epoch time: 19.31s
+2026-03-13 13:50:25,732 - INFO - Epoch 3/10 started.
+Training:   0%|          | 0/4 [00:00<?, ?it/s]2026-03-13 13:50:31,001 - INFO - Model produces reconstruction — using recon + tag loss
+Training:  25%|██▌       | 1/4 [00:06<00:18,  6.16s/it]Training:  50%|█████     | 2/4 [00:07<00:06,  3.37s/it]Training:  75%|███████▌  | 3/4 [00:08<00:02,  2.48s/it]Training: 100%|██████████| 4/4 [00:09<00:00,  1.55s/it]Training: 100%|██████████| 4/4 [00:09<00:00,  2.28s/it]
+2026-03-13 13:50:34,862 - INFO - Recon=0.0612, Tag=0.5423, Total=0.3324
+2026-03-13 13:50:34,864 - INFO - Epoch 3/10 completed. Recon=0.0612, Tag=0.5423, Total=0.3324
+2026-03-13 13:50:34,864 - INFO - Epoch time: 28.44s
+2026-03-13 13:50:34,864 - INFO - Epoch 4/10 started.
+Training:   0%|          | 0/4 [00:00<?, ?it/s]2026-03-13 13:50:38,454 - INFO - Model produces reconstruction — using recon + tag loss
+Training:  25%|██▌       | 1/4 [00:04<00:13,  4.48s/it]Training:  50%|█████     | 2/4 [00:05<00:05,  2.72s/it]Training:  75%|███████▌  | 3/4 [00:07<00:02,  2.16s/it]Training: 100%|██████████| 4/4 [00:07<00:00,  1.36s/it]Training: 100%|██████████| 4/4 [00:07<00:00,  1.90s/it]
+2026-03-13 13:50:42,472 - INFO - Recon=0.0590, Tag=0.4974, Total=0.3077
+2026-03-13 13:50:42,473 - INFO - Epoch 4/10 completed. Recon=0.0590, Tag=0.4974, Total=0.3077
+2026-03-13 13:50:42,473 - INFO - Epoch time: 36.05s
+2026-03-13 13:50:42,473 - INFO - Epoch 5/10 started.
+Training:   0%|          | 0/4 [00:00<?, ?it/s]2026-03-13 13:50:46,174 - INFO - Model produces reconstruction — using recon + tag loss
+Training:  25%|██▌       | 1/4 [00:04<00:13,  4.57s/it]Training:  50%|█████     | 2/4 [00:06<00:05,  2.73s/it]Training:  75%|███████▌  | 3/4 [00:07<00:02,  2.13s/it]Training: 100%|██████████| 4/4 [00:07<00:00,  1.35s/it]Training: 100%|██████████| 4/4 [00:07<00:00,  1.89s/it]
+2026-03-13 13:50:50,053 - INFO - Recon=0.0611, Tag=0.4747, Total=0.2985
+2026-03-13 13:50:50,054 - INFO - Epoch 5/10 completed. Recon=0.0611, Tag=0.4747, Total=0.2985
+2026-03-13 13:50:50,055 - INFO - Epoch time: 43.64s
+2026-03-13 13:50:50,055 - INFO - Epoch 6/10 started.
+Training:   0%|          | 0/4 [00:00<?, ?it/s]2026-03-13 13:50:53,693 - INFO - Model produces reconstruction — using recon + tag loss
+Training:  25%|██▌       | 1/4 [00:04<00:13,  4.54s/it]Training:  50%|█████     | 2/4 [00:05<00:05,  2.72s/it]Training:  75%|███████▌  | 3/4 [00:07<00:02,  2.13s/it]Training: 100%|██████████| 4/4 [00:07<00:00,  1.35s/it]Training: 100%|██████████| 4/4 [00:07<00:00,  1.89s/it]
+2026-03-13 13:50:57,618 - INFO - Recon=0.0601, Tag=0.4678, Total=0.2940
+2026-03-13 13:50:57,619 - INFO - Epoch 6/10 completed. Recon=0.0601, Tag=0.4678, Total=0.2940
+2026-03-13 13:50:57,620 - INFO - Epoch time: 51.20s
+2026-03-13 13:50:57,620 - INFO - Epoch 7/10 started.
+Training:   0%|          | 0/4 [00:00<?, ?it/s]2026-03-13 13:51:01,503 - INFO - Model produces reconstruction — using recon + tag loss
+Training:  25%|██▌       | 1/4 [00:04<00:14,  4.88s/it]Training:  50%|█████     | 2/4 [00:06<00:05,  2.85s/it]Training:  75%|███████▌  | 3/4 [00:07<00:02,  2.20s/it]Training: 100%|██████████| 4/4 [00:07<00:00,  1.39s/it]Training: 100%|██████████| 4/4 [00:07<00:00,  1.97s/it]
+2026-03-13 13:51:05,503 - INFO - Recon=0.0617, Tag=0.4726, Total=0.2980
+2026-03-13 13:51:05,504 - INFO - Epoch 7/10 completed. Recon=0.0617, Tag=0.4726, Total=0.2980
+2026-03-13 13:51:05,504 - INFO - Epoch time: 59.09s
+2026-03-13 13:51:05,504 - INFO - Epoch 8/10 started.
+Training:   0%|          | 0/4 [00:00<?, ?it/s]2026-03-13 13:51:09,160 - INFO - Model produces reconstruction — using recon + tag loss
+Training:  25%|██▌       | 1/4 [00:04<00:13,  4.52s/it]Training:  50%|█████     | 2/4 [00:05<00:05,  2.69s/it]Training:  75%|███████▌  | 3/4 [00:07<00:02,  2.09s/it]Training: 100%|██████████| 4/4 [00:07<00:00,  1.32s/it]Training: 100%|██████████| 4/4 [00:07<00:00,  1.86s/it]
+2026-03-13 13:51:12,960 - INFO - Recon=0.0587, Tag=0.4692, Total=0.2933
+2026-03-13 13:51:12,962 - INFO - Epoch 8/10 completed. Recon=0.0587, Tag=0.4692, Total=0.2933
+2026-03-13 13:51:12,962 - INFO - Epoch time: 66.54s
+2026-03-13 13:51:12,962 - INFO - Epoch 9/10 started.
+Training:   0%|          | 0/4 [00:00<?, ?it/s]2026-03-13 13:51:16,604 - INFO - Model produces reconstruction — using recon + tag loss
+Training:  25%|██▌       | 1/4 [00:04<00:13,  4.51s/it]Training:  50%|█████     | 2/4 [00:05<00:05,  2.69s/it]Training:  75%|███████▌  | 3/4 [00:07<00:02,  2.13s/it]Training: 100%|██████████| 4/4 [00:07<00:00,  1.35s/it]Training: 100%|██████████| 4/4 [00:07<00:00,  1.88s/it]
+2026-03-13 13:51:20,498 - INFO - Recon=0.0610, Tag=0.4707, Total=0.2963
+2026-03-13 13:51:20,499 - INFO - Epoch 9/10 completed. Recon=0.0610, Tag=0.4707, Total=0.2963
+2026-03-13 13:51:20,500 - INFO - Epoch time: 74.08s
+2026-03-13 13:51:20,500 - INFO - Epoch 10/10 started.
+Training:   0%|          | 0/4 [00:00<?, ?it/s]2026-03-13 13:51:24,219 - INFO - Model produces reconstruction — using recon + tag loss
+Training:  25%|██▌       | 1/4 [00:04<00:13,  4.60s/it]Training:  50%|█████     | 2/4 [00:06<00:05,  2.73s/it]Training:  75%|███████▌  | 3/4 [00:07<00:02,  2.13s/it]Training: 100%|██████████| 4/4 [00:07<00:00,  1.35s/it]Training: 100%|██████████| 4/4 [00:07<00:00,  1.90s/it]
+2026-03-13 13:51:28,083 - INFO - Recon=0.0581, Tag=0.4687, Total=0.2925
+2026-03-13 13:51:28,084 - INFO - Epoch 10/10 completed. Recon=0.0581, Tag=0.4687, Total=0.2925
+2026-03-13 13:51:28,084 - INFO - Epoch time: 81.67s
+2026-03-13 13:51:35,479 - INFO - Total extracted embeddings shape: torch.Size([800, 128])
+2026-03-13 13:51:35,486 - INFO - Running DECCS-style ensemble clustering with 50 clusters...
+2026-03-13 13:51:35,514 - INFO - [DECCS] Classical base clustering 'KMeans' completed.
+2026-03-13 13:51:35,514 - INFO - Base clustering 'KMeans' completed in 0.02s
+2026-03-13 13:51:36,105 - INFO - [DECCS] Classical base clustering 'Spectral' completed.
+2026-03-13 13:51:36,105 - INFO - Base clustering 'Spectral' completed in 0.59s
+2026-03-13 13:51:37,418 - INFO - [DECCS] Classical base clustering 'GMM' completed.
+2026-03-13 13:51:37,418 - INFO - Base clustering 'GMM' completed in 1.31s
+2026-03-13 13:51:37,506 - INFO - [DECCS] Classical base clustering 'Agglomerative' completed.
+2026-03-13 13:51:37,506 - INFO - Base clustering 'Agglomerative' completed in 0.09s
+2026-03-13 13:51:37,507 - INFO - [DECCS] 4 base clusterings successful. Shape=(4, 800)
+2026-03-13 13:51:37,967 - INFO - [] ACC=0.1187, ARI=0.0011, NMI=0.3042, Sil=0.2852
+2026-03-13 13:51:41,423 - INFO - Cluster 46: saved horse_10248.jpg (label=7)
+2026-03-13 13:51:41,423 - INFO - Cluster 11: saved elephant_10831.jpg (label=19)
+2026-03-13 13:51:41,424 - INFO - Cluster 15: saved walrus_10031.jpg (label=47)
+2026-03-13 13:51:41,424 - INFO - Cluster 43: saved squirrel_10695.jpg (label=27)
+2026-03-13 13:51:41,424 - INFO - Cluster 35: saved lion_10033.jpg (label=43)
+2026-03-13 13:51:41,425 - INFO - Cluster 31: saved leopard_10240.jpg (label=15)
+2026-03-13 13:51:41,425 - INFO - Cluster 16: saved deer_11213.jpg (label=40)
+2026-03-13 13:51:41,425 - INFO - Cluster 46: saved tiger_10594.jpg (label=13)
+2026-03-13 13:51:41,426 - INFO - Cluster 38: saved rabbit_10721.jpg (label=29)
+2026-03-13 13:51:41,426 - INFO - Cluster 17: saved squirrel_10860.jpg (label=27)
+2026-03-13 13:51:41,427 - INFO - Cluster 22: saved polar+bear_10721.jpg (label=45)
+2026-03-13 13:51:41,427 - INFO - Cluster 15: saved bat_10143.jpg (label=30)
+2026-03-13 13:51:41,427 - INFO - Cluster 39: saved humpback+whale_10439.jpg (label=18)
+2026-03-13 13:51:41,427 - INFO - Cluster 42: saved polar+bear_10619.jpg (label=45)
+2026-03-13 13:51:41,428 - INFO - Cluster 09: saved zebra_10157.jpg (label=38)
+2026-03-13 13:51:41,428 - INFO - Cluster 32: saved polar+bear_10376.jpg (label=45)
+2026-03-13 13:51:41,428 - INFO - Cluster 44: saved german+shepherd_10070.jpg (label=8)
+2026-03-13 13:51:41,429 - INFO - Cluster 36: saved buffalo_10548.jpg (label=37)
+2026-03-13 13:51:41,429 - INFO - Cluster 09: saved hippopotamus_10621.jpg (label=14)
+2026-03-13 13:51:41,430 - INFO - Cluster 38: saved collie_10914.jpg (label=46)
+2026-03-13 13:51:41,430 - INFO - Cluster 00: saved seal_10512.jpg (label=24)
+2026-03-13 13:51:41,430 - INFO - Cluster 16: saved german+shepherd_10957.jpg (label=8)
+2026-03-13 13:51:41,431 - INFO - Cluster 32: saved seal_10822.jpg (label=24)
+2026-03-13 13:51:41,431 - INFO - Cluster 48: saved hamster_10039.jpg (label=26)
+2026-03-13 13:51:41,432 - INFO - Cluster 10: saved chimpanzee_10248.jpg (label=25)
+2026-03-13 13:51:41,432 - INFO - Cluster 27: saved bobcat_10296.jpg (label=41)
+2026-03-13 13:51:41,432 - INFO - Cluster 39: saved moose_10572.jpg (label=16)
+2026-03-13 13:51:41,433 - INFO - Cluster 11: saved seal_10128.jpg (label=24)
+2026-03-13 13:51:41,433 - INFO - Cluster 48: saved collie_10797.jpg (label=46)
+2026-03-13 13:51:41,433 - INFO - Cluster 14: saved leopard_10102.jpg (label=15)
+2026-03-13 13:51:41,434 - INFO - Cluster 13: saved deer_10310.jpg (label=40)
+2026-03-13 13:51:41,434 - INFO - Cluster 01: saved horse_10497.jpg (label=7)
+2026-03-13 13:51:41,434 - INFO - Cluster 25: saved hamster_10058.jpg (label=26)
+2026-03-13 13:51:41,435 - INFO - Cluster 41: saved cow_10767.jpg (label=49)
+2026-03-13 13:51:41,435 - INFO - Cluster 17: saved collie_10122.jpg (label=46)
+2026-03-13 13:51:41,435 - INFO - Cluster 31: saved bobcat_10427.jpg (label=41)
+2026-03-13 13:51:41,435 - INFO - Cluster 09: saved collie_10682.jpg (label=46)
+2026-03-13 13:51:41,436 - INFO - Cluster 10: saved leopard_10375.jpg (label=15)
+2026-03-13 13:51:41,436 - INFO - Cluster 38: saved siamese+cat_10123.jpg (label=10)
+2026-03-13 13:51:41,436 - INFO - Cluster 30: saved giraffe_10833.jpg (label=31)
+2026-03-13 13:51:41,437 - INFO - Cluster 01: saved chimpanzee_10464.jpg (label=25)
+2026-03-13 13:51:41,437 - INFO - Cluster 00: saved chihuahua_10471.jpg (label=33)
+2026-03-13 13:51:41,437 - INFO - Cluster 06: saved elephant_10834.jpg (label=19)
+2026-03-13 13:51:41,438 - INFO - Cluster 29: saved fox_10494.jpg (label=22)
+2026-03-13 13:51:41,438 - INFO - Cluster 49: saved ox_10440.jpg (label=21)
+2026-03-13 13:51:41,439 - INFO - Cluster 23: saved hippopotamus_10447.jpg (label=14)
+2026-03-13 13:51:41,439 - INFO - Cluster 29: saved fox_10063.jpg (label=22)
+2026-03-13 13:51:41,439 - INFO - Cluster 36: saved horse_10565.jpg (label=7)
+2026-03-13 13:51:41,440 - INFO - Cluster 15: saved persian+cat_10513.jpg (label=6)
+2026-03-13 13:51:41,440 - INFO - Cluster 27: saved chihuahua_10345.jpg (label=33)
+2026-03-13 13:51:41,440 - INFO - Cluster 47: saved giraffe_10838.jpg (label=31)
+2026-03-13 13:51:41,441 - INFO - Cluster 42: saved collie_10104.jpg (label=46)
+2026-03-13 13:51:41,441 - INFO - Cluster 00: saved horse_10774.jpg (label=7)
+2026-03-13 13:51:41,441 - INFO - Cluster 25: saved grizzly+bear_10023.jpg (label=2)
+2026-03-13 13:51:41,442 - INFO - Cluster 10: saved hippopotamus_10263.jpg (label=14)
+2026-03-13 13:51:41,442 - INFO - Cluster 49: saved hamster_10418.jpg (label=26)
+2026-03-13 13:51:41,442 - INFO - Cluster 03: saved hamster_10121.jpg (label=26)
+2026-03-13 13:51:41,443 - INFO - Cluster 47: saved german+shepherd_10971.jpg (label=8)
+2026-03-13 13:51:41,443 - INFO - Cluster 01: saved rabbit_10060.jpg (label=29)
+2026-03-13 13:51:41,444 - INFO - Cluster 21: saved antelope_10618.jpg (label=1)
+2026-03-13 13:51:41,444 - INFO - Cluster 42: saved rhinoceros_10654.jpg (label=28)
+2026-03-13 13:51:41,444 - INFO - Cluster 24: saved antelope_10340.jpg (label=1)
+2026-03-13 13:51:41,445 - INFO - Cluster 45: saved sheep_11261.jpg (label=23)
+2026-03-13 13:51:41,445 - INFO - Cluster 13: saved lion_10798.jpg (label=43)
+2026-03-13 13:51:41,446 - INFO - Cluster 21: saved persian+cat_10549.jpg (label=6)
+2026-03-13 13:51:41,446 - INFO - Cluster 12: saved deer_10892.jpg (label=40)
+2026-03-13 13:51:41,447 - INFO - Cluster 12: saved tiger_10160.jpg (label=13)
+2026-03-13 13:51:41,447 - INFO - Cluster 45: saved humpback+whale_10649.jpg (label=18)
+2026-03-13 13:51:41,447 - INFO - Cluster 32: saved lion_10032.jpg (label=43)
+2026-03-13 13:51:41,448 - INFO - Cluster 47: saved hamster_10520.jpg (label=26)
+2026-03-13 13:51:41,448 - INFO - Cluster 31: saved mouse_10150.jpg (label=44)
+2026-03-13 13:51:41,449 - INFO - Cluster 36: saved cow_10941.jpg (label=49)
+2026-03-13 13:51:41,450 - INFO - Cluster 41: saved squirrel_10590.jpg (label=27)
+2026-03-13 13:51:41,450 - INFO - Cluster 18: saved tiger_10002.jpg (label=13)
+2026-03-13 13:51:41,450 - INFO - Cluster 37: saved bat_10217.jpg (label=30)
+2026-03-13 13:51:41,451 - INFO - Cluster 46: saved sheep_10682.jpg (label=23)
+2026-03-13 13:51:41,452 - INFO - Cluster 21: saved elephant_10543.jpg (label=19)
+2026-03-13 13:51:41,452 - INFO - Cluster 18: saved seal_10579.jpg (label=24)
+2026-03-13 13:51:41,452 - INFO - Cluster 41: saved collie_10080.jpg (label=46)
+2026-03-13 13:51:41,453 - INFO - Cluster 34: saved persian+cat_10402.jpg (label=6)
+2026-03-13 13:51:41,453 - INFO - Cluster 34: saved hamster_10060.jpg (label=26)
+2026-03-13 13:51:41,453 - INFO - Cluster 12: saved cow_10004.jpg (label=49)
+2026-03-13 13:51:41,454 - INFO - Cluster 35: saved dalmatian_10207.jpg (label=5)
+2026-03-13 13:51:41,454 - INFO - Cluster 02: saved humpback+whale_10034.jpg (label=18)
+2026-03-13 13:51:41,454 - INFO - Cluster 11: saved horse_10747.jpg (label=7)
+2026-03-13 13:51:41,455 - INFO - Cluster 27: saved bobcat_10545.jpg (label=41)
+2026-03-13 13:51:41,455 - INFO - Cluster 16: saved zebra_10854.jpg (label=38)
+2026-03-13 13:51:41,455 - INFO - Cluster 39: saved horse_11117.jpg (label=7)
+2026-03-13 13:51:41,456 - INFO - Cluster 29: saved dolphin_10824.jpg (label=50)
+2026-03-13 13:51:41,456 - INFO - Cluster 35: saved moose_10109.jpg (label=16)
+2026-03-13 13:51:41,457 - INFO - Cluster 05: saved hamster_10326.jpg (label=26)
+2026-03-13 13:51:41,457 - INFO - Cluster 22: saved squirrel_10064.jpg (label=27)
+2026-03-13 13:51:41,457 - INFO - Cluster 17: saved persian+cat_10493.jpg (label=6)
+2026-03-13 13:51:41,458 - INFO - Cluster 28: saved moose_10127.jpg (label=16)
+2026-03-13 13:51:41,458 - INFO - Cluster 48: saved giraffe_11199.jpg (label=31)
+2026-03-13 13:51:41,458 - INFO - Cluster 45: saved collie_10704.jpg (label=46)
+2026-03-13 13:51:41,459 - INFO - Cluster 30: saved collie_10985.jpg (label=46)
+2026-03-13 13:51:41,459 - INFO - Cluster 34: saved german+shepherd_10672.jpg (label=8)
+2026-03-13 13:51:41,460 - INFO - Cluster 44: saved buffalo_10143.jpg (label=37)
+2026-03-13 13:51:41,460 - INFO - Cluster 02: saved lion_10375.jpg (label=43)
+2026-03-13 13:51:41,460 - INFO - Cluster 25: saved grizzly+bear_10645.jpg (label=2)
+2026-03-13 13:51:41,460 - INFO - Cluster 33: saved lion_10727.jpg (label=43)
+2026-03-13 13:51:41,461 - INFO - Cluster 44: saved horse_10798.jpg (label=7)
+2026-03-13 13:51:41,461 - INFO - Cluster 40: saved squirrel_11131.jpg (label=27)
+2026-03-13 13:51:41,462 - INFO - Cluster 30: saved elephant_10805.jpg (label=19)
+2026-03-13 13:51:41,462 - INFO - Cluster 43: saved raccoon_10335.jpg (label=48)
+2026-03-13 13:51:41,462 - INFO - Cluster 33: saved gorilla_10175.jpg (label=20)
+2026-03-13 13:51:41,463 - INFO - Cluster 04: saved ox_10519.jpg (label=21)
+2026-03-13 13:51:41,463 - INFO - Cluster 26: saved hippopotamus_10389.jpg (label=14)
+2026-03-13 13:51:41,463 - INFO - Cluster 23: saved cow_10919.jpg (label=49)
+2026-03-13 13:51:41,464 - INFO - Cluster 37: saved sheep_10002.jpg (label=23)
+2026-03-13 13:51:41,464 - INFO - Cluster 14: saved ox_10199.jpg (label=21)
+2026-03-13 13:51:41,465 - INFO - Cluster 20: saved chimpanzee_10575.jpg (label=25)
+2026-03-13 13:51:41,465 - INFO - Cluster 49: saved rhinoceros_10451.jpg (label=28)
+2026-03-13 13:51:41,466 - INFO - Cluster 40: saved dalmatian_10409.jpg (label=5)
+2026-03-13 13:51:41,466 - INFO - Cluster 33: saved rhinoceros_10011.jpg (label=28)
+2026-03-13 13:51:41,466 - INFO - Cluster 43: saved buffalo_10208.jpg (label=37)
+2026-03-13 13:51:41,467 - INFO - Cluster 40: saved horse_10237.jpg (label=7)
+2026-03-13 13:51:41,467 - INFO - Cluster 14: saved gorilla_10705.jpg (label=20)
+2026-03-13 13:51:41,468 - INFO - Cluster 22: saved giant+panda_10040.jpg (label=39)
+2026-03-13 13:51:41,468 - INFO - Cluster 20: saved sheep_10806.jpg (label=23)
+2026-03-13 13:51:41,468 - INFO - Cluster 03: saved wolf_10141.jpg (label=32)
+2026-03-13 13:51:41,469 - INFO - Cluster 13: saved collie_10278.jpg (label=46)
+2026-03-13 13:51:41,469 - INFO - Cluster 02: saved deer_10438.jpg (label=40)
+2026-03-13 13:51:41,470 - INFO - Cluster 20: saved deer_10246.jpg (label=40)
+2026-03-13 13:51:41,470 - INFO - Cluster 07: saved hamster_10420.jpg (label=26)
+2026-03-13 13:51:41,471 - INFO - Cluster 23: saved pig_10636.jpg (label=42)
+2026-03-13 13:51:41,471 - INFO - Cluster 18: saved leopard_10562.jpg (label=15)
+2026-03-13 13:51:41,472 - INFO - Cluster 03: saved collie_10913.jpg (label=46)
+2026-03-13 13:51:41,472 - INFO - Cluster 08: saved horse_11320.jpg (label=7)
+2026-03-13 13:51:41,472 - INFO - Cluster 28: saved bobcat_10217.jpg (label=41)
+2026-03-13 13:51:41,473 - INFO - Cluster 28: saved collie_10109.jpg (label=46)
+2026-03-13 13:51:41,473 - INFO - Cluster 37: saved rabbit_10163.jpg (label=29)
+2026-03-13 13:51:41,474 - INFO - Cluster 26: saved deer_10122.jpg (label=40)
+2026-03-13 13:51:41,474 - INFO - Cluster 24: saved bat_10029.jpg (label=30)
+2026-03-13 13:51:41,475 - INFO - Cluster 19: saved sheep_10917.jpg (label=23)
+2026-03-13 13:51:41,475 - INFO - Cluster 19: saved cow_10505.jpg (label=49)
+2026-03-13 13:51:41,475 - INFO - Cluster 24: saved antelope_10969.jpg (label=1)
+2026-03-13 13:51:41,476 - INFO - Cluster 08: saved bobcat_10059.jpg (label=41)
+2026-03-13 13:51:41,477 - INFO - Cluster 19: saved elephant_10539.jpg (label=19)
+2026-03-13 13:51:41,477 - INFO - Cluster 08: saved blue+whale_10044.jpg (label=9)
+2026-03-13 13:51:41,478 - INFO - Cluster 26: saved bat_10021.jpg (label=30)
+2026-03-13 13:51:41,479 - INFO - Cluster 05: saved horse_11434.jpg (label=7)
+2026-03-13 13:51:41,479 - INFO - Cluster 07: saved cow_10053.jpg (label=49)
+2026-03-13 13:51:41,480 - INFO - Cluster 06: saved tiger_10291.jpg (label=13)
+2026-03-13 13:51:41,480 - INFO - Cluster 07: saved persian+cat_10586.jpg (label=6)
+2026-03-13 13:51:41,482 - INFO - Cluster 04: saved squirrel_11195.jpg (label=27)
+2026-03-13 13:51:41,482 - INFO - Cluster 06: saved cow_11020.jpg (label=49)
+2026-03-13 13:51:41,485 - INFO - Cluster 04: saved ox_10540.jpg (label=21)
+2026-03-13 13:51:41,486 - INFO - Cluster sample saving complete — results stored in: cluster_samples/cae_small_20260313_135141
+2026-03-13 13:51:41,486 - INFO - Cluster 00: top attributes -> quadrapedal, newworld, tail, ground, oldworld
+2026-03-13 13:51:41,486 - INFO - Cluster 01: top attributes -> quadrapedal, tail, oldworld, furry, newworld
+2026-03-13 13:51:41,486 - INFO - Cluster 02: top attributes -> big, fast, strong, group, tail
+2026-03-13 13:51:41,486 - INFO - Cluster 03: top attributes -> quadrapedal, furry, ground, walks, brown
+2026-03-13 13:51:41,487 - INFO - Cluster 04: top attributes -> tail, quadrapedal, walks, strong, vegetation
+2026-03-13 13:51:41,487 - INFO - Cluster 05: top attributes -> quadrapedal, brown, domestic, furry, ground
+2026-03-13 13:51:41,487 - INFO - Cluster 06: top attributes -> oldworld, big, strong, tail, quadrapedal
+2026-03-13 13:51:41,487 - INFO - Cluster 07: top attributes -> quadrapedal, newworld, big, walks, furry
+2026-03-13 13:51:41,487 - INFO - Cluster 08: top attributes -> quadrapedal, fast, tail, oldworld, newworld
+2026-03-13 13:51:41,487 - INFO - Cluster 09: top attributes -> quadrapedal, walks, oldworld, ground, furry
+2026-03-13 13:51:41,487 - INFO - Cluster 10: top attributes -> quadrapedal, walks, oldworld, ground, big
+2026-03-13 13:51:41,488 - INFO - Cluster 11: top attributes -> oldworld, quadrapedal, big, walks, brown
+2026-03-13 13:51:41,488 - INFO - Cluster 12: top attributes -> quadrapedal, fast, tail, walks, oldworld
+2026-03-13 13:51:41,488 - INFO - Cluster 13: top attributes -> furry, quadrapedal, fast, oldworld, tail
+2026-03-13 13:51:41,488 - INFO - Cluster 14: top attributes -> oldworld, quadrapedal, big, strong, walks
+2026-03-13 13:51:41,488 - INFO - Cluster 15: top attributes -> quadrapedal, furry, tail, ground, walks
+2026-03-13 13:51:41,488 - INFO - Cluster 16: top attributes -> quadrapedal, walks, ground, oldworld, big
+2026-03-13 13:51:41,488 - INFO - Cluster 17: top attributes -> furry, quadrapedal, newworld, fast, tail
+2026-03-13 13:51:41,488 - INFO - Cluster 18: top attributes -> quadrapedal, big, walks, ground, oldworld
+2026-03-13 13:51:41,488 - INFO - Cluster 19: top attributes -> quadrapedal, walks, ground, oldworld, newworld
+2026-03-13 13:51:41,489 - INFO - Cluster 20: top attributes -> furry, walks, newworld, black, brown
+2026-03-13 13:51:41,489 - INFO - Cluster 21: top attributes -> quadrapedal, fast, oldworld, tail, walks
+2026-03-13 13:51:41,489 - INFO - Cluster 22: top attributes -> quadrapedal, furry, oldworld, walks, ground
+2026-03-13 13:51:41,489 - INFO - Cluster 23: top attributes -> big, quadrapedal, oldworld, walks, ground
+2026-03-13 13:51:41,489 - INFO - Cluster 24: top attributes -> quadrapedal, oldworld, walks, ground, big
+2026-03-13 13:51:41,489 - INFO - Cluster 25: top attributes -> quadrapedal, walks, ground, big, furry
+2026-03-13 13:51:41,489 - INFO - Cluster 26: top attributes -> oldworld, quadrapedal, fast, walks, furry
+2026-03-13 13:51:41,489 - INFO - Cluster 27: top attributes -> quadrapedal, furry, newworld, tail, ground
+2026-03-13 13:51:41,490 - INFO - Cluster 28: top attributes -> quadrapedal, walks, furry, ground, oldworld
+2026-03-13 13:51:41,490 - INFO - Cluster 29: top attributes -> tail, fast, oldworld, quadrapedal, newworld
+2026-03-13 13:51:41,490 - INFO - Cluster 30: top attributes -> big, quadrapedal, walks, ground, oldworld
+2026-03-13 13:51:41,490 - INFO - Cluster 31: top attributes -> quadrapedal, walks, ground, fast, furry
+2026-03-13 13:51:41,490 - INFO - Cluster 32: top attributes -> quadrapedal, walks, oldworld, ground, furry
+2026-03-13 13:51:41,490 - INFO - Cluster 33: top attributes -> quadrapedal, walks, ground, big, oldworld
+2026-03-13 13:51:41,490 - INFO - Cluster 34: top attributes -> quadrapedal, furry, walks, oldworld, ground
+2026-03-13 13:51:41,490 - INFO - Cluster 35: top attributes -> quadrapedal, walks, big, ground, oldworld
+2026-03-13 13:51:41,491 - INFO - Cluster 36: top attributes -> quadrapedal, walks, ground, oldworld, tail
+2026-03-13 13:51:41,491 - INFO - Cluster 37: top attributes -> quadrapedal, fast, oldworld, ground, furry
+2026-03-13 13:51:41,491 - INFO - Cluster 38: top attributes -> quadrapedal, ground, walks, furry, tail
+2026-03-13 13:51:41,491 - INFO - Cluster 39: top attributes -> quadrapedal, big, newworld, oldworld, walks
+2026-03-13 13:51:41,491 - INFO - Cluster 40: top attributes -> quadrapedal, oldworld, furry, ground, fast
+2026-03-13 13:51:41,491 - INFO - Cluster 41: top attributes -> furry, quadrapedal, tail, oldworld, walks
+2026-03-13 13:51:41,491 - INFO - Cluster 42: top attributes -> quadrapedal, oldworld, ground, walks, fast
+2026-03-13 13:51:41,491 - INFO - Cluster 43: top attributes -> quadrapedal, walks, oldworld, ground, tail
+2026-03-13 13:51:41,492 - INFO - Cluster 44: top attributes -> quadrapedal, walks, ground, oldworld, big
+2026-03-13 13:51:41,492 - INFO - Cluster 45: top attributes -> quadrapedal, walks, newworld, oldworld, big
+2026-03-13 13:51:41,492 - INFO - Cluster 46: top attributes -> big, walks, quadrapedal, furry, strong
+2026-03-13 13:51:41,492 - INFO - Cluster 47: top attributes -> quadrapedal, walks, ground, oldworld, tail
+2026-03-13 13:51:41,492 - INFO - Cluster 48: top attributes -> quadrapedal, oldworld, walks, big, vegetation
+2026-03-13 13:51:41,492 - INFO - Cluster 49: top attributes -> quadrapedal, walks, furry, ground, big
+2026-03-13 13:51:41,494 - INFO - Results saved to results_cae_small.json
+2026-03-13 13:51:41,495 - INFO - Experiment 'cae_small' complete. Results saved to results_cae_small.json
+2026-03-13 13:51:41,495 - INFO - Summary written to results_cae_small_summary.json
+2026-03-13 13:51:41,660 - INFO - [Plot] Saved loss curve - ./results_cae_small_loss.png
+2026-03-13 13:51:41,886 - INFO - [Plot] Saved PCA scatter - ./results_cae_small_pca.png
+2026-03-13 13:51:41,886 - WARNING - Cluster descriptions loaded as list — converting to dictionary format.
+2026-03-13 13:51:44,093 - INFO - Total time: 97.67s
+
+Cluster 29: showing 3 samples
+  - Image: AwA2-sample/JPEGImages/dolphin/dolphin_10824.jpg | Label: 50
+  - Image: AwA2-sample/JPEGImages/grizzly+bear/grizzly+bear_10160.jpg | Label: 2
+  - Image: AwA2-sample/JPEGImages/giraffe/giraffe_10196.jpg | Label: 31
+
+Cluster 30: showing 3 samples
+  - Image: AwA2-sample/JPEGImages/walrus/walrus_10210.jpg | Label: 47
+  - Image: AwA2-sample/JPEGImages/mole/mole_10014.jpg | Label: 12
+  - Image: AwA2-sample/JPEGImages/giraffe/giraffe_10833.jpg | Label: 31
+
+Cluster 17: showing 3 samples
+  - Image: AwA2-sample/JPEGImages/fox/fox_10223.jpg | Label: 22
+  - Image: AwA2-sample/JPEGImages/horse/horse_10971.jpg | Label: 7
+  - Image: AwA2-sample/JPEGImages/grizzly+bear/grizzly+bear_10522.jpg | Label: 2
+[INFO] t-SNE plot saved to results_cae_small_tsne.png
+2026-03-13 13:51:48,914 - INFO - Using CPU
+2026-03-13 13:51:48,915 - INFO - === Running mode: DECCS | arch: SMALL ===
+2026-03-13 13:51:50,139 - INFO - Sample of 1000 images created in AwA2-sample/JPEGImages
+2026-03-13 13:51:50,140 - INFO - Sample labels file created at AwA2-sample/AwA2-labels.txt
+2026-03-13 13:51:50,147 - INFO - Mean per-class tag variance: 0.000000
+2026-03-13 13:51:50,147 - INFO - Dataset created with 800 samples.
+2026-03-13 13:51:50,148 - INFO - Architecture: small
+2026-03-13 13:51:50,151 - INFO - Model params: 205,720 total, 205,720 trainable
+2026-03-13 13:51:50,151 - INFO - Epoch 1/10 started.
+/home/benabed/.pyenv/versions/3.13.3/lib/python3.13/site-packages/torch/utils/data/dataloader.py:1118: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.
+  super().__init__(loader)
+2026-03-13 13:51:57,770 - INFO - Total extracted embeddings shape: torch.Size([800, 128])
+2026-03-13 13:51:57,806 - INFO - [DECCS] Classical base clustering 'KMeans' completed.
+2026-03-13 13:51:57,807 - INFO - Base clustering 'KMeans' completed in 0.03s
+2026-03-13 13:51:58,401 - INFO - [DECCS] Classical base clustering 'Spectral' completed.
+2026-03-13 13:51:58,401 - INFO - Base clustering 'Spectral' completed in 0.59s
+2026-03-13 13:51:59,774 - INFO - [DECCS] Classical base clustering 'GMM' completed.
+2026-03-13 13:51:59,774 - INFO - Base clustering 'GMM' completed in 1.37s
+2026-03-13 13:51:59,891 - INFO - [DECCS] Classical base clustering 'Agglomerative' completed.
+2026-03-13 13:51:59,892 - INFO - Base clustering 'Agglomerative' completed in 0.12s
+2026-03-13 13:51:59,892 - INFO - [DECCS] 4 base clusterings successful. Shape=(4, 800)
+2026-03-13 13:52:01,715 - INFO - [DECCS] Consensus matrix built for epoch 1
+Training:   0%|          | 0/4 [00:00<?, ?it/s]2026-03-13 13:52:05,525 - INFO - Model produces reconstruction — using recon + tag loss
+Training:  25%|██▌       | 1/4 [00:04<00:14,  4.90s/it]Training:  50%|█████     | 2/4 [00:06<00:05,  2.95s/it]Training:  75%|███████▌  | 3/4 [00:08<00:02,  2.33s/it]Training: 100%|██████████| 4/4 [00:08<00:00,  1.48s/it]Training: 100%|██████████| 4/4 [00:08<00:00,  2.06s/it]
+2026-03-13 13:52:09,964 - INFO - Recon=0.0661, Tag=0.6911, Total=0.6081
+2026-03-13 13:52:09,966 - INFO - Epoch 1/10 completed. Recon=0.0661, Tag=0.6911, Total=0.6081
+2026-03-13 13:52:09,966 - INFO - Epoch time: 19.81s
+2026-03-13 13:52:09,966 - INFO - Epoch 2/10 started.
+Training:   0%|          | 0/4 [00:00<?, ?it/s]2026-03-13 13:52:13,712 - INFO - Model produces reconstruction — using recon + tag loss
+Training:  25%|██▌       | 1/4 [00:04<00:13,  4.64s/it]Training:  50%|█████     | 2/4 [00:06<00:05,  2.74s/it]Training:  75%|███████▌  | 3/4 [00:07<00:02,  2.13s/it]Training: 100%|██████████| 4/4 [00:07<00:00,  1.35s/it]Training: 100%|██████████| 4/4 [00:07<00:00,  1.90s/it]
+2026-03-13 13:52:17,574 - INFO - Recon=0.0642, Tag=0.6636, Total=0.3960
+2026-03-13 13:52:17,575 - INFO - Epoch 2/10 completed. Recon=0.0642, Tag=0.6636, Total=0.3960
+2026-03-13 13:52:17,575 - INFO - Epoch time: 27.42s
+2026-03-13 13:52:17,575 - INFO - Epoch 3/10 started.
+Training:   0%|          | 0/4 [00:00<?, ?it/s]2026-03-13 13:52:21,346 - INFO - Model produces reconstruction — using recon + tag loss
+Training:  25%|██▌       | 1/4 [00:04<00:13,  4.64s/it]Training:  50%|█████     | 2/4 [00:06<00:05,  2.75s/it]Training:  75%|███████▌  | 3/4 [00:07<00:02,  2.18s/it]Training: 100%|██████████| 4/4 [00:07<00:00,  1.37s/it]Training: 100%|██████████| 4/4 [00:07<00:00,  1.93s/it]
+2026-03-13 13:52:25,283 - INFO - Recon=0.0677, Tag=0.5642, Total=0.3498
+2026-03-13 13:52:25,284 - INFO - Epoch 3/10 completed. Recon=0.0677, Tag=0.5642, Total=0.3498
+2026-03-13 13:52:25,285 - INFO - Epoch time: 35.13s
+2026-03-13 13:52:25,285 - INFO - Epoch 4/10 started.
+Training:   0%|          | 0/4 [00:00<?, ?it/s]2026-03-13 13:52:29,035 - INFO - Model produces reconstruction — using recon + tag loss
+Training:  25%|██▌       | 1/4 [00:04<00:13,  4.64s/it]Training:  50%|█████     | 2/4 [00:06<00:06,  3.01s/it]Training:  75%|███████▌  | 3/4 [00:08<00:02,  2.47s/it]Training: 100%|██████████| 4/4 [00:08<00:00,  1.59s/it]Training: 100%|██████████| 4/4 [00:08<00:00,  2.14s/it]
+2026-03-13 13:52:33,864 - INFO - Recon=0.0627, Tag=0.5043, Total=0.3149
+2026-03-13 13:52:33,867 - INFO - Epoch 4/10 completed. Recon=0.0627, Tag=0.5043, Total=0.3149
+2026-03-13 13:52:33,868 - INFO - Epoch time: 43.72s
+2026-03-13 13:52:33,868 - INFO - Epoch 5/10 started.
+2026-03-13 13:52:44,652 - INFO - Total extracted embeddings shape: torch.Size([800, 128])
+2026-03-13 13:52:44,726 - INFO - [DECCS] Classical base clustering 'KMeans' completed.
+2026-03-13 13:52:44,726 - INFO - Base clustering 'KMeans' completed in 0.06s
+2026-03-13 13:52:45,175 - INFO - [DECCS] Classical base clustering 'Spectral' completed.
+2026-03-13 13:52:45,175 - INFO - Base clustering 'Spectral' completed in 0.45s
+2026-03-13 13:52:49,254 - INFO - [DECCS] Classical base clustering 'GMM' completed.
+2026-03-13 13:52:49,254 - INFO - Base clustering 'GMM' completed in 4.08s
+2026-03-13 13:52:49,312 - INFO - [DECCS] Classical base clustering 'Agglomerative' completed.
+2026-03-13 13:52:49,312 - INFO - Base clustering 'Agglomerative' completed in 0.06s
+2026-03-13 13:52:49,312 - INFO - [DECCS] 4 base clusterings successful. Shape=(4, 800)
+2026-03-13 13:52:51,259 - INFO - [DECCS] Consensus matrix built for epoch 5
+Training:   0%|          | 0/4 [00:00<?, ?it/s]2026-03-13 13:52:55,621 - INFO - Model produces reconstruction — using recon + tag loss
+Training:  25%|██▌       | 1/4 [00:05<00:16,  5.64s/it]Training:  50%|█████     | 2/4 [00:07<00:06,  3.29s/it]Training:  75%|███████▌  | 3/4 [00:08<00:02,  2.55s/it]Training: 100%|██████████| 4/4 [00:09<00:00,  1.61s/it]Training: 100%|██████████| 4/4 [00:09<00:00,  2.28s/it]
+2026-03-13 13:53:00,392 - INFO - Recon=0.0637, Tag=0.4793, Total=0.5007
+2026-03-13 13:53:00,393 - INFO - Epoch 5/10 completed. Recon=0.0637, Tag=0.4793, Total=0.5007
+2026-03-13 13:53:00,393 - INFO - Epoch time: 70.24s
+2026-03-13 13:53:00,393 - INFO - Epoch 6/10 started.
+Training:   0%|          | 0/4 [00:00<?, ?it/s]2026-03-13 13:53:05,002 - INFO - Model produces reconstruction — using recon + tag loss
+Training:  25%|██▌       | 1/4 [00:06<00:18,  6.07s/it]Training:  50%|█████     | 2/4 [00:08<00:07,  3.75s/it]Training:  75%|███████▌  | 3/4 [00:09<00:02,  2.73s/it]Training: 100%|██████████| 4/4 [00:09<00:00,  1.71s/it]Training: 100%|██████████| 4/4 [00:09<00:00,  2.47s/it]
+2026-03-13 13:53:10,262 - INFO - Recon=0.0631, Tag=0.4711, Total=0.2987
+2026-03-13 13:53:10,263 - INFO - Epoch 6/10 completed. Recon=0.0631, Tag=0.4711, Total=0.2987
+2026-03-13 13:53:10,263 - INFO - Epoch time: 80.11s
+2026-03-13 13:53:10,264 - INFO - Epoch 7/10 started.
+Training:   0%|          | 0/4 [00:00<?, ?it/s]2026-03-13 13:53:14,207 - INFO - Model produces reconstruction — using recon + tag loss
+Training:  25%|██▌       | 1/4 [00:04<00:14,  4.86s/it]Training:  50%|█████     | 2/4 [00:06<00:05,  2.84s/it]Training:  75%|███████▌  | 3/4 [00:07<00:02,  2.20s/it]Training: 100%|██████████| 4/4 [00:07<00:00,  1.39s/it]Training: 100%|██████████| 4/4 [00:07<00:00,  1.97s/it]
+2026-03-13 13:53:18,130 - INFO - Recon=0.0614, Tag=0.4731, Total=0.2979
+2026-03-13 13:53:18,131 - INFO - Epoch 7/10 completed. Recon=0.0614, Tag=0.4731, Total=0.2979
+2026-03-13 13:53:18,131 - INFO - Epoch time: 87.98s
+2026-03-13 13:53:18,131 - INFO - Epoch 8/10 started.
+Training:   0%|          | 0/4 [00:00<?, ?it/s]2026-03-13 13:53:21,930 - INFO - Model produces reconstruction — using recon + tag loss
+Training:  25%|██▌       | 1/4 [00:04<00:14,  4.70s/it]Training:  50%|█████     | 2/4 [00:06<00:05,  2.81s/it]Training:  75%|███████▌  | 3/4 [00:07<00:02,  2.21s/it]Training: 100%|██████████| 4/4 [00:07<00:00,  1.40s/it]Training: 100%|██████████| 4/4 [00:07<00:00,  1.96s/it]
+2026-03-13 13:53:25,966 - INFO - Recon=0.0615, Tag=0.4724, Total=0.2977
+2026-03-13 13:53:25,967 - INFO - Epoch 8/10 completed. Recon=0.0615, Tag=0.4724, Total=0.2977
+2026-03-13 13:53:25,968 - INFO - Epoch time: 95.82s
+2026-03-13 13:53:25,968 - INFO - Epoch 9/10 started.
+Training:   0%|          | 0/4 [00:00<?, ?it/s]2026-03-13 13:53:29,691 - INFO - Model produces reconstruction — using recon + tag loss
+Training:  25%|██▌       | 1/4 [00:04<00:13,  4.65s/it]Training:  50%|█████     | 2/4 [00:06<00:05,  2.77s/it]Training:  75%|███████▌  | 3/4 [00:07<00:02,  2.18s/it]Training: 100%|██████████| 4/4 [00:07<00:00,  1.39s/it]Training: 100%|██████████| 4/4 [00:07<00:00,  1.94s/it]
+2026-03-13 13:53:33,723 - INFO - Recon=0.0613, Tag=0.4734, Total=0.2980
+2026-03-13 13:53:33,724 - INFO - Epoch 9/10 completed. Recon=0.0613, Tag=0.4734, Total=0.2980
+2026-03-13 13:53:33,724 - INFO - Epoch time: 103.57s
+2026-03-13 13:53:33,724 - INFO - Epoch 10/10 started.
+2026-03-13 13:53:44,753 - INFO - Total extracted embeddings shape: torch.Size([800, 128])
+2026-03-13 13:53:44,801 - INFO - [DECCS] Classical base clustering 'KMeans' completed.
+2026-03-13 13:53:44,801 - INFO - Base clustering 'KMeans' completed in 0.04s
+2026-03-13 13:53:45,238 - INFO - [DECCS] Classical base clustering 'Spectral' completed.
+2026-03-13 13:53:45,239 - INFO - Base clustering 'Spectral' completed in 0.44s
+2026-03-13 13:53:46,629 - INFO - [DECCS] Classical base clustering 'GMM' completed.
+2026-03-13 13:53:46,629 - INFO - Base clustering 'GMM' completed in 1.39s
+2026-03-13 13:53:46,675 - INFO - [DECCS] Classical base clustering 'Agglomerative' completed.
+2026-03-13 13:53:46,676 - INFO - Base clustering 'Agglomerative' completed in 0.05s
+2026-03-13 13:53:46,676 - INFO - [DECCS] 4 base clusterings successful. Shape=(4, 800)
+2026-03-13 13:53:48,655 - INFO - [DECCS] Consensus matrix built for epoch 10
+Training:   0%|          | 0/4 [00:00<?, ?it/s]2026-03-13 13:53:52,676 - INFO - Model produces reconstruction — using recon + tag loss
+Training:  25%|██▌       | 1/4 [00:05<00:15,  5.16s/it]Training:  50%|█████     | 2/4 [00:06<00:06,  3.13s/it]Training:  75%|███████▌  | 3/4 [00:08<00:02,  2.49s/it]Training: 100%|██████████| 4/4 [00:08<00:00,  1.57s/it]Training: 100%|██████████| 4/4 [00:08<00:00,  2.19s/it]
+2026-03-13 13:53:57,419 - INFO - Recon=0.0611, Tag=0.4716, Total=0.4944
+2026-03-13 13:53:57,420 - INFO - Epoch 10/10 completed. Recon=0.0611, Tag=0.4716, Total=0.4944
+2026-03-13 13:53:57,421 - INFO - Epoch time: 127.27s
+2026-03-13 13:54:05,874 - INFO - Total extracted embeddings shape: torch.Size([800, 128])
+2026-03-13 13:54:06,016 - INFO - [DECCS] Classical base clustering 'KMeans' completed.
+2026-03-13 13:54:06,017 - INFO - Base clustering 'KMeans' completed in 0.12s
+2026-03-13 13:54:07,193 - INFO - [DECCS] Classical base clustering 'Spectral' completed.
+2026-03-13 13:54:07,193 - INFO - Base clustering 'Spectral' completed in 1.18s
+2026-03-13 13:54:17,878 - INFO - [DECCS] Classical base clustering 'GMM' completed.
+2026-03-13 13:54:17,878 - INFO - Base clustering 'GMM' completed in 10.68s
+2026-03-13 13:54:17,924 - INFO - [DECCS] Classical base clustering 'Agglomerative' completed.
+2026-03-13 13:54:17,924 - INFO - Base clustering 'Agglomerative' completed in 0.05s
+2026-03-13 13:54:17,924 - INFO - [DECCS] 4 base clusterings successful. Shape=(4, 800)
+/home/benabed/.pyenv/versions/3.13.3/lib/python3.13/site-packages/sklearn/manifold/_spectral_embedding.py:324: UserWarning: Graph is not fully connected, spectral embedding may not work as expected.
+  warnings.warn(
+2026-03-13 13:54:23,892 - INFO - Cluster 16: saved persian+cat_10216.jpg (label=6)
+2026-03-13 13:54:23,892 - INFO - Cluster 00: saved sheep_10161.jpg (label=23)
+2026-03-13 13:54:23,893 - INFO - Cluster 49: saved giant+panda_10759.jpg (label=39)
+2026-03-13 13:54:23,893 - INFO - Cluster 23: saved pig_10349.jpg (label=42)
+2026-03-13 13:54:23,894 - INFO - Cluster 23: saved bobcat_10393.jpg (label=41)
+2026-03-13 13:54:23,894 - INFO - Cluster 31: saved collie_10176.jpg (label=46)
+2026-03-13 13:54:23,894 - INFO - Cluster 14: saved rabbit_10553.jpg (label=29)
+2026-03-13 13:54:23,895 - INFO - Cluster 29: saved leopard_10583.jpg (label=15)
+2026-03-13 13:54:23,895 - INFO - Cluster 11: saved buffalo_10107.jpg (label=37)
+2026-03-13 13:54:23,895 - INFO - Cluster 18: saved rhinoceros_10328.jpg (label=28)
+2026-03-13 13:54:23,896 - INFO - Cluster 40: saved seal_10544.jpg (label=24)
+2026-03-13 13:54:23,896 - INFO - Cluster 40: saved bobcat_10029.jpg (label=41)
+2026-03-13 13:54:23,896 - INFO - Cluster 30: saved dolphin_10794.jpg (label=50)
+2026-03-13 13:54:23,897 - INFO - Cluster 30: saved polar+bear_10854.jpg (label=45)
+2026-03-13 13:54:23,897 - INFO - Cluster 28: saved horse_10802.jpg (label=7)
+2026-03-13 13:54:23,897 - INFO - Cluster 17: saved horse_11008.jpg (label=7)
+2026-03-13 13:54:23,898 - INFO - Cluster 03: saved hamster_10049.jpg (label=26)
+2026-03-13 13:54:23,898 - INFO - Cluster 38: saved persian+cat_10675.jpg (label=6)
+2026-03-13 13:54:23,898 - INFO - Cluster 35: saved german+shepherd_10694.jpg (label=8)
+2026-03-13 13:54:23,898 - INFO - Cluster 33: saved dolphin_10238.jpg (label=50)
+2026-03-13 13:54:23,899 - INFO - Cluster 13: saved squirrel_10610.jpg (label=27)
+2026-03-13 13:54:23,899 - INFO - Cluster 13: saved fox_10067.jpg (label=22)
+2026-03-13 13:54:23,899 - INFO - Cluster 32: saved deer_11027.jpg (label=40)
+2026-03-13 13:54:23,900 - INFO - Cluster 44: saved rabbit_10400.jpg (label=29)
+2026-03-13 13:54:23,900 - INFO - Cluster 29: saved lion_10318.jpg (label=43)
+2026-03-13 13:54:23,900 - INFO - Cluster 26: saved ox_10272.jpg (label=21)
+2026-03-13 13:54:23,901 - INFO - Cluster 11: saved lion_10991.jpg (label=43)
+2026-03-13 13:54:23,901 - INFO - Cluster 28: saved seal_10466.jpg (label=24)
+2026-03-13 13:54:23,901 - INFO - Cluster 05: saved buffalo_10563.jpg (label=37)
+2026-03-13 13:54:23,901 - INFO - Cluster 43: saved zebra_10727.jpg (label=38)
+2026-03-13 13:54:23,902 - INFO - Cluster 27: saved siamese+cat_10401.jpg (label=10)
+2026-03-13 13:54:23,902 - INFO - Cluster 24: saved chimpanzee_10529.jpg (label=25)
+2026-03-13 13:54:23,902 - INFO - Cluster 44: saved sheep_10481.jpg (label=23)
+2026-03-13 13:54:23,903 - INFO - Cluster 40: saved hippopotamus_10266.jpg (label=14)
+2026-03-13 13:54:23,903 - INFO - Cluster 17: saved squirrel_10719.jpg (label=27)
+2026-03-13 13:54:23,903 - INFO - Cluster 30: saved wolf_10333.jpg (label=32)
+2026-03-13 13:54:23,904 - INFO - Cluster 44: saved cow_10940.jpg (label=49)
+2026-03-13 13:54:23,904 - INFO - Cluster 47: saved seal_10637.jpg (label=24)
+2026-03-13 13:54:23,904 - INFO - Cluster 06: saved leopard_10155.jpg (label=15)
+2026-03-13 13:54:23,905 - INFO - Cluster 17: saved elephant_10527.jpg (label=19)
+2026-03-13 13:54:23,905 - INFO - Cluster 38: saved giant+panda_10114.jpg (label=39)
+2026-03-13 13:54:23,905 - INFO - Cluster 36: saved grizzly+bear_10124.jpg (label=2)
+2026-03-13 13:54:23,906 - INFO - Cluster 32: saved bobcat_10447.jpg (label=41)
+2026-03-13 13:54:23,906 - INFO - Cluster 10: saved skunk_10110.jpg (label=11)
+2026-03-13 13:54:23,907 - INFO - Cluster 49: saved squirrel_10839.jpg (label=27)
+2026-03-13 13:54:23,907 - INFO - Cluster 03: saved squirrel_11062.jpg (label=27)
+2026-03-13 13:54:23,907 - INFO - Cluster 47: saved rabbit_10324.jpg (label=29)
+2026-03-13 13:54:23,908 - INFO - Cluster 26: saved squirrel_10173.jpg (label=27)
+2026-03-13 13:54:23,908 - INFO - Cluster 16: saved giant+panda_10487.jpg (label=39)
+2026-03-13 13:54:23,908 - INFO - Cluster 24: saved weasel_10032.jpg (label=35)
+2026-03-13 13:54:23,908 - INFO - Cluster 43: saved squirrel_11068.jpg (label=27)
+2026-03-13 13:54:23,909 - INFO - Cluster 37: saved beaver_10043.jpg (label=4)
+2026-03-13 13:54:23,909 - INFO - Cluster 31: saved elephant_11005.jpg (label=19)
+2026-03-13 13:54:23,909 - INFO - Cluster 26: saved rabbit_10349.jpg (label=29)
+2026-03-13 13:54:23,910 - INFO - Cluster 04: saved rabbit_10981.jpg (label=29)
+2026-03-13 13:54:23,910 - INFO - Cluster 49: saved hamster_10064.jpg (label=26)
+2026-03-13 13:54:23,910 - INFO - Cluster 32: saved wolf_10168.jpg (label=32)
+2026-03-13 13:54:23,910 - INFO - Cluster 47: saved bobcat_10255.jpg (label=41)
+2026-03-13 13:54:23,911 - INFO - Cluster 13: saved killer+whale_10272.jpg (label=3)
+2026-03-13 13:54:23,911 - INFO - Cluster 07: saved zebra_10053.jpg (label=38)
+2026-03-13 13:54:23,911 - INFO - Cluster 15: saved grizzly+bear_10279.jpg (label=2)
+2026-03-13 13:54:23,912 - INFO - Cluster 41: saved hamster_10303.jpg (label=26)
+2026-03-13 13:54:23,912 - INFO - Cluster 03: saved otter_10104.jpg (label=36)
+2026-03-13 13:54:23,912 - INFO - Cluster 36: saved raccoon_10100.jpg (label=48)
+2026-03-13 13:54:23,913 - INFO - Cluster 24: saved fox_10127.jpg (label=22)
+2026-03-13 13:54:23,913 - INFO - Cluster 04: saved chimpanzee_10433.jpg (label=25)
+2026-03-13 13:54:23,913 - INFO - Cluster 29: saved giant+panda_10601.jpg (label=39)
+2026-03-13 13:54:23,913 - INFO - Cluster 18: saved moose_10597.jpg (label=16)
+2026-03-13 13:54:23,914 - INFO - Cluster 43: saved sheep_10058.jpg (label=23)
+2026-03-13 13:54:23,914 - INFO - Cluster 33: saved hamster_10169.jpg (label=26)
+2026-03-13 13:54:23,914 - INFO - Cluster 09: saved pig_10209.jpg (label=42)
+2026-03-13 13:54:23,915 - INFO - Cluster 36: saved tiger_10339.jpg (label=13)
+2026-03-13 13:54:23,915 - INFO - Cluster 23: saved moose_10537.jpg (label=16)
+2026-03-13 13:54:23,915 - INFO - Cluster 05: saved lion_10139.jpg (label=43)
+2026-03-13 13:54:23,916 - INFO - Cluster 18: saved ox_10580.jpg (label=21)
+2026-03-13 13:54:23,916 - INFO - Cluster 35: saved dolphin_10194.jpg (label=50)
+2026-03-13 13:54:23,916 - INFO - Cluster 06: saved chihuahua_10374.jpg (label=33)
+2026-03-13 13:54:23,916 - INFO - Cluster 28: saved zebra_10178.jpg (label=38)
+2026-03-13 13:54:23,917 - INFO - Cluster 02: saved deer_10562.jpg (label=40)
+2026-03-13 13:54:23,917 - INFO - Cluster 02: saved zebra_10047.jpg (label=38)
+2026-03-13 13:54:23,917 - INFO - Cluster 33: saved persian+cat_10362.jpg (label=6)
+2026-03-13 13:54:23,918 - INFO - Cluster 45: saved persian+cat_10606.jpg (label=6)
+2026-03-13 13:54:23,918 - INFO - Cluster 01: saved otter_10195.jpg (label=36)
+2026-03-13 13:54:23,918 - INFO - Cluster 37: saved polar+bear_10666.jpg (label=45)
+2026-03-13 13:54:23,919 - INFO - Cluster 06: saved elephant_10311.jpg (label=19)
+2026-03-13 13:54:23,919 - INFO - Cluster 16: saved cow_10137.jpg (label=49)
+2026-03-13 13:54:23,919 - INFO - Cluster 27: saved elephant_10583.jpg (label=19)
+2026-03-13 13:54:23,919 - INFO - Cluster 01: saved rabbit_10833.jpg (label=29)
+2026-03-13 13:54:23,920 - INFO - Cluster 09: saved collie_11006.jpg (label=46)
+2026-03-13 13:54:23,920 - INFO - Cluster 25: saved buffalo_10614.jpg (label=37)
+2026-03-13 13:54:23,920 - INFO - Cluster 42: saved buffalo_10693.jpg (label=37)
+2026-03-13 13:54:23,921 - INFO - Cluster 35: saved horse_11589.jpg (label=7)
+2026-03-13 13:54:23,921 - INFO - Cluster 04: saved dolphin_10252.jpg (label=50)
+2026-03-13 13:54:23,921 - INFO - Cluster 31: saved dolphin_10537.jpg (label=50)
+2026-03-13 13:54:23,922 - INFO - Cluster 20: saved deer_10619.jpg (label=40)
+2026-03-13 13:54:23,922 - INFO - Cluster 01: saved deer_10982.jpg (label=40)
+2026-03-13 13:54:23,922 - INFO - Cluster 10: saved horse_10574.jpg (label=7)
+2026-03-13 13:54:23,923 - INFO - Cluster 21: saved horse_10530.jpg (label=7)
+2026-03-13 13:54:23,923 - INFO - Cluster 27: saved mole_10080.jpg (label=12)
+2026-03-13 13:54:23,923 - INFO - Cluster 37: saved fox_10279.jpg (label=22)
+2026-03-13 13:54:23,924 - INFO - Cluster 12: saved squirrel_10366.jpg (label=27)
+2026-03-13 13:54:23,924 - INFO - Cluster 09: saved rabbit_10855.jpg (label=29)
+2026-03-13 13:54:23,925 - INFO - Cluster 05: saved lion_10848.jpg (label=43)
+2026-03-13 13:54:23,925 - INFO - Cluster 20: saved rhinoceros_10405.jpg (label=28)
+2026-03-13 13:54:23,925 - INFO - Cluster 14: saved polar+bear_10087.jpg (label=45)
+2026-03-13 13:54:23,926 - INFO - Cluster 34: saved giraffe_10151.jpg (label=31)
+2026-03-13 13:54:23,926 - INFO - Cluster 00: saved bobcat_10550.jpg (label=41)
+2026-03-13 13:54:23,926 - INFO - Cluster 38: saved zebra_11093.jpg (label=38)
+2026-03-13 13:54:23,927 - INFO - Cluster 34: saved leopard_10072.jpg (label=15)
+2026-03-13 13:54:23,927 - INFO - Cluster 08: saved rabbit_10017.jpg (label=29)
+2026-03-13 13:54:23,928 - INFO - Cluster 42: saved dalmatian_10303.jpg (label=5)
+2026-03-13 13:54:23,928 - INFO - Cluster 00: saved tiger_10217.jpg (label=13)
+2026-03-13 13:54:23,928 - INFO - Cluster 02: saved collie_10192.jpg (label=46)
+2026-03-13 13:54:23,929 - INFO - Cluster 08: saved horse_10792.jpg (label=7)
+2026-03-13 13:54:23,929 - INFO - Cluster 08: saved deer_11167.jpg (label=40)
+2026-03-13 13:54:23,930 - INFO - Cluster 45: saved buffalo_10473.jpg (label=37)
+2026-03-13 13:54:23,930 - INFO - Cluster 46: saved seal_10026.jpg (label=24)
+2026-03-13 13:54:23,930 - INFO - Cluster 15: saved giant+panda_10122.jpg (label=39)
+2026-03-13 13:54:23,931 - INFO - Cluster 21: saved polar+bear_10535.jpg (label=45)
+2026-03-13 13:54:23,931 - INFO - Cluster 48: saved giraffe_10442.jpg (label=31)
+2026-03-13 13:54:23,932 - INFO - Cluster 42: saved raccoon_10007.jpg (label=48)
+2026-03-13 13:54:23,932 - INFO - Cluster 22: saved grizzly+bear_10155.jpg (label=2)
+2026-03-13 13:54:23,933 - INFO - Cluster 39: saved buffalo_10603.jpg (label=37)
+2026-03-13 13:54:23,933 - INFO - Cluster 48: saved buffalo_10142.jpg (label=37)
+2026-03-13 13:54:23,934 - INFO - Cluster 41: saved wolf_10435.jpg (label=32)
+2026-03-13 13:54:23,934 - INFO - Cluster 14: saved collie_10311.jpg (label=46)
+2026-03-13 13:54:23,935 - INFO - Cluster 48: saved squirrel_10970.jpg (label=27)
+2026-03-13 13:54:23,936 - INFO - Cluster 19: saved horse_11291.jpg (label=7)
+2026-03-13 13:54:23,936 - INFO - Cluster 21: saved antelope_10003.jpg (label=1)
+2026-03-13 13:54:23,937 - INFO - Cluster 45: saved persian+cat_10483.jpg (label=6)
+2026-03-13 13:54:23,937 - INFO - Cluster 19: saved seal_10697.jpg (label=24)
+2026-03-13 13:54:23,938 - INFO - Cluster 11: saved zebra_10858.jpg (label=38)
+2026-03-13 13:54:23,938 - INFO - Cluster 20: saved bobcat_10295.jpg (label=41)
+2026-03-13 13:54:23,939 - INFO - Cluster 15: saved horse_10274.jpg (label=7)
+2026-03-13 13:54:23,939 - INFO - Cluster 25: saved antelope_10129.jpg (label=1)
+2026-03-13 13:54:23,940 - INFO - Cluster 46: saved dalmatian_10054.jpg (label=5)
+2026-03-13 13:54:23,940 - INFO - Cluster 39: saved raccoon_10479.jpg (label=48)
+2026-03-13 13:54:23,941 - INFO - Cluster 41: saved grizzly+bear_10552.jpg (label=2)
+2026-03-13 13:54:23,941 - INFO - Cluster 19: saved otter_10727.jpg (label=36)
+2026-03-13 13:54:23,942 - INFO - Cluster 46: saved polar+bear_10331.jpg (label=45)
+2026-03-13 13:54:23,943 - INFO - Cluster 34: saved rhinoceros_10199.jpg (label=28)
+2026-03-13 13:54:23,943 - INFO - Cluster 10: saved polar+bear_10112.jpg (label=45)
+2026-03-13 13:54:23,944 - INFO - Cluster 07: saved collie_10508.jpg (label=46)
+2026-03-13 13:54:23,944 - INFO - Cluster 39: saved cow_10080.jpg (label=49)
+2026-03-13 13:54:23,945 - INFO - Cluster 22: saved persian+cat_10671.jpg (label=6)
+2026-03-13 13:54:23,947 - INFO - Cluster 12: saved rhinoceros_10299.jpg (label=28)
+2026-03-13 13:54:23,948 - INFO - Cluster 07: saved seal_10423.jpg (label=24)
+2026-03-13 13:54:23,948 - INFO - Cluster 22: saved leopard_10403.jpg (label=15)
+2026-03-13 13:54:23,955 - INFO - Cluster 12: saved otter_10592.jpg (label=36)
+2026-03-13 13:54:23,956 - INFO - Cluster 25: saved seal_10250.jpg (label=24)
+2026-03-13 13:54:23,958 - INFO - Cluster sample saving complete — results stored in: cluster_samples/deccs_small_20260313_135423
+2026-03-13 13:54:23,963 - INFO - Cluster 00: top attributes -> quadrapedal, furry, walks, oldworld, tail
+2026-03-13 13:54:23,963 - INFO - Cluster 01: top attributes -> quadrapedal, oldworld, ground, tail, timid
+2026-03-13 13:54:23,964 - INFO - Cluster 02: top attributes -> quadrapedal, walks, big, ground, oldworld
+2026-03-13 13:54:23,964 - INFO - Cluster 03: top attributes -> quadrapedal, newworld, furry, walks, brown
+2026-03-13 13:54:23,964 - INFO - Cluster 04: top attributes -> quadrapedal, tail, fast, active, newworld
+2026-03-13 13:54:23,964 - INFO - Cluster 05: top attributes -> quadrapedal, walks, oldworld, big, ground
+2026-03-13 13:54:23,964 - INFO - Cluster 06: top attributes -> quadrapedal, oldworld, walks, ground, fast
+2026-03-13 13:54:23,965 - INFO - Cluster 07: top attributes -> quadrapedal, walks, furry, ground, oldworld
+2026-03-13 13:54:23,965 - INFO - Cluster 08: top attributes -> quadrapedal, furry, newworld, ground, fast
+2026-03-13 13:54:23,965 - INFO - Cluster 09: top attributes -> quadrapedal, big, ground, walks, brown
+2026-03-13 13:54:23,965 - INFO - Cluster 10: top attributes -> quadrapedal, furry, walks, tail, ground
+2026-03-13 13:54:23,965 - INFO - Cluster 11: top attributes -> furry, quadrapedal, walks, oldworld, ground
+2026-03-13 13:54:23,965 - INFO - Cluster 12: top attributes -> tail, quadrapedal, oldworld, newworld, furry
+2026-03-13 13:54:23,966 - INFO - Cluster 13: top attributes -> quadrapedal, tail, walks, big, ground
+2026-03-13 13:54:23,966 - INFO - Cluster 14: top attributes -> quadrapedal, furry, walks, big, ground
+2026-03-13 13:54:23,966 - INFO - Cluster 15: top attributes -> big, strong, oldworld, walks, quadrapedal
+2026-03-13 13:54:23,966 - INFO - Cluster 16: top attributes -> quadrapedal, walks, ground, oldworld, big
+2026-03-13 13:54:23,966 - INFO - Cluster 17: top attributes -> quadrapedal, tail, walks, ground, oldworld
+2026-03-13 13:54:23,966 - INFO - Cluster 18: top attributes -> quadrapedal, walks, ground, newworld, tail
+2026-03-13 13:54:23,966 - INFO - Cluster 19: top attributes -> quadrapedal, fast, oldworld, tail, agility
+2026-03-13 13:54:23,967 - INFO - Cluster 20: top attributes -> quadrapedal, walks, furry, oldworld, ground
+2026-03-13 13:54:23,967 - INFO - Cluster 21: top attributes -> quadrapedal, big, walks, newworld, grazer
+2026-03-13 13:54:23,967 - INFO - Cluster 22: top attributes -> furry, walks, quadrapedal, oldworld, big
+2026-03-13 13:54:23,967 - INFO - Cluster 23: top attributes -> quadrapedal, big, tail, ground, newworld
+2026-03-13 13:54:23,967 - INFO - Cluster 24: top attributes -> oldworld, quadrapedal, furry, walks, tail
+2026-03-13 13:54:23,967 - INFO - Cluster 25: top attributes -> big, quadrapedal, black, ground, tail
+2026-03-13 13:54:23,968 - INFO - Cluster 26: top attributes -> quadrapedal, tail, furry, fast, walks
+2026-03-13 13:54:23,968 - INFO - Cluster 27: top attributes -> quadrapedal, walks, furry, ground, oldworld
+2026-03-13 13:54:23,968 - INFO - Cluster 28: top attributes -> quadrapedal, oldworld, black, fast, tail
+2026-03-13 13:54:23,968 - INFO - Cluster 29: top attributes -> quadrapedal, big, walks, furry, oldworld
+2026-03-13 13:54:23,968 - INFO - Cluster 30: top attributes -> quadrapedal, big, furry, walks, ground
+2026-03-13 13:54:23,968 - INFO - Cluster 31: top attributes -> oldworld, tail, quadrapedal, ground, black
+2026-03-13 13:54:23,968 - INFO - Cluster 32: top attributes -> quadrapedal, walks, ground, oldworld, big
+2026-03-13 13:54:23,969 - INFO - Cluster 33: top attributes -> quadrapedal, oldworld, walks, ground, tail
+2026-03-13 13:54:23,969 - INFO - Cluster 34: top attributes -> quadrapedal, fast, oldworld, ground, walks
+2026-03-13 13:54:23,969 - INFO - Cluster 35: top attributes -> quadrapedal, newworld, walks, brown, fast
+2026-03-13 13:54:23,969 - INFO - Cluster 36: top attributes -> furry, quadrapedal, walks, ground, fast
+2026-03-13 13:54:23,969 - INFO - Cluster 37: top attributes -> quadrapedal, furry, walks, ground, oldworld
+2026-03-13 13:54:23,969 - INFO - Cluster 38: top attributes -> quadrapedal, walks, big, ground, oldworld
+2026-03-13 13:54:23,969 - INFO - Cluster 39: top attributes -> quadrapedal, walks, brown, furry, ground
+2026-03-13 13:54:23,970 - INFO - Cluster 40: top attributes -> big, quadrapedal, walks, oldworld, strong
+2026-03-13 13:54:23,970 - INFO - Cluster 41: top attributes -> quadrapedal, furry, walks, oldworld, black
+2026-03-13 13:54:23,970 - INFO - Cluster 42: top attributes -> quadrapedal, walks, big, newworld, ground
+2026-03-13 13:54:23,970 - INFO - Cluster 43: top attributes -> quadrapedal, big, walks, ground, oldworld
+2026-03-13 13:54:23,970 - INFO - Cluster 44: top attributes -> quadrapedal, walks, ground, oldworld, vegetation
+2026-03-13 13:54:23,970 - INFO - Cluster 45: top attributes -> quadrapedal, furry, walks, newworld, ground
+2026-03-13 13:54:23,970 - INFO - Cluster 46: top attributes -> quadrapedal, furry, newworld, walks, ground
+2026-03-13 13:54:23,970 - INFO - Cluster 47: top attributes -> fast, quadrapedal, furry, ground, tail
+2026-03-13 13:54:23,971 - INFO - Cluster 48: top attributes -> quadrapedal, walks, big, newworld, oldworld
+2026-03-13 13:54:23,971 - INFO - Cluster 49: top attributes -> oldworld, quadrapedal, ground, big, furry
+2026-03-13 13:54:23,974 - INFO - Results saved to results_deccs_small.json
+2026-03-13 13:54:23,974 - INFO - Experiment 'deccs_small' complete. Results saved to results_deccs_small.json
+2026-03-13 13:54:23,975 - INFO - Summary written to results_deccs_small_summary.json
+2026-03-13 13:54:24,164 - INFO - [Plot] Saved loss curve - ./results_deccs_small_loss.png
+2026-03-13 13:54:24,419 - INFO - [Plot] Saved PCA scatter - ./results_deccs_small_pca.png
+2026-03-13 13:54:24,420 - WARNING - Cluster descriptions loaded as list — converting to dictionary format.
+2026-03-13 13:54:26,696 - INFO - Total time: 156.55s
+
+Cluster 1: showing 3 samples
+  - Image: AwA2-sample/JPEGImages/elephant/elephant_10288.jpg | Label: 19
+  - Image: AwA2-sample/JPEGImages/antelope/antelope_10772.jpg | Label: 1
+  - Image: AwA2-sample/JPEGImages/humpback+whale/humpback+whale_10545.jpg | Label: 18
+
+Cluster 22: showing 3 samples
+  - Image: AwA2-sample/JPEGImages/giant+panda/giant+panda_10510.jpg | Label: 39
+  - Image: AwA2-sample/JPEGImages/antelope/antelope_11031.jpg | Label: 1
+  - Image: AwA2-sample/JPEGImages/gorilla/gorilla_10073.jpg | Label: 20
+
+Cluster 9: showing 3 samples
+  - Image: AwA2-sample/JPEGImages/cow/cow_10028.jpg | Label: 49
+  - Image: AwA2-sample/JPEGImages/collie/collie_11006.jpg | Label: 46
+  - Image: AwA2-sample/JPEGImages/weasel/weasel_10119.jpg | Label: 35
+[INFO] t-SNE plot saved to results_deccs_small_tsne.png
+2026-03-13 13:54:32,426 - INFO - Using CPU
+2026-03-13 13:54:32,427 - INFO - === Running mode: AE | arch: RESNET ===
+2026-03-13 13:54:33,556 - INFO - Sample of 1000 images created in AwA2-sample/JPEGImages
+2026-03-13 13:54:33,556 - INFO - Sample labels file created at AwA2-sample/AwA2-labels.txt
+2026-03-13 13:54:33,564 - INFO - Mean per-class tag variance: 0.000000
+2026-03-13 13:54:33,564 - INFO - Dataset created with 800 samples.
+2026-03-13 13:54:33,564 - INFO - Architecture: resnet
+2026-03-13 13:54:34,521 - INFO - ResNet AE mode: skipping training (frozen backbone, no decoder)
+2026-03-13 13:54:34,523 - INFO - Model params: 45,123,136 total, 2,622,976 trainable
+2026-03-13 13:54:34,523 - INFO - Skipping training (frozen encoder, no trainable loss).
+/home/benabed/.pyenv/versions/3.13.3/lib/python3.13/site-packages/torch/utils/data/dataloader.py:1118: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.
+  super().__init__(loader)
+2026-03-13 13:59:28,670 - INFO - Total extracted embeddings shape: torch.Size([800, 512])
+2026-03-13 13:59:28,698 - INFO - Running DECCS-style ensemble clustering with 49 clusters...
+2026-03-13 13:59:29,062 - INFO - [DECCS] Classical base clustering 'KMeans' completed.
+2026-03-13 13:59:29,062 - INFO - Base clustering 'KMeans' completed in 0.32s
+2026-03-13 13:59:29,990 - INFO - [DECCS] Classical base clustering 'Spectral' completed.
+2026-03-13 13:59:29,990 - INFO - Base clustering 'Spectral' completed in 0.93s
+2026-03-13 13:59:34,815 - INFO - [DECCS] Classical base clustering 'GMM' completed.
+2026-03-13 13:59:34,816 - INFO - Base clustering 'GMM' completed in 4.83s
+2026-03-13 13:59:35,042 - INFO - [DECCS] Classical base clustering 'Agglomerative' completed.
+2026-03-13 13:59:35,043 - INFO - Base clustering 'Agglomerative' completed in 0.23s
+2026-03-13 13:59:35,043 - INFO - [DECCS] 4 base clusterings successful. Shape=(4, 800)
+/home/benabed/.pyenv/versions/3.13.3/lib/python3.13/site-packages/sklearn/manifold/_spectral_embedding.py:324: UserWarning: Graph is not fully connected, spectral embedding may not work as expected.
+  warnings.warn(
+2026-03-13 13:59:35,535 - INFO - [] ACC=0.1200, ARI=0.0031, NMI=0.2990, Sil=0.1323
+2026-03-13 13:59:49,415 - INFO - Cluster 45: saved grizzly+bear_10381.jpg (label=2)
+2026-03-13 13:59:49,415 - INFO - Cluster 06: saved hippopotamus_10219.jpg (label=14)
+2026-03-13 13:59:49,415 - INFO - Cluster 01: saved chihuahua_10469.jpg (label=33)
+2026-03-13 13:59:49,416 - INFO - Cluster 48: saved ox_10673.jpg (label=21)
+2026-03-13 13:59:49,416 - INFO - Cluster 26: saved grizzly+bear_10530.jpg (label=2)
+2026-03-13 13:59:49,418 - INFO - Cluster 37: saved moose_10403.jpg (label=16)
+2026-03-13 13:59:49,418 - INFO - Cluster 41: saved leopard_10314.jpg (label=15)
+2026-03-13 13:59:49,418 - INFO - Cluster 29: saved otter_10180.jpg (label=36)
+2026-03-13 13:59:49,419 - INFO - Cluster 01: saved grizzly+bear_10106.jpg (label=2)
+2026-03-13 13:59:49,419 - INFO - Cluster 42: saved cow_11081.jpg (label=49)
+2026-03-13 13:59:49,420 - INFO - Cluster 35: saved ox_10191.jpg (label=21)
+2026-03-13 13:59:49,421 - INFO - Cluster 34: saved rabbit_10844.jpg (label=29)
+2026-03-13 13:59:49,422 - INFO - Cluster 30: saved squirrel_10400.jpg (label=27)
+2026-03-13 13:59:49,423 - INFO - Cluster 16: saved elephant_10277.jpg (label=19)
+2026-03-13 13:59:49,423 - INFO - Cluster 37: saved persian+cat_10032.jpg (label=6)
+2026-03-13 13:59:49,423 - INFO - Cluster 31: saved buffalo_10509.jpg (label=37)
+2026-03-13 13:59:49,424 - INFO - Cluster 25: saved giant+panda_10430.jpg (label=39)
+2026-03-13 13:59:49,425 - INFO - Cluster 00: saved seal_10089.jpg (label=24)
+2026-03-13 13:59:49,426 - INFO - Cluster 39: saved zebra_10913.jpg (label=38)
+2026-03-13 13:59:49,427 - INFO - Cluster 22: saved deer_10104.jpg (label=40)
+2026-03-13 13:59:49,427 - INFO - Cluster 25: saved hamster_10612.jpg (label=26)
+2026-03-13 13:59:49,428 - INFO - Cluster 09: saved cow_11141.jpg (label=49)
+2026-03-13 13:59:49,429 - INFO - Cluster 43: saved raccoon_10386.jpg (label=48)
+2026-03-13 13:59:49,430 - INFO - Cluster 44: saved hippopotamus_10476.jpg (label=14)
+2026-03-13 13:59:49,431 - INFO - Cluster 32: saved wolf_10587.jpg (label=32)
+2026-03-13 13:59:49,432 - INFO - Cluster 39: saved elephant_10735.jpg (label=19)
+2026-03-13 13:59:49,433 - INFO - Cluster 31: saved rhinoceros_10617.jpg (label=28)
+2026-03-13 13:59:49,433 - INFO - Cluster 30: saved wolf_10106.jpg (label=32)
+2026-03-13 13:59:49,433 - INFO - Cluster 28: saved lion_10810.jpg (label=43)
+2026-03-13 13:59:49,434 - INFO - Cluster 38: saved rabbit_10959.jpg (label=29)
+2026-03-13 13:59:49,434 - INFO - Cluster 34: saved gorilla_10418.jpg (label=20)
+2026-03-13 13:59:49,434 - INFO - Cluster 12: saved chimpanzee_10085.jpg (label=25)
+2026-03-13 13:59:49,435 - INFO - Cluster 17: saved rhinoceros_10494.jpg (label=28)
+2026-03-13 13:59:49,435 - INFO - Cluster 32: saved wolf_10052.jpg (label=32)
+2026-03-13 13:59:49,436 - INFO - Cluster 30: saved wolf_10051.jpg (label=32)
+2026-03-13 13:59:49,436 - INFO - Cluster 26: saved deer_10451.jpg (label=40)
+2026-03-13 13:59:49,437 - INFO - Cluster 31: saved tiger_10618.jpg (label=13)
+2026-03-13 13:59:49,438 - INFO - Cluster 38: saved sheep_10324.jpg (label=23)
+2026-03-13 13:59:49,439 - INFO - Cluster 34: saved dolphin_10364.jpg (label=50)
+2026-03-13 13:59:49,439 - INFO - Cluster 23: saved raccoon_10166.jpg (label=48)
+2026-03-13 13:59:49,443 - INFO - Cluster 21: saved horse_10194.jpg (label=7)
+2026-03-13 13:59:49,444 - INFO - Cluster 41: saved lion_10452.jpg (label=43)
+2026-03-13 13:59:49,445 - INFO - Cluster 45: saved squirrel_10057.jpg (label=27)
+2026-03-13 13:59:49,446 - INFO - Cluster 14: saved chimpanzee_10646.jpg (label=25)
+2026-03-13 13:59:49,447 - INFO - Cluster 45: saved wolf_10193.jpg (label=32)
+2026-03-13 13:59:49,447 - INFO - Cluster 18: saved ox_10715.jpg (label=21)
+2026-03-13 13:59:49,449 - INFO - Cluster 21: saved rabbit_10953.jpg (label=29)
+2026-03-13 13:59:49,450 - INFO - Cluster 33: saved antelope_10861.jpg (label=1)
+2026-03-13 13:59:49,450 - INFO - Cluster 15: saved pig_10562.jpg (label=42)
+2026-03-13 13:59:49,450 - INFO - Cluster 00: saved rabbit_10504.jpg (label=29)
+2026-03-13 13:59:49,451 - INFO - Cluster 37: saved buffalo_10365.jpg (label=37)
+2026-03-13 13:59:49,452 - INFO - Cluster 32: saved cow_10698.jpg (label=49)
+2026-03-13 13:59:49,452 - INFO - Cluster 11: saved giraffe_10484.jpg (label=31)
+2026-03-13 13:59:49,453 - INFO - Cluster 43: saved humpback+whale_10685.jpg (label=18)
+2026-03-13 13:59:49,454 - INFO - Cluster 40: saved sheep_11044.jpg (label=23)
+2026-03-13 13:59:49,454 - INFO - Cluster 06: saved bat_10270.jpg (label=30)
+2026-03-13 13:59:49,455 - INFO - Cluster 02: saved sheep_10924.jpg (label=23)
+2026-03-13 13:59:49,457 - INFO - Cluster 03: saved giraffe_10931.jpg (label=31)
+2026-03-13 13:59:49,457 - INFO - Cluster 12: saved rhinoceros_10648.jpg (label=28)
+2026-03-13 13:59:49,457 - INFO - Cluster 35: saved horse_10159.jpg (label=7)
+2026-03-13 13:59:49,458 - INFO - Cluster 01: saved horse_10934.jpg (label=7)
+2026-03-13 13:59:49,458 - INFO - Cluster 27: saved bat_10072.jpg (label=30)
+2026-03-13 13:59:49,459 - INFO - Cluster 26: saved ox_10629.jpg (label=21)
+2026-03-13 13:59:49,459 - INFO - Cluster 42: saved otter_10655.jpg (label=36)
+2026-03-13 13:59:49,460 - INFO - Cluster 38: saved sheep_10286.jpg (label=23)
+2026-03-13 13:59:49,460 - INFO - Cluster 18: saved rat_10182.jpg (label=34)
+2026-03-13 13:59:49,460 - INFO - Cluster 25: saved sheep_10898.jpg (label=23)
+2026-03-13 13:59:49,462 - INFO - Cluster 35: saved lion_10089.jpg (label=43)
+2026-03-13 13:59:49,463 - INFO - Cluster 20: saved squirrel_10742.jpg (label=27)
+2026-03-13 13:59:49,464 - INFO - Cluster 36: saved fox_10583.jpg (label=22)
+2026-03-13 13:59:49,465 - INFO - Cluster 15: saved antelope_10704.jpg (label=1)
+2026-03-13 13:59:49,465 - INFO - Cluster 17: saved wolf_10334.jpg (label=32)
+2026-03-13 13:59:49,465 - INFO - Cluster 09: saved squirrel_10143.jpg (label=27)
+2026-03-13 13:59:49,466 - INFO - Cluster 43: saved giraffe_10919.jpg (label=31)
+2026-03-13 13:59:49,467 - INFO - Cluster 11: saved cow_10826.jpg (label=49)
+2026-03-13 13:59:49,467 - INFO - Cluster 14: saved cow_10746.jpg (label=49)
+2026-03-13 13:59:49,468 - INFO - Cluster 28: saved german+shepherd_10908.jpg (label=8)
+2026-03-13 13:59:49,469 - INFO - Cluster 36: saved horse_10078.jpg (label=7)
+2026-03-13 13:59:49,469 - INFO - Cluster 18: saved sheep_10137.jpg (label=23)
+2026-03-13 13:59:49,470 - INFO - Cluster 42: saved polar+bear_10865.jpg (label=45)
+2026-03-13 13:59:49,471 - INFO - Cluster 15: saved leopard_10033.jpg (label=15)
+2026-03-13 13:59:49,471 - INFO - Cluster 21: saved fox_10190.jpg (label=22)
+2026-03-13 13:59:49,472 - INFO - Cluster 17: saved cow_10356.jpg (label=49)
+2026-03-13 13:59:49,473 - INFO - Cluster 46: saved dolphin_10286.jpg (label=50)
+2026-03-13 13:59:49,474 - INFO - Cluster 33: saved hamster_10374.jpg (label=26)
+2026-03-13 13:59:49,475 - INFO - Cluster 11: saved pig_10284.jpg (label=42)
+2026-03-13 13:59:49,476 - INFO - Cluster 36: saved leopard_10320.jpg (label=15)
+2026-03-13 13:59:49,477 - INFO - Cluster 24: saved moose_10218.jpg (label=16)
+2026-03-13 13:59:49,477 - INFO - Cluster 03: saved giant+panda_10356.jpg (label=39)
+2026-03-13 13:59:49,478 - INFO - Cluster 27: saved hamster_10762.jpg (label=26)
+2026-03-13 13:59:49,479 - INFO - Cluster 39: saved grizzly+bear_10522.jpg (label=2)
+2026-03-13 13:59:49,480 - INFO - Cluster 08: saved seal_10851.jpg (label=24)
+2026-03-13 13:59:49,481 - INFO - Cluster 10: saved german+shepherd_10494.jpg (label=8)
+2026-03-13 13:59:49,481 - INFO - Cluster 24: saved squirrel_10717.jpg (label=27)
+2026-03-13 13:59:49,482 - INFO - Cluster 44: saved horse_11451.jpg (label=7)
+2026-03-13 13:59:49,482 - INFO - Cluster 03: saved walrus_10139.jpg (label=47)
+2026-03-13 13:59:49,483 - INFO - Cluster 04: saved hamster_10129.jpg (label=26)
+2026-03-13 13:59:49,483 - INFO - Cluster 33: saved raccoon_10116.jpg (label=48)
+2026-03-13 13:59:49,484 - INFO - Cluster 28: saved horse_11160.jpg (label=7)
+2026-03-13 13:59:49,485 - INFO - Cluster 14: saved hippopotamus_10184.jpg (label=14)
+2026-03-13 13:59:49,485 - INFO - Cluster 12: saved zebra_10361.jpg (label=38)
+2026-03-13 13:59:49,486 - INFO - Cluster 40: saved giraffe_10438.jpg (label=31)
+2026-03-13 13:59:49,488 - INFO - Cluster 29: saved antelope_10131.jpg (label=1)
+2026-03-13 13:59:49,490 - INFO - Cluster 13: saved otter_10540.jpg (label=36)
+2026-03-13 13:59:49,491 - INFO - Cluster 19: saved collie_10094.jpg (label=46)
+2026-03-13 13:59:49,491 - INFO - Cluster 10: saved bobcat_10042.jpg (label=41)
+2026-03-13 13:59:49,493 - INFO - Cluster 00: saved elephant_10010.jpg (label=19)
+2026-03-13 13:59:49,494 - INFO - Cluster 40: saved antelope_10450.jpg (label=1)
+2026-03-13 13:59:49,495 - INFO - Cluster 41: saved horse_10743.jpg (label=7)
+2026-03-13 13:59:49,495 - INFO - Cluster 09: saved moose_10650.jpg (label=16)
+2026-03-13 13:59:49,496 - INFO - Cluster 22: saved chimpanzee_10372.jpg (label=25)
+2026-03-13 13:59:49,496 - INFO - Cluster 16: saved ox_10568.jpg (label=21)
+2026-03-13 13:59:49,497 - INFO - Cluster 20: saved dolphin_10142.jpg (label=50)
+2026-03-13 13:59:49,497 - INFO - Cluster 19: saved bat_10238.jpg (label=30)
+2026-03-13 13:59:49,498 - INFO - Cluster 19: saved seal_10436.jpg (label=24)
+2026-03-13 13:59:49,498 - INFO - Cluster 23: saved siamese+cat_10351.jpg (label=10)
+2026-03-13 13:59:49,499 - INFO - Cluster 20: saved humpback+whale_10150.jpg (label=18)
+2026-03-13 13:59:49,499 - INFO - Cluster 13: saved zebra_10456.jpg (label=38)
+2026-03-13 13:59:49,499 - INFO - Cluster 24: saved german+shepherd_10589.jpg (label=8)
+2026-03-13 13:59:49,500 - INFO - Cluster 06: saved squirrel_10221.jpg (label=27)
+2026-03-13 13:59:49,500 - INFO - Cluster 22: saved sheep_11377.jpg (label=23)
+2026-03-13 13:59:49,500 - INFO - Cluster 27: saved bobcat_10114.jpg (label=41)
+2026-03-13 13:59:49,501 - INFO - Cluster 07: saved antelope_10920.jpg (label=1)
+2026-03-13 13:59:49,501 - INFO - Cluster 16: saved tiger_10627.jpg (label=13)
+2026-03-13 13:59:49,503 - INFO - Cluster 46: saved ox_10220.jpg (label=21)
+2026-03-13 13:59:49,503 - INFO - Cluster 04: saved horse_11147.jpg (label=7)
+2026-03-13 13:59:49,503 - INFO - Cluster 04: saved horse_10139.jpg (label=7)
+2026-03-13 13:59:49,505 - INFO - Cluster 44: saved dalmatian_10415.jpg (label=5)
+2026-03-13 13:59:49,505 - INFO - Cluster 29: saved rabbit_10240.jpg (label=29)
+2026-03-13 13:59:49,506 - INFO - Cluster 23: saved fox_10380.jpg (label=22)
+2026-03-13 13:59:49,508 - INFO - Cluster 13: saved giraffe_10173.jpg (label=31)
+2026-03-13 13:59:49,509 - INFO - Cluster 10: saved elephant_10243.jpg (label=19)
+2026-03-13 13:59:49,509 - INFO - Cluster 05: saved ox_10241.jpg (label=21)
+2026-03-13 13:59:49,509 - INFO - Cluster 07: saved hamster_10397.jpg (label=26)
+2026-03-13 13:59:49,512 - INFO - Cluster 48: saved leopard_10181.jpg (label=15)
+2026-03-13 13:59:49,512 - INFO - Cluster 02: saved zebra_10661.jpg (label=38)
+2026-03-13 13:59:49,513 - INFO - Cluster 48: saved giraffe_10031.jpg (label=31)
+2026-03-13 13:59:49,516 - INFO - Cluster 02: saved wolf_10529.jpg (label=32)
+2026-03-13 13:59:49,518 - INFO - Cluster 46: saved buffalo_10044.jpg (label=37)
+2026-03-13 13:59:49,519 - INFO - Cluster 05: saved chimpanzee_10579.jpg (label=25)
+2026-03-13 13:59:49,521 - INFO - Cluster 47: saved hamster_10271.jpg (label=26)
+2026-03-13 13:59:49,522 - INFO - Cluster 08: saved leopard_10461.jpg (label=15)
+2026-03-13 13:59:49,524 - INFO - Cluster 08: saved killer+whale_10194.jpg (label=3)
+2026-03-13 13:59:49,525 - INFO - Cluster sample saving complete — results stored in: cluster_samples/ae_resnet_20260313_135949
+2026-03-13 13:59:49,526 - INFO - Cluster 00: top attributes -> quadrapedal, oldworld, ground, tail, furry
+2026-03-13 13:59:49,526 - INFO - Cluster 01: top attributes -> quadrapedal, tail, oldworld, walks, ground
+2026-03-13 13:59:49,527 - INFO - Cluster 02: top attributes -> quadrapedal, group, oldworld, ground, white
+2026-03-13 13:59:49,527 - INFO - Cluster 03: top attributes -> big, oldworld, strong, quadrapedal, walks
+2026-03-13 13:59:49,527 - INFO - Cluster 04: top attributes -> quadrapedal, furry, newworld, walks, oldworld
+2026-03-13 13:59:49,527 - INFO - Cluster 05: top attributes -> walks, strong, oldworld, vegetation, quadrapedal
+2026-03-13 13:59:49,527 - INFO - Cluster 06: top attributes -> oldworld, fast, brown, tail, quadrapedal
+2026-03-13 13:59:49,528 - INFO - Cluster 07: top attributes -> quadrapedal, ground, furry, vegetation, walks
+2026-03-13 13:59:49,528 - INFO - Cluster 08: top attributes -> black, swims, big, fast, ocean
+2026-03-13 13:59:49,528 - INFO - Cluster 09: top attributes -> quadrapedal, walks, ground, newworld, oldworld
+2026-03-13 13:59:49,528 - INFO - Cluster 10: top attributes -> quadrapedal, walks, ground, oldworld, big
+2026-03-13 13:59:49,528 - INFO - Cluster 11: top attributes -> quadrapedal, oldworld, walks, ground, tail
+2026-03-13 13:59:49,528 - INFO - Cluster 12: top attributes -> quadrapedal, oldworld, fast, walks, furry
+2026-03-13 13:59:49,528 - INFO - Cluster 13: top attributes -> quadrapedal, oldworld, walks, vegetation, ground
+2026-03-13 13:59:49,528 - INFO - Cluster 14: top attributes -> quadrapedal, walks, furry, oldworld, newworld
+2026-03-13 13:59:49,529 - INFO - Cluster 15: top attributes -> quadrapedal, fast, big, tail, oldworld
+2026-03-13 13:59:49,529 - INFO - Cluster 16: top attributes -> quadrapedal, walks, ground, strong, big
+2026-03-13 13:59:49,529 - INFO - Cluster 17: top attributes -> quadrapedal, furry, brown, walks, ground
+2026-03-13 13:59:49,529 - INFO - Cluster 18: top attributes -> quadrapedal, ground, walks, furry, oldworld
+2026-03-13 13:59:49,529 - INFO - Cluster 19: top attributes -> furry, quadrapedal, newworld, ground, brown
+2026-03-13 13:59:49,529 - INFO - Cluster 20: top attributes -> quadrapedal, oldworld, vegetation, walks, tail
+2026-03-13 13:59:49,529 - INFO - Cluster 21: top attributes -> quadrapedal, ground, tail, fast, walks
+2026-03-13 13:59:49,529 - INFO - Cluster 22: top attributes -> quadrapedal, walks, fast, furry, ground
+2026-03-13 13:59:49,529 - INFO - Cluster 23: top attributes -> quadrapedal, furry, tail, walks, fast
+2026-03-13 13:59:49,530 - INFO - Cluster 24: top attributes -> quadrapedal, ground, newworld, walks, furry
+2026-03-13 13:59:49,530 - INFO - Cluster 25: top attributes -> quadrapedal, furry, walks, ground, newworld
+2026-03-13 13:59:49,530 - INFO - Cluster 26: top attributes -> quadrapedal, walks, big, ground, oldworld
+2026-03-13 13:59:49,530 - INFO - Cluster 27: top attributes -> group, quadrapedal, black, newworld, oldworld
+2026-03-13 13:59:49,530 - INFO - Cluster 28: top attributes -> fast, quadrapedal, tail, ground, oldworld
+2026-03-13 13:59:49,530 - INFO - Cluster 29: top attributes -> furry, quadrapedal, fast, walks, newworld
+2026-03-13 13:59:49,530 - INFO - Cluster 30: top attributes -> quadrapedal, furry, newworld, ground, tail
+2026-03-13 13:59:49,530 - INFO - Cluster 31: top attributes -> quadrapedal, walks, oldworld, furry, ground
+2026-03-13 13:59:49,531 - INFO - Cluster 32: top attributes -> quadrapedal, furry, walks, ground, oldworld
+2026-03-13 13:59:49,531 - INFO - Cluster 33: top attributes -> quadrapedal, ground, walks, tail, brown
+2026-03-13 13:59:49,531 - INFO - Cluster 34: top attributes -> quadrapedal, furry, walks, tail, newworld
+2026-03-13 13:59:49,531 - INFO - Cluster 35: top attributes -> quadrapedal, walks, furry, ground, tail
+2026-03-13 13:59:49,531 - INFO - Cluster 36: top attributes -> quadrapedal, walks, big, ground, oldworld
+2026-03-13 13:59:49,531 - INFO - Cluster 37: top attributes -> furry, quadrapedal, walks, oldworld, ground
+2026-03-13 13:59:49,531 - INFO - Cluster 38: top attributes -> quadrapedal, walks, oldworld, furry, big
+2026-03-13 13:59:49,531 - INFO - Cluster 39: top attributes -> quadrapedal, walks, big, oldworld, ground
+2026-03-13 13:59:49,531 - INFO - Cluster 40: top attributes -> quadrapedal, walks, ground, fast, furry
+2026-03-13 13:59:49,532 - INFO - Cluster 41: top attributes -> quadrapedal, fast, tail, oldworld, big
+2026-03-13 13:59:49,532 - INFO - Cluster 42: top attributes -> quadrapedal, walks, oldworld, ground, big
+2026-03-13 13:59:49,532 - INFO - Cluster 43: top attributes -> quadrapedal, furry, walks, big, newworld
+2026-03-13 13:59:49,532 - INFO - Cluster 44: top attributes -> quadrapedal, big, tail, walks, strong
+2026-03-13 13:59:49,532 - INFO - Cluster 45: top attributes -> big, quadrapedal, oldworld, walks, strong
+2026-03-13 13:59:49,532 - INFO - Cluster 46: top attributes -> big, strong, quadrapedal, newworld, walks
+2026-03-13 13:59:49,532 - INFO - Cluster 47: top attributes -> furry, small, quadrapedal, domestic, ground
+2026-03-13 13:59:49,533 - INFO - Cluster 48: top attributes -> quadrapedal, big, walks, oldworld, ground
+2026-03-13 13:59:49,536 - INFO - Results saved to results_ae_resnet.json
+2026-03-13 13:59:49,536 - INFO - Experiment 'ae_resnet' complete. Results saved to results_ae_resnet.json
+2026-03-13 13:59:49,537 - INFO - Summary written to results_ae_resnet_summary.json
+2026-03-13 13:59:49,886 - INFO - [Plot] Saved PCA scatter - ./results_ae_resnet_pca.png
+2026-03-13 13:59:49,891 - WARNING - Cluster descriptions loaded as list — converting to dictionary format.
+2026-03-13 13:59:51,757 - INFO - Total time: 317.23s
+
+Cluster 32: showing 3 samples
+  - Image: AwA2-sample/JPEGImages/weasel/weasel_10234.jpg | Label: 35
+  - Image: AwA2-sample/JPEGImages/buffalo/buffalo_10847.jpg | Label: 37
+  - Image: AwA2-sample/JPEGImages/hamster/hamster_10703.jpg | Label: 26
+
+Cluster 1: showing 3 samples
+  - Image: AwA2-sample/JPEGImages/beaver/beaver_10163.jpg | Label: 4
+  - Image: AwA2-sample/JPEGImages/dolphin/dolphin_10085.jpg | Label: 50
+  - Image: AwA2-sample/JPEGImages/rat/rat_10088.jpg | Label: 34
+
+Cluster 34: showing 3 samples
+  - Image: AwA2-sample/JPEGImages/wolf/wolf_10367.jpg | Label: 32
+  - Image: AwA2-sample/JPEGImages/persian+cat/persian+cat_10192.jpg | Label: 6
+  - Image: AwA2-sample/JPEGImages/buffalo/buffalo_10877.jpg | Label: 37
+[INFO] t-SNE plot saved to results_ae_resnet_tsne.png
+2026-03-13 13:59:58,281 - INFO - Using CPU
+2026-03-13 13:59:58,283 - INFO - === Running mode: CAE | arch: RESNET ===
+2026-03-13 13:59:59,516 - INFO - Sample of 1000 images created in AwA2-sample/JPEGImages
+2026-03-13 13:59:59,516 - INFO - Sample labels file created at AwA2-sample/AwA2-labels.txt
+2026-03-13 13:59:59,523 - INFO - Mean per-class tag variance: 0.000000
+2026-03-13 13:59:59,524 - INFO - Dataset created with 800 samples.
+2026-03-13 13:59:59,524 - INFO - Architecture: resnet
+2026-03-13 14:00:00,367 - INFO - Model params: 45,166,741 total, 2,666,581 trainable
+2026-03-13 14:00:00,367 - INFO - Epoch 1/10 started.
+Training:   0%|          | 0/4 [00:00<?, ?it/s]/home/benabed/.pyenv/versions/3.13.3/lib/python3.13/site-packages/torch/utils/data/dataloader.py:1118: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.
+  super().__init__(loader)
+2026-03-13 14:01:12,272 - INFO - Model produces embeddings — using tag-only loss (no reconstruction)
+Training:  25%|██▌       | 1/4 [01:11<03:35, 71.95s/it]Training:  50%|█████     | 2/4 [02:22<02:22, 71.22s/it]Training:  75%|███████▌  | 3/4 [03:38<01:13, 73.13s/it]Training: 100%|██████████| 4/4 [03:46<00:00, 47.60s/it]Training: 100%|██████████| 4/4 [03:46<00:00, 56.63s/it]
+2026-03-13 14:03:46,902 - INFO - Recon=0.0000, Tag=0.5890, Total=0.2945
+2026-03-13 14:03:46,908 - INFO - Epoch 1/10 completed. Recon=0.0000, Tag=0.5890, Total=0.2945
+2026-03-13 14:03:46,908 - INFO - Epoch time: 226.54s
+2026-03-13 14:03:46,908 - INFO - Epoch 2/10 started.
+Training:   0%|          | 0/4 [00:00<?, ?it/s]2026-03-13 14:05:06,670 - INFO - Model produces embeddings — using tag-only loss (no reconstruction)
+Training:  25%|██▌       | 1/4 [01:19<03:59, 79.79s/it]Training:  50%|█████     | 2/4 [02:40<02:41, 80.56s/it]Training:  75%|███████▌  | 3/4 [03:57<01:18, 78.79s/it]Training: 100%|██████████| 4/4 [04:06<00:00, 51.26s/it]Training: 100%|██████████| 4/4 [04:06<00:00, 61.66s/it]
+2026-03-13 14:07:53,565 - INFO - Recon=0.0000, Tag=0.5107, Total=0.2554
+2026-03-13 14:07:53,569 - INFO - Epoch 2/10 completed. Recon=0.0000, Tag=0.5107, Total=0.2554
+2026-03-13 14:07:53,569 - INFO - Epoch time: 473.20s
+2026-03-13 14:07:53,569 - INFO - Epoch 3/10 started.
+Training:   0%|          | 0/4 [00:00<?, ?it/s]2026-03-13 14:09:16,086 - INFO - Model produces embeddings — using tag-only loss (no reconstruction)
+Training:  25%|██▌       | 1/4 [01:22<04:07, 82.55s/it]Training:  50%|█████     | 2/4 [02:40<02:40, 80.14s/it]Training:  75%|███████▌  | 3/4 [04:14<01:26, 86.17s/it]Training: 100%|██████████| 4/4 [04:25<00:00, 56.63s/it]Training: 100%|██████████| 4/4 [04:25<00:00, 66.42s/it]
+2026-03-13 14:12:19,275 - INFO - Recon=0.0000, Tag=0.4917, Total=0.2459
+2026-03-13 14:12:19,282 - INFO - Epoch 3/10 completed. Recon=0.0000, Tag=0.4917, Total=0.2459
+2026-03-13 14:12:19,283 - INFO - Epoch time: 738.92s
+2026-03-13 14:12:19,283 - INFO - Epoch 4/10 started.
+Training:   0%|          | 0/4 [00:00<?, ?it/s]2026-03-13 14:13:38,699 - INFO - Model produces embeddings — using tag-only loss (no reconstruction)
+Training:  25%|██▌       | 1/4 [01:19<03:58, 79.47s/it]Training:  50%|█████     | 2/4 [02:38<02:38, 79.08s/it]Training:  75%|███████▌  | 3/4 [03:50<01:15, 75.75s/it]Training: 100%|██████████| 4/4 [03:58<00:00, 49.11s/it]Training: 100%|██████████| 4/4 [03:58<00:00, 59.58s/it]
+2026-03-13 14:16:17,631 - INFO - Recon=0.0000, Tag=0.4689, Total=0.2345
+2026-03-13 14:16:17,636 - INFO - Epoch 4/10 completed. Recon=0.0000, Tag=0.4689, Total=0.2345
+2026-03-13 14:16:17,636 - INFO - Epoch time: 977.27s
+2026-03-13 14:16:17,636 - INFO - Epoch 5/10 started.
+Training:   0%|          | 0/4 [00:00<?, ?it/s]2026-03-13 14:17:49,924 - INFO - Model produces embeddings — using tag-only loss (no reconstruction)
+Training:  25%|██▌       | 1/4 [01:32<04:37, 92.35s/it]Training:  50%|█████     | 2/4 [02:53<02:50, 85.48s/it]Training:  75%|███████▌  | 3/4 [04:11<01:22, 82.21s/it]Training: 100%|██████████| 4/4 [04:21<00:00, 53.72s/it]Training: 100%|██████████| 4/4 [04:21<00:00, 65.34s/it]
+2026-03-13 14:20:39,026 - INFO - Recon=0.0000, Tag=0.4534, Total=0.2267
+2026-03-13 14:20:39,032 - INFO - Epoch 5/10 completed. Recon=0.0000, Tag=0.4534, Total=0.2267
+2026-03-13 14:20:39,032 - INFO - Epoch time: 1238.66s
+2026-03-13 14:20:39,032 - INFO - Epoch 6/10 started.
+Training:   0%|          | 0/4 [00:00<?, ?it/s]2026-03-13 14:21:54,463 - INFO - Model produces embeddings — using tag-only loss (no reconstruction)
+Training:  25%|██▌       | 1/4 [01:15<03:46, 75.49s/it]Training:  50%|█████     | 2/4 [02:31<02:32, 76.03s/it]Training:  75%|███████▌  | 3/4 [03:52<01:18, 78.14s/it]Training: 100%|██████████| 4/4 [04:03<00:00, 51.52s/it]Training: 100%|██████████| 4/4 [04:03<00:00, 60.82s/it]
+2026-03-13 14:24:42,312 - INFO - Recon=0.0000, Tag=0.4464, Total=0.2232
+2026-03-13 14:24:42,326 - INFO - Epoch 6/10 completed. Recon=0.0000, Tag=0.4464, Total=0.2232
+2026-03-13 14:24:42,326 - INFO - Epoch time: 1481.96s
+2026-03-13 14:24:42,326 - INFO - Epoch 7/10 started.
+Training:   0%|          | 0/4 [00:00<?, ?it/s]2026-03-13 14:26:11,995 - INFO - Model produces embeddings — using tag-only loss (no reconstruction)
+Training:  25%|██▌       | 1/4 [01:29<04:29, 89.78s/it]
