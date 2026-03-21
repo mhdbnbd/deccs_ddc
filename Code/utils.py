@@ -14,7 +14,6 @@ import torch
 import torch.nn.functional as F
 from PIL import Image, ImageDraw
 from joblib import parallel_backend
-# from clustpy.deep import DEC
 from scipy.optimize import linear_sum_assignment
 from scipy.sparse import lil_matrix
 from sklearn.cluster import (
@@ -406,9 +405,8 @@ def describe_clusters(embeddings, tags, n_clusters=None):
 
 def load_attribute_names(predicates_path="data/AwA2-data/Animals_with_Attributes2/predicates.txt"):
     """
-    Load AwA2 attribute names from predicates.txt.
-    Returns:
-        List[str]: Ordered list of 85 attribute names.
+    Load attribute names from predicates.txt.
+    Handles both AwA2 (single-word names) and aPY (multi-word names like 'Jet engine').
     """
     if not os.path.exists(predicates_path):
         raise FileNotFoundError(f"Predicates file not found at {predicates_path}")
@@ -416,9 +414,16 @@ def load_attribute_names(predicates_path="data/AwA2-data/Animals_with_Attributes
     attribute_names = []
     with open(predicates_path, "r") as f:
         for line in f:
-            parts = line.strip().split()
-            if len(parts) == 2:
-                attribute_names.append(parts[1])
+            line = line.strip()
+            if not line:
+                continue
+            # Format: "index\tname" or "index name"
+            if '\t' in line:
+                parts = line.split('\t', 1)
+                attribute_names.append(parts[1] if len(parts) > 1 else parts[0])
+            else:
+                parts = line.split(None, 1)
+                attribute_names.append(parts[1] if len(parts) > 1 else parts[0])
     return attribute_names
 
 
