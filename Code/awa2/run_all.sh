@@ -1,21 +1,16 @@
 #!/bin/bash
 set -e
 
-rm -f results_deccs_loss_components.npz results_deccs_loss.png results_cluster_metrics.json
+# Baseline: K-means on ResNet-101 features
+python3 main_experiments.py --mode kmeans --use_gpu --n_clusters 50
 
-# === Small CNN baseline ===
-python3 main_experiments.py --mode ae    --use_sample --epochs 50 --arch small
-python3 main_experiments.py --mode cae   --use_sample --epochs 50 --arch small --tag_tuner 0.5
-python3 main_experiments.py --mode deccs --use_sample --epochs 50 --arch small --lambda_consensus 0.2 --tag_tuner 0.5
+# DECCS: consensus clustering on ResNet features
+python3 main_experiments.py --mode deccs --use_gpu --n_clusters 50
 
-# === DDCNet (thesis contribution) ===
-#python3 main_experiments.py --mode ae    --use_sample --epochs 1   --arch resnet
-python3 main_experiments.py --mode cae   --use_sample --epochs 500 --arch resnet --lambda_pairwise 3.0
-python3 main_experiments.py --mode deccs --use_sample --epochs 500 --arch resnet --lambda_pairwise 3.0 --lambda_consensus 0.05
+# DDC: K-means + ILP interpretable descriptions
+python3 main_experiments.py --mode ddc --use_gpu --n_clusters 50
 
-# === Large CNN ablation ===
-python3 main_experiments.py --mode ae    --use_sample --epochs 50 --arch large
-python3 main_experiments.py --mode cae   --use_sample --epochs 50 --arch large --tag_tuner 0.5
-python3 main_experiments.py --mode deccs --use_sample --epochs 50 --arch large --lambda_consensus 0.2 --tag_tuner 0.5
+# DDECCS: consensus + ILP descriptions (thesis contribution)
+python3 main_experiments.py --mode ddeccs --use_gpu --n_clusters 50
 
 echo "=== All experiments complete ==="

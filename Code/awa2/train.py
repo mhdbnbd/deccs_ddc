@@ -182,29 +182,23 @@ def solve_ilp_for_mask(cluster_probs, tags, n_clusters, alpha=8):
     """
     DDC's ILP (Eq. 2-4): find concise, orthogonal cluster descriptions.
 
-    Given current cluster assignments, solve for a K×M binary matrix W where
-    W_ij = 1 iff cluster i is described by tag j. Then create a mask G that
-    keeps only tags selected by the ILP.
+    Uses PuLP solver for exact ILP solution (DDC paper's approach).
+    Solves for K×M binary matrix W where W_ij=1 iff cluster i described by tag j.
 
-    Args:
-        cluster_probs: (N, K) softmax probabilities
-        tags: (N, M) tag vectors
-        n_clusters: K
-        alpha: minimum weighted tag coverage per cluster (DDC uses 8)
-
-    Returns:
-        mask: (M,) binary tensor — 1 for tags selected by ILP, 0 otherwise
-        W: (K, M) binary allocation matrix
+    Objective: minimize total tags used (Eq. 2)
+    Constraint 1 (coverage): sum_j(W_ij * Q_ij) >= alpha per cluster (Eq. 3)
+    Constraint 2 (orthogonality): sum_i(W_ij * Q_ij) <= beta per tag (Eq. 4)
+    Beta is searched from 1 upward until feasible (DDC Algorithm 1).
     """
+    import pulp
+
     probs_np = cluster_probs.detach().cpu().numpy()
     tags_np = tags.detach().cpu().numpy()
     N, M = tags_np.shape
     K = n_clusters
 
-    # Hard cluster assignments
+    # Hard cluster assignments → Q matrix
     assignments = probs_np.argmax(axis=1)
-
-    # Q_ij = mean tag j for cluster i
     Q = np.zeros((K, M))
     for k in range(K):
         mask_k = (assignments == k)
@@ -212,33 +206,63 @@ def solve_ilp_for_mask(cluster_probs, tags, n_clusters, alpha=8):
             Q[k] = tags_np[mask_k].mean(axis=0)
 
     active = [k for k in range(K) if (assignments == k).sum() > 0]
-    K_active = len(active)
-    if K_active < 2:
+    K_act = len(active)
+    if K_act < 2:
         return torch.ones(M, device=cluster_probs.device), None
 
-    Q_active = Q[active]  # (K_active, M)
+    Q_act = Q[active]
 
-    # Greedy tag selection per cluster:
-    # For each cluster, pick the alpha tags with highest Q value
-    # Then enforce orthogonality by penalizing tags already used by other clusters
-    W = np.zeros((K_active, M))
-    tag_usage = np.zeros(M)  # how many clusters use each tag
+    # Search for smallest feasible beta (DDC Algorithm 1)
+    for beta in range(1, K_act + 1):
+        prob = pulp.LpProblem("DDC_ILP", pulp.LpMinimize)
 
-    for idx in range(K_active):
-        # Score = Q value penalized by how many other clusters already use this tag
-        scores = Q_active[idx] / (1.0 + tag_usage)
-        # Select top alpha tags
-        top_tags = np.argsort(scores)[-alpha:]
-        W[idx, top_tags] = 1
-        tag_usage[top_tags] += 1
+        # Binary variables W_ij
+        W_vars = {}
+        for i in range(K_act):
+            for j in range(M):
+                W_vars[i, j] = pulp.LpVariable(f"W_{i}_{j}", cat='Binary')
 
-    # Mask: tags selected by ANY cluster
-    mask_np = (W.sum(axis=0) > 0.5).astype(np.float32)
+        # Objective: minimize total tags
+        prob += pulp.lpSum(W_vars[i, j] for i in range(K_act) for j in range(M))
+
+        # Coverage: sum_j(W_ij * Q_ij) >= alpha for each active cluster
+        for i in range(K_act):
+            prob += pulp.lpSum(W_vars[i, j] * Q_act[i, j] for j in range(M)) >= alpha
+
+        # Orthogonality: sum_i(W_ij * Q_ij) <= beta for each tag
+        for j in range(M):
+            prob += pulp.lpSum(W_vars[i, j] * Q_act[i, j] for i in range(K_act)) <= beta
+
+        prob.solve(pulp.PULP_CBC_CMD(msg=0, timeLimit=10))
+
+        if prob.status == 1:  # Optimal
+            W_np = np.zeros((K_act, M))
+            for i in range(K_act):
+                for j in range(M):
+                    W_np[i, j] = W_vars[i, j].varValue or 0
+
+            mask_np = (W_np.sum(axis=0) > 0.5).astype(np.float32)
+            n_tags = int(mask_np.sum())
+            logging.info(f"[ILP] beta={beta}, {K_act} active clusters, "
+                         f"{n_tags}/{M} tags selected, "
+                         f"tags/cluster={W_np.sum(1).mean():.1f}")
+            return (torch.tensor(mask_np, device=cluster_probs.device),
+                    torch.tensor(W_np, dtype=torch.float32))
+
+    # Fallback to greedy if ILP fails
+    logging.warning(f"[ILP] No feasible solution — falling back to greedy")
+    W_np = np.zeros((K_act, M))
+    tag_usage = np.zeros(M)
+    for i in range(K_act):
+        scores = Q_act[i] / (1.0 + tag_usage)
+        top = np.argsort(scores)[-alpha:]
+        W_np[i, top] = 1
+        tag_usage[top] += 1
+    mask_np = (W_np.sum(axis=0) > 0.5).astype(np.float32)
     n_tags = int(mask_np.sum())
-    logging.info(f"[ILP-greedy] {K_active} clusters, {n_tags}/{M} tags selected")
-
+    logging.info(f"[ILP-fallback] {K_act} clusters, {n_tags}/{M} tags selected")
     return (torch.tensor(mask_np, device=cluster_probs.device),
-            torch.tensor(W, dtype=torch.float32))
+            torch.tensor(W_np, dtype=torch.float32))
 
 
 def pairwise_constraint_loss(cluster_probs, tags, mask=None, top_l=5, gamma=100.0):
@@ -414,7 +438,7 @@ def train_ddc(
 
 
 # =============================================================================
-# Evaluation helper (unchanged)
+# Evaluation helper
 # =============================================================================
 
 def evaluate_autoencoder(dataloader, model, use_gpu):
