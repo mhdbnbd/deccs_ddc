@@ -1,3 +1,16 @@
+"""
+Dataset loaders for attribute-based image datasets.
+
+Supports:
+  - AwA2: Animals with Attributes 2 (50 classes, 85 attributes, ~37K images)
+  - aPY:  Attribute Pascal & Yahoo (32 classes, 64 attributes, ~15K images)
+
+Both datasets share the same structure:
+  - images organized in class-name folders
+  - a predicate matrix mapping classes to attribute vectors
+  - a classes.txt mapping class IDs to class names
+"""
+
 import logging
 import os
 
@@ -7,121 +20,153 @@ from PIL import Image
 from torch.utils.data import Dataset
 
 
-class AwA2Dataset(Dataset):
-    def __init__(self, img_dir, attr_file, pred_file, classes_file, transform=None, train=True, train_ratio=0.8):
-        """
-        Args:
-        - img_dir (str): Path to the directory containing images.
-        - attr_file (str): Path to the attribute file (image-label mapping).
-        - pred_file (str): Path to the predicate file (symbolic tag vectors for each class).
-        - classes_file: Path to classes.txt
-        - transform (callable, optional): Transformations to apply on images.
-        - train (bool): Whether to use the training split or test split.
-        - train_ratio (float): Ratio of dataset to use for training.
-        """
+class AttributeDataset(Dataset):
+    """
+    Generic dataset for image classification with per-class semantic attributes.
+
+    Works with any dataset that has:
+      - Image directory with class-name subfolders
+      - classes.txt: mapping class_id -> class_name
+      - predicate-matrix-continuous.txt: (n_classes × n_attributes) matrix
+      - labels file: image_path label pairs
+    """
+
+    def __init__(self, img_dir, attr_file, pred_file, classes_file,
+                 transform=None, train=True, train_ratio=0.8):
         self.img_dir = img_dir
         self.transform = transform
-        self.classes_file = classes_file
-        self.image_paths, self.labels = self.load_image_labels(attr_file, classes_file)
-        self.label_to_tags = self.load_predicates(pred_file)
 
-        # Assign symbolic tags to each image based on its label
-        self.symbolic_tags = np.array([self.label_to_tags[label] if label in self.label_to_tags else np.zeros(85) for label in self.labels])
-        assert self.symbolic_tags.shape[1] == 85, f"Expected 85 tags, got {self.symbolic_tags.shape[1]}"
-        missing_labels = [l for l in set(self.labels) if l not in self.label_to_tags]
-        if missing_labels:
-            logging.warning(f"Some labels missing tags: {missing_labels}")
+        self.class_names, self.class_ids = self._load_classes(classes_file)
+        self.image_paths, self.labels = self._load_image_labels(attr_file)
+        self.label_to_tags = self._load_predicates(pred_file)
 
-        # Perform explicit train/test split
+        n_attrs = next(iter(self.label_to_tags.values())).shape[0]
+        self.symbolic_tags = np.array([
+            self.label_to_tags.get(label, np.zeros(n_attrs))
+            for label in self.labels
+        ])
+
+        missing = [l for l in set(self.labels) if l not in self.label_to_tags]
+        if missing:
+            logging.warning(f"Labels missing tags: {missing}")
+
+        # Deterministic train/test split
         rng = np.random.default_rng(42)
         idx = np.arange(len(self.image_paths))
         rng.shuffle(idx)
-        split_index = int(len(idx) * train_ratio)
-        train_idx, test_idx = idx[:split_index], idx[split_index:]
-        if train:
-            self.image_paths = [self.image_paths[i] for i in train_idx]
-            self.labels = [self.labels[i] for i in train_idx]
-            self.symbolic_tags = self.symbolic_tags[train_idx]
-        else:
-            self.image_paths = [self.image_paths[i] for i in test_idx]
-            self.labels = [self.labels[i] for i in test_idx]
-            self.symbolic_tags = self.symbolic_tags[test_idx]
-        self.images = self.image_paths
-        self.targets = self.labels
+        split = int(len(idx) * train_ratio)
+        sel = idx[:split] if train else idx[split:]
 
-    def load_image_labels(self, attr_file, classes_file):
-        """
-        Loads image file paths and their correct class labels from `classes.txt`.
+        self.image_paths = [self.image_paths[i] for i in sel]
+        self.labels = [self.labels[i] for i in sel]
+        self.symbolic_tags = self.symbolic_tags[sel]
 
-        Args:
-        - attr_file (str): Path to `AwA2-labels.txt`
-        - classes_file (str): Path to `classes.txt`
-        """
-        image_paths, labels = [], []
+        logging.info(f"{'Train' if train else 'Test'} split: {len(self)} samples, "
+                     f"{len(np.unique(self.labels))} classes, "
+                     f"{self.symbolic_tags.shape[1]} attributes")
 
-        # Read correct class mapping from `classes.txt`
-        class_mapping = {}
-        with open(classes_file, "r") as f:
+    def _load_classes(self, classes_file):
+        names, ids = {}, {}
+        with open(classes_file) as f:
             for line in f:
                 parts = line.strip().split()
-                if len(parts) == 2:
-                    class_id = int(parts[0])  # Keep `classes.txt` index
-                    class_name = parts[1]
-                    class_mapping[class_name] = class_id
+                if len(parts) >= 2:
+                    cid = int(parts[0])
+                    cname = parts[1]
+                    names[cname] = cid
+                    ids[cid] = cname
+        return names, ids
 
-        try:
-            with open(attr_file, 'r') as file:
-                for line in file:
-                    parts = line.strip().split()
-                    image_path = os.path.join(self.img_dir, parts[0])
-                    class_folder = parts[0].split('/')[0]  # Extract class name from path
-                    label = class_mapping.get(class_folder, -1)  # Use correct class ID
-
-                    if label != -1:  # Ignore images with unknown labels
-                        image_paths.append(image_path)
-                        labels.append(label)
-        except Exception as e:
-            logging.error(f"Error reading attribute file: {e}")
-
+    def _load_image_labels(self, attr_file):
+        image_paths, labels = [], []
+        with open(attr_file) as f:
+            for line in f:
+                parts = line.strip().split()
+                if not parts:
+                    continue
+                img_rel = parts[0]
+                class_folder = img_rel.split('/')[0]
+                label = self.class_names.get(class_folder, -1)
+                if label != -1:
+                    image_paths.append(os.path.join(self.img_dir, img_rel))
+                    labels.append(label)
         return image_paths, labels
 
-    @staticmethod
-    def load_predicates(pred_file):
-        """Loads the predicate matrix and correctly maps 1-based class labels to 0-based predicate matrix indices."""
-        try:
-            pred_matrix = np.loadtxt(pred_file)  # Load all 85-dimensional class attributes
+    def _load_predicates(self, pred_file):
+        pred_matrix = np.loadtxt(pred_file)
+        n_classes, n_attrs = pred_matrix.shape
+        logging.info(f"Predicate matrix: {n_classes} classes × {n_attrs} attributes")
 
-            if pred_matrix.shape != (50, 85):
-                logging.warning(f"Expected (50, 85) shape, but got {pred_matrix.shape}")
+        # Normalize to [0, 1]
+        pmin, pmax = pred_matrix.min(), pred_matrix.max()
+        if pmax > pmin:
+            pred_matrix = (pred_matrix - pmin) / (pmax - pmin)
 
-            # Normalize values into [0,1] range
-            pred_matrix = (pred_matrix - pred_matrix.min()) / (pred_matrix.max() - pred_matrix.min())
-            symbolic_tags = {i + 1: pred_matrix[i] for i in range(pred_matrix.shape[0])}
-            return symbolic_tags
-
-        except Exception as e:
-            logging.error(f"Error reading predicate file: {e}")
-            return {}
+        # Map 1-based class IDs to predicate rows
+        return {i + 1: pred_matrix[i] for i in range(n_classes)}
 
     def __len__(self):
         return len(self.image_paths)
 
     def __getitem__(self, idx):
-        """Returns an image and its corresponding 85-dimensional symbolic tag vector."""
         img_path = self.image_paths[idx]
-        symbolic_tag = self.symbolic_tags[idx]  # Should have shape (85,)
+        tag = self.symbolic_tags[idx]
 
         try:
             image = Image.open(img_path).convert("RGB")
             if self.transform:
                 image = self.transform(image)
         except Exception as e:
-            logging.warning(f"Error loading image {img_path}: {e}")
-            return None  # Skip bad images
+            logging.warning(f"Error loading {img_path}: {e}")
+            return None
 
-        # Debugging the correct mapping
-        logging.debug(f"Image: {img_path}, Expected Label: {self.labels[idx]}, "
-              f"Tag Vector Shape: {symbolic_tag.shape}, First 5 Tags: {symbolic_tag[:5]}")
+        return image, torch.tensor(tag, dtype=torch.float32), idx
 
-        return image, torch.tensor(symbolic_tag, dtype=torch.float32), idx
 
+# Backward compatibility alias
+AwA2Dataset = AttributeDataset
+
+
+# =========================================================================
+# Dataset configuration registry
+# =========================================================================
+
+DATASET_CONFIGS = {
+    "awa2": {
+        "name": "Animals with Attributes 2",
+        "source_dir": "data/AwA2-data/Animals_with_Attributes2",
+        "n_classes": 50,
+        "n_attributes": 85,
+    },
+    "apy": {
+        "name": "Attribute Pascal & Yahoo",
+        "source_dir": "data/aPY-data/AttributePascalYahoo",
+        "n_classes": 32,
+        "n_attributes": 64,
+    },
+}
+
+
+def get_dataset_paths(dataset_name, use_sample=False, sample_dir="samples"):
+    """Get standardized paths for a dataset."""
+    cfg = DATASET_CONFIGS[dataset_name]
+    src = cfg["source_dir"]
+
+    if use_sample:
+        base = os.path.join(sample_dir, dataset_name)
+        return {
+            "img_dir": os.path.join(base, "JPEGImages"),
+            "attr_file": os.path.join(base, "labels.txt"),
+            "pred_file": os.path.join(src, "predicate-matrix-continuous.txt"),
+            "classes_file": os.path.join(src, "classes.txt"),
+            "predicates_file": os.path.join(src, "predicates.txt"),
+            "sample_source": src,
+        }
+    else:
+        return {
+            "img_dir": os.path.join(src, "JPEGImages"),
+            "attr_file": os.path.join(src, "labels.txt"),
+            "pred_file": os.path.join(src, "predicate-matrix-continuous.txt"),
+            "classes_file": os.path.join(src, "classes.txt"),
+            "predicates_file": os.path.join(src, "predicates.txt"),
+        }
