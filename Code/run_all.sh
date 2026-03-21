@@ -1,16 +1,23 @@
+cat > run_all.sh << 'EOF'
 #!/bin/bash
 set -e
 
-# Baseline: K-means on ResNet-101 features
-python3 main_experiments.py --mode kmeans --use_gpu --n_clusters 50
+echo "=== DDECCS Experiment Suite ==="
 
-# DECCS: consensus clustering on ResNet features
-python3 main_experiments.py --mode deccs --use_gpu --n_clusters 50
+# AwA2 (50 classes, 85 attributes)
+for mode in kmeans deccs ddc ddeccs; do
+    echo "--- AwA2 / $mode ---"
+    python3 main_experiments.py --dataset awa2 --mode $mode --use_gpu
+done
 
-# DDC: K-means + ILP interpretable descriptions
-python3 main_experiments.py --mode ddc --use_gpu --n_clusters 50
-
-# DDECCS: consensus + ILP descriptions (thesis contribution)
-python3 main_experiments.py --mode ddeccs --use_gpu --n_clusters 50
+# aPY (32 classes, 64 attributes)
+for mode in kmeans deccs ddc ddeccs; do
+    echo "--- aPY / $mode ---"
+    python3 main_experiments.py --dataset apy --mode $mode --use_gpu
+done
 
 echo "=== All experiments complete ==="
+echo "Results in: results/awa2/ and results/apy/"
+EOF
+
+bash run_all.sh
