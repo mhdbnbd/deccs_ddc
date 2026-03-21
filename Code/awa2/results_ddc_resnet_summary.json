@@ -5,10 +5,10 @@
         "nmi": 0.8724517906896435,
         "silhouette": 0.18641848862171173
     },
-    "mode": "kmeans",
+    "mode": "ddc",
     "n_clusters": 50,
     "n_samples": 29857,
     "n_classes": 50,
     "device": "cuda",
-    "timestamp": "2026-03-21 04:17:52"
+    "timestamp": "2026-03-21 04:57:21"
 }
