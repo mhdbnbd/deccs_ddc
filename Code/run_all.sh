@@ -1,4 +1,3 @@
-cat > run_all.sh << 'EOF'
 #!/bin/bash
 set -e
 
@@ -18,6 +17,3 @@ done
 
 echo "=== All experiments complete ==="
 echo "Results in: results/awa2/ and results/apy/"
-EOF
-
-bash run_all.sh
