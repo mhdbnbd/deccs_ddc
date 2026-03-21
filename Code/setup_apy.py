@@ -196,7 +196,7 @@ def main():
     logging.info(f"Output directory: {out_dir}")
     logging.info(f"Files created: labels.txt, classes.txt, predicates.txt, "
                  f"predicate-matrix-continuous.txt, JPEGImages/")
-    logging.info("Done")
+    logging.info("Done!")
 
 
 if __name__ == "__main__":
