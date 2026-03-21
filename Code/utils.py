@@ -450,7 +450,7 @@ def summarize_clusters_with_attributes(
 
     for cluster_id, desc in enumerate(cluster_descriptions):
         top_attrs = np.argsort(desc)[-top_k:][::-1]
-        readable_attrs = [attribute_names[j] for j in top_attrs]
+        readable_attrs = [attribute_names[j] if j < len(attribute_names) else f"attr_{j}" for j in top_attrs]
 
         # Get sample images from this cluster
         indices = np.where(cluster_labels == cluster_id)[0]
