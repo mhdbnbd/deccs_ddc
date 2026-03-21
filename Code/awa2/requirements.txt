@@ -1,9 +1,0 @@
-torch
-torchvision
-pandas
-scikit-learn
-Pillow
-tqdm
-nbformat
-matplotlib
-pulp

@@ -1,36 +1,70 @@
+# =============================================================================
+# Data & images
+# =============================================================================
+data/
+samples/
+*.zip
+*.tar.gz
+*.tar
+*.h5
+*.hdf5
+*.pth
+*.pt
+*.ckpt
 
-Code/awa2/AwA2-data-sample/
-Code/awa2/AwA2-data-sample-deprecated/
-Code/awa2/data/
-Code/awa2/archive
-Code/awa2/clustering_results.json
-Code/awa2/AwA2-data.zip
-Code/awa2/__pycache__
-Code/awa2/AwA2-data-sample-tags/
-Code/awa2/AwA2-data-sample-tags2/
-Code/awa2/autoencoder_tags.pth
-Code/awa2/autoencoder_main.pth
-Code/awa2/detailed_results_main.json
-Code/awa2/results_notebook_main.ipynb
-Code/awa2/AwA2-data-sample
-Code/awa2/data/AwA2-data
-Code/awa2/cluster_samples
-Code/awa2/cluster_report/
-Code/awa2/cluster_samples/
-Code/awa2/.venv/
-Code/awa2/AwA2-sample/
-__pycache__/
-developper_guide.md
-.idea
-*.xml
-*.iml
-.ipynb_checkpoints
-*.log
-*.error
-# Default ignored files
-/shelf/
-/workspace.xml
-.idea/
-.ipynb_checkpoints/
+# =============================================================================
+# Results & outputs (regenerable)
+# =============================================================================
+results/
+cluster_samples/
+cluster_report/
+*.npz
+*.json
+!package.json
+
+# =============================================================================
+# Visualizations (regenerable)
+# =============================================================================
+*.png
+*.jpg
+*.jpeg
+
+# =============================================================================
+# Python
+# =============================================================================
 __pycache__/
 *.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+dist/
+build/
+
+# =============================================================================
+# Logs
+# =============================================================================
+*.log
+*.error
+
+# =============================================================================
+# IDE & OS
+# =============================================================================
+.idea/
+.vscode/
+*.iml
+*.xml
+.ipynb_checkpoints/
+*.ipynb
+.DS_Store
+Thumbs.db
+shelf/
+workspace.xml
+
+# =============================================================================
+# Legacy / misc
+# =============================================================================
+AwA2-sample/
+AwA2-data-sample*/
+ClustPy/
+developper_guide.md
