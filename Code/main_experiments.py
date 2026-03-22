@@ -2,20 +2,18 @@
 DDECCS: Deep Descriptive Clustering with Consensus Representations
 
 Pipeline:
-  1. Extract frozen ResNet-101 features (2048-dim)
-  2. Cluster: K-means baseline or DECCS consensus ensemble
-  3. Explain: ILP-based concise, orthogonal cluster descriptions (DDC)
-  4. Evaluate: NMI, ACC, ARI, Silhouette
+  1. Extract frozen ResNet-101 features (2048-dim), cached to disk
+  2. Optional PCA dimensionality reduction
+  3. Cluster: K-means baseline or DECCS consensus ensemble
+  4. Explain: ILP-based concise, orthogonal cluster descriptions (DDC)
+  5. Evaluate: NMI, ACC, ARI, Silhouette, TC, ITF
+  6. Multi-seed runs for mean±std reporting (matching DDC paper)
 
 Modes:
   kmeans  — K-means baseline
   deccs   — DECCS consensus clustering
   ddc     — K-means + ILP descriptions
   ddeccs  — DECCS consensus + ILP descriptions (thesis contribution)
-
-Datasets:
-  awa2 — Animals with Attributes 2 (50 classes, 85 attributes)
-  apy  — Attribute Pascal & Yahoo (32 classes, 64 attributes)
 """
 
 import argparse
@@ -24,6 +22,7 @@ import logging
 import os
 import random
 import time
+import hashlib
 
 os.environ["OMP_NUM_THREADS"] = "4"
 os.environ["OPENBLAS_NUM_THREADS"] = "4"
@@ -31,15 +30,15 @@ os.environ["MKL_NUM_THREADS"] = "4"
 
 import numpy as np
 import torch
-import pulp
 from sklearn.cluster import KMeans, SpectralClustering
+from sklearn.decomposition import PCA
 from sklearn.metrics import (adjusted_rand_score, normalized_mutual_info_score,
                              silhouette_score)
 from torch.utils.data import DataLoader
 from torchvision import models, transforms
 from tqdm import tqdm
 
-from dataset import AttributeDataset, get_dataset_paths, DATASET_CONFIGS
+from dataset import AttributeDataset, get_dataset_paths, DATASET_CONFIGS, APY_DDC_15_CLASSES
 from utils import (
     custom_collate, create_sample_dataset, setup_logging,
     get_base_clusterings, build_sparse_consensus, clustering_acc,
@@ -49,11 +48,24 @@ from visualize import plot_tsne, plot_pca, save_cluster_examples
 
 
 # =========================================================================
-# Feature extraction
+# Feature extraction with disk caching
 # =========================================================================
 
-def extract_resnet_features(dataloader, device):
-    """Extract frozen ResNet-101 features (2048-dim) for the entire dataset."""
+def get_cache_path(dataset_name, use_sample, sample_size):
+    """Deterministic cache path for extracted features."""
+    tag = f"{dataset_name}_{'sample' + str(sample_size) if use_sample else 'full'}"
+    return os.path.join("cache", f"resnet101_{tag}.npz")
+
+
+def extract_resnet_features(dataloader, device, cache_path=None):
+    """Extract frozen ResNet-101 features, with optional disk caching."""
+
+    # Try loading from cache
+    if cache_path and os.path.exists(cache_path):
+        data = np.load(cache_path)
+        logging.info(f"Loaded cached features from {cache_path}")
+        return data["features"]
+
     resnet = models.resnet101(weights=models.ResNet101_Weights.DEFAULT).to(device)
     backbone = torch.nn.Sequential(*list(resnet.children())[:-1]).to(device)
     backbone.eval()
@@ -70,19 +82,27 @@ def extract_resnet_features(dataloader, device):
     if device.type == "cuda":
         torch.cuda.empty_cache()
 
-    return torch.cat(all_features).numpy()
+    features = torch.cat(all_features).numpy()
+
+    # Save to cache
+    if cache_path:
+        os.makedirs(os.path.dirname(cache_path), exist_ok=True)
+        np.savez_compressed(cache_path, features=features)
+        logging.info(f"Cached features to {cache_path}")
+
+    return features
 
 
 # =========================================================================
 # ILP cluster descriptions (DDC)
 # =========================================================================
 
-def solve_ilp_descriptions(cluster_labels, tags, n_clusters, alpha=8, predicate_names=None):
+def solve_ilp_descriptions(cluster_labels, tags, n_clusters, alpha=8,
+                           predicate_names=None):
     """
     DDC's ILP (Eq. 2-4): concise, orthogonal cluster descriptions.
-
-    Returns list of dicts: [{cluster_id, n_members, tags, tag_indices}, ...]
     """
+    import pulp
 
     M = tags.shape[1]
     Q = np.zeros((n_clusters, M))
@@ -132,55 +152,41 @@ def solve_ilp_descriptions(cluster_labels, tags, n_clusters, alpha=8, predicate_
             W_np[i, top] = 1
             usage[top] += 1
 
-    # Build readable descriptions with TC and ITF metrics (DDC Eq. 8-9)
+    # TC and ITF (DDC Eq. 8-9)
     pred_names = predicate_names or [f"attr_{j}" for j in range(M)]
-    K_total = K_act  # for ITF denominator
-    descriptions = []
-
-    # Precompute: which tags are used by which clusters (for ITF)
+    K_total = K_act
     tag_cluster_count = np.zeros(M)
     for idx in range(K_act):
         for j in range(M):
             if W_np[idx, j] > 0.5:
                 tag_cluster_count[j] += 1
 
+    descriptions = []
     for idx, k in enumerate(active):
         selected = np.where(W_np[idx] > 0.5)[0]
         tag_names = [pred_names[j] for j in selected]
         n_members = int((cluster_labels == k).sum())
         members_mask = (cluster_labels == k)
 
-        # Tag Coverage (DDC Eq. 8): fraction of cluster members having each tag
         if len(selected) > 0 and members_mask.sum() > 0:
-            coverage_per_tag = []
-            for j in selected:
-                frac = tags[members_mask, j].mean()
-                coverage_per_tag.append(float(frac))
-            tc = float(np.mean(coverage_per_tag))
+            tc = float(np.mean([tags[members_mask, j].mean() for j in selected]))
         else:
             tc = 0.0
 
-        # Inverse Tag Frequency (DDC Eq. 9): higher = more unique tags
         if len(selected) > 0 and K_total > 0:
-            itf_per_tag = []
-            for j in selected:
-                n_clusters_using_j = max(tag_cluster_count[j], 1)
-                itf_per_tag.append(float(np.log(K_total / n_clusters_using_j)))
-            itf = float(np.mean(itf_per_tag))
+            itf = float(np.mean([np.log(K_total / max(tag_cluster_count[j], 1))
+                                 for j in selected]))
         else:
             itf = 0.0
 
         descriptions.append({
-            "cluster_id": int(k),
-            "n_members": n_members,
-            "tags": tag_names,
-            "tag_indices": selected.tolist(),
-            "tc": round(tc, 4),
-            "itf": round(itf, 4),
+            "cluster_id": int(k), "n_members": n_members,
+            "tags": tag_names, "tag_indices": selected.tolist(),
+            "tc": round(tc, 4), "itf": round(itf, 4),
         })
-        logging.info(f"  C{k:2d} (n={n_members:5d}): {', '.join(tag_names[:6]):50s} TC={tc:.2f} ITF={itf:.2f}")
+        logging.info(f"  C{k:2d} (n={n_members:5d}): {', '.join(tag_names[:6]):50s} "
+                     f"TC={tc:.2f} ITF={itf:.2f}")
 
-    # Aggregate TC and ITF
     avg_tc = np.mean([d["tc"] for d in descriptions])
     avg_itf = np.mean([d["itf"] for d in descriptions])
     logging.info(f"  Average TC={avg_tc:.4f}, Average ITF={avg_itf:.4f}")
@@ -194,13 +200,81 @@ def load_predicate_names(predicates_path):
     if os.path.exists(predicates_path):
         with open(predicates_path) as f:
             for line in f:
-                parts = line.strip().split('\t') if '\t' in line else line.strip().split()
-                names.append(parts[-1] if parts else "?")
+                line = line.strip()
+                if not line:
+                    continue
+                if '\t' in line:
+                    parts = line.split('\t', 1)
+                    names.append(parts[1] if len(parts) > 1 else parts[0])
+                else:
+                    parts = line.split(None, 1)
+                    names.append(parts[1] if len(parts) > 1 else parts[0])
     return names
 
 
 # =========================================================================
-# Main pipeline
+# Single run
+# =========================================================================
+
+def run_single(features, true_labels, symbolic_tags, cluster_labels_override,
+               mode, K, seed, cfg, paths, output_dir, pca_dim=None):
+    """Run clustering + evaluation for a single seed. Returns metrics dict."""
+
+    rng = np.random.RandomState(seed)
+    feats = features.copy()
+
+    # Optional PCA
+    if pca_dim and pca_dim < feats.shape[1]:
+        feats = PCA(n_components=pca_dim, random_state=seed).fit_transform(feats)
+        logging.info(f"PCA: {features.shape[1]} → {pca_dim}")
+
+    # Clustering
+    if mode in ["kmeans", "ddc"]:
+        cluster_labels = KMeans(n_clusters=K, random_state=seed, n_init=10).fit_predict(feats)
+    else:
+        base_labels = get_base_clusterings(feats, n_clusters=K)
+        consensus = build_sparse_consensus(base_labels, feats)
+        cluster_labels = SpectralClustering(
+            n_clusters=K, affinity="precomputed",
+            assign_labels="kmeans", random_state=seed,
+        ).fit_predict(consensus)
+
+    # ILP descriptions (only for seed 0 / primary run)
+    ilp_metrics = {}
+    if mode in ["ddc", "ddeccs"]:
+        pred_names = load_predicate_names(paths["predicates_file"])
+
+        # Auto alpha: scale with tag density so ILP is always feasible
+        # DDC uses alpha=8 on AwA2 (density ~0.5, continuous attributes).
+        # For aPY (density ~0.09, binary attributes), alpha must be lower.
+        # Target: ~4-6 descriptive tags per cluster.
+        # Formula: alpha = clip(round(16 * density), 2, 8)
+        mean_tag_density = symbolic_tags.mean()
+        alpha = max(2, min(8, round(16 * mean_tag_density)))
+        logging.info(f"[ILP] Tag density={mean_tag_density:.3f} → alpha={alpha}")
+
+        ilp_descriptions, W_expl, ilp_metrics = solve_ilp_descriptions(
+            cluster_labels, symbolic_tags, n_clusters=K, alpha=alpha,
+            predicate_names=pred_names,
+        )
+
+        if seed == 42:  # Save descriptions only for primary run
+            with open(os.path.join(output_dir, "ilp_descriptions.json"), "w") as f:
+                json.dump(ilp_descriptions, f, indent=2)
+
+    # Evaluation
+    acc = clustering_acc(true_labels, cluster_labels)
+    ari = adjusted_rand_score(true_labels, cluster_labels)
+    nmi = normalized_mutual_info_score(true_labels, cluster_labels)
+    sil = silhouette_score(feats, cluster_labels,
+                           sample_size=min(10000, len(feats)), random_state=seed)
+
+    metrics = {"nmi": nmi, "acc": acc, "ari": ari, "silhouette": sil, **ilp_metrics}
+    return metrics, cluster_labels
+
+
+# =========================================================================
+# Main
 # =========================================================================
 
 def select_device(use_gpu):
@@ -223,6 +297,12 @@ def main():
                         required=True)
     parser.add_argument("--n_clusters", type=int, default=None,
                         help="Number of clusters (default: number of classes)")
+    parser.add_argument("--apy_15", action="store_true",
+                        help="Use DDC paper's 15-class aPY subset (for direct comparison)")
+    parser.add_argument("--pca_dim", type=int, default=None,
+                        help="PCA dimensionality reduction before clustering")
+    parser.add_argument("--n_runs", type=int, default=1,
+                        help="Number of runs with different seeds (for mean±std)")
     parser.add_argument("--use_gpu", action="store_true")
     parser.add_argument("--use_sample", action="store_true")
     parser.add_argument("--sample_size", type=int, default=2000)
@@ -231,11 +311,14 @@ def main():
     setup_logging()
     device = select_device(args.use_gpu)
 
-    # --- Output directory: results/<dataset>/<mode>/ ---
-    output_dir = os.path.join("results", args.dataset, args.mode)
+    # --- Output directory ---
+    suffix = f"_k{args.n_clusters}" if args.n_clusters else ""
+    suffix += f"_pca{args.pca_dim}" if args.pca_dim else ""
+    ds_name = f"{args.dataset}_15" if args.apy_15 else args.dataset
+    output_dir = os.path.join("results", ds_name, f"{args.mode}{suffix}")
     os.makedirs(output_dir, exist_ok=True)
 
-    # --- Dataset paths ---
+    # --- Dataset ---
     paths = get_dataset_paths(args.dataset, use_sample=args.use_sample)
     cfg = DATASET_CONFIGS[args.dataset]
 
@@ -247,14 +330,11 @@ def main():
             sample_size=args.sample_size,
         )
 
-    # Check if labels file exists; if not, try AwA2-labels.txt fallback
     if not os.path.exists(paths["attr_file"]):
         alt = paths["attr_file"].replace("labels.txt", "AwA2-labels.txt")
         if os.path.exists(alt):
             paths["attr_file"] = alt
         else:
-            # Generate labels from directory structure
-            logging.warning(f"Labels file not found: {paths['attr_file']}")
             raise FileNotFoundError(f"Labels file not found: {paths['attr_file']}")
 
     transform = transforms.Compose([
@@ -263,16 +343,18 @@ def main():
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
     ])
 
+    # Class filter for DDC's 15-class aPY subset
+    class_filter = APY_DDC_15_CLASSES if args.apy_15 and args.dataset == "apy" else None
+
     dataset = AttributeDataset(
-        img_dir=paths["img_dir"],
-        attr_file=paths["attr_file"],
-        pred_file=paths["pred_file"],
-        classes_file=paths["classes_file"],
-        transform=transform, train=True,
+        img_dir=paths["img_dir"], attr_file=paths["attr_file"],
+        pred_file=paths["pred_file"], classes_file=paths["classes_file"],
+        transform=transform, train=True, class_filter=class_filter,
     )
 
     K = args.n_clusters or len(np.unique(dataset.labels))
-    logging.info(f"=== {cfg['name']} | Mode: {args.mode.upper()} | K={K} | N={len(dataset)} ===")
+    logging.info(f"=== {cfg['name']} | Mode: {args.mode.upper()} | K={K} | "
+                 f"N={len(dataset)} | Runs={args.n_runs} ===")
 
     dataloader = DataLoader(
         dataset, batch_size=64, num_workers=4,
@@ -280,68 +362,62 @@ def main():
     )
 
     # =====================================================================
-    # Step 1: Extract features
+    # Step 1: Extract features (cached)
     # =====================================================================
     start = time.time()
-    features = extract_resnet_features(dataloader, device)
+    cache_tag = f"{args.dataset}{'_15' if args.apy_15 else ''}"
+    cache_path = get_cache_path(cache_tag, args.use_sample, args.sample_size)
+    features = extract_resnet_features(dataloader, device, cache_path=cache_path)
     true_labels = np.array(dataset.labels)
     symbolic_tags = dataset.symbolic_tags
-    feat_time = time.time() - start
-    logging.info(f"Features: {features.shape} ({feat_time:.1f}s)")
+    logging.info(f"Features: {features.shape} ({time.time()-start:.1f}s)")
 
     # =====================================================================
-    # Step 2: Clustering
+    # Step 2-4: Run clustering + evaluation (multi-seed)
     # =====================================================================
-    t_cluster = time.time()
-    if args.mode in ["kmeans", "ddc"]:
-        logging.info(f"K-means (K={K})...")
-        cluster_labels = KMeans(n_clusters=K, random_state=42, n_init=10).fit_predict(features)
-    else:
-        logging.info(f"DECCS consensus (K={K})...")
-        base_labels = get_base_clusterings(features, n_clusters=K)
-        consensus = build_sparse_consensus(base_labels, features)
-        cluster_labels = SpectralClustering(
-            n_clusters=K, affinity="precomputed",
-            assign_labels="kmeans", random_state=42,
-        ).fit_predict(consensus)
+    seeds = [42] if args.n_runs == 1 else [42 + i for i in range(args.n_runs)]
+    all_metrics = []
+    primary_labels = None
 
-    n_actual = len(np.unique(cluster_labels))
-    logging.info(f"Clustering: {n_actual} clusters ({time.time()-t_cluster:.1f}s)")
-
-    # =====================================================================
-    # Step 3: ILP Descriptions
-    # =====================================================================
-    ilp_descriptions = None
-    ilp_metrics = {}
-    if args.mode in ["ddc", "ddeccs"]:
-        pred_names = load_predicate_names(paths["predicates_file"])
-        ilp_descriptions, W_expl, ilp_metrics = solve_ilp_descriptions(
-            cluster_labels, symbolic_tags, n_clusters=K, alpha=8,
-            predicate_names=pred_names,
+    for i, seed in enumerate(seeds):
+        logging.info(f"--- Run {i+1}/{len(seeds)} (seed={seed}) ---")
+        metrics, cluster_labels = run_single(
+            features, true_labels, symbolic_tags, None,
+            args.mode, K, seed, cfg, paths, output_dir,
+            pca_dim=args.pca_dim,
         )
+        all_metrics.append(metrics)
+        if seed == 42:
+            primary_labels = cluster_labels
 
-        with open(os.path.join(output_dir, "ilp_descriptions.json"), "w") as f:
-            json.dump(ilp_descriptions, f, indent=2)
+        logging.info(f"  NMI={metrics['nmi']:.4f}  ACC={metrics['acc']:.4f}  "
+                     f"ARI={metrics['ari']:.4f}  Sil={metrics['silhouette']:.4f}"
+                     + (f"  TC={metrics.get('avg_tc',0):.4f}  "
+                        f"ITF={metrics.get('avg_itf',0):.4f}"
+                        if 'avg_tc' in metrics else ""))
+
+    # Aggregate results
+    metric_keys = ["nmi", "acc", "ari", "silhouette", "avg_tc", "avg_itf"]
+    agg = {}
+    for key in metric_keys:
+        vals = [m[key] for m in all_metrics if key in m]
+        if vals:
+            agg[key] = round(np.mean(vals), 4)
+            if len(vals) > 1:
+                agg[f"{key}_std"] = round(np.std(vals), 4)
+
+    if args.n_runs > 1:
+        logging.info(f"=== Aggregated ({args.n_runs} runs) ===")
+        for key in ["nmi", "acc", "ari"]:
+            if f"{key}_std" in agg:
+                logging.info(f"  {key.upper()}: {agg[key]:.4f} ± {agg[f'{key}_std']:.4f}")
 
     # =====================================================================
-    # Step 4: Evaluation
+    # Step 5: Save everything (using primary run)
     # =====================================================================
-    acc = clustering_acc(true_labels, cluster_labels)
-    ari = adjusted_rand_score(true_labels, cluster_labels)
-    nmi = normalized_mutual_info_score(true_labels, cluster_labels)
-    sil = silhouette_score(features, cluster_labels,
-                           sample_size=min(10000, len(features)), random_state=42)
+    cluster_labels = primary_labels
 
-    metrics = {"nmi": nmi, "acc": acc, "ari": ari, "silhouette": sil, **ilp_metrics}
-    logging.info(f"NMI={nmi:.4f}  ACC={acc:.4f}  ARI={ari:.4f}  Sil={sil:.4f}"
-                 + (f"  TC={ilp_metrics.get('avg_tc',0):.4f}  ITF={ilp_metrics.get('avg_itf',0):.4f}"
-                    if ilp_metrics else ""))
-
-    # =====================================================================
-    # Step 5: Save everything
-    # =====================================================================
-
-    # Attribute-based cluster summaries
+    # Cluster attribute summaries
     cluster_descriptions = []
     for c in sorted(np.unique(cluster_labels)):
         mask = cluster_labels == c
@@ -360,12 +436,11 @@ def main():
     # Visualizations
     plot_tsne(features, cluster_labels,
               os.path.join(output_dir, "tsne.png"),
-              title=f"{cfg['name']} — {args.mode.upper()} (NMI={nmi:.3f})")
+              title=f"{cfg['name']} — {args.mode.upper()} (NMI={agg.get('nmi',0):.3f})")
     plot_pca(features, cluster_labels,
              os.path.join(output_dir, "pca.png"),
-             title=f"{cfg['name']} — {args.mode.upper()} PCA (NMI={nmi:.3f})")
+             title=f"{cfg['name']} — {args.mode.upper()} PCA (NMI={agg.get('nmi',0):.3f})")
 
-    # Cluster sample images
     save_cluster_examples(
         cluster_labels, dataset,
         output_dir=os.path.join(output_dir, "cluster_samples"),
@@ -380,7 +455,10 @@ def main():
         "n_samples": len(dataset),
         "n_classes": len(np.unique(true_labels)),
         "n_attributes": symbolic_tags.shape[1],
-        "metrics": {k: round(v, 4) for k, v in metrics.items()},
+        "n_runs": args.n_runs,
+        "pca_dim": args.pca_dim,
+        "metrics": agg,
+        "per_run_metrics": all_metrics if args.n_runs > 1 else None,
         "cluster_sizes": {
             "min": int(np.bincount(cluster_labels).min()),
             "max": int(np.bincount(cluster_labels).max()),
@@ -393,7 +471,6 @@ def main():
     with open(os.path.join(output_dir, "summary.json"), "w") as f:
         json.dump(summary, f, indent=2)
 
-    # Full results (with cluster assignments)
     full_results = {**summary, "clusters": cluster_labels.tolist()}
     with open(os.path.join(output_dir, "full_results.json"), "w") as f:
         json.dump(full_results, f, indent=2)

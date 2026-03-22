@@ -14,6 +14,7 @@ import torch
 import torch.nn.functional as F
 from PIL import Image, ImageDraw
 from joblib import parallel_backend
+# from clustpy.deep import DEC
 from scipy.optimize import linear_sum_assignment
 from scipy.sparse import lil_matrix
 from sklearn.cluster import (
@@ -283,38 +284,47 @@ def get_base_clusterings(embeddings_np, n_clusters=10):
     # --- Normalize embeddings ---
     X = StandardScaler().fit_transform(embeddings_np)
 
+    # --- PCA for GMM: full covariance on 2048-dim is infeasible ---
+    n_gmm_dim = min(256, X.shape[1], max(64, X.shape[0] // (n_clusters * 2)))
+    if X.shape[1] > n_gmm_dim:
+        from sklearn.decomposition import PCA as PCA_sk
+        X_gmm = PCA_sk(n_components=n_gmm_dim, random_state=42).fit_transform(X)
+        logging.info(f"[DECCS] GMM uses PCA-reduced features: {X.shape[1]} → {n_gmm_dim}")
+    else:
+        X_gmm = X
+
     # --- Prepare ensemble containers ---
     base_labels = []
     classical_models = {
-        "KMeans": KMeans(
+        "KMeans": (KMeans(
             n_clusters=n_clusters,
             n_init='auto',
             max_iter=300,
             algorithm="elkan",
             random_state=42
-        ),
-        "Spectral": SpectralClustering(
+        ), X),
+        "Spectral": (SpectralClustering(
             n_clusters=n_clusters,
             affinity="nearest_neighbors",
             n_neighbors=15,
             assign_labels="kmeans",
             eigen_solver="arpack",
             random_state=42
-        ),
-        "GMM": GaussianMixture(n_components=n_clusters, random_state=42,
-                               covariance_type="full", reg_covar=1e-4, max_iter=200),
-        "Agglomerative": AgglomerativeClustering(
+        ), X),
+        "GMM": (GaussianMixture(n_components=n_clusters, random_state=42,
+                                covariance_type="full", reg_covar=1e-3, max_iter=300), X_gmm),
+        "Agglomerative": (AgglomerativeClustering(
             n_clusters=n_clusters,
             linkage="ward",
             compute_full_tree=False
-        ),
+        ), X),
     }
 
     # --- Run classical clustering ensemble ---
-    for name, algo in classical_models.items():
+    for name, (algo, data) in classical_models.items():
         start = time.time()
         try:
-            labels = algo.fit_predict(X)
+            labels = algo.fit_predict(data)
             base_labels.append(labels)
             logging.info(f"[DECCS] Classical base clustering '{name}' completed.")
             logging.info(f"Base clustering '{name}' completed in {time.time() - start:.2f}s")

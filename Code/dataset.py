@@ -32,13 +32,37 @@ class AttributeDataset(Dataset):
     """
 
     def __init__(self, img_dir, attr_file, pred_file, classes_file,
-                 transform=None, train=True, train_ratio=0.8):
+                 transform=None, train=True, train_ratio=0.8, class_filter=None):
         self.img_dir = img_dir
         self.transform = transform
 
         self.class_names, self.class_ids = self._load_classes(classes_file)
         self.image_paths, self.labels = self._load_image_labels(attr_file)
         self.label_to_tags = self._load_predicates(pred_file)
+
+        # Filter to specific classes (e.g., DDC's 15-class aPY subset)
+        if class_filter is not None:
+            filter_ids = set()
+            for cname in class_filter:
+                cname_lower = cname.lower()
+                for name, cid in self.class_names.items():
+                    if name.lower() == cname_lower:
+                        filter_ids.add(cid)
+                        break
+            if filter_ids:
+                keep = [i for i, l in enumerate(self.labels) if l in filter_ids]
+                self.image_paths = [self.image_paths[i] for i in keep]
+                self.labels = [self.labels[i] for i in keep]
+                # Remap labels to contiguous 0-based IDs
+                unique_labels = sorted(set(self.labels))
+                remap = {old: new for new, old in enumerate(unique_labels)}
+                self.labels = [remap[l] for l in self.labels]
+                # Remap label_to_tags too
+                self.label_to_tags = {remap[old]: tags
+                                      for old, tags in self.label_to_tags.items()
+                                      if old in remap}
+                logging.info(f"Class filter: {len(filter_ids)} classes, "
+                             f"{len(self.image_paths)} instances retained")
 
         n_attrs = next(iter(self.label_to_tags.values())).shape[0]
         self.symbolic_tags = np.array([
@@ -145,6 +169,14 @@ DATASET_CONFIGS = {
         "n_attributes": 64,
     },
 }
+
+# DDC paper's 15-class aPY subset (from Figure 3 ontology)
+APY_DDC_15_CLASSES = [
+    "dog", "cat", "monkey", "zebra", "centaur",
+    "bag", "mug", "bottle", "chair",
+    "car", "building", "bicycle", "boat",
+    "sofa", "diningtable",
+]
 
 
 def get_dataset_paths(dataset_name, use_sample=False, sample_dir="samples"):
