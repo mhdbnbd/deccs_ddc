@@ -1,0 +1,377 @@
+[
+  {
+    "cluster_id": 0,
+    "num_samples": 502,
+    "top_attributes": [
+      "Metal",
+      "Window",
+      "3D Boxy",
+      "Wheel",
+      "Occluded"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/car/2008_003868_obj09127.jpg",
+        "label": 3
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/car/2008_006037_obj10660.jpg",
+        "label": 3
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/car/2008_005972_obj04203.jpg",
+        "label": 3
+      }
+    ]
+  },
+  {
+    "cluster_id": 1,
+    "num_samples": 934,
+    "top_attributes": [
+      "Furry",
+      "Head",
+      "Ear",
+      "Eye",
+      "Torso"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/dog/2008_007509_obj05361.jpg",
+        "label": 7
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/building/building_640_obj14762.jpg",
+        "label": 13
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/dog/2008_006071_obj10695.jpg",
+        "label": 7
+      }
+    ]
+  },
+  {
+    "cluster_id": 2,
+    "num_samples": 835,
+    "top_attributes": [
+      "Furn. Back",
+      "Occluded",
+      "Wood",
+      "Furn. Seat",
+      "Furn. Leg"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/chair/2008_006470_obj04559.jpg",
+        "label": 5
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/chair/2008_005417_obj10253.jpg",
+        "label": 5
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/sofa/2008_006784_obj11218.jpg",
+        "label": 8
+      }
+    ]
+  },
+  {
+    "cluster_id": 3,
+    "num_samples": 374,
+    "top_attributes": [
+      "Vert Cyl",
+      "Label",
+      "Glass",
+      "Occluded",
+      "Shiny"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/bottle/2008_005869_obj10551.jpg",
+        "label": 2
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/diningtable/2008_007853_obj12023.jpg",
+        "label": 6
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/bottle/2008_006052_obj10683.jpg",
+        "label": 2
+      }
+    ]
+  },
+  {
+    "cluster_id": 4,
+    "num_samples": 105,
+    "top_attributes": [
+      "Furn. Back",
+      "Furn. Seat",
+      "Cloth",
+      "Occluded",
+      "Furn. Arm"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/sofa/2008_004778_obj09770.jpg",
+        "label": 8
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/sofa/2008_007682_obj05482.jpg",
+        "label": 8
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/chair/2008_000588_obj00371.jpg",
+        "label": 5
+      }
+    ]
+  },
+  {
+    "cluster_id": 5,
+    "num_samples": 142,
+    "top_attributes": [
+      "Row Wind",
+      "Glass",
+      "3D Boxy",
+      "Metal",
+      "Occluded"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/building/building_46_obj14692.jpg",
+        "label": 13
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/building/building_336_obj14627.jpg",
+        "label": 13
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/building/building_193_obj14545.jpg",
+        "label": 13
+      }
+    ]
+  },
+  {
+    "cluster_id": 6,
+    "num_samples": 268,
+    "top_attributes": [
+      "Head",
+      "Furry",
+      "Ear",
+      "Snout",
+      "Eye"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/cat/2008_005386_obj03803.jpg",
+        "label": 4
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/cat/2008_007842_obj05620.jpg",
+        "label": 4
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/chair/2008_003501_obj02439.jpg",
+        "label": 5
+      }
+    ]
+  },
+  {
+    "cluster_id": 7,
+    "num_samples": 445,
+    "top_attributes": [
+      "Metal",
+      "Occluded",
+      "Window",
+      "3D Boxy",
+      "Shiny"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/car/2008_008679_obj12628.jpg",
+        "label": 3
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/car/2008_004387_obj03034.jpg",
+        "label": 3
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/boat/2008_002281_obj01592.jpg",
+        "label": 1
+      }
+    ]
+  },
+  {
+    "cluster_id": 8,
+    "num_samples": 121,
+    "top_attributes": [
+      "Head",
+      "Furry",
+      "Hair",
+      "Nose",
+      "Torso"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/monkey/monkey_368_obj12898.jpg",
+        "label": 9
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/monkey/monkey_634_obj12978.jpg",
+        "label": 9
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/monkey/monkey_47_obj12927.jpg",
+        "label": 9
+      }
+    ]
+  },
+  {
+    "cluster_id": 9,
+    "num_samples": 258,
+    "top_attributes": [
+      "Rein",
+      "Cloth",
+      "3D Boxy",
+      "Leather",
+      "Metal"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/bag/bag_291_obj14949.jpg",
+        "label": 14
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/bag/bag_336_obj14981.jpg",
+        "label": 14
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/bag/bag_211_obj14899.jpg",
+        "label": 14
+      }
+    ]
+  },
+  {
+    "cluster_id": 10,
+    "num_samples": 243,
+    "top_attributes": [
+      "Metal",
+      "Wood",
+      "3D Boxy",
+      "Occluded",
+      "Mast"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/boat/2008_007643_obj11861.jpg",
+        "label": 1
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/boat/2008_001136_obj07099.jpg",
+        "label": 1
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/boat/2008_003449_obj08808.jpg",
+        "label": 1
+      }
+    ]
+  },
+  {
+    "cluster_id": 11,
+    "num_samples": 78,
+    "top_attributes": [
+      "Row Wind",
+      "Glass",
+      "3D Boxy",
+      "Metal",
+      "Occluded"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/building/building_640_obj14759.jpg",
+        "label": 13
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/building/building_613_obj14750.jpg",
+        "label": 13
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/building/building_374_obj14663.jpg",
+        "label": 13
+      }
+    ]
+  },
+  {
+    "cluster_id": 12,
+    "num_samples": 237,
+    "top_attributes": [
+      "Metal",
+      "Wheel",
+      "Handlebars",
+      "Pedal",
+      "Occluded"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/bicycle/2008_005055_obj03547.jpg",
+        "label": 0
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/bicycle/2008_008210_obj12280.jpg",
+        "label": 0
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/bicycle/2008_007019_obj11379.jpg",
+        "label": 0
+      }
+    ]
+  },
+  {
+    "cluster_id": 13,
+    "num_samples": 182,
+    "top_attributes": [
+      "Vert Cyl",
+      "Shiny",
+      "Glass",
+      "3D Boxy",
+      "Round"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/mug/mug_801_obj14296.jpg",
+        "label": 12
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/mug/mug_308_obj14220.jpg",
+        "label": 12
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/mug/mug_129_obj14108.jpg",
+        "label": 12
+      }
+    ]
+  },
+  {
+    "cluster_id": 14,
+    "num_samples": 67,
+    "top_attributes": [
+      "Metal",
+      "Window",
+      "3D Boxy",
+      "Wheel",
+      "Occluded"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/car/2008_005875_obj10556.jpg",
+        "label": 3
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/car/2008_001329_obj00838.jpg",
+        "label": 3
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/car/2008_007064_obj11417.jpg",
+        "label": 3
+      }
+    ]
+  }
+]

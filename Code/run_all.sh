@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-RUNS=1
+RUNS=10
 
 echo "=== DDECCS Full Experiment Suite ($RUNS runs each) ==="
 echo ""
