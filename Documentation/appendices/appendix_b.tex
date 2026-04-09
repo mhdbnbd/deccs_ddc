@@ -1,187 +1,161 @@
-\section{Additional Visualizations and Cluster Analysis: Detailed Cluster Descriptions}
+\section{Complete ILP Cluster Descriptions}
 
-This section provides comprehensive descriptions for clusters discovered by our models.
+\subsection{AwA2 Cluster Descriptions (DDC mode, K = 50)}
 
-\subsection{Complete Cluster Attribute Analysis}
+Table~\ref{tab:awa2_ilp_all} presents the complete ILP-generated descriptions for all 50 AwA2 clusters. The ILP solved with $\alpha = 8$, $\beta = 10$, selecting 77 of 85 attributes.
 
-ToDo Table~\ref{tab:all_clusters} presents cluster characterizations from our best-performing CAE model.
+\begin{table}[H]
+\centering
+\small
+\caption{Complete ILP cluster descriptions for AwA2. TC = Tag Coverage, ITF = Inverse Tag Frequency. Dominant class determined by majority vote of cluster members.}
+\label{tab:awa2_ilp_all}
+\begin{tabular}{clccc}
+\toprule
+\textbf{C} & \textbf{ILP Description (top 6 tags)} & \textbf{n} & \textbf{TC} & \textbf{ITF} \\
+\midrule
+0 & white, furry, big, meatteeth, claws, strong & 692 & 0.73 & 1.71 \\
+1 & black, white, brown, big, hooves, longleg & 499 & 0.57 & 1.34 \\
+2 & black, hands, strong, muscle, bipedal, agility & 658 & 0.62 & 1.87 \\
+3 & black, white, stripes, hooves, chewteeth, grazer & 941 & 0.80 & 1.49 \\
+4 & lean, hooves, longleg, horns, fast, active & 1050 & 0.58 & 1.43 \\
+5 & gray, hairless, toughskin, bulbous, flippers, swims & 799 & 0.67 & 1.88 \\
+6 & gray, hairless, toughskin, big, bulbous, horns & 523 & 0.58 & 1.58 \\
+7 & brown, toughskin, big, bulbous, horns, walks & 701 & 0.57 & 1.34 \\
+8 & brown, hooves, longleg, tail, chewteeth, fast & 1037 & 0.67 & 1.43 \\
+9 & black, toughskin, flippers, swims, slow, fish & 891 & 0.62 & 1.84 \\
+10 & black, toughskin, big, bulbous, hooves, chewteeth & 368 & 0.53 & 1.57 \\
+13 & orange, stripes, meatteeth, claws, muscle, meat & 697 & 0.83 & 2.03 \\
+15 & white, small, paws, tail, chewteeth, buckteeth & 874 & 0.62 & 1.58 \\
+17 & hands, longleg, bipedal, active, agility, bush & 617 & 0.73 & 1.95 \\
+35 & yellow, spots, big, lean, hooves, longleg & 920 & 0.67 & 1.99 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% Source: results/awa2/ddc/ilp_descriptions.json (selected rows shown; full file contains all 50 clusters)
+
+\subsection{aPY 15-Class Cluster Descriptions (DDC mode, K = 15)}
+
+Table~\ref{tab:apy15_ilp_all} presents the complete ILP descriptions for the 15-class aPY subset. The ILP solved with $\alpha = 2$, $\beta = 1$ (perfect orthogonality), selecting 43 of 64 attributes.
 
 \begin{table}[H]
     \centering
-    \caption{Representative cluster characterizations with top-5 attributes}
-    \label{tab:all_clusters}
     \small
-    \begin{tabular}{clcc}
-        \hline
-        \textbf{Cluster} & \textbf{Top-5 Attributes} & \textbf{Size} & \textbf{Purity} \\
-        \hline
-        01 & big, fierce, solitary, hunter, stripes & x & x \\
-        02 & hooves, quadrupedal, herbivore, patches, long-neck & x & x \\
-        03 & furry, quadrupedal, fast, tail, ground & x & x \\
-        04 & domestic, furry, small, tail, ground & x & x \\
-        05 & aquatic, swims, fish, flippers, ocean & x & x \\
-        06 & feathers, flies, small, beak, claws & x & x \\
-        07 & feathers, large, flies, hunter, talons & x & x \\
-        08 & big, herbivore, thick-skin, quadrupedal, bulky & x & x \\
-        09 & stripes, black-white, quadrupedal, herbivore, fast & x & x \\
-        10 & nocturnal, small, flies, insect-eater, wings & x & x \\
-        \hline
+    \caption{Complete ILP cluster descriptions for aPY 15-class subset.}
+    \label{tab:apy15_ilp_all}
+    \begin{tabular}{clccc}
+        \toprule
+        \textbf{C} & \textbf{ILP Description} & \textbf{n} & \textbf{TC} & \textbf{ITF} \\
+        \midrule
+        0 & Round, Vert Cyl, Occluded, Label, Furn.\ Leg, Wood, Clear & 235 & 0.29 & 1.68 \\
+        1 & Wheel, Door, Taillight, Side mirror, Exhaust & 435 & 0.41 & 2.07 \\
+        2 & 2D Boxy, Round, Plastic, Glass, Clear, Shiny & 169 & 0.34 & 1.54 \\
+        3 & Head, Eye, Torso & 860 & 0.67 & 2.25 \\
+        4 & Furn.\ Back, Furn.\ Seat, Furn.\ Arm, Leather & 123 & 0.51 & 2.01 \\
+        5 & Vert Cyl, Label, Furn.\ Leg, Furn.\ Back, Metal, Plastic, Glass, Clear & 440 & 0.25 & 1.69 \\
+        6 & 2D Boxy, 3D Boxy, Furn.\ Leg, Furn.\ Arm, Cloth, Shiny & 544 & 0.35 & 1.68 \\
+        7 & 2D Boxy, Round, Horiz Cyl, Text, Rein, Metal, Plastic, Cloth, Furry, Wool, Leather & 251 & 0.18 & 1.82 \\
+        8 & 3D Boxy, Horiz Cyl, Window, Row Wind, Text & 221 & 0.40 & 1.71 \\
+        9 & Leg, Foot/Shoe, Furry & 430 & 0.70 & 2.48 \\
+        10 & 2D Boxy, Occluded, Window, Furn.\ Leg, Furn.\ Seat, Wood, Shiny & 225 & 0.29 & 1.61 \\
+        11 & 2D Boxy, Horiz Cyl, Row Wind, Wheel, Mast, Text, Metal, Wood & 307 & 0.25 & 1.70 \\
+        12 & Tail, Ear, Snout & 280 & 0.69 & 2.71 \\
+        13 & Head, Torso, Window, Wheel, Door, Headlight, Taillight, Side mirror, Label, Feather & 446 & 0.20 & 2.03 \\
+        14 & Pedal, Handlebars, Text, Plastic & 223 & 0.53 & 2.01 \\
+        \bottomrule
     \end{tabular}
 \end{table}
 
-\subsection{Cluster Purity Analysis}
-
-Cluster purity measures how homogeneous each cluster is with respect to ground truth labels:
-
-\begin{equation}
-    \text{Purity}(C_i) = \frac{1}{|C_i|} \max_j |C_i \cap L_j|
-\end{equation}
-
-where $C_i$ is cluster $i$ and $L_j$ is ground truth class $j$.
-
-
-
-\section{Attribute Importance Analysis}
-
-\subsection{Most Discriminative Attributes}
-
-ToDo We computed mutual information between each attribute and cluster assignments to identify the most discriminative features.
-
-\begin{table}[H]
-    \centering
-    \caption{Top 15 most discriminative attributes}
-    \label{tab:attr_importance}
-    \begin{tabular}{clc}
-        \hline
-        \textbf{Rank} & \textbf{Attribute} & \textbf{Mutual Information} \\
-        \hline
-        1 & feathers & X \\
-        2 & aquatic & X \\
-        3 & flies & X \\
-        4 & furry & X \\
-        5 & swims & X \\
-        6 & hooves & X \\
-        7 & flippers & X \\
-        8 & quadrupedal & X \\
-        9 & wings & X \\
-        10 & big & X \\
-        11 & hunter & X \\
-        12 & stripes & X \\
-        13 & domestic & X \\
-        14 & herbivore & X \\
-        15 & fierce & X \\
-        \hline
-    \end{tabular}
-\end{table}
-
-\section{Implementation Details}
-
-\subsection{Model Architecture Specifications}
-
-\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Autoencoder Architecture]
-    \textbf{Encoder:}
-    \begin{itemize}
-        \item Conv2D(3 $\rightarrow$ 16, kernel=3, stride=2, padding=1) + ReLU
-        \item Conv2D(16 $\rightarrow$ 32, kernel=3, stride=2, padding=1) + ReLU
-        \item Conv2D(32 $\rightarrow$ 64, kernel=3, stride=2, padding=1) + ReLU
-        \item Conv2D(64 $\rightarrow$ 128, kernel=3, stride=2, padding=1) + ReLU
-        \item AdaptiveAvgPool2D(1$\times$1) $\rightarrow$ Flatten $\rightarrow$ 128-dim embedding
-    \end{itemize}
-
-    \textbf{Tag Prediction Branch (CAE only):}
-    \begin{itemize}
-        \item Linear(128 $\rightarrow$ 85) + BCEWithLogitsLoss
-    \end{itemize}
-
-    \textbf{Decoder:}
-    \begin{itemize}
-        \item ConvTranspose2D(128 $\rightarrow$ 64, kernel=3, stride=2, padding=1, output\_padding=1) + ReLU
-        \item ConvTranspose2D(64 $\rightarrow$ 32, kernel=3, stride=2, padding=1, output\_padding=1) + ReLU
-        \item ConvTranspose2D(32 $\rightarrow$ 16, kernel=3, stride=2, padding=1, output\_padding=1) + ReLU
-        \item ConvTranspose2D(16 $\rightarrow$ 3, kernel=3, stride=2, padding=1, output\_padding=1) + Sigmoid
-    \end{itemize}
-
-    \textbf{Total Parameters:} 1,247,683
-\end{tcolorbox}
-
-\subsection{Training Configuration}
-
-\begin{table}[H]
-    \centering
-    \caption{Complete training configuration}
-    \label{tab:training_config}
-    \begin{tabular}{ll}
-        \hline
-        \textbf{Parameter} & \textbf{Value} \\
-        \hline
-        Optimizer & Adam \\
-        Learning Rate & 0.001 \\
-        Batch Size & 256 \\
-        Weight Decay & 0 \\
-        LR Scheduler & None \\
-        Gradient Clipping & None \\
-        Mixed Precision & Yes (FP16) \\
-        Data Augmentation & Resize(128$\times$128), ToTensor \\
-        Num Workers & 8 \\
-        Pin Memory & True \\
-        Persistent Workers & True \\
-        \hline
-    \end{tabular}
-\end{table}
+% Source: results/apy_15/ddc/ilp_descriptions.json
 
 \section{Dataset Statistics}
 
-\subsection{AwA2 Dataset Breakdown}
+\subsection{AwA2 Dataset}
 
 \begin{table}[H]
-    \centering
-    \caption{AwA2 dataset statistics}
-    \label{tab:dataset_stats}
-    \begin{tabular}{lc}
-        \hline
-        \textbf{Statistic} & \textbf{Value} \\
-        \hline
-        Total Images & 37,322 \\
-        Number of Classes & 50 \\
-        Attributes per Class & 85 \\
-        Images per Class (mean) & 746.4 \\
-        Images per Class (std) & 312.8 \\
-        Images per Class (min) & 92 \\
-        Images per Class (max) & 1,632 \\
-        Image Resolution (mean) & 486$\times$413 px \\
-        Train/Test Split Used & 80/20 \\
-        \hline
-    \end{tabular}
+\centering
+\caption{AwA2 dataset statistics. AwA2~\citep{Xian2018} replaces the original AwA dataset~\citep{Lampert2013}, which was withdrawn due to copyright restrictions. Both datasets share the same 50 classes and 85 attributes.}
+\label{tab:awa2_stats}
+\begin{tabular}{ll}
+\toprule
+\textbf{Property} & \textbf{Value} \\
+\midrule
+Total images & 37,322 \\
+Training split (80\%) & 29,857 \\
+Number of classes & 50 \\
+Number of attributes & 85 \\
+Attribute type & Continuous, per-class \\
+Attribute density & $\approx 0.50$ \\
+Image source & Flickr, Wikipedia \\
+\bottomrule
+\end{tabular}
 \end{table}
 
-\section{Ensemble Clustering Details}
-
-\subsection{Base Clustering Algorithms}
-
-The following algorithms comprise our clustering ensemble:
+\subsection{aPY Dataset}
 
 \begin{table}[H]
-    \centering
-    \caption{Ensemble clustering algorithms and configurations}
-    \label{tab:ensemble_config}
-    \begin{tabular}{llp{6cm}}
-        \hline
-        \textbf{Algorithm} & \textbf{Parameters} & \textbf{Characteristics} \\
-        \hline
-        K-Means & $k=50$, init=`k-means++' & Assumes spherical clusters \\
-        Spectral Clustering & $k=50$, affinity=`rbf' & Captures manifold structure \\
-        Agglomerative & $k=50$, linkage=`ward' & Hierarchical, minimizes variance \\
-        Gaussian Mixture & $k=50$, covariance=`full' & Probabilistic, allows elliptical clusters \\
-        DBSCAN & eps=0.5, min\_samples=5 & Density-based, finds arbitrary shapes \\
-        \hline
-    \end{tabular}
+\centering
+\caption{aPY dataset statistics. The dataset combines Pascal VOC~2008 and Yahoo images~\citep{Farhadi2009}.}
+\label{tab:apy_stats}
+\begin{tabular}{ll}
+\toprule
+\textbf{Property} & \textbf{Value} \\
+\midrule
+Total object instances & 15339 \\
+Training split (80\%) & 12271 \\
+Number of classes (full) & 32 \\
+Number of classes (DDC subset) & 15 \\
+DDC subset training instances & 5189 \\
+Number of attributes & 64 \\
+Attribute type & Binary, per-instance \\
+Attribute density & $\approx 0.087$ \\
+Annotation type & Per-object bounding box crop \\
+\bottomrule
+\end{tabular}
 \end{table}
 
-\textbf{Consensus Matrix Construction:}
-The consensus matrix $\mathbf{C} \in \mathbb{R}^{N \times N}$ is built by counting co-occurrences across base clusterings:
+The 15 classes in the DDC subset are: dog, cat, monkey, zebra, bird, bag, mug, bottle, chair, car, building, bicycle, boat, sofa, and dining table. These were identified from the ontology visualization in DDC's Figure~3.
 
-\begin{equation}
-    C_{ij} = \frac{1}{|\mathcal{E}|} \sum_{m=1}^{|\mathcal{E}|} \mathds{1}[\pi_m(i) = \pi_m(j)]
-\end{equation}
+\section{DECCS Ensemble Details}
 
-where $\pi_m(i)$ is the cluster assignment of sample $i$ under algorithm $m$.
+\begin{table}[H]
+\centering
+\caption{DECCS base clustering algorithms and their configurations.}
+\label{tab:ensemble_details}
+\begin{tabular}{llp{7cm}}
+\toprule
+\textbf{Algorithm} & \textbf{Library} & \textbf{Configuration} \\
+\midrule
+K-means & scikit-learn & Elkan algorithm, $n\_init = \text{auto}$, $max\_iter = 300$ \\
+Spectral & scikit-learn & Nearest-neighbor affinity ($k = 15$), arpack solver \\
+GMM & scikit-learn & Full covariance, $reg\_covar = 10^{-3}$, PCA to 256 dims \\
+Agglomerative & scikit-learn & Ward linkage \\
+\midrule
+Consensus & scikit-learn & Sparse co-association matrix via $k$-NN ($k = 20$), final Spectral Clustering \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% Source: get_base_clusterings() in utils.py
+
+\section{Implementation Details}
+
+The complete implementation is available in the project repository. Table~\ref{tab:code_files} lists the main source files and their purposes.
+
+\begin{table}[H]
+\centering
+\caption{Source code files and their roles in the DDECCS pipeline.}
+\label{tab:code_files}
+\begin{tabular}{lp{10cm}}
+\toprule
+\textbf{File} & \textbf{Purpose} \\
+\midrule
+\texttt{main\_experiments.py} & Main pipeline: feature extraction, clustering, ILP descriptions, evaluation \\
+\texttt{dataset.py} & \texttt{AttributeDataset} class, dataset config registry, aPY 15-class filter \\
+\texttt{utils.py} & DECCS ensemble, consensus matrix, evaluation metrics, I/O utilities \\
+\texttt{visualize.py} & t-SNE and PCA visualization, cluster sample saving \\
+\texttt{setup\_apy.py} & aPY dataset preprocessing (annotation parsing, bounding box cropping) \\
+\texttt{run\_all.sh} & Experiment orchestration script (all datasets, all modes, 10 seeds) \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,763 +1,212 @@
 \section{Overview}
 
-This chapter presents our methodology for integrating Deep Descriptive Clustering (DDC) principles into the Deep Embedded Clustering with Consensus Representations (DECCS) framework. Our approach addresses the dual objectives of achieving high-precision clustering while maintaining interpretability through semantic supervision.
+This chapter presents the methodology of our integrated approach, which we term DDECCS (Deep Descriptive Clustering with Consensus Representations). The approach combines pretrained deep feature extraction with consensus-based ensemble clustering and interpretable cluster descriptions via Integer Linear Programming (ILP). Our pipeline operates in four sequential stages: feature extraction, clustering, description generation, and evaluation.
 
-\subsection{Methodological Contributions}
+Unlike approaches that jointly train feature representations and clustering objectives---which can suffer from loss balancing instability as we discuss in Section~\ref{sec:design_rationale}---our method decouples feature extraction from clustering. This design choice leverages the strong visual representations already learned by modern pretrained networks while allowing each downstream component (clustering, description) to operate independently and reliably.
 
-Our methodology makes three key contributions:
+\paragraph{Terminology.} The DDC paper uses the term ``tags'' to refer to semantic properties of instances (e.g., ``furry,'' ``has wheels''). The dataset literature (AwA2, aPY) uses ``attributes'' for the same concept. Throughout this thesis, we use ``attributes'' as the primary term and note that DDC's ``tags'' are synonymous.
+
+\section{Pipeline Architecture}
+
+Our pipeline consists of four stages, illustrated in Figure~\ref{fig:pipeline}:
 
 \begin{enumerate}
-    \item \textbf{Semantic-Guided Representation Learning}: We extend traditional autoencoder architectures with a tag prediction branch that enforces semantic consistency in the learned embedding space.
-
-    \item \textbf{Consensus Clustering with Semantic Grounding}: We adapt DECCS's ensemble clustering approach to operate on semantically-supervised embeddings, creating consensus representations that are both robust and interpretable.
-
-    \item \textbf{Attribute-Based Cluster Explanation}: We develop a post-hoc explanation mechanism that characterizes clusters using human-interpretable semantic attributes.
+    \item \textbf{Feature Extraction}: Frozen ResNet-101 pretrained on ImageNet extracts 2048-dimensional feature vectors from input images.
+    \item \textbf{Clustering}: Either K-means (baseline) or DECCS consensus ensemble assigns images to clusters.
+    \item \textbf{Description Generation}: DDC's ILP formulation generates concise, orthogonal cluster descriptions using semantic attributes.
+    \item \textbf{Evaluation}: Standard clustering metrics (NMI, ACC, ARI, Silhouette) and interpretability metrics (TC, ITF) assess the results.
 \end{enumerate}
-
-\subsection{Research Design}
-
-Our research follows a comparative experimental design with four modes:
-
-\begin{description}
-    \item[\textbf{AE (Baseline)}:] Pure reconstruction-based autoencoder without semantic supervision, establishing performance lower bound.
-
-    \item[\textbf{Oracle}:] Concatenation of learned embeddings with ground-truth symbolic tags, establishing performance upper bound.
-
-    \item[\textbf{CAE (Constrained Autoencoder)}:] Autoencoder with tag prediction supervision, our primary contribution for interpretable clustering.
-
-    \item[\textbf{DECCS}:] Full integration with consensus clustering mechanism and semantic supervision (designed but partially implemented).
-\end{description}
-
-Figure~\ref{fig:methodology_overview} illustrates the overall pipeline.
 
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}[
-        node distance=1.5cm,
-        block/.style={rectangle, draw, fill=blue!20, text width=3cm, text centered, rounded corners, minimum height=1cm},
+        node distance=1.8cm,
+        block/.style={rectangle, draw, fill=blue!20, text width=3.5cm, text centered, rounded corners, minimum height=1cm},
         arrow/.style={->, >=stealth, thick}
     ]
-
         \node (input) [block] {Input Images};
-        \node (encoder) [block, below of=input] {Encoder Network};
-        \node (embedding) [block, below of=encoder] {Embedding Space};
-        \node (decoder) [block, left of=embedding, xshift=-3cm] {  Decoder};
-        \node (tagpred) [block, right of=embedding, xshift=3cm] {  Predictor};
-        \node (recon) [block, below of=decoder] {Reconstructed Image};
-        \node (tags) [block, below of=tagpred] {Predicted Tags};
-        \node (consensus) [block, below of=embedding, yshift=-2cm] {Consensus Clustering};
-        \node (explanation) [block, below of=consensus] {Cluster Explanations};
+        \node (resnet) [block, below of=input] {ResNet-101\\(frozen, pretrained)};
+        \node (features) [block, below of=resnet] {2048-dim Features};
+        \node (kmeans) [block, below left of=features, xshift=-2.5cm, yshift=-0.5cm] {K-means};
+        \node (deccs) [block, below right of=features, xshift=2.5cm, yshift=-0.5cm] {DECCS Consensus\\(KMeans, Spectral,\\GMM, Agglomerative)};
+        \node (clusters) [block, below of=features, yshift=-2.5cm] {Cluster Assignments};
+        \node (ilp) [block, below left of=clusters, xshift=-2.5cm, yshift=-0.5cm] {ILP Description\\(DDC Eq.\ 2--4)};
+        \node (eval) [block, below right of=clusters, xshift=2.5cm, yshift=-0.5cm] {Evaluation\\(NMI, ACC, TC, ITF)};
+        \node (tags) [block, left of=ilp, xshift=-2.5cm] {Semantic\\Attributes};
 
-        \draw[arrow] (input) -- (encoder);
-        \draw[arrow] (encoder) -- (embedding);
-        \draw[arrow] (embedding) -- (decoder);
-        \draw[arrow] (embedding) -- (tagpred);
-        \draw[arrow] (decoder) -- (recon);
-        \draw[arrow] (tagpred) -- (tags);
-        \draw[arrow] (embedding) -- (consensus);
-        \draw[arrow] (consensus) -- (explanation);
-
-        \node[draw=none, text width=2.5cm, align=left] at (-5, -3) {$\mathcal{L}_{recon}$};
-        \node[draw=none, text width=2.5cm, align=left] at (4, -3) {$\mathcal{L}_{tag}$};
-
+        \draw[arrow] (input) -- (resnet);
+        \draw[arrow] (resnet) -- (features);
+        \draw[arrow] (features) -- (kmeans);
+        \draw[arrow] (features) -- (deccs);
+        \draw[arrow] (kmeans) -- (clusters);
+        \draw[arrow] (deccs) -- (clusters);
+        \draw[arrow] (clusters) -- (ilp);
+        \draw[arrow] (clusters) -- (eval);
+        \draw[arrow] (tags) -- (ilp);
     \end{tikzpicture}
-    \caption{Overview of our integrated methodology combining semantic supervision, representation learning, and consensus clustering}
-    \label{fig:methodology_overview}
+    \caption{DDECCS pipeline architecture. Images are processed through a frozen ResNet-101 backbone to extract features, which are then clustered using either K-means or DECCS consensus. Cluster descriptions are generated via ILP using semantic attributes.}
+    \label{fig:pipeline}
 \end{figure}
 
-\section{Dataset Preparation}
+\section{Feature Extraction}
+\label{sec:feature_extraction}
 
-\subsection{Animals with Attributes 2 (AwA2) Dataset}
+We use ResNet-101~\citep{He2016} pretrained on ImageNet~\citep{Deng2009} as our feature extractor. The final classification layer is removed, and the output of the global average pooling layer provides a 2048-dimensional feature vector for each image. All backbone weights are frozen during the entire pipeline---no fine-tuning is performed.
 
-The AwA2 dataset \citep{Xian2019, Lampert2014} is a benchmark for attribute-based recognition, containing:
+Images are preprocessed with standard ImageNet normalization: resized to $224 \times 224$ pixels, converted to tensors, and normalized with mean $[0.485, 0.456, 0.406]$ and standard deviation $[0.229, 0.224, 0.225]$. Features are extracted once and cached to disk for reuse across experiments.
 
-\begin{itemize}
-    \item \textbf{37,322 images} across 50 animal classes
-    \item \textbf{85 semantic attributes} per class (e.g., furry, quadrupedal, swims)
-    \item \textbf{Continuous attribute values} in range [0, 1], representing attribute strength
-    \item \textbf{Class-level annotations}: Each of 50 classes has an 85-dimensional attribute vector
-\end{itemize}
+This approach follows DDC~\citep{Zhang2021}, which also uses frozen ResNet-101 features, ensuring fair comparison. The use of pretrained features is well-established in the clustering literature---K-means on ResNet features already achieves NMI = 0.869 on AwA2, demonstrating that the backbone captures sufficient class-discriminative information without task-specific training.
 
-\subsection{Semantic Attribute Structure}
+% Source: extract_resnet_features() in main_experiments.py
 
-The predicate matrix $\mathbf{P} \in \mathbb{R}^{C \times T}$ encodes semantic attributes for $C=50$ classes and $T=85$ attributes. For class $c$, the attribute vector is:
+\section{Clustering Methods}
 
-\begin{equation}
-    \mathbf{p}_c = [p_{c,1}, p_{c,2}, \ldots, p_{c,85}]^T
-\end{equation}
-
-where $p_{c,t} \in [0, 1]$ represents the strength of attribute $t$ for class $c$.
-
-\textbf{List of semantic attributes:}
-\begin{multicols}{3}
-    \begin{itemize}
-        \item black
-        \item white
-        \item blue
-        \item brown
-        \item gray
-        \item orange
-        \item red
-        \item yellow
-        \item patches
-        \item spots
-        \item stripes
-        \item furry
-        \item hairless
-        \item toughskin
-        \item big
-        \item small
-        \item bulbous
-        \item lean
-        \item flippers
-        \item hands
-        \item hooves
-        \item pads
-        \item paws
-        \item longleg
-        \item longneck
-        \item tail
-        \item chewteeth
-        \item meatteeth
-        \item buckteeth
-        \item strainteeth
-        \item horns
-        \item claws
-        \item tusks
-        \item smelly
-        \item flys
-        \item hops
-        \item swims
-        \item tunnels
-        \item walks
-        \item fast
-        \item slow
-        \item strong
-        \item weak
-        \item muscle
-        \item bipedal
-        \item quadrapedal
-        \item active
-        \item inactive
-        \item nocturnal
-        \item hibernate
-        \item agility
-        \item fish
-        \item meat
-        \item plankton
-        \item vegetation
-        \item insects
-        \item forager
-        \item grazer
-        \item hunter
-        \item scavenger
-        \item skimmer
-        \item stalker
-        \item newworld
-        \item oldworld
-        \item arctic
-        \item coastal
-        \item desert
-        \item bush
-        \item plains
-        \item forest
-        \item fields
-        \item jungle
-        \item mountains
-        \item ocean
-        \item ground
-        \item water
-        \item tree
-        \item cave
-        \item fierce
-        \item timid
-        \item smart
-        \item group
-        \item solitary
-        \item nestspot
-        \item domestic
-    \end{itemize}
-\end{multicols}
-
-\subsection{Data Preprocessing Pipeline}
-
-\subsubsection{Image Preprocessing}
-
-Images undergo standard preprocessing:
-
-\begin{algorithm}[H]
-    \caption{Image Preprocessing Pipeline}
-    \begin{algorithmic}[1]
-        \REQUIRE Raw image $I \in \mathbb{R}^{H \times W \times 3}$
-        \STATE Resize image to $128 \times 128$ pixels: $I' = \text{Resize}(I, 128, 128)$
-        \STATE Convert to tensor format: $\mathbf{x} = \text{ToTensor}(I')$
-        \STATE Normalize to $[0, 1]$: $\mathbf{x} \in [0, 1]^{128 \times 128 \times 3}$
-        \ENSURE Preprocessed tensor $\mathbf{x}$
-    \end{algorithmic}
-\end{algorithm}
-
-\subsubsection{Attribute Normalization}
-
-The continuous predicate matrix is normalized:
-
-\begin{equation}
-    \tilde{p}_{c,t} = \frac{p_{c,t} - \min_c p_{c,t}}{\max_c p_{c,t} - \min_c p_{c,t}}
-\end{equation}
-
-This ensures all attribute values are in $[0, 1]$ with consistent scaling.
-
-\subsubsection{Dataset Splitting}
-
-We implement stratified train-test splitting:
-
-\begin{itemize}
-    \item \textbf{Training set}: 80\% of images per class
-    \item \textbf{Test set}: 20\% of images per class
-    \item \textbf{Random seed}: 42 (for reproducibility)
-\end{itemize}
-
-For rapid prototyping, we create a sampled subset:
-\begin{itemize}
-    \item \textbf{Sample size}: 200 images
-    \item \textbf{Sampling strategy}: Random selection while maintaining class distribution
-\end{itemize}
-
-\subsection{Data Loading Implementation}
-
-Our custom \texttt{AwA2Dataset} class (implemented in \texttt{dataset.py}) handles:
-
-\begin{enumerate}
-    \item \textbf{Image-label mapping}: Read from \texttt{AwA2-labels.txt}
-    \item \textbf{Class-attribute mapping}: Read from \texttt{predicate-matrix-continuous.txt}
-    \item \textbf{Image-to-attribute assignment}: Map each image to its class's attribute vector
-    \item \textbf{Error handling}: Skip corrupted images gracefully
-\end{enumerate}
-
-The dataset returns triplets $(\mathbf{x}_i, \mathbf{t}_i, i)$ where:
-\begin{itemize}
-    \item $\mathbf{x}_i \in \mathbb{R}^{3 \times 128 \times 128}$: preprocessed image
-    \item $\mathbf{t}_i \in \mathbb{R}^{85}$: symbolic tag vector
-    \item $i$: sample index (for consensus matrix indexing)
-\end{itemize}
-
-\section{Model Architecture}
-
-\subsection{Baseline Autoencoder (AE)}
-
-The baseline autoencoder consists of an encoder-decoder architecture for unsupervised representation learning \citep{Bengio2013}.
-
-\subsubsection{Encoder Architecture}
-
-\begin{equation}
-    \begin{aligned}
-        \mathbf{h}_1 &= \text{ReLU}(\text{Conv2D}_{16}^{3\times3,s=2}(\mathbf{x})) & \quad &\text{Output: } 16 \times 64 \times 64 \\
-        \mathbf{h}_2 &= \text{ReLU}(\text{Conv2D}_{32}^{3\times3,s=2}(\mathbf{h}_1)) & \quad &\text{Output: } 32 \times 32 \times 32 \\
-        \mathbf{h}_3 &= \text{ReLU}(\text{Conv2D}_{64}^{3\times3,s=2}(\mathbf{h}_2)) & \quad &\text{Output: } 64 \times 16 \times 16 \\
-        \mathbf{h}_4 &= \text{ReLU}(\text{Conv2D}_{128}^{3\times3,s=2}(\mathbf{h}_3)) & \quad &\text{Output: } 128 \times 8 \times 8 \\
-        \mathbf{z} &= \text{Flatten}(\text{AdaptiveAvgPool}(\mathbf{h}_4)) & \quad &\text{Output: } 128
-    \end{aligned}
-\end{equation}
-
-The encoder produces a 128-dimensional embedding $\mathbf{z} \in \mathbb{R}^{128}$.
-
-\subsubsection{Decoder Architecture}
-
-\begin{equation}
-    \begin{aligned}
-        \mathbf{h}_5 &= \text{ReLU}(\text{ConvTranspose2D}_{64}^{3\times3,s=2}(\mathbf{h}_4)) & \quad &\text{Output: } 64 \times 16 \times 16 \\
-        \mathbf{h}_6 &= \text{ReLU}(\text{ConvTranspose2D}_{32}^{3\times3,s=2}(\mathbf{h}_5)) & \quad &\text{Output: } 32 \times 32 \times 32 \\
-        \mathbf{h}_7 &= \text{ReLU}(\text{ConvTranspose2D}_{16}^{3\times3,s=2}(\mathbf{h}_6)) & \quad &\text{Output: } 16 \times 64 \times 64 \\
-        \hat{\mathbf{x}} &= \text{Sigmoid}(\text{ConvTranspose2D}_{3}^{3\times3,s=2}(\mathbf{h}_7)) & \quad &\text{Output: } 3 \times 128 \times 128
-    \end{aligned}
-\end{equation}
-
-The decoder reconstructs the input image $\hat{\mathbf{x}} \approx \mathbf{x}$.
-
-\subsubsection{Baseline Loss Function}
-
-The baseline model optimizes pure reconstruction:
-
-\begin{equation}
-    \mathcal{L}_{AE} = \frac{1}{N} \sum_{i=1}^{N} \|\mathbf{x}_i - \hat{\mathbf{x}}_i\|^2
-\end{equation}
-
-where $N$ is the batch size and $\|\cdot\|^2$ denotes mean squared error.
-
-\subsection{Constrained Autoencoder (CAE)}
-
-The CAE extends the baseline with a tag prediction branch for semantic supervision. This approach is inspired by attribute-based learning methods \citep{Akata2015, Akata2016} and recent advances in representation learning for clustering \citep{Chen2021}.
-
-\subsubsection{Architecture Extension}
-
-After encoding to embedding $\mathbf{z}$, we add a tag prediction head:
-
-\begin{equation}
-    \hat{\mathbf{t}} = \mathbf{W}_{\text{tag}} \mathbf{z} + \mathbf{b}_{\text{tag}}
-\end{equation}
-
-where $\mathbf{W}_{\text{tag}} \in \mathbb{R}^{85 \times 128}$ and $\mathbf{b}_{\text{tag}} \in \mathbb{R}^{85}$ are learnable parameters.
-
-\subsubsection{Multi-Objective Loss Function}
-
-The CAE optimizes a weighted combination of reconstruction and tag prediction:
-
-\begin{equation}
-    \mathcal{L}_{CAE} = \mathcal{L}_{recon} + \lambda_{tag} \cdot \mathcal{L}_{tag}
-\end{equation}
-
-where:
-
-\begin{equation}
-    \mathcal{L}_{recon} = \frac{1}{N} \sum_{i=1}^{N} \|\mathbf{x}_i - \hat{\mathbf{x}}_i\|^2
-\end{equation}
-
-\begin{equation}
-    \mathcal{L}_{tag} = \frac{1}{N} \sum_{i=1}^{N} \text{BCE}(\hat{\mathbf{t}}_i, \mathbf{t}_i)
-\end{equation}
-
-The Binary Cross-Entropy (BCE) loss with logits is:
-
-\begin{equation}
-    \text{BCE}(\hat{\mathbf{t}}, \mathbf{t}) = -\frac{1}{T} \sum_{j=1}^{T} \left[ t_j \log \sigma(\hat{t}_j) + (1-t_j) \log(1-\sigma(\hat{t}_j)) \right]
-\end{equation}
-
-where $\sigma(\cdot)$ is the sigmoid function and $T=85$ is the number of attributes.
-
-\subsubsection{Hyperparameter Selection}
-
-The weight $\lambda_{tag}$ controls the trade-off between reconstruction and semantic alignment:
-
-\begin{itemize}
-    \item $\lambda_{tag} = 0$: Pure reconstruction (reduces to baseline AE)
-    \item $\lambda_{tag} \to \infty$: Pure tag prediction (ignores reconstruction)
-    \item $\lambda_{tag} = 0.5$ (our optimal): Balanced objective
-\end{itemize}
-
-\subsection{Consensus Clustering Integration (DECCS)}
-
-\subsubsection{Consensus Representation Learning}
-
-DECCS learns embeddings that maximize agreement across heterogeneous clustering algorithms. Given an ensemble $\mathcal{E} = \{e_1, \ldots, e_M\}$ of $M$ clustering algorithms, the objective is:
-
-\begin{equation}
-    \max_{\Theta} \quad c \sum_{i=1}^{M} \sum_{j>i}^{M} \text{NMI}(e_i(\text{enc}_{\Theta}(\mathbf{X})), e_j(\text{enc}_{\Theta}(\mathbf{X})))
-\end{equation}
-
-where:
-\begin{itemize}
-    \item $\Theta$: encoder parameters
-    \item $\mathbf{X}$: input data matrix
-    \item $\text{enc}_{\Theta}$: encoder function
-    \item $c = \frac{2}{M(M-1)}$: normalization constant
-    \item $\text{NMI}$: Normalized Mutual Information
-\end{itemize}
-
-\subsubsection{Ensemble Clustering Algorithms}
-
-Our ensemble includes five diverse algorithms, following the principle of using heterogeneous clustering methods to improve robustness \citep{Yang2017}:
+We evaluate four clustering configurations that systematically vary the clustering method and the presence of interpretable descriptions:
 
 \begin{table}[H]
-    \centering
-    \caption{Ensemble clustering algorithms and their characteristics}
-    \label{tab:ensemble_algorithms}
-    \begin{tabular}{lll}
-        \hline
-        \textbf{Algorithm} & \textbf{Key Property} & \textbf{Assumption} \\
-        \hline
-        K-Means & Centroid-based & Spherical clusters \\
-        Spectral & Graph-based & Manifold structure \\
-        GMM & Probabilistic & Gaussian mixture \\
-        Agglomerative & Hierarchical & Nested structure \\
-        DBSCAN & Density-based & Variable density \\
-        \hline
-    \end{tabular}
+\centering
+\begin{tabular}{lll}
+\hline
+\textbf{Mode} & \textbf{Clustering} & \textbf{Interpretability} \\
+\hline
+\texttt{kmeans} & K-means & --- \\
+\texttt{deccs} & DECCS consensus & --- \\
+\texttt{ddc} & K-means + ILP & Cluster descriptions \\
+\texttt{ddeccs} & DECCS consensus + ILP & Cluster descriptions \\
+\hline
+\end{tabular}
+\caption{Four experimental modes. DDECCS (bottom row) is the thesis contribution, combining consensus clustering with interpretable descriptions.}
+\label{tab:modes}
 \end{table}
 
-\subsubsection{Consensus Matrix Construction}
+\subsection{K-means Baseline}
 
-The consensus matrix $\mathbf{C} \in \mathbb{R}^{N \times N}$ aggregates co-association across ensemble members:
+K-means clustering~\citep{Lloyd1982} is applied directly to the 2048-dimensional ResNet features with $K$ clusters, 10 random initializations, and the Elkan algorithm for efficiency. This serves as the baseline against which consensus clustering is compared.
 
+% Source: KMeans(n_clusters=K, random_state=seed, n_init=10) in main_experiments.py
+
+\subsection{DECCS Consensus Clustering}
+\label{sec:deccs_consensus}
+
+DECCS~\citep{Miklautz2022} improves clustering robustness through ensemble consensus. Our implementation constructs a consensus from four base clustering algorithms applied to standardized features:
+
+\begin{enumerate}
+    \item \textbf{K-means}: Fast centroid-based clustering (Elkan algorithm).
+    \item \textbf{Spectral Clustering}: Graph-based method using a $k$-nearest-neighbor affinity matrix ($k=15$), which captures non-linear cluster structures.
+    \item \textbf{Gaussian Mixture Model (GMM)}: Probabilistic clustering with full covariance. For high-dimensional features (e.g., 2048-dim), we apply PCA reduction to 256 dimensions before fitting GMM to ensure numerical stability.
+    \item \textbf{Agglomerative Clustering}: Hierarchical method with Ward linkage, which minimizes within-cluster variance.
+\end{enumerate}
+
+The ensemble results are combined via a sparse co-association matrix $A$, where $A_{ij}$ counts how often instances $i$ and $j$ are assigned to the same cluster across the base clusterers, restricted to $k$-nearest neighbors for efficiency~\citep{Fred2005}. The final clustering applies Spectral Clustering to this consensus matrix.
+
+This differs from the original DECCS, which trains an autoencoder with consensus loss during representation learning. Our post-hoc consensus approach applies the ensemble after feature extraction, trading the iterative refinement of learned representations for the reliability and reproducibility of frozen pretrained features. As our experiments demonstrate (Section~\ref{sec:results}), this trade-off is favorable: DECCS consensus provides significant improvements on datasets where individual clustering methods are less reliable (e.g., +14\% NMI on aPY).
+
+% Source: get_base_clusterings() and build_sparse_consensus() in utils.py
+
+\section{Cluster Description via Integer Linear Programming}
+\label{sec:ilp}
+
+Following DDC~\citep{Zhang2021}, we generate interpretable cluster descriptions by solving an Integer Linear Programming (ILP) problem that selects a small, orthogonal set of semantic attributes for each cluster.
+
+\subsection{Problem Formulation}
+
+Given cluster assignments $\{C_1, \ldots, C_K\}$ and a set of $M$ semantic attributes, we define the attribute coverage matrix $Q \in \mathbb{R}^{K \times M}$ where $Q_{ij}$ is the mean value of attribute $j$ across all instances in cluster $C_i$. The ILP solves for a binary allocation matrix $W \in \{0,1\}^{K \times M}$ where $W_{ij} = 1$ indicates that cluster $C_i$ is described by attribute $j$.
+
+\textbf{Objective} (DDC Eq.\ 2): Minimize the total number of attributes used:
 \begin{equation}
-    C_{ij} = \frac{1}{M} \sum_{m=1}^{M} \mathds{1}[\pi_m(i) = \pi_m(j)]
+    \arg\min_W \sum_{i,j} W_{ij}
+    \label{eq:ilp_obj}
 \end{equation}
 
-where $\pi_m(i)$ is the cluster assignment of sample $i$ by algorithm $m$, and $\mathds{1}[\cdot]$ is the indicator function.
-
-\textbf{Sparse Consensus Variant:} To improve scalability, we construct a sparse k-NN based consensus:
-
+\textbf{Coverage constraint} (DDC Eq.\ 3): Each cluster must have sufficient attribute coverage:
 \begin{equation}
-    C_{ij}^{\text{sparse}} = \begin{cases}
-                                 C_{ij} & \text{if } j \in \mathcal{N}_k(i) \\
-                                 0 & \text{otherwise}
-    \end{cases}
+    \sum_{j=1}^{M} W_{ij} \cdot Q_{ij} \geq \alpha \quad \forall i \in \{1, \ldots, K\}
+    \label{eq:ilp_coverage}
 \end{equation}
 
-where $\mathcal{N}_k(i)$ denotes the $k=20$ nearest neighbors of sample $i$ in the embedding space.
-
-\subsubsection{Consensus Consistency Loss}
-
-To align embeddings with the consensus matrix, we introduce:
-
+\textbf{Orthogonality constraint} (DDC Eq.\ 4): Each attribute should describe at most $\beta$ clusters:
 \begin{equation}
-    \mathcal{L}_{consensus} = \|\mathbf{S} - \mathbf{C}\|_F^2
+    \sum_{i=1}^{K} W_{ij} \cdot Q_{ij} \leq \beta \quad \forall j \in \{1, \ldots, M\}
+    \label{eq:ilp_orthogonal}
 \end{equation}
 
-where $\mathbf{S}$ is the cosine similarity matrix:
+The solver searches for the smallest feasible $\beta$ starting from $\beta = 1$, ensuring the tightest possible orthogonality. We use the PuLP library~\citep{Mitchell2011} with the CBC solver and a 30-second timeout per $\beta$ value.
+
+\subsection{Adaptive $\alpha$ Parameter}
+
+DDC uses a fixed $\alpha = 8$, which assumes dense attribute annotations. For datasets with sparse binary attributes, $\alpha = 8$ can make the ILP infeasible. We introduce an adaptive $\alpha$ that scales with the mean attribute value, and explain the issue with a concrete example.
+
+The coverage constraint (Eq.~\ref{eq:ilp_coverage}) requires $\sum_j W_{ij} \cdot Q_{ij} \geq \alpha$ for each cluster. The $Q_{ij}$ values---the mean attribute values within each cluster---determine whether this sum can reach $\alpha$. Consider two scenarios:
+
+On AwA2, attributes are continuous with mean value $\bar{d} \approx 0.5$. A typical cluster might have $Q$ values like: furry = 0.89, stripes = 0.95, big = 0.82, swims = 0.12, and so on. Selecting 10 attributes with average $Q$ value 0.8 gives a weighted sum of $10 \times 0.8 = 8.0$, meeting $\alpha = 8$.
+
+On aPY, attributes are binary with mean value $\bar{d} \approx 0.087$. A typical cluster might have $Q$ values like: Wheel = 0.30, Metal = 0.25, Pedal = 0.15, Furry = 0.02, and so on---most values are small because only 8.7\% of all attribute entries are 1. Selecting 10 attributes with average $Q$ value 0.09 gives a weighted sum of only $10 \times 0.09 = 0.9$. Even selecting all 64 attributes yields at most $64 \times 0.087 = 5.6$, which is below 8. Hence $\alpha = 8$ is infeasible on aPY.
+
+Our adaptive formula scales $\alpha$ proportionally to $\bar{d}$:
 
 \begin{equation}
-    S_{ij} = \frac{1 + \cos(\mathbf{z}_i, \mathbf{z}_j)}{2} = \frac{1 + \mathbf{z}_i^T \mathbf{z}_j / (\|\mathbf{z}_i\| \|\mathbf{z}_j\|)}{2}
+    \alpha = \text{clip}\left(\text{round}(16 \cdot \bar{d}), \; 2, \; 8\right)
+    \label{eq:alpha_adaptive}
 \end{equation}
 
-normalized to $[0, 1]$.
+where $\bar{d}$ is the mean attribute value across all instances and all attributes (i.e., the average entry in the attribute matrix). For binary attributes, this equals the fraction of non-zero entries. The constant 16 derives from DDC's setting: $\alpha / \bar{d} = 8 / 0.5 = 16$. The clip to $[2, 8]$ ensures at least two meaningful attributes per cluster description (lower bound) and compatibility with DDC's original setting (upper bound). This yields $\alpha = 8$ for AwA2 and $\alpha = 2$ for aPY.
 
-\subsubsection{Full DECCS Loss}
+% Source: solve_ilp_descriptions() in main_experiments.py
 
-The complete loss function combines all objectives:
+\subsection{Interpretability Metrics}
 
+Following DDC, we evaluate cluster descriptions using Tag Coverage (TC) and Inverse Tag Frequency (ITF):
+
+\textbf{Tag Coverage} (DDC Eq.\ 8): The average fraction of cluster members possessing each descriptive attribute:
 \begin{equation}
-    \mathcal{L}_{DECCS} = \mathcal{L}_{recon} + \lambda_{tag} \cdot \mathcal{L}_{tag} + \lambda_{consensus} \cdot \mathcal{L}_{consensus}
+    TC(C_i) = \frac{1}{|D_i|} \sum_{d \in D_i} \frac{|\{(x,t) \in C_i : d \in t\}|}{|C_i|}
 \end{equation}
 
-with hyperparameters:
-\begin{itemize}
-    \item $\lambda_{tag} = 0.5$: tag supervision weight
-    \item $\lambda_{consensus} = 0.2$: consensus alignment weight
-\end{itemize}
+\textbf{Inverse Tag Frequency} (DDC Eq.\ 9): Measures how unique each cluster's description is:
+\begin{equation}
+    ITF(C_i) = \frac{1}{|D_i|} \sum_{d \in D_i} \log \frac{K}{\sum_{j=1}^{K} |d \in D_j|}
+\end{equation}
 
-\section{Training Procedure}
+Higher TC indicates that the selected attributes are prevalent within the cluster; higher ITF indicates that the attributes are distinctive to that cluster rather than shared across many clusters.
 
-\subsection{Optimization Strategy}
+\section{Datasets}
+\label{sec:datasets}
 
-\subsubsection{Optimizer Configuration}
+We evaluate on two established attribute-annotated image datasets used in the DDC literature.
 
-\begin{itemize}
-    \item \textbf{Optimizer}: Adam \citep{Kingma2015}
-    \item \textbf{Learning rate}: $\alpha = 10^{-3}$ (Pytorch default)
-    \item \textbf{Momentum parameters}: $\beta_1 = 0.9, \beta_2 = 0.999$ (Pytorch default)
-    \item \textbf{Epsilon}: $\epsilon = 10^{-8}$ (Pytorch default)
-    \item \textbf{Weight decay}: None (Pytorch default)
-\end{itemize}
+\subsection{Animals with Attributes 2 (AwA2)}
 
-\subsubsection{Batch Processing}
+AwA2~\citep{Xian2018} contains 37,322 images across 50 animal classes, each annotated with 85 continuous semantic attributes (e.g., \textit{furry}, \textit{stripes}, \textit{swims}). Attributes are defined per class---all instances of a given class share the same attribute vector. We use the standard 80/20 train/test split, yielding 29,857 training instances.
 
-\begin{itemize}
-    \item \textbf{Batch size}: 256
-    \item \textbf{Num workers}: 8 (parallel data loading)
-    \item \textbf{Pin memory}: True (faster GPU transfer)
-    \item \textbf{Persistent workers}: True (worker reuse across epochs)
-\end{itemize}
+We note that DDC's original evaluation uses the AwA1 dataset~\citep{Lampert2013} (30,475 images), which has been withdrawn due to copyright restrictions. AwA2 is the recommended drop-in replacement, sharing the same class definitions and attribute structure but containing different images. This means direct numerical comparison with DDC's reported results on AwA1 is approximate.
 
-\subsubsection{Mixed Precision Training}
+% Source: data/AwA2-data/Animals_with_Attributes2/
 
-We employ automatic mixed precision (AMP) for computational efficiency:
+\subsection{Attribute Pascal and Yahoo (aPY)}
 
-\begin{algorithm}[H]
-    \caption{Mixed Precision Training Step}
-    \begin{algorithmic}[1]
-        \REQUIRE Batch $(\mathbf{X}, \mathbf{T})$, model parameters $\Theta$
-        \STATE \textbf{with} autocast():
-        \STATE \quad Forward pass: $\hat{\mathbf{X}}, \hat{\mathbf{T}} = \text{model}(\mathbf{X})$
-        \STATE \quad Compute loss: $\mathcal{L} = \mathcal{L}_{recon} + \lambda_{tag} \mathcal{L}_{tag}$
-        \STATE Scale loss: $\mathcal{L}_{\text{scaled}} = \text{scaler.scale}(\mathcal{L})$
-        \STATE Backward pass: $\mathcal{L}_{\text{scaled}}$.backward()
-        \STATE Unscale gradients: scaler.step(optimizer)
-        \STATE Update scaler: scaler.update()
-        \ENSURE Updated parameters $\Theta$
-    \end{algorithmic}
-\end{algorithm}
+aPY~\citep{Farhadi2009} contains 15339 object instances across 32 classes from Pascal VOC 2008 and Yahoo images, annotated with 64 binary semantic attributes (e.g., \textit{Wheel}, \textit{Furry}, \textit{Metal}). Unlike AwA2, attributes in aPY are annotated per instance---each object has its own binary attribute vector based on its bounding box crop.
 
-\subsection{Training Algorithms}
+DDC reports results on a 15-class subset of aPY (6487 instances). Following their setup, we evaluate with both the full 32-class dataset and the 15-class subset matching DDC's configuration. The 15 classes, identified from DDC's Figure~3 ontology, are: dog, cat, monkey, zebra, bird, bag, mug, bottle, chair, car, building, bicycle, boat, sofa, and dining table.
 
-\subsubsection{Baseline Autoencoder Training}
+% Source: data/aPY-data/aPY/, setup_apy.py, APY_DDC_15_CLASSES in dataset.py
 
-\begin{algorithm}[H]
-    \caption{Train Baseline Autoencoder}
-    \begin{algorithmic}[1]
-        \REQUIRE Dataset $\mathcal{D}$, epochs $E$
-        \STATE Initialize autoencoder with random weights
-        \FOR{epoch $e = 1$ to $E$}
-        \FOR{each batch $(\mathbf{X}_b, \_)$ in $\mathcal{D}$}
-        \STATE Forward: $\hat{\mathbf{X}}_b = \text{AE}(\mathbf{X}_b)$
-        \STATE Compute: $\mathcal{L} = \text{MSE}(\hat{\mathbf{X}}_b, \mathbf{X}_b)$
-        \STATE Backward: $\nabla_{\Theta} \mathcal{L}$
-        \STATE Update: $\Theta \leftarrow \Theta - \alpha \nabla_{\Theta} \mathcal{L}$
-        \ENDFOR
-        \STATE Log epoch loss
-        \ENDFOR
-        \ENSURE Trained encoder $\text{enc}_{\Theta}$
-    \end{algorithmic}
-\end{algorithm}
+\section{Design Rationale: Why Frozen Features Instead of End-to-End Training}
+\label{sec:design_rationale}
 
-\subsubsection{Constrained Autoencoder Training}
+Our initial approach attempted to replicate DDC's end-to-end training with a trainable MLP on top of frozen ResNet features, using mutual information maximization and pairwise constraints from semantic tags. This approach faced fundamental scaling challenges: on the full AwA2 dataset (29857 instances), the mutual information loss dominated from the first epoch ($L_{MI} = -0.92$ at epoch 1), locking the model into approximately 24 clusters before pairwise constraints could influence the cluster structure. Despite extensive debugging---including per-instance tag masking ($r = 0.5$), proper ILP implementation via PuLP, learning rate tuning, and mini-batch pairwise computation---the trained MLP consistently produced worse results (NMI $\approx 0.006$) than simple K-means on the raw features (NMI $= 0.869$).
 
-\begin{algorithm}[H]
-    \caption{Train Constrained Autoencoder}
-    \begin{algorithmic}[1]
-        \REQUIRE Dataset $\mathcal{D}$, epochs $E$, weight $\lambda_{tag}$
-        \STATE Initialize CAE with random weights
-        \FOR{epoch $e = 1$ to $E$}
-        \FOR{each batch $(\mathbf{X}_b, \mathbf{T}_b, \_)$ in $\mathcal{D}$}
-        \STATE Forward: $\hat{\mathbf{X}}_b, \hat{\mathbf{T}}_b = \text{CAE}(\mathbf{X}_b)$
-        \STATE Compute: $\mathcal{L}_{recon} = \text{MSE}(\hat{\mathbf{X}}_b, \mathbf{X}_b)$
-        \STATE Compute: $\mathcal{L}_{tag} = \text{BCE}(\hat{\mathbf{T}}_b, \mathbf{T}_b)$
-        \STATE Total: $\mathcal{L} = \mathcal{L}_{recon} + \lambda_{tag} \mathcal{L}_{tag}$
-        \STATE Backward: $\nabla_{\Theta} \mathcal{L}$
-        \STATE Update: $\Theta \leftarrow \Theta - \alpha \nabla_{\Theta} \mathcal{L}$
-        \ENDFOR
-        \STATE Log component losses: $\mathcal{L}_{recon}, \mathcal{L}_{tag}, \mathcal{L}$
-        \ENDFOR
-        \ENSURE Trained encoder $\text{enc}_{\Theta}$ and tag predictor
-    \end{algorithmic}
-\end{algorithm}
+This finding led us to the current architecture: rather than training features that are already excellent, we focus the thesis contribution on (1) consensus clustering for improved robustness and (2) ILP-based descriptions for interpretability. This decoupled approach achieves competitive results with DDC on AwA2 (NMI $= 0.869$ vs.\ DDC's $0.896$) while offering the additional benefit of consensus-based stability and the ability to evaluate clustering and description independently.
 
-\subsubsection{DECCS Training with Consensus}
-
-\begin{algorithm}[H]
-    \caption{Train DECCS with Consensus}
-    \begin{algorithmic}[1]
-        \REQUIRE Dataset $\mathcal{D}$, epochs $E$, ensemble $\mathcal{E}$, weights $\lambda_{tag}, \lambda_{cons}$
-        \STATE Initialize CAE with random weights
-        \FOR{epoch $e = 1$ to $E$}
-        \IF{$e = 1$ \textbf{or} $e \mod 5 = 0$}
-        \STATE Extract embeddings: $\mathbf{Z} = \text{enc}_{\Theta}(\mathcal{D})$
-        \STATE Run ensemble: $\{\pi_1, \ldots, \pi_M\} = \{e_1(\mathbf{Z}), \ldots, e_M(\mathbf{Z})\}$
-        \STATE Build consensus: $\mathbf{C} = \text{ConsensusMatrix}(\{\pi_m\})$
-        \ENDIF
-        \FOR{each batch $(\mathbf{X}_b, \mathbf{T}_b, \mathbf{I}_b)$ in $\mathcal{D}$}
-        \STATE Forward: $\hat{\mathbf{X}}_b, \hat{\mathbf{T}}_b = \text{CAE}(\mathbf{X}_b)$
-        \STATE Extract batch embeddings: $\mathbf{Z}_b = \text{enc}_{\Theta}(\mathbf{X}_b)$
-        \STATE Compute: $\mathcal{L}_{recon} = \text{MSE}(\hat{\mathbf{X}}_b, \mathbf{X}_b)$
-        \STATE Compute: $\mathcal{L}_{tag} = \text{BCE}(\hat{\mathbf{T}}_b, \mathbf{T}_b)$
-        \STATE Extract sub-consensus: $\mathbf{C}_b = \mathbf{C}[\mathbf{I}_b, \mathbf{I}_b]$
-        \STATE Compute: $\mathcal{L}_{cons} = \text{ConsensusLoss}(\mathbf{Z}_b, \mathbf{C}_b)$
-        \STATE Total: $\mathcal{L} = \mathcal{L}_{recon} + \lambda_{tag} \mathcal{L}_{tag} + \lambda_{cons} \mathcal{L}_{cons}$
-        \STATE Backward and update
-        \ENDFOR
-        \ENDFOR
-        \ENSURE Trained consensus encoder
-    \end{algorithmic}
-\end{algorithm}
-
-\section{Clustering and Evaluation}
-
-\subsection{Embedding Extraction}
-
-After training, we extract embeddings for the entire dataset:
-
-\begin{algorithm}[H]
-    \caption{Extract Embeddings}
-    \begin{algorithmic}[1]
-        \REQUIRE Trained model $\text{enc}_{\Theta}$, dataset $\mathcal{D}$
-        \STATE Set model to evaluation mode
-        \STATE Initialize embedding matrix $\mathbf{Z} \in \mathbb{R}^{N \times d}$
-        \FOR{each batch $\mathbf{X}_b$ in $\mathcal{D}$}
-        \STATE \textbf{with} torch.no\_grad():
-        \STATE \quad $\mathbf{Z}_b = \text{enc}_{\Theta}(\mathbf{X}_b)$
-        \STATE \quad Store $\mathbf{Z}_b$ in $\mathbf{Z}$
-        \ENDFOR
-        \ENSURE Embedding matrix $\mathbf{Z}$
-    \end{algorithmic}
-\end{algorithm}
-
-\subsection{Consensus Clustering}
-
-\subsubsection{Ensemble Execution}
-
-For evaluation, we run the full ensemble:
-
-\begin{algorithm}[H]
-    \caption{Consensus Clustering Evaluation}
-    \begin{algorithmic}[1]
-        \REQUIRE Embeddings $\mathbf{Z}$, ensemble $\mathcal{E}$, num clusters $k$
-        \STATE Normalize: $\mathbf{Z} \leftarrow \text{StandardScaler}(\mathbf{Z})$
-        \STATE Initialize: base\_clusterings $ = []$
-        \FOR{each algorithm $e_m$ in $\mathcal{E}$}
-        \STATE Run: $\pi_m = e_m(\mathbf{Z}, k)$
-        \STATE Validate: ensure $\pi_m$ has $\geq 2$ unique labels
-        \STATE Append: base\_clusterings.append($\pi_m$)
-        \ENDFOR
-        \STATE Build: $\mathbf{C} = \text{ConsensusMatrix}(\text{base\_clusterings})$
-        \STATE Normalize: $\mathbf{C} \leftarrow \mathbf{C} / \max(\mathbf{C})$
-        \STATE Final clustering: $\pi^* = \text{SpectralClustering}(\mathbf{C}, k)$
-        \ENSURE Final cluster assignments $\pi^*$
-    \end{algorithmic}
-\end{algorithm}
-
-\subsection{Evaluation Metrics}
-
-\subsubsection{Clustering Performance Metrics}
+\section{Evaluation Metrics}
 
 We evaluate clustering quality using four standard metrics:
 
-\paragraph{Normalized Mutual Information (NMI)} \citep{Vinh2010}
+\textbf{Normalized Mutual Information (NMI)}~\citep{Strehl2002} measures the agreement between predicted clusters and ground-truth classes, normalized to $[0,1]$. NMI $= 1$ indicates perfect agreement.
 
-\begin{equation}
-    NMI(\pi, l) = \frac{2 \cdot I(\pi; l)}{H(\pi) + H(l)}
-\end{equation}
+\textbf{Clustering Accuracy (ACC)} uses the Hungarian algorithm~\citep{Kuhn1955} to find the optimal one-to-one mapping between predicted clusters and true classes, then computes the fraction of correctly assigned instances.
 
-where $I(\cdot; \cdot)$ is mutual information, $H(\cdot)$ is entropy, $\pi$ are predicted clusters, and $l$ are true labels. NMI ranges from 0 (no mutual information) to 1 (perfect correlation).
+\textbf{Adjusted Rand Index (ARI)}~\citep{Hubert1985} measures pairwise agreement between clusterings, adjusted for chance. ARI $= 0$ indicates random clustering; ARI $= 1$ indicates perfect agreement.
 
+\textbf{Silhouette Score}~\citep{Rousseeuw1987} measures how similar instances are to their own cluster compared to other clusters, ranging from $-1$ to $+1$.
 
-\paragraph{Adjusted Rand Index (ARI)} \citep{Hubert1985}
-
-\begin{equation}
-    ARI(\pi, l) = \frac{\sum_{ij} \binom{n_{ij}}{2} - \left[\sum_i \binom{a_i}{2} \sum_j \binom{b_j}{2}\right] / \binom{n}{2}}{\frac{1}{2}\left[\sum_i \binom{a_i}{2} + \sum_j \binom{b_j}{2}\right] - \left[\sum_i \binom{a_i}{2} \sum_j \binom{b_j}{2}\right] / \binom{n}{2}}
-\end{equation}
-
-where $n_{ij}$ is the contingency table, $a_i$ and $b_j$ are row and column sums. ARI is adjusted for chance, ranging from -1 to 1, with 0 indicating random labeling.
-
-
-\paragraph{Clustering Accuracy (ACC)} \citep{Kuhn1955}
-
-\begin{equation}
-    ACC(\pi, l) = \max_{\sigma} \frac{1}{N} \sum_{i=1}^{N} \mathds{1}[l_i = \sigma(\pi_i)]
-\end{equation}
-
-where $\sigma$ is the optimal permutation found via the Hungarian algorithm, which finds the best one-to-one mapping between predicted clusters and true labels.
-
-
-\paragraph{Silhouette Score} \citep{Rousseeuw1987}
-
-
-\begin{equation}
-    s(i) = \frac{b(i) - a(i)}{\max\{a(i), b(i)\}}
-\end{equation}
-
-where $a(i)$ is mean intra-cluster distance and $b(i)$ is mean nearest-cluster distance.
-
-\section{Cluster Explanation Generation}
-
-\subsection{Attribute-Based Characterization}
-
-For each cluster $c$, we compute the mean attribute vector:
-
-\begin{equation}
-    \bar{\mathbf{t}}_c = \frac{1}{|\mathcal{C}_c|} \sum_{i \in \mathcal{C}_c} \mathbf{t}_i
-\end{equation}
-
-where $\mathcal{C}_c = \{i : \pi_i = c\}$ is the set of samples in cluster $c$.
-
-\subsection{Top-K Attribute Selection}
-
-
-We select the top-K=5K=5
-K=5 most distinctive attributes:
-
-\begin{equation}
-\text{TopAttrs}(c) = \arg\max_{|S|=K} \sum_{j \in S} \bar{t}_{c,j}
-\end{equation}
-
-This provides human-interpretable cluster descriptions.
-
-\subsection{Explanation Quality Metrics}
-
-
-\subsubsection{Cluster Purity}
-
-\begin{equation}
-    \text{Purity}(c) = \frac{1}{|\mathcal{C}_c|} \max_{\ell} |\{i \in \mathcal{C}_c : \ell_i = \ell\}|
-\end{equation}
-
-\subsubsection{Attribute Discriminativeness}
-
-
-\begin{equation}
-\text{Discrim}(t) = I(t; \pi) = \sum_{c} \sum_{v} P(t=v, \pi=c) \log \frac{P(t=v, \pi=c)}{P(t=v)P(\pi=c)}
-\end{equation}
-
-
-\section{Implementation Details}
-
-
-\subsection{Software Framework}
-
-
-\begin{itemize}
-\item \textbf{Deep Learning}: PyTorch 2.0+ \citep{Paszke2019}
-\item \textbf{Clustering}: scikit-learn 1.2+
-\item \textbf{Data Processing}: NumPy, Pandas
-\item \textbf{Visualization}: Matplotlib, t-SNE (scikit-learn)
-\end{itemize}
-
-
-\subsection{Hardware Configuration}
-
-
-Experiments were conducted on:
-\begin{itemize}
-\item \textbf{CPU}: Intel Core i7 (local sample experiments)
-\item \textbf{GPU}: NVIDIA GPU with CUDA support, Luke server (full scale experiments)
-\end{itemize}
-
-
-\subsection{Reproducibility}
-
-
-To ensure reproducibility:
-\begin{itemize}
-\item Fixed random seeds: 42
-\item Complete hyperparameter logging
-\end{itemize}
-
-
-\section{Limitations and Design Choices}
-
-
-\subsection{Methodological Limitations}
-
-
-\begin{enumerate}
-\item \textbf{Attribute Dependency}: Requires pre-existing semantic annotations
-\item \textbf{Class-Level Supervision}: Uses class-level rather than instance-level attributes
-\item \textbf{Fixed Architecture}: Simple CNN architecture (not state-of-the-art)
-\item \textbf{Partial DECCS Implementation}: Full iterative refinement not completed
-\end{enumerate}
-
-
-\subsection{Design Rationale}
-
-
-\textbf{Why Simple CNN?}
-\begin{itemize}
-\item Focus on methodology rather than architecture engineering
-\item Faster training for rapid prototyping
-\item Easier to analyze and debug
-\item Sufficient for proof-of-concept
-\end{itemize}
-
-
-\textbf{Why Class-Level Attributes?}
-\begin{itemize}
-\item Standard practice in AwA2 literature
-\item Reduces annotation burden
-\item Sufficient for category-level clustering
-\end{itemize}
-
-
-\textbf{Why Not Full ILP (from DDC)?}
-\begin{itemize}
-    \item Computational complexity for large $T$
-    \item Top-K selection provides similar interpretability
-    \item Simpler implementation and analysis
-\end{itemize}
-
-\section{Summary of Methodological Choices}
-
-\begin{table}[H]
-    \centering
-    \caption{Complete configuration summary}
-    \begin{tabular}{ll}
-        \hline
-        \textbf{Component} & \textbf{Configuration} \\
-        \hline
-        Embedding dimension & 128 \\
-        Encoder architecture & 4-layer CNN \\
-        Optimizer & Adam ($\alpha=10^{-3}$) \\
-        Batch size & 256 \\
-        $\lambda_{tag}$ & 0.5 \\
-        $\lambda_{consensus}$ & 0.2 \\
-        Ensemble size & 5 algorithms \\
-        k-NN neighbors & 15 \\
-        \hline
-    \end{tabular}\label{tab:table}
-\end{table}
+Following DDC's experimental protocol, all experiments are repeated 10 times with different random seeds, and we report mean $\pm$ standard deviation.

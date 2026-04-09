@@ -1,153 +1,82 @@
 \section{Background}
 
-The growing complexity of modern datasets necessitates a paradigm shift in algorithmic approaches, particularly in the realm of data clustering. Deep learning has revolutionized machine learning across many domains \citep{LeCun2015}, and its integration with clustering has opened new possibilities for unsupervised learning \citep{Ren2024}. While Deep Embedded Clustering with Consensus Representations (DECCS) has made significant strides in clustering precision, it lacks mechanisms for understanding why data points are grouped together---a critical limitation in a landscape of data analysis that demands greater transparency and accountability \citep{Guidotti2018, Balachandran2009}. This research aims to address this gap by integrating the strengths of the Deep Descriptive Clustering (DDC) framework.
+The growing complexity of modern datasets necessitates clustering methods that are both accurate and interpretable. Deep learning has enabled powerful representation learning for clustering~\citep{LeCun2015, Ren2024}, but the resulting clusters are typically opaque---a user can see which instances are grouped together, but not why. This lack of transparency is a critical limitation in domains such as healthcare, scientific discovery, and content organization, where understanding the semantic meaning of clusters is as important as the clustering itself~\citep{Guidotti2018}.
 
-Interpretability in clustering is crucial for several reasons. In many real-world applications, such as healthcare, finance, and autonomous systems, the ability to understand and trust the decisions made by clustering algorithms can significantly impact decision-making processes. For instance, in healthcare, understanding why a group of patients has been clustered together can lead to better diagnoses and personalized treatments. Similarly, in finance, transparent clustering can help in risk assessment and fraud detection.
+Two recent frameworks address complementary aspects of this challenge. Deep Embedded Clustering with Consensus Representations (DECCS)~\citep{Miklautz2022} improves clustering robustness through ensemble consensus, combining multiple clustering algorithms to find stable cluster boundaries. Deep Descriptive Clustering (DDC)~\citep{Zhang2021} generates human-readable cluster explanations using semantic attributes and Integer Linear Programming (ILP), producing concise descriptions like ``furry, stripes, meatteeth'' for a tiger cluster. Crucially, DDC's ILP enforces \emph{orthogonality}: each attribute is used to describe as few clusters as possible, so that the descriptions for different clusters are non-overlapping and distinctive. However, neither framework offers both robustness and interpretability: DECCS produces robust clusters without explanations, and DDC produces explanations from a single clustering algorithm without ensemble consensus.
 
-While DECCS excels in efficiently segmenting complex datasets, its opaque decision-making processes pose significant barriers in contexts where understanding the `why' behind data clusters is as crucial as the `what'. Integrating DDC principles is a preliminary step towards interpreting the clustering process, thus enhancing utility and transparency in data analysis \citep{Saisubramanian2019}.
-
-Furthermore, the practical implications of this integration are profound. By focusing on a specific dataset, such as the Animals with Attributes (AwA), this research moves beyond theoretical advancements to demonstrate how the DECCS algorithm can be tailored to diverse datasets, thereby broadening its utility across various domains \citep{Ozyegen2022}.
-
-The evolving nature of data clustering as an interdisciplinary field necessitates the convergence of accuracy and interpretability. By bridging the high precision of DECCS with the descriptive ability of DDC, this study contributes to a more holistic approach to data clustering \citep{Plant2011}.
-
-In summary, this research is motivated by the need to reconcile the precision of computational clustering with the increasing demand for interpretability and transparency. By integrating DECCS with DDC principles, the study aims to set a new benchmark in data clustering that is both technically proficient and inherently comprehensible, thereby enhancing the utility and trustworthiness of clustering algorithms in diverse applications \citep{Tjoa2023}.
+This thesis investigates the integration of these two frameworks. We combine DECCS's consensus-based clustering with DDC's ILP-based description generation, creating a unified pipeline---DDECCS---that produces robust, interpretable clusters on attribute-annotated image datasets. We evaluate on two datasets used in the DDC literature: Animals with Attributes~2 (AwA2) and Attribute Pascal and Yahoo (aPY).
 
 \section{Problem Statement}
 
 \subsection{Formal Problem Definition}
 
-Given a dataset $\mathcal{D} = \{(\mathbf{x}_i, \mathbf{t}_i)\}_{i=1}^{N}$ where $\mathbf{x}_i \in \mathbb{R}^D$ represents high-dimensional input data (e.g., images) and $\mathbf{t}_i \in [0,1]^T$ represents associated semantic attribute vectors, the goal is to learn:
+Given a dataset $\mathcal{D} = \{(\mathbf{x}_i, \mathbf{t}_i)\}_{i=1}^{N}$ where $\mathbf{x}_i \in \mathbb{R}^D$ represents images and $\mathbf{t}_i \in [0,1]^M$ represents associated semantic attribute vectors, the goal is to produce:
 
 \begin{enumerate}
-    \item An encoder function $f_\theta: \mathbb{R}^D \rightarrow \mathbb{R}^d$ that maps inputs to a low-dimensional embedding space ($d \ll D$)
-    \item A cluster assignment function $g: \mathbb{R}^d \rightarrow \{1, \ldots, K\}$ that partitions the embedded data into $K$ clusters
-    \item An explanation function $h: \{1, \ldots, K\} \rightarrow 2^{\{1,\ldots,T\}}$ that associates each cluster with a subset of semantic attributes
+    \item A partition of the data into $K$ clusters $\{C_1, \ldots, C_K\}$ that aligns with the underlying semantic categories.
+    \item For each cluster $C_k$, a concise ILP description $D_k \subset \{1, \ldots, M\}$ selecting a small subset of attributes that characterizes the cluster and distinguishes it from others. The descriptions are \emph{orthogonal} in the sense that different clusters use different attributes, making each description distinctive.
 \end{enumerate}
 
-The optimization objectives are:
-
-\begin{equation}
-    \min_{\theta, g, h} \underbrace{\mathcal{L}_{recon}(\theta)}_{\text{reconstruction}} + \lambda_1 \underbrace{\mathcal{L}_{tag}(\theta)}_{\text{semantic alignment}} + \lambda_2 \underbrace{\mathcal{L}_{consensus}(\theta, g)}_{\text{ensemble agreement}}
-\end{equation}
-
-subject to the constraint that the explanations $h$ are:
-\begin{itemize}
-    \item \textbf{Concise}: Each cluster is described by a small number of attributes
-    \item \textbf{Discriminative}: Attribute sets distinguish clusters from one another
-    \item \textbf{Faithful}: Attributes accurately reflect the characteristics of cluster members
-\end{itemize}
+The clustering should be evaluated by standard metrics (NMI, ACC, ARI) measuring agreement with ground-truth class labels, while the descriptions should maximize Tag Coverage (TC)---how well the selected attributes represent cluster members---and Inverse Tag Frequency (ITF)---how distinctive the selected attributes are to each cluster.
 
 \subsection{Key Challenges}
 
-This problem presents several technical challenges:
+This problem presents several technical challenges. First, generating cluster descriptions requires semantic attribute annotations, which vary in density and type across datasets. In AwA2~\citep{Xian2018}, attributes are \emph{per-class}: each of the 50 animal classes has a single 85-dimensional vector shared by all instances of that class. The dataset provides two versions of this matrix---a binary version (0/1 indicating presence/absence) and a continuous version (values between 0 and 100 indicating attribute strength, e.g., tiger has ``stripes'' = 93). We use the continuous version (\texttt{predicate-matrix-continuous.txt}) for two reasons: first, continuous values provide more fine-grained information for the ILP's coverage computation, allowing it to distinguish between attributes that are strongly present in a cluster (e.g., $Q = 0.93$) versus weakly present ($Q = 0.15$), rather than collapsing both to the same binary count; second, DDC uses continuous attributes, so this choice ensures fair comparison. In aPY~\citep{Farhadi2009}, attributes are \emph{binary and per-instance}: each individual object is independently annotated with 64 binary attributes based on its bounding box crop, so two different photos of chairs may have different attribute vectors. The description method must handle both settings, which differ significantly in attribute density (AwA2: $\sim$0.5, aPY: $\sim$0.087).
 
-\begin{enumerate}
-    \item \textbf{Multi-objective optimization}: Balancing reconstruction quality, semantic alignment, and clustering performance requires careful hyperparameter tuning and may involve trade-offs \citep{Ruder2017, Crawshaw2020}.
+Second, consensus clustering combines algorithms that make different assumptions about cluster shape---K-means assumes spherical clusters, Spectral Clustering captures graph-connected structures, GMM models Gaussian distributions, and Agglomerative Clustering builds hierarchies. These different \emph{inductive biases} mean the algorithms will disagree on ambiguous cases, and the consensus mechanism must reconcile their outputs into a coherent partition. This adds computational overhead but, as our experiments show, produces more robust and reproducible results.
 
-    \item \textbf{Scalability}: Computing consensus across multiple clustering algorithms on large datasets is computationally expensive.
-
-    \item \textbf{Semantic gap}: Bridging the gap between low-level visual features and high-level semantic attributes requires learning representations that capture both \citep{Bengio2013}.
-
-    \item \textbf{Evaluation complexity}: Assessing both clustering quality and explanation quality requires multiple complementary metrics.
-\end{enumerate}
+Third, the integration of clustering and description must be designed so that neither component degrades the other's performance.
 
 \section{Research Objectives}
 
-The primary objectives of this research are as follows:
+This thesis addresses three research questions:
 
-\begin{itemize}
-    \item \textbf{Enhance Interpretability of DECCS}:
-    \begin{itemize}
-        \item \textbf{Objective}: Incorporate symbolic level representations from DDC into DECCS to generate meaningful, cluster-level explanations.
-        \item \textbf{Research Question}: How can DDC be integrated into DECCS to improve the interpretability of clustering results?
-    \end{itemize}
-    \item \textbf{Maintain or Improve Clustering Performance}:
-    \begin{itemize}
-        \item \textbf{Objective}: Ensure that the integration of DDC does not compromise the clustering performance of DECCS and ideally enhances it.
-        \item \textbf{Research Question}: What impact does the integration of DDC have on the clustering performance of DECCS?
-    \end{itemize}
-    \item \textbf{Evaluate on AwA and aPY Datasets}:
-    \begin{itemize}
-        \item \textbf{Objective}: Test the integrated DECCS-DDC approach on the AwA2 dataset (following DDC's evaluation methodology) to validate the improvements in interpretability and performance.
-        \item \textbf{Research Question}: How does the integrated approach perform on the AwA and aPY datasets compared to the standalone DECCS and DDC methods?
-    \end{itemize}
-\end{itemize}
+\textbf{RQ1:} How can DDC's interpretability mechanisms be integrated into the DECCS consensus clustering framework?
+
+\textbf{RQ2:} Does combining consensus clustering with ILP-based descriptions improve clustering performance or stability compared to using K-means alone?
+
+\textbf{RQ3:} How does the integrated approach perform on the AwA2 and aPY datasets compared to DDC's published results?
 
 \section{Contributions}
 
-This thesis makes the following contributions to the field of deep clustering:
-
 \subsection{Methodological Contributions}
 
-\begin{enumerate}
-    \item \textbf{Integrated Framework}: We propose an integration of DECCS's consensus-based clustering with DDC's semantic supervision, creating a unified framework that aims to achieve both robustness and interpretability.
+This thesis makes three methodological contributions:
 
-    \item \textbf{Constrained Autoencoder Architecture}: We design a multi-task autoencoder that jointly optimizes for reconstruction and semantic attribute prediction, learning embeddings that are both informative and semantically grounded.
+The \textbf{DDECCS framework} combines DECCS consensus clustering with DDC's ILP-based cluster descriptions. The pipeline extracts frozen ResNet-101 features, applies consensus clustering from a heterogeneous ensemble of four algorithms (K-means, Spectral Clustering, GMM, Agglomerative Clustering), and generates orthogonal ILP descriptions using semantic attributes. Unlike DDC's single-algorithm approach, the ensemble provides robustness against individual algorithm failures and reduces sensitivity to random initialization.
 
-    \item \textbf{Sparse Consensus Construction}: We develop an efficient method for building consensus matrices using k-nearest neighbor graphs, reducing computational complexity while maintaining clustering quality.
-\end{enumerate}
+An \textbf{adaptive ILP $\alpha$ parameter} extends DDC's description formulation to datasets with varying attribute density. In DDC's ILP, $\alpha$ controls the minimum coverage each cluster's description must achieve: the sum of attribute presence values for the selected attributes must reach at least $\alpha$. DDC uses a fixed $\alpha = 8$, which works for AwA where attributes are dense (mean value $\approx 0.5$, so selecting $\sim$16 attributes easily reaches a weighted sum of 8). On aPY, where attributes are sparse binary (mean $\approx 0.087$), achieving a weighted sum of 8 would require selecting nearly all 64 attributes---making the ILP infeasible given the orthogonality constraint. Our adaptive formula $\alpha = \text{clip}(\text{round}(16 \cdot \bar{d}), 2, 8)$ scales $\alpha$ proportionally to the mean attribute density $\bar{d}$. The constant 16 derives from DDC's ratio $8 / 0.5 = 16$; the clip to $[2, 8]$ ensures at least two meaningful attributes per cluster (lower bound) and compatibility with DDC's original setting (upper bound). This is an empirically motivated design choice, not a theoretical optimum.
+
+A \textbf{comprehensive aPY preprocessing pipeline} converts the raw Farhadi et al.~\citep{Farhadi2009} annotations (per-object bounding box crops with binary attributes) into the format required by our pipeline, including identification and filtering of DDC's 15-class evaluation subset.
 
 \subsection{Empirical Contributions}
 
-\begin{enumerate}
-    \item \textbf{Performance Analysis}: Initial experiments on a small sample (N=160) showed promising results (NMI=0.642), but full-scale evaluation (N=37,322) revealed significant scaling challenges (NMI=0.012), providing important insights into the difficulties of multi-objective optimization in deep clustering.
+We provide a systematic evaluation across two datasets, four clustering modes, and ten random seeds. Key findings include: DECCS consensus improves NMI by 14.4\% on aPY over K-means while reducing variance to near zero; the ILP generates semantically meaningful and orthogonal descriptions with Tag Coverage up to 0.95; and our K-means baseline on pure ResNet features (NMI = 0.869) outperforms DDC's published K-means baseline (NMI = 0.743), though this gap is partly explained by different experimental setups: DDC uses K=40 on the original AwA (19832 instances), while we use K=50 on AwA2 (29857 instances). DDC's trained model (NMI = 0.896) does outperform our approach by learning to use tag information through pairwise constraints.
 
-    \item \textbf{Ablation Studies}: We provide comprehensive ablation studies isolating the contributions of semantic supervision and consensus clustering.
-
-    \item \textbf{Qualitative Evaluation}: We analyze the quality of generated cluster explanations, showing alignment with human intuition about animal categories.
-\end{enumerate}
-
-\subsection{Practical Contributions}
-
-\begin{enumerate}
-    \item \textbf{Open Implementation}: We provide a complete, modular implementation of our approach, including data loading, model training, evaluation, and visualization components.
-
-    \item \textbf{Hyperparameter Analysis}: We provide analysis of hyperparameter sensitivity on sample data, though we note that configurations tuned on small samples did not generalize to the full dataset.
-\end{enumerate}
+We also document extensive negative results from alternative approaches---autoencoder-based training, DDC-style MLP with mutual information and pairwise losses---that provide practical guidance on the challenges of multi-objective optimization in deep descriptive clustering.
 
 \section{Thesis Structure}
 
-This thesis is organized into six chapters, followed by appendices containing supplementary material:
+This thesis is organized into six chapters:
 
-\begin{description}
-    \item[Chapter 1: Introduction] (this chapter) provides the motivation, problem statement, research objectives, and contributions of this work.
+\textbf{Chapter~1} (this chapter) introduces the motivation, problem statement, research questions, and contributions.
 
-    \item[Chapter 2: Literature Review] surveys the relevant background in deep clustering, consensus clustering, and explainable AI. It provides detailed analysis of the DECCS and DDC frameworks that form the foundation of our approach, compares existing methods across multiple dimensions, and identifies the research gaps that this thesis addresses.
+\textbf{Chapter~2: Related Work} surveys deep clustering, consensus clustering, and explainable clustering, with detailed analysis of the DECCS and DDC frameworks that form our foundation.
 
-    \item[Chapter 3: Methodology] presents our integrated approach in detail. It describes the dataset preparation pipeline, the constrained autoencoder architecture, the consensus clustering mechanism, and the cluster explanation generation process. Mathematical formulations and algorithmic descriptions are provided for all components.
+\textbf{Chapter~3: Methodology} presents the DDECCS pipeline: feature extraction, clustering methods, ILP description generation, adaptive parameter scaling, and dataset preparation.
 
-    \item[Chapter 4: Results] reports the experimental findings, including quantitative clustering performance metrics on both sample (N=160) and full-scale (N=37,322) data, analysis of the scaling failure, hyperparameter sensitivity studies, and visualizations of the learned embedding spaces.
+\textbf{Chapter~4: Experiments} reports quantitative results on AwA2 and aPY across all modes, comparison with DDC's published results, qualitative analysis of ILP descriptions, and documentation of early experiments that informed the final design.
 
-    \item[Chapter 5: Discussion] interprets the results in the context of our research questions, analyzes why semantic supervision improves performance, discusses limitations and challenges encountered, and explores the theoretical and practical implications of our findings.
+\textbf{Chapter~5: Discussion} interprets the results, justifies every design decision, revisits the research questions, and identifies limitations.
 
-    \item[Chapter 6: Conclusion] summarizes the contributions, revisits the research questions with answers supported by our experiments, acknowledges limitations, and proposes directions for future work.
-
-    \item[Appendix A: Hyperparameter Optimization] provides complete results from the hyperparameter grid search, including analysis of how different parameter settings affect performance.
-
-    \item[Appendix B: Additional Visualizations] contains supplementary figures, detailed cluster descriptions, error analysis, and implementation specifications.
-\end{description}
+\textbf{Chapter~6: Conclusion} summarizes contributions, lessons learned, and directions for future work.
 
 \section{Scope and Delimitations}
 
-To maintain focus and feasibility, this research operates within the following boundaries:
-
 \subsection{In Scope}
 
-\begin{itemize}
-    \item Integration of semantic supervision (from DDC) into consensus clustering (from DECCS)
-    \item Evaluation on the Animals with Attributes 2 (AwA2) dataset
-    \item Generation of attribute-based cluster explanations
-    \item Comparison with baseline autoencoder and oracle upper-bound methods
-    \item Analysis of clustering performance using standard metrics (NMI, ARI, ACC, Silhouette)
-\end{itemize}
+This thesis covers: integration of DDC's ILP-based descriptions with DECCS consensus clustering; evaluation on AwA2 (50 classes, 85 attributes) and aPY (32 classes / 15-class DDC subset, 64 attributes); comparison with DDC's published results; and documentation of alternative approaches attempted.
 
 \subsection{Out of Scope}
 
-\begin{itemize}
-    \item Full implementation of DDC's Integer Linear Programming (ILP) for explanation optimization. While ILP provides elegant cluster-level explanations in DDC, our preliminary analysis showed that the integration with DECCS's consensus mechanism introduces additional complexity. Specifically, DECCS produces ensemble-level soft assignments that must first be converted to hard cluster assignments before ILP can generate explanations. Given that our core semantic integration (via DDC's loss functions) already showed significant scalability challenges, we deferred ILP implementation to avoid compounding difficulties. Future work should address ILP integration once the fundamental clustering performance issues are resolved.
-    \item Experiments on additional datasets (aPY) beyond AwA2
-    \item Comparison with very recent methods published after the research period
-    \item Natural language explanation generation (we focus on attribute-based descriptions)
-\end{itemize}
-
-These delimitations ensure that the research remains tractable while still addressing the core research questions with sufficient depth.
+End-to-end training of the feature extractor with DDC's MI and pairwise losses was attempted but did not scale to full datasets (documented in Section~\ref{sec:early_experiments}). DDC evaluates at tag annotation ratios $r\% \in \{10, 30, 50\}$, where each instance has a fraction $r$ of its attributes randomly masked to simulate incomplete annotation; our pipeline uses full (unmasked) attributes since we do not train with pairwise constraints that require masking. Natural language explanation generation (beyond attribute lists) and evaluation on additional datasets are left for future work.

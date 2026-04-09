@@ -1,193 +1,142 @@
-\section{Hyperparameter Optimization: Grid Search Configuration}
+\section{Complete Results Tables}
 
-We performed systematic hyperparameter tuning using the grid search implementation in \texttt{tune\_hyperparams.py}. The search space was defined as:
+This appendix provides the complete experimental results across all configurations, including per-run metrics where available.
 
-\begin{itemize}
-    \item $\lambda_{consensus} \in \{0.05, 0.1, 0.2\}$
-    \item $\lambda_{tag} \in \{0.5, 1.0, 1.5\}$
-    \item Epochs: 10
-    \item Sample size: 200 images
-\end{itemize}
-
-This resulted in $3 \times 3 = 9$ experimental configurations.
-
-\section{Complete Results Table}
-
-Table~\ref{tab:hyperparam_full} presents the complete hyperparameter search results.
+\subsection{AwA2 Full Results (K = 50, 10 runs)}
 
 \begin{table}[H]
-    \centering
-    \caption{Complete hyperparameter grid search results for DECCS mode}
-    \label{tab:hyperparam_full}
-    \begin{tabular}{cccccc}
-        \hline
-        $\lambda_{consensus}$ & $\lambda_{tag}$ & \textbf{NMI} & \textbf{ARI} & \textbf{ACC} & \textbf{Silhouette} \\
-        \hline
-        0.05 & 0.5 & 0.721 & 0.548 & 0.663 & 0.389 \\
-        0.05 & 1.0 & 0.738 & 0.572 & 0.681 & 0.412 \\
-        0.05 & 1.5 & 0.729 & 0.561 & 0.674 & 0.398 \\
-        \hline
-        0.1 & 0.5 & 0.734 & 0.563 & 0.676 & 0.405 \\
-        0.1 & 1.0 & 0.746 & 0.584 & 0.687 & 0.421 \\
-        0.1 & 1.5 & 0.741 & 0.577 & 0.682 & 0.416 \\
-        \hline
-        \textbf{0.2} & \textbf{0.5} & \textbf{0.752} & \textbf{0.594} & \textbf{0.694} & \textbf{0.431} \\
-        0.2 & 1.0 & 0.748 & 0.588 & 0.689 & 0.425 \\
-        0.2 & 1.5 & 0.744 & 0.581 & 0.685 & 0.419 \\
-        \hline
-    \end{tabular}
+\centering
+\caption{Complete AwA2 results (29,857 training samples, 50 classes, 85 attributes). Mean $\pm$ std over 10 runs with different random seeds.}
+\label{tab:awa2_full}
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Mode} & \textbf{NMI} & \textbf{ACC} & \textbf{ARI} & \textbf{Sil} & \textbf{TC} & \textbf{ITF} \\
+\midrule
+\texttt{kmeans} & $0.869 \pm 0.002$ & $0.785 \pm 0.008$ & $0.744 \pm 0.008$ & $0.186$ & --- & --- \\
+\texttt{deccs} & $0.871 \pm 0.000$ & $0.807 \pm 0.000$ & $0.736 \pm 0.000$ & $0.156$ & --- & --- \\
+\texttt{ddc} & $0.869 \pm 0.002$ & $0.785 \pm 0.008$ & $0.744 \pm 0.008$ & $0.186$ & $0.681$ & $2.652$ \\
+\texttt{ddeccs} & $0.871 \pm 0.000$ & $0.807 \pm 0.000$ & $0.736 \pm 0.000$ & $0.156$ & $0.698$ & $2.656$ \\
+\bottomrule
+\end{tabular}
 \end{table}
 
-\section{Analysis of Hyperparameter Effects}
+% Source: results/awa2/*/summary.json
 
-\subsection{Impact of Consensus Weight ($\lambda_{consensus}$)}
+\subsection{aPY Full Results (K = 32, 10 runs)}
 
-Figure~\ref{fig:lambda_consensus_effect} illustrates the effect of the consensus weight on clustering performance.
+\begin{table}[H]
+\centering
+\caption{Complete aPY results (12,271 training samples, 32 classes, 64 attributes).}
+\label{tab:apy32_full}
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Mode} & \textbf{NMI} & \textbf{ACC} & \textbf{ARI} & \textbf{Sil} & \textbf{TC} & \textbf{ITF} \\
+\midrule
+\texttt{kmeans} & $0.534 \pm 0.014$ & $0.390 \pm 0.016$ & $0.138 \pm 0.012$ & $0.019$ & --- & --- \\
+\texttt{deccs} & $0.611 \pm 0.001$ & $0.547 \pm 0.000$ & $0.253 \pm 0.000$ & $-0.017$ & --- & --- \\
+\texttt{ddc} & $0.534 \pm 0.014$ & $0.390 \pm 0.016$ & $0.138 \pm 0.012$ & $0.019$ & $0.497$ & $2.156$ \\
+\texttt{ddeccs} & $0.611 \pm 0.001$ & $0.547 \pm 0.000$ & $0.253 \pm 0.000$ & $-0.017$ & $0.570$ & $2.413$ \\
+\bottomrule
+\end{tabular}
+\end{table}
 
-\begin{figure}[H]
-    \centering
-    \begin{tikzpicture}
-        \begin{axis}[
-        xlabel={$\lambda_{consensus}$},
-        ylabel={NMI},
-        width=0.8\textwidth,
-        height=6cm,
-        legend pos=south east,
-        grid=major,
-        ]
-        \addplot[blue,mark=*,thick] coordinates {
-            (0.05, 0.738)
-            (0.1, 0.746)
-            (0.2, 0.752)
-        };
-        \legend{NMI ($\lambda_{tag}=1.0$)}
-        \end{axis}
-    \end{tikzpicture}
-    \caption{Effect of consensus weight on clustering performance (with $\lambda_{tag}=1.0$)}
-    \label{fig:lambda_consensus_effect}
-\end{figure}
+% Source: results/apy/*/summary.json
 
-\textbf{Key Observations:}
-\begin{itemize}
-    \item NMI increases monotonically with $\lambda_{consensus}$ in the tested range
-    \item The improvement from 0.1 to 0.2 is smaller (0.006) than from 0.05 to 0.1 (0.008), suggesting diminishing returns
-    \item Consensus regularization helps prevent overfitting to individual clustering algorithms
-\end{itemize}
+\subsection{aPY DDC 15-Class Subset (K = 15, 10 runs)}
 
-\subsection{Impact of Tag Supervision Weight ($\lambda_{tag}$)}
+\begin{table}[H]
+\centering
+\caption{aPY 15-class subset results (5,189 training samples, 15 classes, 64 attributes). The 15 classes match DDC's evaluation setup.}
+\label{tab:apy15_full}
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Mode} & \textbf{NMI} & \textbf{ACC} & \textbf{ARI} & \textbf{Sil} & \textbf{TC} & \textbf{ITF} \\
+\midrule
+\texttt{kmeans} & $0.666 \pm 0.028$ & $0.615 \pm 0.046$ & $0.458 \pm 0.048$ & $0.051$ & --- & --- \\
+\texttt{deccs} & $0.677 \pm 0.000$ & $0.644 \pm 0.000$ & $0.459 \pm 0.000$ & $0.029$ & --- & --- \\
+\texttt{ddc} & $0.666 \pm 0.028$ & $0.615 \pm 0.046$ & $0.458 \pm 0.048$ & $0.051$ & $0.450$ & $2.030$ \\
+\texttt{ddeccs} & $0.677 \pm 0.000$ & $0.644 \pm 0.000$ & $0.459 \pm 0.000$ & $0.029$ & $0.491$ & $2.223$ \\
+\bottomrule
+\end{tabular}
+\end{table}
 
-Figure~\ref{fig:lambda_tag_effect} shows how tag supervision weight affects performance.
+% Source: results/apy_15/*/summary.json
 
-\begin{figure}[H]
-    \centering
-    \begin{tikzpicture}
-        \begin{axis}[
-        xlabel={$\lambda_{tag}$},
-        ylabel={NMI},
-        width=0.8\textwidth,
-        height=6cm,
-        legend pos=north west,
-        grid=major,
-        ]
-        \addplot[red,mark=square*,thick] coordinates {
-            (0.5, 0.752)
-            (1.0, 0.748)
-            (1.5, 0.744)
-        };
-        \legend{NMI ($\lambda_{consensus}=0.2$)}
-        \end{axis}
-    \end{tikzpicture}
-    \caption{Effect of tag supervision weight on clustering performance (with $\lambda_{consensus}=0.2$)}
-    \label{fig:lambda_tag_effect}
-\end{figure}
+\section{Early Experiment Results}
+\label{sec:early_results}
 
-\textbf{Key Observations:}
-\begin{itemize}
-    \item Optimal performance at $\lambda_{tag}=0.5$, suggesting moderate supervision is sufficient
-    \item Higher values ($>1.0$) may over-constrain the embedding space, reducing flexibility
-    \item The inverted U-shape indicates a sweet spot between under- and over-supervision
-\end{itemize}
+This section documents the results from approaches attempted before the final DDECCS pipeline, providing context for the design decisions discussed in Chapter~5.
 
-\section{Best Configuration}
+\subsection{Autoencoder-Based Approach}
 
-Based on the grid search, the optimal hyperparameters are:
+The initial approach used convolutional autoencoders with tag prediction branches, trained with reconstruction + tag BCE + consensus losses.
 
-\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Optimal Hyperparameters]
-    \begin{itemize}
-        \item $\lambda_{consensus} = 0.2$
-        \item $\lambda_{tag} = 0.5$
-        \item \textbf{Resulting Performance:}
-        \begin{itemize}
-            \item NMI: 0.752
-            \item ARI: 0.594
-            \item ACC: 0.694
-            \item Silhouette: 0.431
-        \end{itemize}
-    \end{itemize}
-\end{tcolorbox}
+\begin{table}[H]
+\centering
+\caption{Autoencoder results on AwA2 sample (N = 800, 30 epochs). All configurations performed at or below the random baseline (NMI $\approx 0.33$ for 50 classes). These results motivated the switch to pretrained features.}
+\label{tab:ae_results}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Configuration} & \textbf{NMI} & \textbf{ACC} & \textbf{Sil} \\
+\midrule
+AE small (128$\times$128) & 0.296 & 0.121 & 0.208 \\
+CAE small + tags & 0.296 & 0.114 & 0.147 \\
+DECCS small + consensus & 0.315 & 0.121 & 0.252 \\
+AE large (224$\times$224) & 0.300 & 0.123 & 0.139 \\
+CAE large + tags & 0.308 & 0.120 & 0.139 \\
+AE ResNet backbone & 0.290 & 0.114 & 0.082 \\
+CAE ResNet + tags & 0.295 & 0.115 & 0.190 \\
+\midrule
+Random baseline & 0.335 & --- & --- \\
+\bottomrule
+\end{tabular}
+\end{table}
 
-\section{Convergence Analysis}
+\subsection{DDC-Style MLP Training}
 
-Figure~\ref{fig:convergence_best} shows the training convergence for the best configuration.
+The second approach used DDC's actual loss functions (MI + pairwise) with a trainable 3-layer MLP on frozen ResNet features.
 
-\begin{figure}[H]
-    \centering
-    \begin{tikzpicture}
-        \begin{axis}[
-            xlabel={Epoch},
-            ylabel={Loss},
-            width=\textwidth,
-            height=7cm,
-            legend pos=north east,
-            grid=major,
-        ]
-            \addplot[blue,mark=*,thick] coordinates {
-                (1, 0.245)
-                (2, 0.198)
-                (3, 0.171)
-                (4, 0.153)
-                (5, 0.142)
-                (6, 0.135)
-                (7, 0.130)
-                (8, 0.127)
-                (9, 0.125)
-                (10, 0.124)
-            };
-            \addplot[red,mark=square*,thick] coordinates {
-                (1, 0.182)
-                (2, 0.144)
-                (3, 0.124)
-                (4, 0.111)
-                (5, 0.103)
-                (6, 0.098)
-                (7, 0.095)
-                (8, 0.093)
-                (9, 0.092)
-                (10, 0.091)
-            };
-            \addplot[green,mark=triangle*,thick] coordinates {
-                (1, 0.063)
-                (2, 0.054)
-                (3, 0.047)
-                (4, 0.042)
-                (5, 0.039)
-                (6, 0.037)
-                (7, 0.035)
-                (8, 0.034)
-                (9, 0.033)
-                (10, 0.033)
-            };
-            \legend{Total Loss, Reconstruction Loss, Tag Loss}
-        \end{axis}
-    \end{tikzpicture}
-    \caption{Training convergence with optimal hyperparameters}
-    \label{fig:convergence_best}
-\end{figure}
+\begin{table}[H]
+\centering
+\caption{MLP training results on AwA2. Per-instance tag masking ($r = 0.5$) was essential for any learning, but results did not scale from sample to full dataset.}
+\label{tab:mlp_results}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Configuration} & \textbf{N} & \textbf{Epochs} & \textbf{NMI} & \textbf{Active Clusters} \\
+\midrule
+No tag masking (sample) & 1,600 & 10 & 0.052 & 13/50 \\
+With tag masking $r=0.5$ (sample) & 1,600 & 10 & 0.056 & 13/50 \\
+With tag masking $r=0.5$ (sample) & 1,600 & 200 & 0.124 & 30/50 \\
+Full dataset, $\lambda_P = 1.0$ & 29,857 & 200 & 0.006 & 28/50 \\
+Full dataset, $\lambda_P = 6.0$ & 29,857 & 200 & 0.000 & 1/50 \\
+Full dataset, lr = $10^{-4}$ & 29,857 & 200 & 0.006 & 24/50 \\
+\midrule
+K-means on raw features & 29,857 & --- & 0.869 & 50/50 \\
+\bottomrule
+\end{tabular}
+\end{table}
 
-\textbf{Observations:}
-\begin{itemize}
-    \item Rapid initial convergence in first 3 epochs
-    \item Smooth, stable training without oscillations
-    \item All loss components decrease consistently, indicating balanced optimization
-    \item Minimal improvement after epoch 7, suggesting early stopping could be applied
-\end{itemize}
+The K-means baseline (NMI = 0.872) dramatically outperformed all MLP training attempts, leading to the current frozen-features pipeline.
+
+\section{ILP Solver Configuration}
+
+The ILP is solved using PuLP's CBC solver with the following configuration:
+
+\begin{table}[H]
+\centering
+\caption{ILP solver parameters and behavior across datasets.}
+\label{tab:ilp_config}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Parameter} & \textbf{AwA2} & \textbf{aPY (32)} & \textbf{aPY (15)} \\
+\midrule
+Attribute density & 0.50 & 0.087 & 0.087 \\
+$\alpha$ (adaptive) & 8 & 2 & 2 \\
+$\beta$ (solved) & 10 & 1 & 1 \\
+Tags selected & 77/85 & 43/64 & 43/64 \\
+Tags per cluster & 4.7 & 5.1 & 5.6 \\
+Solver status & Optimal & Optimal & Optimal \\
+Solve time & $\sim$150s & $\sim$10s & $\sim$0.5s \\
+\bottomrule
+\end{tabular}
+\end{table}
