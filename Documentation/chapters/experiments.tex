@@ -43,7 +43,7 @@ Table~\ref{tab:awa2_results} presents the clustering results on the full AwA2 da
 
 \begin{table}[H]
 \centering
-\caption{Clustering performance on AwA2 (29,857 samples, 50 classes). Mean $\pm$ std over 10 runs. TC and ITF are reported for modes with ILP descriptions.}
+\caption{Clustering performance on AwA2 (29857 samples, 50 classes). Mean $\pm$ std over 10 runs. TC and ITF are reported for modes with ILP descriptions.}
 \label{tab:awa2_results}
 \begin{tabular}{lcccccc}
 \hline
@@ -181,8 +181,6 @@ Table~\ref{tab:awa2_descriptions} shows selected ILP-generated descriptions for 
 The descriptions are semantically meaningful and distinguishable. Cluster~13 (tiger) is described by ``orange, stripes, muscle, fierce'' with TC = 0.82, meaning 82\% of cluster members on average possess each of these attributes. The ITF = 3.12 indicates these attributes are relatively unique to this cluster. Cluster~17 (chimpanzee) is described by habitat and cognitive attributes (``bush, jungle, tree, smart'') rather than physical appearance, showing that the ILP captures diverse semantic dimensions.
 \subsection{aPY Cluster Descriptions (15-class subset)}
 
-Table~\ref{tab:apy15_descriptions} shows ILP-generated descriptions for the aPY 15-class subset. The ILP solved with $\alpha = 2$, $\beta = 1$, selecting 43 of 64 attributes with 5.6 tags per cluster. The strict orthogonality ($\beta = 1$) means each attribute is used by at most one cluster.
-
 Table~\ref{tab:apy15_descriptions} shows ILP-generated descriptions for the aPY 15-class subset. The ILP solved with $\alpha = 2$, $\beta = 1$, selecting 43 of 64 attributes with 6.0 tags per cluster. The strict orthogonality ($\beta = 1$) means each attribute is used by at most one cluster.
 
 \begin{table}[H]
@@ -266,9 +264,9 @@ The two genuinely distinct visualizations per dataset---K-means versus DECCS con
 \section{The Path to the Current Approach: Early Experiments and Lessons Learned}
 \label{sec:early_experiments}
 
-Before arriving at the current frozen-features pipeline, we explored several alternative approaches that provided important insights into the challenges of deep descriptive clustering. We document these experiments transparently, as the negative results informed our final design decisions.
+Before arriving at the current frozen-features pipeline, we explored several alternative approaches that provided important insights into the challenges of deep descriptive clustering. We document these unsuccessful experiments, as the negative results informed our final design decisions.
 
-\subsection{Autoencoder-Based Approach Initial Attempt}
+\subsection{Autoencoder-Based Approach Attempt}
 
 Our initial design followed the DECCS architecture more closely: a convolutional autoencoder with a tag prediction branch, trained with a combined loss $\mathcal{L} = \mathcal{L}_{recon} + \lambda_{tag} \cdot \mathcal{L}_{tag} + \lambda_{cons} \cdot \mathcal{L}_{consensus}$. Three encoder architectures were tested: a small 4-layer CNN ($128 \times 128$), a larger 5-layer CNN with BatchNorm ($224 \times 224$), and a frozen ResNet-101 backbone with a trainable projector.
 
@@ -276,14 +274,14 @@ On a 160-image sample, this approach achieved NMI = 0.642, which appeared promis
 
 \subsection{DDC-Style MLP Training Attempt}
 
-After identifying the reconstruction loss as a fundamental obstacle, we implemented DDC's actual training objectives: mutual information maximization combined with pairwise constraints from semantic tags, using a 3-layer MLP (2048 $\to$ 1200 $\to$ 1200 $\to$ K) on top of frozen ResNet features. This approach faced a critical scaling challenge: on the full dataset, the MI loss dominated from the first epoch (reaching $L_{MI} = -0.92$ after a single epoch of 93 mini-batches), locking the model into approximately 24 coarse clusters before the pairwise constraints could influence the structure.
+After identifying the reconstruction loss as a fundamental obstacle, we implemented DDC's actual training objectives: mutual information maximization combined with pairwise constraints from semantic tags, using a 3-layer MLP (2048 $\to$ 1200 $\to$ 1200 $\to$ K) on top of frozen ResNet features. This approach faced a critical scaling challenge: on the full dataset, the MI loss dominated from the first epoch (reaching $L_{MI} = -0.92$ after a single epoch of 116 mini-batches), locking the model into approximately 24 coarse clusters before the pairwise constraints could influence the structure.
 
 Several fixes were attempted. Per-instance tag masking ($r = 0.5$), which randomly zeros 50\% of each instance's attributes during training, proved essential for making pairwise constraints meaningful---without it, all instances of the same class had identical attribute vectors, causing the pairwise selection to ignore tag information entirely. This fix improved results on a 1,600-sample subset (NMI = 0.124, 30 active clusters, first positive silhouette score), but the improvement did not transfer to the full dataset. A proper ILP solver (PuLP CBC) was also implemented to replace an initial greedy heuristic that selected 75 of 85 tags (providing almost no filtering), but this too did not resolve the MI dominance issue at scale.
 
 \subsection{The K-Means Baseline Finding}
 
-The decisive moment came when we evaluated K-means directly on the raw 2048-dimensional ResNet features: NMI = 0.872 on AwA2. This was higher than any result achieved by the trained MLP, demonstrating that the pretrained features already contained sufficient class-discriminative information and that our MLP training was actively destroying this information rather than refining it. This finding redirected the thesis toward the current approach: leveraging the strong pretrained features and adding value through consensus clustering and interpretable descriptions.
+The refactoring decision came when we evaluated K-means directly on the raw 2048-dimensional ResNet features: NMI = 0.869 on AwA2. This was higher than any result achieved by the trained MLP, demonstrating that the pretrained features already contained sufficient class-discriminative information and that our MLP training was actively destroying this information rather than refining it. This finding redirected the experimental setup toward the current approach: leveraging the strong pretrained features and adding value through consensus clustering and interpretable descriptions.
 
 \section{Summary of Results}
 
-The experimental results support two main conclusions. First, DECCS consensus clustering provides significant and consistent improvements on challenging datasets: +14.4\% NMI on aPY (32 classes), with dramatically reduced variance. On AwA2, where ResNet features already provide near-perfect class separation, consensus matches K-means performance while providing improved accuracy and stability. Second, the ILP-based description generation produces meaningful, orthogonal cluster explanations that align with human intuition, with Tag Coverage values ranging from 0.18 to 0.83 and Inverse Tag Frequency up to 3.47, indicating distinctive descriptions for each cluster.
+The experimental results support two main conclusions. First, DECCS consensus clustering provides significant and consistent improvements on challenging datasets: +14.4\% NMI on aPY ($32$ classes), with dramatically reduced variance. On AwA2, where ResNet features already provide near-perfect class separation, consensus matches K-means performance while providing improved accuracy and stability. Second, the ILP-based description generation produces meaningful, orthogonal cluster explanations that align with human intuition, with Tag Coverage values ranging from 0.18 to 0.83 and Inverse Tag Frequency up to 3.47, indicating distinctive descriptions for each cluster.

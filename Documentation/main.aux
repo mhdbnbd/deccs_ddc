@@ -109,145 +109,148 @@
 \@writefile{toc}{\contentsline {section}{\numberline {3.1}Overview}{17}{section.3.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Terminology.}{17}{section.3.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {3.2}Pipeline Architecture}{17}{section.3.2}\protected@file@percent }
-\citation{He2016}
-\citation{Deng2009}
-\citation{Zhang2021}
 \@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces DDECCS pipeline architecture. Images are processed through a frozen ResNet-101 backbone to extract features, which are then clustered using either K-means or DECCS consensus. Cluster descriptions are generated via ILP using semantic attributes.}}{18}{figure.3.1}\protected@file@percent }
 \newlabel{fig:pipeline}{{3.1}{18}{DDECCS pipeline architecture. Images are processed through a frozen ResNet-101 backbone to extract features, which are then clustered using either K-means or DECCS consensus. Cluster descriptions are generated via ILP using semantic attributes}{figure.3.1}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3.3}Feature Extraction}{18}{section.3.3}\protected@file@percent }
-\newlabel{sec:feature_extraction}{{3.3}{18}{Feature Extraction}{section.3.3}{}}
+\citation{He2016}
+\citation{Deng2009}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces DDECCS Pipeline}}{19}{algorithm.1}\protected@file@percent }
+\newlabel{alg:ddeccs}{{1}{19}{Pipeline Architecture}{algorithm.1}{}}
+\citation{Zhang2021}
 \citation{Lloyd1982}
 \citation{Miklautz2022}
+\@writefile{toc}{\contentsline {section}{\numberline {3.3}Feature Extraction}{20}{section.3.3}\protected@file@percent }
+\newlabel{sec:feature_extraction}{{3.3}{20}{Feature Extraction}{section.3.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.4}Clustering Methods}{20}{section.3.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3.1}{\ignorespaces Four experimental modes. DDECCS (bottom row) is the thesis contribution, combining consensus clustering with interpretable descriptions.}}{20}{table.3.1}\protected@file@percent }
+\newlabel{tab:modes}{{3.1}{20}{Four experimental modes. DDECCS (bottom row) is the thesis contribution, combining consensus clustering with interpretable descriptions}{table.3.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.1}K-means Baseline}{20}{subsection.3.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.2}DECCS Consensus Clustering}{20}{subsection.3.4.2}\protected@file@percent }
+\newlabel{sec:deccs_consensus}{{3.4.2}{20}{DECCS Consensus Clustering}{subsection.3.4.2}{}}
 \citation{Fred2005}
 \citation{Zhang2021}
-\@writefile{toc}{\contentsline {section}{\numberline {3.4}Clustering Methods}{19}{section.3.4}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3.1}{\ignorespaces Four experimental modes. DDECCS (bottom row) is the thesis contribution, combining consensus clustering with interpretable descriptions.}}{19}{table.3.1}\protected@file@percent }
-\newlabel{tab:modes}{{3.1}{19}{Four experimental modes. DDECCS (bottom row) is the thesis contribution, combining consensus clustering with interpretable descriptions}{table.3.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.1}K-means Baseline}{19}{subsection.3.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.2}DECCS Consensus Clustering}{19}{subsection.3.4.2}\protected@file@percent }
-\newlabel{sec:deccs_consensus}{{3.4.2}{19}{DECCS Consensus Clustering}{subsection.3.4.2}{}}
 \citation{Mitchell2011}
-\@writefile{toc}{\contentsline {section}{\numberline {3.5}Cluster Description via Integer Linear Programming}{20}{section.3.5}\protected@file@percent }
-\newlabel{sec:ilp}{{3.5}{20}{Cluster Description via Integer Linear Programming}{section.3.5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.1}Problem Formulation}{20}{subsection.3.5.1}\protected@file@percent }
-\newlabel{eq:ilp_obj}{{3.1}{20}{Problem Formulation}{equation.3.1}{}}
-\newlabel{eq:ilp_coverage}{{3.2}{20}{Problem Formulation}{equation.3.2}{}}
-\newlabel{eq:ilp_orthogonal}{{3.3}{20}{Problem Formulation}{equation.3.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.2}Adaptive $\alpha $ Parameter}{20}{subsection.3.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.5}Cluster Description via Integer Linear Programming}{21}{section.3.5}\protected@file@percent }
+\newlabel{sec:ilp}{{3.5}{21}{Cluster Description via Integer Linear Programming}{section.3.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.1}Problem Formulation}{21}{subsection.3.5.1}\protected@file@percent }
+\newlabel{eq:ilp_obj}{{3.1}{21}{Problem Formulation}{equation.3.1}{}}
+\newlabel{eq:ilp_coverage}{{3.2}{21}{Problem Formulation}{equation.3.2}{}}
+\newlabel{eq:ilp_orthogonal}{{3.3}{21}{Problem Formulation}{equation.3.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.2}Adaptive $\alpha $ Parameter}{22}{subsection.3.5.2}\protected@file@percent }
+\newlabel{eq:alpha_adaptive}{{3.4}{22}{Adaptive $\alpha $ Parameter}{equation.3.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.3}Interpretability Metrics}{22}{subsection.3.5.3}\protected@file@percent }
 \citation{Xian2018}
 \citation{Lampert2013}
 \citation{Farhadi2009}
-\newlabel{eq:alpha_adaptive}{{3.4}{21}{Adaptive $\alpha $ Parameter}{equation.3.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.3}Interpretability Metrics}{21}{subsection.3.5.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3.6}Datasets}{21}{section.3.6}\protected@file@percent }
-\newlabel{sec:datasets}{{3.6}{21}{Datasets}{section.3.6}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.6.1}Animals with Attributes 2 (AwA2)}{21}{subsection.3.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.6}Datasets}{23}{section.3.6}\protected@file@percent }
+\newlabel{sec:datasets}{{3.6}{23}{Datasets}{section.3.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.6.1}Animals with Attributes 2 (AwA2)}{23}{subsection.3.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.6.2}Attribute Pascal and Yahoo (aPY)}{23}{subsection.3.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.7}Design Rationale: Why Frozen Features Instead of End-to-End Training}{23}{section.3.7}\protected@file@percent }
+\newlabel{sec:design_rationale}{{3.7}{23}{Design Rationale: Why Frozen Features Instead of End-to-End Training}{section.3.7}{}}
 \citation{Strehl2002}
 \citation{Kuhn1955}
 \citation{Hubert1985}
 \citation{Rousseeuw1987}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.6.2}Attribute Pascal and Yahoo (aPY)}{22}{subsection.3.6.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3.7}Design Rationale: Why Frozen Features Instead of End-to-End Training}{22}{section.3.7}\protected@file@percent }
-\newlabel{sec:design_rationale}{{3.7}{22}{Design Rationale: Why Frozen Features Instead of End-to-End Training}{section.3.7}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3.8}Evaluation Metrics}{22}{section.3.8}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {4}Experiments}{23}{chapter.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.8}Evaluation Metrics}{24}{section.3.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}Experiments}{25}{chapter.4}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {4.1}Experimental Setup}{23}{section.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.1}Implementation Details}{23}{subsection.4.1.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces Configuration parameters for all experiments.}}{23}{table.4.1}\protected@file@percent }
-\newlabel{tab:config}{{4.1}{23}{Configuration parameters for all experiments}{table.4.1}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.2}Main Results}{23}{section.4.2}\protected@file@percent }
-\newlabel{sec:results}{{4.2}{23}{Main Results}{section.4.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}AwA2 Dataset (K = 50)}{23}{subsection.4.2.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces Clustering performance on AwA2 (29,857 samples, 50 classes). Mean $\pm $ std over 10 runs. TC and ITF are reported for modes with ILP descriptions.}}{24}{table.4.2}\protected@file@percent }
-\newlabel{tab:awa2_results}{{4.2}{24}{Clustering performance on AwA2 (29,857 samples, 50 classes). Mean $\pm $ std over 10 runs. TC and ITF are reported for modes with ILP descriptions}{table.4.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}aPY Dataset --- Full (K = 32)}{24}{subsection.4.2.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.3}{\ignorespaces Clustering performance on aPY full (12,271 samples, 32 classes). Mean $\pm $ std over 10 runs.}}{24}{table.4.3}\protected@file@percent }
-\newlabel{tab:apy32_results}{{4.3}{24}{Clustering performance on aPY full (12,271 samples, 32 classes). Mean $\pm $ std over 10 runs}{table.4.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.3}aPY Dataset --- DDC 15-Class Subset (K = 15)}{24}{subsection.4.2.3}\protected@file@percent }
-\newlabel{sec:apy15}{{4.2.3}{24}{aPY Dataset --- DDC 15-Class Subset (K = 15)}{subsection.4.2.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.1}Experimental Setup}{25}{section.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.1}Implementation Details}{25}{subsection.4.1.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces Configuration parameters for all experiments.}}{25}{table.4.1}\protected@file@percent }
+\newlabel{tab:config}{{4.1}{25}{Configuration parameters for all experiments}{table.4.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}Main Results}{25}{section.4.2}\protected@file@percent }
+\newlabel{sec:results}{{4.2}{25}{Main Results}{section.4.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}AwA2 Dataset (K = 50)}{25}{subsection.4.2.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces Clustering performance on AwA2 (29857 samples, 50 classes). Mean $\pm $ std over 10 runs. TC and ITF are reported for modes with ILP descriptions.}}{26}{table.4.2}\protected@file@percent }
+\newlabel{tab:awa2_results}{{4.2}{26}{Clustering performance on AwA2 (29857 samples, 50 classes). Mean $\pm $ std over 10 runs. TC and ITF are reported for modes with ILP descriptions}{table.4.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}aPY Dataset --- Full (K = 32)}{26}{subsection.4.2.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.3}{\ignorespaces Clustering performance on aPY full (12,271 samples, 32 classes). Mean $\pm $ std over 10 runs.}}{26}{table.4.3}\protected@file@percent }
+\newlabel{tab:apy32_results}{{4.3}{26}{Clustering performance on aPY full (12,271 samples, 32 classes). Mean $\pm $ std over 10 runs}{table.4.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.3}aPY Dataset --- DDC 15-Class Subset (K = 15)}{26}{subsection.4.2.3}\protected@file@percent }
+\newlabel{sec:apy15}{{4.2.3}{26}{aPY Dataset --- DDC 15-Class Subset (K = 15)}{subsection.4.2.3}{}}
 \citation{Zhang2021}
-\@writefile{lot}{\contentsline {table}{\numberline {4.4}{\ignorespaces Clustering performance on aPY 15-class subset (5189 training samples, 15 classes). Mean $\pm $ std over 10 runs.}}{25}{table.4.4}\protected@file@percent }
-\newlabel{tab:apy15_results}{{4.4}{25}{Clustering performance on aPY 15-class subset (5189 training samples, 15 classes). Mean $\pm $ std over 10 runs}{table.4.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.4}Comparison with DDC Paper}{25}{subsection.4.2.4}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.5}{\ignorespaces Comparison with DDC paper results. DDC uses AwA1 (not AwA2) and trains an MLP with MI + pairwise loss. Our approach uses frozen ResNet features + K-means/DECCS + post-hoc ILP. DDC results at tag ratio $r\% = 50$.}}{25}{table.4.5}\protected@file@percent }
-\newlabel{tab:ddc_comparison}{{4.5}{25}{Comparison with DDC paper results. DDC uses AwA1 (not AwA2) and trains an MLP with MI + pairwise loss. Our approach uses frozen ResNet features + K-means/DECCS + post-hoc ILP. DDC results at tag ratio $r\% = 50$}{table.4.5}{}}
-\@writefile{toc}{\contentsline {paragraph}{Note on DDC's tag annotation ratio ($r\%$).}{25}{table.4.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.3}ILP Cluster Descriptions}{26}{section.4.3}\protected@file@percent }
-\newlabel{sec:ilp_results}{{4.3}{26}{ILP Cluster Descriptions}{section.4.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.1}AwA2 ILP Descriptions}{26}{subsection.4.3.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.6}{\ignorespaces Selected ILP cluster descriptions for AwA2 (DDC mode). Full descriptions available in \texttt  {results/awa2/ddc/ilp\_descriptions.json}.}}{26}{table.4.6}\protected@file@percent }
-\newlabel{tab:awa2_descriptions}{{4.6}{26}{Selected ILP cluster descriptions for AwA2 (DDC mode). Full descriptions available in \texttt {results/awa2/ddc/ilp\_descriptions.json}}{table.4.6}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.2}aPY Cluster Descriptions (15-class subset)}{27}{subsection.4.3.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4.7}{\ignorespaces Selected ILP cluster descriptions for aPY 15-class subset (DDC mode). Full descriptions in \texttt  {results/apy\_15/ddc/ilp\_descriptions.json}.}}{27}{table.4.7}\protected@file@percent }
-\newlabel{tab:apy15_descriptions}{{4.7}{27}{Selected ILP cluster descriptions for aPY 15-class subset (DDC mode). Full descriptions in \texttt {results/apy\_15/ddc/ilp\_descriptions.json}}{table.4.7}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.4}Visualizations}{27}{section.4.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.1}AwA2: K-means vs.\ DECCS Consensus}{28}{subsection.4.4.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces t-SNE projections of AwA2 ResNet features colored by cluster assignment. Left: K-means (NMI = 0.869). Right: DECCS consensus (NMI = 0.871). Both methods produce well-separated clusters, reflecting the strong discriminative power of ResNet features on animal images. Source: \texttt  {results/awa2/kmeans/tsne.png} and \texttt  {results/awa2/deccs/tsne.png}.}}{28}{figure.4.1}\protected@file@percent }
-\newlabel{fig:tsne_awa2}{{4.1}{28}{t-SNE projections of AwA2 ResNet features colored by cluster assignment. Left: K-means (NMI = 0.869). Right: DECCS consensus (NMI = 0.871). Both methods produce well-separated clusters, reflecting the strong discriminative power of ResNet features on animal images. Source: \texttt {results/awa2/kmeans/tsne.png} and \texttt {results/awa2/deccs/tsne.png}}{figure.4.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.2}aPY Full (K = 32): K-means vs.\ DECCS Consensus}{28}{subsection.4.4.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces t-SNE projections of aPY full dataset (32 classes). Left: K-means (NMI = 0.534). Right: DECCS consensus (NMI = 0.611). The consensus ensemble produces noticeably more coherent cluster boundaries, particularly in separating vehicles from furniture and small objects. This +14.4\% NMI improvement is the largest gain from consensus in our experiments. Source: \texttt  {results/apy/kmeans/tsne.png} and \texttt  {results/apy/deccs/tsne.png}.}}{28}{figure.4.2}\protected@file@percent }
-\newlabel{fig:tsne_apy32}{{4.2}{28}{t-SNE projections of aPY full dataset (32 classes). Left: K-means (NMI = 0.534). Right: DECCS consensus (NMI = 0.611). The consensus ensemble produces noticeably more coherent cluster boundaries, particularly in separating vehicles from furniture and small objects. This +14.4\% NMI improvement is the largest gain from consensus in our experiments. Source: \texttt {results/apy/kmeans/tsne.png} and \texttt {results/apy/deccs/tsne.png}}{figure.4.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.3}aPY 15-Class Subset (K = 15): K-means vs.\ DECCS Consensus}{29}{subsection.4.4.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces t-SNE projections of aPY 15-class subset. Left: K-means (NMI = 0.666). Right: DECCS consensus (NMI = 0.677, ACC = 0.644). Distinct groups are visible for animals (top), vehicles (left), and furniture/objects (bottom). DECCS produces more coherent cluster boundaries, reflected in its higher NMI and ACC. Source: \texttt  {results/apy\_15/kmeans/tsne.png} and \texttt  {results/apy\_15/deccs/tsne.png}.}}{29}{figure.4.3}\protected@file@percent }
-\newlabel{fig:tsne_apy15}{{4.3}{29}{t-SNE projections of aPY 15-class subset. Left: K-means (NMI = 0.666). Right: DECCS consensus (NMI = 0.677, ACC = 0.644). Distinct groups are visible for animals (top), vehicles (left), and furniture/objects (bottom). DECCS produces more coherent cluster boundaries, reflected in its higher NMI and ACC. Source: \texttt {results/apy\_15/kmeans/tsne.png} and \texttt {results/apy\_15/deccs/tsne.png}}{figure.4.3}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.5}The Path to the Current Approach: Early Experiments and Lessons Learned}{29}{section.4.5}\protected@file@percent }
-\newlabel{sec:early_experiments}{{4.5}{29}{The Path to the Current Approach: Early Experiments and Lessons Learned}{section.4.5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.1}Autoencoder-Based Approach Initial Attempt}{29}{subsection.4.5.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.2}DDC-Style MLP Training Attempt}{30}{subsection.4.5.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.3}The K-Means Baseline Finding}{30}{subsection.4.5.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.6}Summary of Results}{30}{section.4.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}Discussion}{31}{chapter.5}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.4}{\ignorespaces Clustering performance on aPY 15-class subset (5189 training samples, 15 classes). Mean $\pm $ std over 10 runs.}}{27}{table.4.4}\protected@file@percent }
+\newlabel{tab:apy15_results}{{4.4}{27}{Clustering performance on aPY 15-class subset (5189 training samples, 15 classes). Mean $\pm $ std over 10 runs}{table.4.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.4}Comparison with DDC Paper}{27}{subsection.4.2.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.5}{\ignorespaces Comparison with DDC paper results. DDC uses AwA1 (not AwA2) and trains an MLP with MI + pairwise loss. Our approach uses frozen ResNet features + K-means/DECCS + post-hoc ILP. DDC results at tag ratio $r\% = 50$.}}{27}{table.4.5}\protected@file@percent }
+\newlabel{tab:ddc_comparison}{{4.5}{27}{Comparison with DDC paper results. DDC uses AwA1 (not AwA2) and trains an MLP with MI + pairwise loss. Our approach uses frozen ResNet features + K-means/DECCS + post-hoc ILP. DDC results at tag ratio $r\% = 50$}{table.4.5}{}}
+\@writefile{toc}{\contentsline {paragraph}{Note on DDC's tag annotation ratio ($r\%$).}{27}{table.4.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.3}ILP Cluster Descriptions}{28}{section.4.3}\protected@file@percent }
+\newlabel{sec:ilp_results}{{4.3}{28}{ILP Cluster Descriptions}{section.4.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.1}AwA2 ILP Descriptions}{28}{subsection.4.3.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.6}{\ignorespaces Selected ILP cluster descriptions for AwA2 (DDC mode). Full descriptions available in \texttt  {results/awa2/ddc/ilp\_descriptions.json}.}}{28}{table.4.6}\protected@file@percent }
+\newlabel{tab:awa2_descriptions}{{4.6}{28}{Selected ILP cluster descriptions for AwA2 (DDC mode). Full descriptions available in \texttt {results/awa2/ddc/ilp\_descriptions.json}}{table.4.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.2}aPY Cluster Descriptions (15-class subset)}{29}{subsection.4.3.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.7}{\ignorespaces Selected ILP cluster descriptions for aPY 15-class subset (DDC mode). Full descriptions in \texttt  {results/apy\_15/ddc/ilp\_descriptions.json}.}}{29}{table.4.7}\protected@file@percent }
+\newlabel{tab:apy15_descriptions}{{4.7}{29}{Selected ILP cluster descriptions for aPY 15-class subset (DDC mode). Full descriptions in \texttt {results/apy\_15/ddc/ilp\_descriptions.json}}{table.4.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.4}Visualizations}{29}{section.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.1}AwA2: K-means vs.\ DECCS Consensus}{30}{subsection.4.4.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces t-SNE projections of AwA2 ResNet features colored by cluster assignment. Left: K-means (NMI = 0.869). Right: DECCS consensus (NMI = 0.871). Both methods produce well-separated clusters, reflecting the strong discriminative power of ResNet features on animal images. Source: \texttt  {results/awa2/kmeans/tsne.png} and \texttt  {results/awa2/deccs/tsne.png}.}}{30}{figure.4.1}\protected@file@percent }
+\newlabel{fig:tsne_awa2}{{4.1}{30}{t-SNE projections of AwA2 ResNet features colored by cluster assignment. Left: K-means (NMI = 0.869). Right: DECCS consensus (NMI = 0.871). Both methods produce well-separated clusters, reflecting the strong discriminative power of ResNet features on animal images. Source: \texttt {results/awa2/kmeans/tsne.png} and \texttt {results/awa2/deccs/tsne.png}}{figure.4.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.2}aPY Full (K = 32): K-means vs.\ DECCS Consensus}{30}{subsection.4.4.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces t-SNE projections of aPY full dataset (32 classes). Left: K-means (NMI = 0.534). Right: DECCS consensus (NMI = 0.611). The consensus ensemble produces noticeably more coherent cluster boundaries, particularly in separating vehicles from furniture and small objects. This +14.4\% NMI improvement is the largest gain from consensus in our experiments. Source: \texttt  {results/apy/kmeans/tsne.png} and \texttt  {results/apy/deccs/tsne.png}.}}{30}{figure.4.2}\protected@file@percent }
+\newlabel{fig:tsne_apy32}{{4.2}{30}{t-SNE projections of aPY full dataset (32 classes). Left: K-means (NMI = 0.534). Right: DECCS consensus (NMI = 0.611). The consensus ensemble produces noticeably more coherent cluster boundaries, particularly in separating vehicles from furniture and small objects. This +14.4\% NMI improvement is the largest gain from consensus in our experiments. Source: \texttt {results/apy/kmeans/tsne.png} and \texttt {results/apy/deccs/tsne.png}}{figure.4.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.3}aPY 15-Class Subset (K = 15): K-means vs.\ DECCS Consensus}{31}{subsection.4.4.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces t-SNE projections of aPY 15-class subset. Left: K-means (NMI = 0.666). Right: DECCS consensus (NMI = 0.677, ACC = 0.644). Distinct groups are visible for animals (top), vehicles (left), and furniture/objects (bottom). DECCS produces more coherent cluster boundaries, reflected in its higher NMI and ACC. Source: \texttt  {results/apy\_15/kmeans/tsne.png} and \texttt  {results/apy\_15/deccs/tsne.png}.}}{31}{figure.4.3}\protected@file@percent }
+\newlabel{fig:tsne_apy15}{{4.3}{31}{t-SNE projections of aPY 15-class subset. Left: K-means (NMI = 0.666). Right: DECCS consensus (NMI = 0.677, ACC = 0.644). Distinct groups are visible for animals (top), vehicles (left), and furniture/objects (bottom). DECCS produces more coherent cluster boundaries, reflected in its higher NMI and ACC. Source: \texttt {results/apy\_15/kmeans/tsne.png} and \texttt {results/apy\_15/deccs/tsne.png}}{figure.4.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.5}The Path to the Current Approach: Early Experiments and Lessons Learned}{31}{section.4.5}\protected@file@percent }
+\newlabel{sec:early_experiments}{{4.5}{31}{The Path to the Current Approach: Early Experiments and Lessons Learned}{section.4.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.1}Autoencoder-Based Approach Attempt}{31}{subsection.4.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.2}DDC-Style MLP Training Attempt}{32}{subsection.4.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.3}The K-Means Baseline Finding}{32}{subsection.4.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.6}Summary of Results}{32}{section.4.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Discussion}{33}{chapter.5}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {5.1}Overview}{31}{section.5.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5.2}Interpretation of Results}{31}{section.5.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.1}When Does Consensus Clustering Help?}{31}{subsection.5.2.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.2}Quality of ILP-Generated Descriptions}{31}{subsection.5.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.3}Comparison with DDC}{32}{subsection.5.2.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5.3}Justification of Design Decisions}{32}{section.5.3}\protected@file@percent }
-\newlabel{sec:design_decisions}{{5.3}{32}{Justification of Design Decisions}{section.5.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.1}Why Frozen ResNet-101 Features?}{32}{subsection.5.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}Overview}{33}{section.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}Interpretation of Results}{33}{section.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.1}When Does Consensus Clustering Help?}{33}{subsection.5.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.2}Quality of ILP-Generated Descriptions}{33}{subsection.5.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.3}Comparison with DDC}{34}{subsection.5.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.3}Justification of Design Decisions}{34}{section.5.3}\protected@file@percent }
+\newlabel{sec:design_decisions}{{5.3}{34}{Justification of Design Decisions}{section.5.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.1}The Frozen ResNet-101 Features}{34}{subsection.5.3.1}\protected@file@percent }
 \citation{Fred2005}
 \citation{Fred2005}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.2}Why K-means and DECCS Consensus (Not DDC's MI + Pairwise)?}{33}{subsection.5.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.3}Why Four Base Clusterers in DECCS?}{33}{subsection.5.3.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.4}Why Spectral Clustering on the Consensus Matrix?}{33}{subsection.5.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.2}K-means and DECCS Consensus (instead of DDC's MI + Pairwise)}{35}{subsection.5.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.3}The Four Base Clusterers in DECCS?}{35}{subsection.5.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.4}Spectral Clustering on the Consensus Matrix}{35}{subsection.5.3.4}\protected@file@percent }
 \citation{Xian2018}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.5}Why Post-Hoc ILP Instead of ILP-in-the-Loop?}{34}{subsection.5.3.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.6}Why Adaptive $\alpha $?}{34}{subsection.5.3.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.7}Why AwA2 Instead of AwA?}{34}{subsection.5.3.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.8}Why the 15-Class aPY Subset?}{34}{subsection.5.3.8}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5.4}Research Questions Revisited}{34}{section.5.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.1}RQ1: How can DDC be integrated into DECCS to improve interpretability?}{34}{subsection.5.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.2}RQ2: What impact does the integration have on clustering performance?}{35}{subsection.5.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.3}RQ3: How does the approach perform on AwA2 and aPY?}{35}{subsection.5.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5.5}Limitations}{35}{section.5.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.1}No End-to-End Feature Refinement}{35}{subsection.5.5.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.2}Post-Hoc Descriptions Cannot Improve Clustering}{35}{subsection.5.5.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.3}Dependence on Pretrained Features}{36}{subsection.5.5.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.4}Attribute Requirements}{36}{subsection.5.5.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5.6}Summary}{36}{section.5.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {6}Conclusion}{37}{chapter.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.5}Post-Hoc ILP Instead of ILP-in-the-Loop}{36}{subsection.5.3.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.6}The Adaptive $\alpha $}{36}{subsection.5.3.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.7}AwA2 Instead of AwA}{36}{subsection.5.3.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.8}The 15-Class aPY Subset}{36}{subsection.5.3.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.4}Research Questions Revisited}{36}{section.5.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.1}RQ1: How can DDC be integrated into DECCS to improve interpretability?}{36}{subsection.5.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.2}RQ2: What impact does the integration have on clustering performance?}{37}{subsection.5.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.3}RQ3: How does the approach perform on AwA2 and aPY?}{37}{subsection.5.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.5}Limitations}{37}{section.5.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.1}No End-to-End Feature Refinement}{37}{subsection.5.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.2}Post-Hoc Descriptions Cannot Improve Clustering}{37}{subsection.5.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.3}Dependence on Pretrained Features}{38}{subsection.5.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.4}Attribute Requirements}{38}{subsection.5.5.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.6}Summary}{38}{section.5.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Conclusion}{39}{chapter.6}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {6.1}Summary of Contributions}{37}{section.6.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6.2}Research Questions Answered}{37}{section.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.1}Summary of Contributions}{39}{section.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.2}Research Questions Answered}{39}{section.6.2}\protected@file@percent }
 \citation{Crawshaw2020}
 \citation{Chen2018GradNorm}
-\@writefile{toc}{\contentsline {section}{\numberline {6.3}Lessons Learned}{38}{section.6.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.1}Pretrained Features Can Be Sufficient}{38}{subsection.6.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.2}Loss Balancing in Deep Clustering Is Fragile}{38}{subsection.6.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.3}Experimental Setup Details Matter}{38}{subsection.6.3.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6.4}Limitations}{38}{section.6.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6.5}Future Work}{38}{section.6.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.5.1}Resolving the MLP Training Challenge}{38}{subsection.6.5.1}\protected@file@percent }
+\citation{Crawshaw2020}
+\@writefile{toc}{\contentsline {section}{\numberline {6.3}Lessons Learned}{40}{section.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.1}Pretrained Features Can Be Sufficient}{40}{subsection.6.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.2}Loss Balancing in Deep Clustering Is Fragile}{40}{subsection.6.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.3}Experimental Setup Details Matter}{40}{subsection.6.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.4}Limitations}{40}{section.6.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.5}Future Work}{40}{section.6.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.5.1}Resolving the MLP Training Challenge}{40}{subsection.6.5.1}\protected@file@percent }
 \bibstyle{plainnat}
 \bibdata{bibliography}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.5.2}End-to-End Consensus with Descriptions}{39}{subsection.6.5.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.5.3}Extension to Other Domains}{39}{subsection.6.5.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6.6}Final Remarks}{39}{section.6.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.5.2}End-to-End Consensus with Descriptions}{41}{subsection.6.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.5.3}Extension to Other Domains}{41}{subsection.6.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.6}Final Remarks}{41}{section.6.6}\protected@file@percent }
 \bibcite{Bertsimas2020}{{1}{2021}{{Bertsimas et~al.}}{{Bertsimas, Orfanoudaki, and Wiberg}}}
 \bibcite{Caron2020}{{2}{2020}{{Caron et~al.}}{{Caron, Misra, Mairal, Goyal, Bojanowski, and Joulin}}}
 \bibcite{Chen2020}{{3}{2020}{{Chen et~al.}}{{Chen, Kornblith, Norouzi, and Hinton}}}
@@ -260,7 +263,7 @@
 \bibcite{Gan2022}{{10}{2022}{{Gan and Allen}}{{}}}
 \bibcite{Grill2020}{{11}{2020}{{Grill et~al.}}{{Grill, Strub, Altch\'{e}, Tallec, Richemond, Buchatskaya, Doersch, Pires, Guo, Azar, Piot, Kavukcuoglu, Munos, and Valko}}}
 \bibcite{Guidotti2018}{{12}{2018}{{Guidotti et~al.}}{{Guidotti, Monreale, Ruggieri, Turini, Giannotti, and Pedreschi}}}
-\@writefile{toc}{\contentsline {chapter}{Bibliography}{40}{chapter*.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{Bibliography}{42}{chapter*.2}\protected@file@percent }
 \bibcite{Guo2017}{{13}{2017}{{Guo et~al.}}{{Guo, Gao, Liu, and Yin}}}
 \bibcite{He2016}{{14}{2016}{{He et~al.}}{{He, Zhang, Ren, and Sun}}}
 \bibcite{He2020}{{15}{2020}{{He et~al.}}{{He, Fan, Wu, Xie, and Girshick}}}
@@ -296,62 +299,64 @@
 \citation{Zhang2021}
 \citation{Xie2016}
 \citation{Kingma2014}
-\@writefile{toc}{\contentsline {chapter}{List of Figures}{44}{chapter*.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{List of Tables}{45}{chapter*.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{List of Figures}{46}{chapter*.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{List of Tables}{47}{chapter*.4}\protected@file@percent }
 \citation{Xian2018}
 \citation{Lampert2013}
 \citation{Farhadi2009}
-\@writefile{toc}{\contentsline {chapter}{\numberline {A}Hyperparameter Analysis and Early Experiments}{47}{appendix.A}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {A}Hyperparameter Analysis and Early Experiments}{49}{appendix.A}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {A.1}Complete Results Tables}{47}{section.A.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.1.1}AwA2 Full Results (K = 50, 10 runs)}{47}{subsection.A.1.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {A.1}{\ignorespaces Complete AwA2 results (29,857 training samples, 50 classes, 85 attributes). Mean $\pm $ std over 10 runs with different random seeds.}}{47}{table.A.1}\protected@file@percent }
-\newlabel{tab:awa2_full}{{A.1}{47}{Complete AwA2 results (29,857 training samples, 50 classes, 85 attributes). Mean $\pm $ std over 10 runs with different random seeds}{table.A.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.1.2}aPY Full Results (K = 32, 10 runs)}{47}{subsection.A.1.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {A.2}{\ignorespaces Complete aPY results (12,271 training samples, 32 classes, 64 attributes).}}{47}{table.A.2}\protected@file@percent }
-\newlabel{tab:apy32_full}{{A.2}{47}{Complete aPY results (12,271 training samples, 32 classes, 64 attributes)}{table.A.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.1.3}aPY DDC 15-Class Subset (K = 15, 10 runs)}{48}{subsection.A.1.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {A.3}{\ignorespaces aPY 15-class subset results (5,189 training samples, 15 classes, 64 attributes). The 15 classes match DDC's evaluation setup.}}{48}{table.A.3}\protected@file@percent }
-\newlabel{tab:apy15_full}{{A.3}{48}{aPY 15-class subset results (5,189 training samples, 15 classes, 64 attributes). The 15 classes match DDC's evaluation setup}{table.A.3}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {A.2}Early Experiment Results}{48}{section.A.2}\protected@file@percent }
-\newlabel{sec:early_results}{{A.2}{48}{Early Experiment Results}{section.A.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.2.1}Autoencoder-Based Approach}{48}{subsection.A.2.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {A.4}{\ignorespaces Autoencoder results on AwA2 sample (N = 800, 30 epochs). All configurations performed at or below the random baseline (NMI $\approx 0.33$ for 50 classes). These results motivated the switch to pretrained features.}}{48}{table.A.4}\protected@file@percent }
-\newlabel{tab:ae_results}{{A.4}{48}{Autoencoder results on AwA2 sample (N = 800, 30 epochs). All configurations performed at or below the random baseline (NMI $\approx 0.33$ for 50 classes). These results motivated the switch to pretrained features}{table.A.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.2.2}DDC-Style MLP Training}{48}{subsection.A.2.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {A.5}{\ignorespaces MLP training results on AwA2. Per-instance tag masking ($r = 0.5$) was essential for any learning, but results did not scale from sample to full dataset.}}{49}{table.A.5}\protected@file@percent }
-\newlabel{tab:mlp_results}{{A.5}{49}{MLP training results on AwA2. Per-instance tag masking ($r = 0.5$) was essential for any learning, but results did not scale from sample to full dataset}{table.A.5}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {A.3}ILP Solver Configuration}{49}{section.A.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {A.6}{\ignorespaces ILP solver parameters and behavior across datasets.}}{49}{table.A.6}\protected@file@percent }
-\newlabel{tab:ilp_config}{{A.6}{49}{ILP solver parameters and behavior across datasets}{table.A.6}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {B}Cluster Descriptions and Dataset Details}{50}{appendix.B}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {A.1}Complete Results Tables}{49}{section.A.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.1.1}AwA2 Full Results (K = 50, 10 runs)}{49}{subsection.A.1.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {A.1}{\ignorespaces Complete AwA2 results (29857 training samples, 50 classes, 85 attributes). Mean $\pm $ std over 10 runs with different random seeds.}}{49}{table.A.1}\protected@file@percent }
+\newlabel{tab:awa2_full}{{A.1}{49}{Complete AwA2 results (29857 training samples, 50 classes, 85 attributes). Mean $\pm $ std over 10 runs with different random seeds}{table.A.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.1.2}aPY Full Results (K = 32, 10 runs)}{49}{subsection.A.1.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {A.2}{\ignorespaces Complete aPY results (12,271 training samples, 32 classes, 64 attributes).}}{49}{table.A.2}\protected@file@percent }
+\newlabel{tab:apy32_full}{{A.2}{49}{Complete aPY results (12,271 training samples, 32 classes, 64 attributes)}{table.A.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.1.3}aPY DDC 15-Class Subset (K = 15, 10 runs)}{50}{subsection.A.1.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {A.3}{\ignorespaces aPY 15-class subset results (5,189 training samples, 15 classes, 64 attributes). The 15 classes match DDC's evaluation setup.}}{50}{table.A.3}\protected@file@percent }
+\newlabel{tab:apy15_full}{{A.3}{50}{aPY 15-class subset results (5,189 training samples, 15 classes, 64 attributes). The 15 classes match DDC's evaluation setup}{table.A.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {A.2}Early Experiment Results}{50}{section.A.2}\protected@file@percent }
+\newlabel{sec:early_results}{{A.2}{50}{Early Experiment Results}{section.A.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.2.1}Autoencoder-Based Approach}{50}{subsection.A.2.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {A.4}{\ignorespaces Autoencoder results on AwA2 sample (N = 800, 30 epochs). All configurations performed at or below the random baseline (NMI $\approx 0.33$ for 50 classes). These results motivated the switch to pretrained features.}}{50}{table.A.4}\protected@file@percent }
+\newlabel{tab:ae_results}{{A.4}{50}{Autoencoder results on AwA2 sample (N = 800, 30 epochs). All configurations performed at or below the random baseline (NMI $\approx 0.33$ for 50 classes). These results motivated the switch to pretrained features}{table.A.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.2.2}DDC-Style MLP Training}{50}{subsection.A.2.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {A.5}{\ignorespaces MLP training results on AwA2. Per-instance tag masking ($r = 0.5$) was essential for any learning, but results did not scale from sample to full dataset.}}{51}{table.A.5}\protected@file@percent }
+\newlabel{tab:mlp_results}{{A.5}{51}{MLP training results on AwA2. Per-instance tag masking ($r = 0.5$) was essential for any learning, but results did not scale from sample to full dataset}{table.A.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {A.3}ILP Solver Configuration}{51}{section.A.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {A.6}{\ignorespaces ILP solver parameters and behavior across datasets.}}{51}{table.A.6}\protected@file@percent }
+\newlabel{tab:ilp_config}{{A.6}{51}{ILP solver parameters and behavior across datasets}{table.A.6}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {B}Cluster Descriptions and Dataset Details}{52}{appendix.B}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {B.1}Complete ILP Cluster Descriptions}{50}{section.B.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {B.1.1}AwA2 Cluster Descriptions (DDC mode, K = 50)}{50}{subsection.B.1.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {B.1}{\ignorespaces Complete ILP cluster descriptions for AwA2. TC = Tag Coverage, ITF = Inverse Tag Frequency. Dominant class determined by majority vote of cluster members.}}{50}{table.B.1}\protected@file@percent }
-\newlabel{tab:awa2_ilp_all}{{B.1}{50}{Complete ILP cluster descriptions for AwA2. TC = Tag Coverage, ITF = Inverse Tag Frequency. Dominant class determined by majority vote of cluster members}{table.B.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {B.1.2}aPY 15-Class Cluster Descriptions (DDC mode, K = 15)}{50}{subsection.B.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {B.1}Complete ILP Cluster Descriptions}{52}{section.B.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.1.1}AwA2 Cluster Descriptions (DDC mode, K = 50)}{52}{subsection.B.1.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {B.1}{\ignorespaces Complete ILP cluster descriptions for all 50 AwA2 clusters (DDC mode, seed=42).}}{53}{table.B.1}\protected@file@percent }
+\newlabel{tab:awa2_ilp_all}{{B.1}{53}{Complete ILP cluster descriptions for all 50 AwA2 clusters (DDC mode, seed=42)}{table.B.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.1.2}aPY 15-Class Cluster Descriptions (DDC mode, K = 15)}{53}{subsection.B.1.2}\protected@file@percent }
 \citation{Xian2018}
 \citation{Lampert2013}
 \citation{Xian2018}
 \citation{Lampert2013}
+\@writefile{lot}{\contentsline {table}{\numberline {B.2}{\ignorespaces Complete ILP cluster descriptions for aPY 15-class subset.}}{54}{table.B.2}\protected@file@percent }
+\newlabel{tab:apy15_ilp_all}{{B.2}{54}{Complete ILP cluster descriptions for aPY 15-class subset}{table.B.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {B.3}{\ignorespaces Complete ILP cluster descriptions for aPY full dataset (DDC mode, 32 clusters, seed=42).}}{54}{table.B.3}\protected@file@percent }
+\newlabel{tab:apy32_ilp_all}{{B.3}{54}{Complete ILP cluster descriptions for aPY full dataset (DDC mode, 32 clusters, seed=42)}{table.B.3}{}}
 \citation{Farhadi2009}
 \citation{Farhadi2009}
-\@writefile{lot}{\contentsline {table}{\numberline {B.2}{\ignorespaces Complete ILP cluster descriptions for aPY 15-class subset.}}{51}{table.B.2}\protected@file@percent }
-\newlabel{tab:apy15_ilp_all}{{B.2}{51}{Complete ILP cluster descriptions for aPY 15-class subset}{table.B.2}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {B.2}Dataset Statistics}{51}{section.B.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {B.2.1}AwA2 Dataset}{51}{subsection.B.2.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {B.3}{\ignorespaces AwA2 dataset statistics. AwA2~\citep  {Xian2018} replaces the original AwA dataset~\citep  {Lampert2013}, which was withdrawn due to copyright restrictions. Both datasets share the same 50 classes and 85 attributes.}}{51}{table.B.3}\protected@file@percent }
-\newlabel{tab:awa2_stats}{{B.3}{51}{AwA2 dataset statistics. AwA2~\citep {Xian2018} replaces the original AwA dataset~\citep {Lampert2013}, which was withdrawn due to copyright restrictions. Both datasets share the same 50 classes and 85 attributes}{table.B.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {B.2.2}aPY Dataset}{52}{subsection.B.2.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {B.4}{\ignorespaces aPY dataset statistics. The dataset combines Pascal VOC~2008 and Yahoo images~\citep  {Farhadi2009}.}}{52}{table.B.4}\protected@file@percent }
-\newlabel{tab:apy_stats}{{B.4}{52}{aPY dataset statistics. The dataset combines Pascal VOC~2008 and Yahoo images~\citep {Farhadi2009}}{table.B.4}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {B.3}DECCS Ensemble Details}{52}{section.B.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {B.5}{\ignorespaces DECCS base clustering algorithms and their configurations.}}{52}{table.B.5}\protected@file@percent }
-\newlabel{tab:ensemble_details}{{B.5}{52}{DECCS base clustering algorithms and their configurations}{table.B.5}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {B.4}Implementation Details}{52}{section.B.4}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {B.6}{\ignorespaces Source code files and their roles in the DDECCS pipeline.}}{53}{table.B.6}\protected@file@percent }
-\newlabel{tab:code_files}{{B.6}{53}{Source code files and their roles in the DDECCS pipeline}{table.B.6}{}}
-\gdef \@abspage@last{55}
+\@writefile{toc}{\contentsline {section}{\numberline {B.2}Dataset Statistics}{55}{section.B.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.2.1}AwA2 Dataset}{55}{subsection.B.2.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {B.4}{\ignorespaces AwA2 dataset statistics. AwA2~\citep  {Xian2018} replaces the original AwA dataset~\citep  {Lampert2013}, which was withdrawn due to copyright restrictions. Both datasets share the same 50 classes and 85 attributes.}}{55}{table.B.4}\protected@file@percent }
+\newlabel{tab:awa2_stats}{{B.4}{55}{AwA2 dataset statistics. AwA2~\citep {Xian2018} replaces the original AwA dataset~\citep {Lampert2013}, which was withdrawn due to copyright restrictions. Both datasets share the same 50 classes and 85 attributes}{table.B.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.2.2}aPY Dataset}{55}{subsection.B.2.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {B.5}{\ignorespaces aPY dataset statistics. The dataset combines Pascal VOC~2008 and Yahoo images~\citep  {Farhadi2009}.}}{55}{table.B.5}\protected@file@percent }
+\newlabel{tab:apy_stats}{{B.5}{55}{aPY dataset statistics. The dataset combines Pascal VOC~2008 and Yahoo images~\citep {Farhadi2009}}{table.B.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {B.3}DECCS Ensemble Details}{56}{section.B.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {B.6}{\ignorespaces DECCS base clustering algorithms and their configurations.}}{56}{table.B.6}\protected@file@percent }
+\newlabel{tab:ensemble_details}{{B.6}{56}{DECCS base clustering algorithms and their configurations}{table.B.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {B.4}Implementation Details}{56}{section.B.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {B.7}{\ignorespaces Source code files and their roles in the DDECCS pipeline.}}{56}{table.B.7}\protected@file@percent }
+\newlabel{tab:code_files}{{B.7}{56}{Source code files and their roles in the DDECCS pipeline}{table.B.7}{}}
+\gdef \@abspage@last{58}

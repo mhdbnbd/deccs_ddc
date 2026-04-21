@@ -48,6 +48,62 @@ Our pipeline consists of four stages, illustrated in Figure~\ref{fig:pipeline}:
     \label{fig:pipeline}
 \end{figure}
 
+Algorithm~\ref{alg:ddeccs} summarizes the complete DDECCS pipeline.
+
+\begin{algorithm}[H]
+\caption{DDECCS Pipeline}
+\label{alg:ddeccs}
+\begin{algorithmic}[1]
+    \Require Image dataset $\mathcal{X}$, attribute matrix $T$, number of clusters $K$, mode $\in \{\texttt{kmeans}, \texttt{deccs}, \texttt{ddc}, \texttt{ddeccs}\}$
+    \Ensure Cluster assignments $\mathbf{y}$, cluster descriptions $\mathbf{D}$ (if ILP mode)
+
+    \State \textbf{Step 1: Feature Extraction}
+    \State Load frozen ResNet-101 (pretrained on ImageNet, final layer removed)
+    \State $F \gets \emptyset$
+    \For{each image $x_i \in \mathcal{X}$}
+        \State Resize $x_i$ to $224 \times 224$, normalize with ImageNet mean/std
+        \State $\mathbf{f}_i \gets \text{ResNet-101}(x_i) \in \mathbb{R}^{2048}$ \Comment{Global average pooling output}
+        \State $F \gets F \cup \{\mathbf{f}_i\}$
+    \EndFor
+    \State Cache $F$ to disk for subsequent runs
+
+    \State
+    \State \textbf{Step 2: Clustering}
+    \State Standardize $F$ to zero mean, unit variance
+    \If{mode $\in \{\texttt{kmeans}, \texttt{ddc}\}$}
+        \State $\mathbf{y} \gets \text{KMeans}(F, K, \text{n\_init}=10)$
+    \ElsIf{mode $\in \{\texttt{deccs}, \texttt{ddeccs}\}$}
+    \State $\pi_1 \gets \text{KMeans}(F, K)$
+    \State $\pi_2 \gets \text{SpectralClustering}(F, K, k\text{-NN affinity}, k=15)$
+    \State $F_{\text{pca}} \gets \text{PCA}(F, d=\min(256, \dim))$ \Comment{For GMM numerical stability}
+    \State $\pi_3 \gets \text{GMM}(F_{\text{pca}}, K, \text{full covariance})$
+    \State $\pi_4 \gets \text{Agglomerative}(F, K, \text{Ward linkage})$
+    \State Build co-association matrix: $C_{ij} \gets \frac{1}{4}\sum_{m=1}^{4} \mathbb{1}[\pi_m(i) = \pi_m(j)]$
+    \State Sparsify $C$ using $k$-nearest neighbors ($k=20$)
+    \State $\mathbf{y} \gets \text{SpectralClustering}(C, K)$
+    \EndIf
+
+    \State
+    \State \textbf{Step 3: ILP Description Generation} (only if mode $\in \{\texttt{ddc}, \texttt{ddeccs}\}$)
+    \State Compute adaptive $\alpha \gets \text{clip}(\text{round}(16 \cdot \bar{d}), 2, 8)$ where $\bar{d}$ is mean attribute density
+    \For{each cluster $i = 1, \ldots, K$}
+        \For{each attribute $j = 1, \ldots, A$}
+            \State $Q_{ij} \gets$ mean of attribute $j$ across instances in cluster $i$
+        \EndFor
+    \EndFor
+    \State Solve ILP: minimize $\sum_{i,j} W_{ij}$ subject to:
+    \State \quad Coverage: $\sum_j W_{ij} \cdot Q_{ij} \geq \alpha \quad \forall i$
+    \State \quad Orthogonality: $\sum_i W_{ij} \leq \beta \quad \forall j$ (starting $\beta=1$, increment if infeasible)
+    \State \quad $W_{ij} \in \{0, 1\}$
+    \State $\mathbf{D} \gets \{(i, \{j : W_{ij} = 1\}) \mid \forall i\}$
+
+    \State
+    \State \textbf{Step 4: Evaluation}
+    \State Compute NMI, ACC (Hungarian), ARI, Silhouette against ground-truth labels
+    \State Compute TC, ITF for each cluster description in $\mathbf{D}$
+\end{algorithmic}
+\end{algorithm}
+
 \section{Feature Extraction}
 \label{sec:feature_extraction}
 
@@ -176,9 +232,9 @@ We evaluate on two established attribute-annotated image datasets used in the DD
 
 \subsection{Animals with Attributes 2 (AwA2)}
 
-AwA2~\citep{Xian2018} contains 37,322 images across 50 animal classes, each annotated with 85 continuous semantic attributes (e.g., \textit{furry}, \textit{stripes}, \textit{swims}). Attributes are defined per class---all instances of a given class share the same attribute vector. We use the standard 80/20 train/test split, yielding 29,857 training instances.
+AwA2~\citep{Xian2018} contains 37,322 images across 50 animal classes, each annotated with 85 continuous semantic attributes (e.g., \textit{furry}, \textit{stripes}, \textit{swims}). Attributes are defined per class---all instances of a given class share the same attribute vector. We use the standard 80/20 train/test split, yielding 29857 training instances.
 
-We note that DDC's original evaluation uses the AwA1 dataset~\citep{Lampert2013} (30,475 images), which has been withdrawn due to copyright restrictions. AwA2 is the recommended drop-in replacement, sharing the same class definitions and attribute structure but containing different images. This means direct numerical comparison with DDC's reported results on AwA1 is approximate.
+We note that DDC's original evaluation uses the AwA1 dataset~\citep{Lampert2013} (19832 images), which has been withdrawn due to copyright restrictions. AwA2 is the recommended drop-in replacement, sharing the same class definitions and attribute structure but containing different images. This means direct numerical comparison with DDC's reported results on AwA1 is approximate.
 
 % Source: data/AwA2-data/Animals_with_Attributes2/
 
@@ -186,7 +242,7 @@ We note that DDC's original evaluation uses the AwA1 dataset~\citep{Lampert2013}
 
 aPY~\citep{Farhadi2009} contains 15339 object instances across 32 classes from Pascal VOC 2008 and Yahoo images, annotated with 64 binary semantic attributes (e.g., \textit{Wheel}, \textit{Furry}, \textit{Metal}). Unlike AwA2, attributes in aPY are annotated per instance---each object has its own binary attribute vector based on its bounding box crop.
 
-DDC reports results on a 15-class subset of aPY (6487 instances). Following their setup, we evaluate with both the full 32-class dataset and the 15-class subset matching DDC's configuration. The 15 classes, identified from DDC's Figure~3 ontology, are: dog, cat, monkey, zebra, bird, bag, mug, bottle, chair, car, building, bicycle, boat, sofa, and dining table.
+DDC reports results on a 15-class subset of aPY consisting of 5,274 instances. In our dataset, filtering to these 15 classes yields 6,487 instances; after our standard 80/20 train/test split, we cluster on 5,189 training instances. The discrepancy with DDC's reported count likely reflects differences in preprocessing or filtering criteria. Following their setup, we evaluate with both the full 32-class dataset and the 15-class subset matching DDC's configuration. The 15 classes, identified from DDC's Figure~3 ontology, are: dog, cat, monkey, zebra, bird, bag, mug, bottle, chair, car, building, bicycle, boat, sofa, and dining table.
 
 % Source: data/aPY-data/aPY/, setup_apy.py, APY_DDC_15_CLASSES in dataset.py
 

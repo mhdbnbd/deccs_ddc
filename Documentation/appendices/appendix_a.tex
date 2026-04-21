@@ -6,16 +6,16 @@ This appendix provides the complete experimental results across all configuratio
 
 \begin{table}[H]
 \centering
-\caption{Complete AwA2 results (29,857 training samples, 50 classes, 85 attributes). Mean $\pm$ std over 10 runs with different random seeds.}
+\caption{Complete AwA2 results (29857 training samples, 50 classes, 85 attributes). Mean $\pm$ std over 10 runs with different random seeds.}
 \label{tab:awa2_full}
 \begin{tabular}{lcccccc}
 \toprule
 \textbf{Mode} & \textbf{NMI} & \textbf{ACC} & \textbf{ARI} & \textbf{Sil} & \textbf{TC} & \textbf{ITF} \\
 \midrule
-\texttt{kmeans} & $0.869 \pm 0.002$ & $0.785 \pm 0.008$ & $0.744 \pm 0.008$ & $0.186$ & --- & --- \\
-\texttt{deccs} & $0.871 \pm 0.000$ & $0.807 \pm 0.000$ & $0.736 \pm 0.000$ & $0.156$ & --- & --- \\
-\texttt{ddc} & $0.869 \pm 0.002$ & $0.785 \pm 0.008$ & $0.744 \pm 0.008$ & $0.186$ & $0.681$ & $2.652$ \\
-\texttt{ddeccs} & $0.871 \pm 0.000$ & $0.807 \pm 0.000$ & $0.736 \pm 0.000$ & $0.156$ & $0.698$ & $2.656$ \\
+\texttt{kmeans} & $0.869 \pm 0.002$ & $0.785 \pm 0.008$ & $0.744 \pm 0.008$ & $0.189$ & --- & --- \\
+\texttt{deccs} & $0.871 \pm 0.000$ & $0.807 \pm 0.000$ & $0.736 \pm 0.000$ & $0.160$ & --- & --- \\
+\texttt{ddc} & $0.869 \pm 0.002$ & $0.785 \pm 0.008$ & $0.744 \pm 0.008$ & $0.189$ & $0.681$ & $2.652$ \\
+\texttt{ddeccs} & $0.871 \pm 0.000$ & $0.807 \pm 0.000$ & $0.736 \pm 0.000$ & $0.160$ & $0.698$ & $2.656$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -32,8 +32,8 @@ This appendix provides the complete experimental results across all configuratio
 \toprule
 \textbf{Mode} & \textbf{NMI} & \textbf{ACC} & \textbf{ARI} & \textbf{Sil} & \textbf{TC} & \textbf{ITF} \\
 \midrule
-\texttt{kmeans} & $0.534 \pm 0.014$ & $0.390 \pm 0.016$ & $0.138 \pm 0.012$ & $0.019$ & --- & --- \\
-\texttt{deccs} & $0.611 \pm 0.001$ & $0.547 \pm 0.000$ & $0.253 \pm 0.000$ & $-0.017$ & --- & --- \\
+\texttt{kmeans} & $0.534 \pm 0.014$ & $0.390 \pm 0.016$ & $0.138 \pm 0.012$ & $0.013$ & --- & --- \\
+\texttt{deccs} & $0.611 \pm 0.001$ & $0.547 \pm 0.000$ & $0.253 \pm 0.000$ & $-0.016$ & --- & --- \\
 \texttt{ddc} & $0.534 \pm 0.014$ & $0.390 \pm 0.016$ & $0.138 \pm 0.012$ & $0.019$ & $0.497$ & $2.156$ \\
 \texttt{ddeccs} & $0.611 \pm 0.001$ & $0.547 \pm 0.000$ & $0.253 \pm 0.000$ & $-0.017$ & $0.570$ & $2.413$ \\
 \bottomrule
@@ -107,16 +107,16 @@ The second approach used DDC's actual loss functions (MI + pairwise) with a trai
 No tag masking (sample) & 1,600 & 10 & 0.052 & 13/50 \\
 With tag masking $r=0.5$ (sample) & 1,600 & 10 & 0.056 & 13/50 \\
 With tag masking $r=0.5$ (sample) & 1,600 & 200 & 0.124 & 30/50 \\
-Full dataset, $\lambda_P = 1.0$ & 29,857 & 200 & 0.006 & 28/50 \\
-Full dataset, $\lambda_P = 6.0$ & 29,857 & 200 & 0.000 & 1/50 \\
-Full dataset, lr = $10^{-4}$ & 29,857 & 200 & 0.006 & 24/50 \\
+Full dataset, $\lambda_P = 1.0$ & 29857 & 200 & 0.006 & 28/50 \\
+Full dataset, $\lambda_P = 6.0$ & 29857 & 200 & 0.000 & 1/50 \\
+Full dataset, lr = $10^{-4}$ & 29857 & 200 & 0.006 & 24/50 \\
 \midrule
-K-means on raw features & 29,857 & --- & 0.869 & 50/50 \\
+K-means on raw features & 29857 & --- & 0.869 & 50/50 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The K-means baseline (NMI = 0.872) dramatically outperformed all MLP training attempts, leading to the current frozen-features pipeline.
+The K-means baseline (NMI = 0.869) dramatically outperformed all MLP training attempts, leading to the current frozen-features pipeline.
 
 \section{ILP Solver Configuration}
 
@@ -135,7 +135,6 @@ $\alpha$ (adaptive) & 8 & 2 & 2 \\
 $\beta$ (solved) & 10 & 1 & 1 \\
 Tags selected & 77/85 & 43/64 & 43/64 \\
 Tags per cluster & 4.7 & 5.1 & 5.6 \\
-Solver status & Optimal & Optimal & Optimal \\
 Solve time & $\sim$150s & $\sim$10s & $\sim$0.5s \\
 \bottomrule
 \end{tabular}

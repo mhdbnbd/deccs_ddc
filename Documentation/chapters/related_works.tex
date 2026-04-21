@@ -31,7 +31,7 @@ DECCS was evaluated on MNIST, Fashion-MNIST, Kuzushiji-MNIST, USPS, and other be
 
 \subsection{Relationship to Our Work}
 
-Our DDECCS framework adopts DECCS's core insight---that ensembling heterogeneous clustering algorithms produces more robust results---but applies it differently. Where DECCS trains an autoencoder end-to-end with consensus loss, we apply consensus post-hoc on frozen pretrained features. This sacrifices the iterative representation refinement but gains reliability: on AwA2, K-means on frozen ResNet features (NMI = 0.872) already exceeds any result from our trained autoencoders, so the value of learned representations is limited for this dataset. Our post-hoc consensus still provides the key benefits of ensemble agreement: improved stability (near-zero variance across seeds) and better accuracy on challenging datasets like aPY (+14.4\% NMI).
+Our DDECCS framework adopts DECCS's core insight---that ensembling heterogeneous clustering algorithms produces more robust results---but applies it differently. Where DECCS trains an autoencoder end-to-end with consensus loss, we apply consensus post-hoc on frozen pretrained features. This sacrifices the iterative representation refinement but gains reliability: on AwA2, K-means on frozen ResNet features (NMI = 0.869) already exceeds any result from our trained autoencoders, so the value of learned representations is limited for this dataset. Our post-hoc consensus still provides the key benefits of ensemble agreement: improved stability (near-zero variance across seeds) and better accuracy on challenging datasets like aPY (+14.4\% NMI).
 
 \section{Deep Descriptive Clustering (DDC)}
 

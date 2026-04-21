@@ -5,32 +5,68 @@
 Table~\ref{tab:awa2_ilp_all} presents the complete ILP-generated descriptions for all 50 AwA2 clusters. The ILP solved with $\alpha = 8$, $\beta = 10$, selecting 77 of 85 attributes.
 
 \begin{table}[H]
-\centering
-\small
-\caption{Complete ILP cluster descriptions for AwA2. TC = Tag Coverage, ITF = Inverse Tag Frequency. Dominant class determined by majority vote of cluster members.}
-\label{tab:awa2_ilp_all}
-\begin{tabular}{clccc}
-\toprule
-\textbf{C} & \textbf{ILP Description (top 6 tags)} & \textbf{n} & \textbf{TC} & \textbf{ITF} \\
-\midrule
-0 & white, furry, big, meatteeth, claws, strong & 692 & 0.73 & 1.71 \\
-1 & black, white, brown, big, hooves, longleg & 499 & 0.57 & 1.34 \\
-2 & black, hands, strong, muscle, bipedal, agility & 658 & 0.62 & 1.87 \\
-3 & black, white, stripes, hooves, chewteeth, grazer & 941 & 0.80 & 1.49 \\
-4 & lean, hooves, longleg, horns, fast, active & 1050 & 0.58 & 1.43 \\
-5 & gray, hairless, toughskin, bulbous, flippers, swims & 799 & 0.67 & 1.88 \\
-6 & gray, hairless, toughskin, big, bulbous, horns & 523 & 0.58 & 1.58 \\
-7 & brown, toughskin, big, bulbous, horns, walks & 701 & 0.57 & 1.34 \\
-8 & brown, hooves, longleg, tail, chewteeth, fast & 1037 & 0.67 & 1.43 \\
-9 & black, toughskin, flippers, swims, slow, fish & 891 & 0.62 & 1.84 \\
-10 & black, toughskin, big, bulbous, hooves, chewteeth & 368 & 0.53 & 1.57 \\
-13 & orange, stripes, meatteeth, claws, muscle, meat & 697 & 0.83 & 2.03 \\
-15 & white, small, paws, tail, chewteeth, buckteeth & 874 & 0.62 & 1.58 \\
-17 & hands, longleg, bipedal, active, agility, bush & 617 & 0.73 & 1.95 \\
-35 & yellow, spots, big, lean, hooves, longleg & 920 & 0.67 & 1.99 \\
-\bottomrule
-\end{tabular}
+    \centering
+    \scriptsize
+    \caption{Complete ILP cluster descriptions for all 50 AwA2 clusters (DDC mode, seed=42).}
+    \label{tab:awa2_ilp_all}
+    \begin{tabular}{clccc}
+        \toprule
+        \textbf{C} & \textbf{ILP Description} & \textbf{n} & \textbf{TC} & \textbf{ITF} \\
+        \midrule
+        0 & strong, fish, arctic, fierce & 692 & 0.76 & 2.77 \\
+        1 & bulbous, chewteeth, grazer, plains, fields, ground & 499 & 0.50 & 2.51 \\
+        2 & smelly, muscle, bipedal, jungle, tree & 658 & 0.61 & 3.14 \\
+        3 & stripes, chewteeth, plains, group & 941 & 0.76 & 2.61 \\
+        4 & hooves, longleg, horns, plains, timid & 1050 & 0.61 & 2.44 \\
+        5 & gray, swims, skimmer, water, timid & 799 & 0.62 & 2.82 \\
+        6 & hairless, toughskin, bulbous, horns, strong & 523 & 0.60 & 2.48 \\
+        7 & black, big, horns, plains, ground & 701 & 0.60 & 2.39 \\
+        8 & hooves, longleg, fast, fields & 1037 & 0.77 & 2.60 \\
+        9 & flippers, swims, arctic, ocean & 891 & 0.78 & 2.84 \\
+        10 & slow, strong, quadrapedal, inactive, grazer & 368 & 0.63 & 2.54 \\
+        11 & tail, meatteeth, walks, meat, newworld & 421 & 0.61 & 2.48 \\
+        12 & patches, big, meatteeth, active, meat & 599 & 0.62 & 2.54 \\
+        13 & orange, stripes, muscle, fierce & 697 & 0.82 & 3.12 \\
+        14 & meatteeth, claws, fast, hunter & 488 & 0.75 & 2.47 \\
+        15 & furry, hops, vegetation, ground & 874 & 0.77 & 2.82 \\
+        16 & furry, walks, fast, agility, newworld, ground & 806 & 0.51 & 2.41 \\
+        17 & bush, jungle, tree, smart & 617 & 0.78 & 3.19 \\
+        18 & brown, big, quadrapedal, newworld & 471 & 0.75 & 2.47 \\
+        19 & brown, big, quadrapedal, grazer, fields & 1052 & 0.62 & 2.58 \\
+        20 & gray, toughskin, slow, oldworld & 388 & 0.76 & 2.54 \\
+        21 & white, quadrapedal, vegetation, group & 299 & 0.75 & 2.60 \\
+        22 & black, lean, claws, agility, newworld & 315 & 0.60 & 2.35 \\
+        23 & gray, bipedal, active, agility, tree & 938 & 0.61 & 2.63 \\
+        24 & meatteeth, claws, walks, agility, solitary, domestic & 271 & 0.52 & 2.57 \\
+        25 & black, small, claws, flys, forest, cave & 490 & 0.51 & 2.91 \\
+        26 & active, meat, hunter, stalker & 465 & 0.75 & 2.47 \\
+        27 & small, flippers, active, fish, water & 606 & 0.61 & 2.54 \\
+        28 & black, spots, lean, paws & 435 & 0.75 & 2.54 \\
+        29 & hooves, longleg, horns, forest, timid & 1039 & 0.63 & 2.48 \\
+        30 & white, walks, weak, timid, group & 311 & 0.66 & 2.68 \\
+        31 & brown, lean, hunter, stalker, smart & 474 & 0.61 & 2.58 \\
+        32 & patches, bulbous, slow, oldworld & 684 & 0.75 & 2.56 \\
+        33 & toughskin, bulbous, hooves, smelly, inactive, newworld & 514 & 0.50 & 2.61 \\
+        34 & gray, hairless, tusks, oldworld & 481 & 0.76 & 2.94 \\
+        35 & spots, longleg, longneck, plains & 920 & 0.77 & 2.89 \\
+        36 & meat, hunter, stalker, fierce & 810 & 0.77 & 2.53 \\
+        37 & white, vegetation, grazer, group & 530 & 0.75 & 2.60 \\
+        38 & strong, hibernate, forest, fierce & 650 & 0.76 & 2.87 \\
+        39 & hairless, toughskin, bulbous, slow, water & 555 & 0.61 & 2.44 \\
+        40 & furry, paws, tail, domestic & 482 & 0.75 & 2.53 \\
+        41 & black, patches, stripes, nocturnal, forest, smart & 456 & 0.50 & 2.86 \\
+        42 & small, chewteeth, buckteeth, tunnels, vegetation, domestic & 799 & 0.51 & 2.92 \\
+        43 & blue, flippers, fast, fish, ocean & 356 & 0.61 & 2.92 \\
+        44 & pads, paws, claws, slow, inactive, timid & 489 & 0.51 & 2.69 \\
+        45 & brown, tail, buckteeth, swims & 192 & 0.76 & 2.77 \\
+        46 & spots, lean, agility, stalker & 577 & 0.75 & 2.54 \\
+        47 & hairless, flippers, ocean, water & 561 & 0.77 & 2.60 \\
+        48 & small, weak, active, ground, solitary & 404 & 0.64 & 2.71 \\
+        49 & furry, paws, tail, domestic & 182 & 0.75 & 2.53 \\
+        \bottomrule
+    \end{tabular}
 \end{table}
+
 
 % Source: results/awa2/ddc/ilp_descriptions.json (selected rows shown; full file contains all 50 clusters)
 
@@ -40,34 +76,83 @@ Table~\ref{tab:apy15_ilp_all} presents the complete ILP descriptions for the 15-
 
 \begin{table}[H]
     \centering
-    \small
     \caption{Complete ILP cluster descriptions for aPY 15-class subset.}
     \label{tab:apy15_ilp_all}
-    \begin{tabular}{clccc}
-        \toprule
-        \textbf{C} & \textbf{ILP Description} & \textbf{n} & \textbf{TC} & \textbf{ITF} \\
-        \midrule
-        0 & Round, Vert Cyl, Occluded, Label, Furn.\ Leg, Wood, Clear & 235 & 0.29 & 1.68 \\
-        1 & Wheel, Door, Taillight, Side mirror, Exhaust & 435 & 0.41 & 2.07 \\
-        2 & 2D Boxy, Round, Plastic, Glass, Clear, Shiny & 169 & 0.34 & 1.54 \\
-        3 & Head, Eye, Torso & 860 & 0.67 & 2.25 \\
-        4 & Furn.\ Back, Furn.\ Seat, Furn.\ Arm, Leather & 123 & 0.51 & 2.01 \\
-        5 & Vert Cyl, Label, Furn.\ Leg, Furn.\ Back, Metal, Plastic, Glass, Clear & 440 & 0.25 & 1.69 \\
-        6 & 2D Boxy, 3D Boxy, Furn.\ Leg, Furn.\ Arm, Cloth, Shiny & 544 & 0.35 & 1.68 \\
-        7 & 2D Boxy, Round, Horiz Cyl, Text, Rein, Metal, Plastic, Cloth, Furry, Wool, Leather & 251 & 0.18 & 1.82 \\
-        8 & 3D Boxy, Horiz Cyl, Window, Row Wind, Text & 221 & 0.40 & 1.71 \\
-        9 & Leg, Foot/Shoe, Furry & 430 & 0.70 & 2.48 \\
-        10 & 2D Boxy, Occluded, Window, Furn.\ Leg, Furn.\ Seat, Wood, Shiny & 225 & 0.29 & 1.61 \\
-        11 & 2D Boxy, Horiz Cyl, Row Wind, Wheel, Mast, Text, Metal, Wood & 307 & 0.25 & 1.70 \\
-        12 & Tail, Ear, Snout & 280 & 0.69 & 2.71 \\
-        13 & Head, Torso, Window, Wheel, Door, Headlight, Taillight, Side mirror, Label, Feather & 446 & 0.20 & 2.03 \\
-        14 & Pedal, Handlebars, Text, Plastic & 223 & 0.53 & 2.01 \\
-        \bottomrule
-    \end{tabular}
+    \resizebox{\textwidth}{!}{
+        \begin{tabular}{clccc}
+            \toprule
+            \textbf{C} & \textbf{ILP Description} & \textbf{n} & \textbf{TC} & \textbf{ITF} \\
+            \midrule
+            0 & Round, Vert Cyl, Occluded, Label, Furn.\ Leg, Wood, Clear & 235 & 0.29 & 1.68 \\
+            1 & Wheel, Door, Taillight, Side mirror, Exhaust & 435 & 0.41 & 2.07 \\
+            2 & 2D Boxy, Round, Plastic, Glass, Clear, Shiny & 169 & 0.34 & 1.54 \\
+            3 & Head, Eye, Torso & 860 & 0.67 & 2.25 \\
+            4 & Furn.\ Back, Furn.\ Seat, Furn.\ Arm, Leather & 123 & 0.51 & 2.01 \\
+            5 & Vert Cyl, Label, Furn.\ Leg, Furn.\ Back, Metal, Plastic, Glass, Clear & 440 & 0.25 & 1.69 \\
+            6 & 2D Boxy, 3D Boxy, Furn.\ Leg, Furn.\ Arm, Cloth, Shiny & 544 & 0.35 & 1.68 \\
+            7 & 2D Boxy, Round, Horiz Cyl, Text, Rein, Metal, Plastic, Cloth, Furry, Wool, Leather & 251 & 0.18 & 1.82 \\
+            8 & 3D Boxy, Horiz Cyl, Window, Row Wind, Text & 221 & 0.40 & 1.71 \\
+            9 & Leg, Foot/Shoe, Furry & 430 & 0.70 & 2.48 \\
+            10 & 2D Boxy, Occluded, Window, Furn.\ Leg, Furn.\ Seat, Wood, Shiny & 225 & 0.29 & 1.61 \\
+            11 & 2D Boxy, Horiz Cyl, Row Wind, Wheel, Mast, Text, Metal, Wood & 307 & 0.25 & 1.70 \\
+            12 & Tail, Ear, Snout & 280 & 0.69 & 2.71 \\
+            13 & Head, Torso, Window, Wheel, Door, Headlight, Taillight, Side mirror, Label, Feather & 446 & 0.20 & 2.03 \\
+            14 & Pedal, Handlebars, Text, Plastic & 223 & 0.53 & 2.01 \\
+            \bottomrule
+        \end{tabular}
+    }
 \end{table}
 
 % Source: results/apy_15/ddc/ilp_descriptions.json
 
+\begin{table}[H]
+    \centering
+    \scriptsize
+    \caption{Complete ILP cluster descriptions for aPY full dataset (DDC mode, 32 clusters, seed=42).}
+    \label{tab:apy32_ilp_all}
+    \resizebox{\textwidth}{!}{
+        \begin{tabular}{clccc}
+            \toprule
+            \textbf{C} & \textbf{ILP Description} & \textbf{n} & \textbf{TC} & \textbf{ITF} \\
+            \midrule
+            0 & Window, Row Wind, Wood, Glass & 228 & 0.52 & 1.95 \\
+            1 & Foot/Shoe, Rein, Saddle, Furry & 336 & 0.51 & 2.62 \\
+            2 & Mouth, Hand, Arm, Foot/Shoe & 508 & 0.50 & 2.10 \\
+            3 & Furn.\ Leg, Furn.\ Back, Furn.\ Seat, Wood & 551 & 0.53 & 1.99 \\
+            4 & Tail, Ear, Snout, Torso, Leg, Metal, Furry, Wool & 359 & 0.26 & 2.26 \\
+            5 & Beak, Wing, Feather & 290 & 0.71 & 2.64 \\
+            6 & 2D Boxy, 3D Boxy, Window, Row Wind, Wheel, Door, Plastic, Wood, Glass & 383 & 0.23 & 2.05 \\
+            7 & 3D Boxy, Door, Headlight, Side mirror & 300 & 0.50 & 2.77 \\
+            8 & Ear, Foot/Shoe, Metal, Shiny & 160 & 0.51 & 1.82 \\
+            9 & 2D Boxy, Hair, Foot/Shoe, Furn.\ Leg, Furn.\ Back, Furn.\ Seat, Wood, Cloth & 233 & 0.25 & 1.98 \\
+            10 & Mouth, Face, Eye, Hand, Metal, Shiny & 391 & 0.34 & 1.89 \\
+            11 & Nose, Mouth, Hair, Hand, Furn.\ Leg, Furn.\ Back & 674 & 0.34 & 2.04 \\
+            12 & Vert Cyl, Occluded, Label, Furn.\ Back, Plastic, Glass, Shiny & 586 & 0.29 & 2.17 \\
+            13 & Horiz Cyl, Wing, Jet engine & 219 & 0.69 & 2.87 \\
+            14 & Occluded, Head, Window, Metal, Cloth, Shiny & 397 & 0.34 & 1.87 \\
+            15 & 3D Boxy, Window, Wheel, Headlight & 536 & 0.51 & 2.15 \\
+            16 & Hair, Arm, Skin & 346 & 0.67 & 2.27 \\
+            17 & Wheel, Handlebars, Plastic, Shiny & 285 & 0.53 & 1.96 \\
+            18 & Head, Eye, Hand, Leg, Metal & 342 & 0.44 & 2.03 \\
+            19 & 2D Boxy, Face, Torso, Furn.\ Leg, Wood, Cloth & 230 & 0.34 & 1.97 \\
+            20 & Tail, Snout, Leg & 153 & 0.74 & 2.10 \\
+            21 & Occluded, Tail, Beak, Eye, Wing, Window, Row Wind, Saddle, Metal, Cloth, Feather & 748 & 0.18 & 2.21 \\
+            22 & Tail, Ear, Furry & 306 & 0.68 & 2.20 \\
+            23 & 2D Boxy, 3D Boxy, Vert Cyl, Screen, Plastic, Glass, Shiny & 786 & 0.30 & 2.17 \\
+            24 & Horiz Cyl, Handlebars, Text, Plastic & 411 & 0.54 & 2.62 \\
+            25 & Face, Arm, Skin & 266 & 0.68 & 2.27 \\
+            26 & Leaf, Pot, Vegetation & 222 & 0.83 & 3.47 \\
+            27 & Occluded, Nose, Mouth, Foot/Shoe & 375 & 0.50 & 2.02 \\
+            28 & Vert Cyl, Nose, Hair, Face, Torso, Leg, Window, Skin & 282 & 0.26 & 2.10 \\
+            29 & 2D Boxy, Nose, Eye, Torso, Furn.\ Back, Furn.\ Seat, Furn.\ Arm, Wood & 216 & 0.27 & 2.18 \\
+            30 & Tail, Head, Snout & 750 & 0.67 & 2.20 \\
+            31 & Wheel, Pedal, Handlebars, Metal, Shiny & 402 & 0.43 & 2.19 \\
+            \bottomrule
+        \end{tabular}
+    }
+\end{table}
+
+% Source: results/apy/ddc/ilp_descriptions.json
 \section{Dataset Statistics}
 
 \subsection{AwA2 Dataset}
@@ -81,7 +166,7 @@ Table~\ref{tab:apy15_ilp_all} presents the complete ILP descriptions for the 15-
 \textbf{Property} & \textbf{Value} \\
 \midrule
 Total images & 37,322 \\
-Training split (80\%) & 29,857 \\
+Training split (80\%) & 29857 \\
 Number of classes & 50 \\
 Number of attributes & 85 \\
 Attribute type & Continuous, per-class \\
@@ -127,7 +212,7 @@ The 15 classes in the DDC subset are: dog, cat, monkey, zebra, bird, bag, mug, b
 \textbf{Algorithm} & \textbf{Library} & \textbf{Configuration} \\
 \midrule
 K-means & scikit-learn & Elkan algorithm, $n\_init = \text{auto}$, $max\_iter = 300$ \\
-Spectral & scikit-learn & Nearest-neighbor affinity ($k = 15$), arpack solver \\
+Spectral & scikit-learn & Nearest-neighbor affinity ($k = 15$, scikit default), arpack solver \\
 GMM & scikit-learn & Full covariance, $reg\_covar = 10^{-3}$, PCA to 256 dims \\
 Agglomerative & scikit-learn & Ward linkage \\
 \midrule

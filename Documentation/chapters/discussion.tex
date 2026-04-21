@@ -1,6 +1,6 @@
 \section{Overview}
 
-This chapter provides a critical analysis of our experimental findings, interprets the results in the context of our research questions, discusses the design decisions made throughout the project and their justifications, and identifies genuine limitations of the approach. Unlike our initial experiments, which used autoencoder-based architectures and failed to scale, the final DDECCS pipeline achieves competitive clustering performance while providing interpretable cluster descriptions.
+This chapter provides a critical analysis of our experimental findings, interprets the results in the context of our research questions, discusses the design decisions made throughout the project and their justifications, and identifies genuine limitations of the approach.
 
 \section{Interpretation of Results}
 
@@ -14,7 +14,7 @@ On aPY, the picture changes dramatically. The 32-class aPY dataset contains dive
 
 \subsection{Quality of ILP-Generated Descriptions}
 
-The ILP produces descriptions that are both concise and semantically meaningful. On AwA2, cluster descriptions like ``orange, stripes, meatteeth, claws, muscle, meat'' (tiger cluster, TC = 0.83, ITF = 2.03) demonstrate high Tag Coverage (most cluster members possess these attributes) and high Inverse Tag Frequency (these attributes are distinctive to this cluster). The ILP's orthogonality constraint ($\beta = 1$ on aPY) ensures that descriptions differentiate clusters: the car cluster (``Window, Wheel, Door, Shiny'') shares ``Wheel'' as a concept with the bicycle cluster (``Wheel, Pedal, Handlebars, Metal''), but the ILP assigns distinguishing attributes to each.
+The ILP produces descriptions that are both concise and semantically meaningful. On AwA2, the tiger cluster is described by ``orange, stripes, muscle, fierce'' (TC = 0.82, ITF = 3.12), meaning 82\% of cluster members on average possess these attributes and the attributes are highly distinctive to this cluster. On aPY, the orthogonality constraint ($\beta = 1$) ensures that each attribute is assigned to at most one cluster, producing non-overlapping descriptions: for example, the car cluster (``Wheel, Door, Taillight, Side mirror, Exhaust'') and the bicycle cluster (``Pedal, Handlebars, Text, Plastic'') describe two vehicle types using entirely disjoint attribute sets.
 
 On aPY, the adaptive $\alpha$ parameter (Section~\ref{sec:ilp}) was essential for obtaining proper ILP solutions. With DDC's default $\alpha = 8$, the ILP was infeasible on aPY because the sparse binary attributes (mean density 0.087) cannot achieve a weighted coverage sum of 8. Our density-proportional scaling ($\alpha = 2$ for aPY) ensures feasibility while maintaining meaningful descriptions. This adaptation is a practical contribution for applying DDC's ILP to datasets with varying attribute density.
 
@@ -22,52 +22,52 @@ On aPY, the adaptive $\alpha$ parameter (Section~\ref{sec:ilp}) was essential fo
 
 Our K-means baseline (NMI = 0.869 on AwA2) outperforms DDC's K-means baseline (NMI = 0.743). However, the comparison is not direct: DDC uses K=40 on the original AwA (19832 instances), while we use K=50 on AwA2 (29857 instances). Higher K and different datasets both contribute to the gap. The DDC paper does not detail their K-means baseline implementation, so we cannot determine the exact source of the difference. DDC's trained MLP (NMI = 0.896) does outperform our frozen-features approach by 2.7 points on AwA2, reflecting the benefit of task-specific feature refinement.
 
-On aPY, the gap is larger: DDC achieves NMI = 0.863 while our best result (DDECCS) is 0.677. This 18.6-point gap is attributable to DDC's MLP training, which refines features specifically for the 15-class aPY clustering task using pairwise constraints from semantic attributes. On cropped object patches (aPY uses bounding box crops), ResNet features trained on ImageNet full images are less discriminative, and task-specific refinement adds more value.
+On aPY, the gap is larger: DDC achieves NMI = 0.863 while our best result (DDECCS) is 0.677. This 18.6-point gap is attributable to DDC's MLP training, which refines features specifically for the 15-class aPY clustering task using pairwise constraints from semantic attributes. On cropped object patches, ResNet features trained on ImageNet full images are less discriminative, and task-specific refinement adds more value.
 
-We note two important caveats for this comparison. First, DDC reports results on the original AwA dataset (19832 images), which has been withdrawn due to copyright restrictions; we use the replacement AwA2 (37,322 images) with different images. Second, DDC uses tag annotation ratio $r = 0.5$, meaning each instance has 50\% of its attributes randomly masked during training. This per-instance masking was critical for making pairwise constraints work in our MLP experiments (Section~\ref{sec:early_experiments}), confirming its importance in DDC's framework.
+We note two important caveats for this comparison. First, DDC reports results on the original AwA dataset (19832 images), which has been withdrawn due to copyright restrictions; we use the replacement AwA2 (37322 images) with different images. Second, DDC uses tag annotation ratio $r = 0.5$, meaning each instance has 50\% of its attributes randomly masked during training. This per-instance masking was critical for making pairwise constraints work in our MLP experiments (Section~\ref{sec:early_experiments}), confirming its importance in DDC's framework.
 
 \section{Justification of Design Decisions}
 \label{sec:design_decisions}
 
 Every significant design choice in our pipeline was made for specific, empirically-grounded reasons. We document these decisions to provide full transparency about why the current approach was chosen over alternatives.
 
-\subsection{Why Frozen ResNet-101 Features?}
+\subsection{The Frozen ResNet-101 Features}
 
-We use frozen pretrained ResNet-101 features rather than training a feature extractor for two reasons. First, K-means on raw ResNet features achieves NMI = 0.869 on AwA2, which exceeds any result our trained models achieved (best: NMI = 0.124 on a 1,600-sample subset). Training a 3-layer MLP on top of these features consistently degraded performance on the full dataset. Second, this choice follows DDC's own setup, which also uses frozen ResNet-101 features, ensuring fair comparison.
+We use frozen pretrained ResNet-101 features rather than training a feature extractor for two reasons. First, K-means on raw ResNet features achieves NMI = 0.869 on AwA2, which exceeds any result our trained models achieved (best: NMI = 0.124 on a 1,600-sample subset). Training a 3-layer MLP on top of these features consistently degraded performance on the full dataset. Second, this choice follows DDC's own setup, which also uses frozen ResNet-101 features, ensuring fairer comparison.
 
 The choice of ResNet-101 specifically (rather than ResNet-50 or a Vision Transformer) was made to match DDC's architecture. Using the same backbone eliminates feature quality as a confounding variable when comparing clustering and description methods.
 
-\subsection{Why K-means and DECCS Consensus (Not DDC's MI + Pairwise)?}
+\subsection{K-means and DECCS Consensus (instead of DDC's MI + Pairwise)}
 
-DDC trains a 3-layer MLP using mutual information maximization plus pairwise constraints from tag similarity. We attempted this approach extensively (Section~\ref{sec:early_experiments}) and found that the MI loss dominates on the full dataset: after a single epoch of 93 mini-batches on 29,857 samples, $L_{MI}$ reached $-0.92$, already committing the model to approximately 24 coarse clusters. Pairwise constraints ($L_P \approx 0.5$) could not overcome this. On small samples (1600 instances, 6 mini-batches per epoch), both losses started near zero and grew together, allowing pairwise constraints to influence cluster formation---but this did not scale.
+DDC trains a 3-layer MLP using mutual information maximization plus pairwise constraints from tag similarity. We attempted this approach extensively (Section~\ref{sec:early_experiments}) and found that the MI loss dominates on the full dataset: after a single epoch of 116 mini-batches on 29857 samples, $L_{MI}$ reached $-0.92$, already committing the model to approximately 24 coarse clusters. Pairwise constraints ($L_P \approx 0.5$) could not overcome this. On small samples (1600 instances, 6 mini-batches per epoch), both losses started near zero and grew together, allowing pairwise constraints to influence cluster formation---but this did not scale.
 
 We therefore separated the clustering and description stages: K-means or DECCS provides the cluster assignments, and the ILP generates descriptions post-hoc. This sacrifices the iterative refinement loop (where ILP descriptions inform pairwise constraints, which improve clustering, which produces better descriptions) but gains reliability and reproducibility.
 
-\subsection{Why Four Base Clusterers in DECCS?}
+\subsection{The Four Base Clusterers in DECCS?}
 
-The DECCS ensemble uses K-means, Spectral Clustering, GMM, and Agglomerative Clustering. This specific combination was chosen because each algorithm captures different aspects of cluster structure: K-means finds spherical clusters; Spectral Clustering handles non-convex shapes via graph partitioning; GMM models clusters as Gaussian distributions with full covariance; Agglomerative Clustering builds hierarchical structure. Ensembling algorithms with diverse inductive biases is a well-established principle in consensus clustering~\citep{Fred2005}.
+The DECCS ensemble uses K-means, Spectral Clustering, GMM, and Agglomerative Clustering. This specific combination was chosen because --- besides matching the deccs paper --- each algorithm captures different aspects of cluster structure: K-means finds spherical clusters; Spectral Clustering handles non-convex shapes via graph partitioning; GMM models clusters as Gaussian distributions with full covariance; Agglomerative Clustering builds hierarchical structure. Ensembling algorithms with diverse inductive biases is a well-established principle in consensus clustering~\citep{Fred2005}.
 
-GMM on 2048-dimensional features requires fitting $K \times 2048 \times 2048$ covariance parameters, which fails numerically on AwA2 (50 clusters, 29,857 samples). We apply PCA to 256 dimensions before GMM specifically---the other three algorithms operate on the full 2048-dimensional standardized features. The choice of 256 PCA dimensions balances information retention (97\%+ variance explained) with numerical feasibility.
+GMM on 2048-dimensional features requires fitting $K \times 2048 \times 2048$ covariance parameters, which fails numerically on AwA2 (50 clusters, 29857 samples). We apply PCA to 256 dimensions before GMM specifically---the other three algorithms operate on the full 2048-dimensional standardized features. The choice of 256 PCA dimensions balances information retention (97\%+ variance explained) with numerical feasibility.
 
-\subsection{Why Spectral Clustering on the Consensus Matrix?}
+\subsection{Spectral Clustering on the Consensus Matrix}
 
 The final clustering step applies Spectral Clustering (not K-means) to the sparse consensus matrix. This choice is standard in consensus clustering~\citep{Fred2005}: the consensus matrix encodes pairwise co-association frequencies, which naturally defines a graph structure that Spectral Clustering exploits. K-means on the consensus matrix would treat co-association values as features, losing the graph-theoretic interpretation.
 
-\subsection{Why Post-Hoc ILP Instead of ILP-in-the-Loop?}
+\subsection{Post-Hoc ILP Instead of ILP-in-the-Loop}
 
 DDC's Algorithm~1 iterates: solve ILP $\to$ update tag mask $\to$ retrain MLP $\to$ repeat. Since we do not train an MLP, there is no representation to update. Our ILP operates post-hoc on fixed cluster assignments. This means our descriptions explain the clustering but cannot improve it---a limitation relative to DDC's iterative approach, but one that follows necessarily from our frozen-features design.
 
-\subsection{Why Adaptive $\alpha$?}
+\subsection{The Adaptive $\alpha$}
 
 DDC uses $\alpha = 8$ for both AwA and aPY. This works for DDC because its trained encoder network produces \emph{clean clusters}: the iterative MLP training with pairwise constraints pushes tag-similar instances together, so a bicycle cluster contains mostly bicycles, and the attribute coverage $Q$ values within that cluster would be high. Selecting 10 such high-$Q$ attributes easily reaches a weighted sum of 8.
 
 In our pipeline, K-means on raw ResNet features produces \emph{mixed clusters} on aPY---a cluster might contain a mix of cars, boats, and bottles, because ResNet groups by visual appearance rather than semantic attributes. The $Q$ values for any single attribute are diluted (e.g., ``Wheel'' $\approx 0.30$ because only 30\% of the cluster has wheels). With diluted $Q$ values averaging the dataset-wide mean of 0.087, no combination of attributes can reach a sum of 8 within the orthogonality constraint. Our adaptive formula $\alpha = \text{clip}(\text{round}(16 \cdot \bar{d}), 2, 8)$ addresses this by scaling the coverage requirement to what is achievable given the actual cluster quality and attribute density.
 
-\subsection{Why AwA2 Instead of AwA?}
+\subsection{AwA2 Instead of AwA}
 
-The original AwA dataset has been withdrawn due to copyright restrictions. AwA2 is the recommended replacement~\citep{Xian2018}, sharing the same 50 classes and 85 attributes but containing different images sourced from Flickr and Wikipedia with free-use licenses. This is standard practice in recent literature.
+The original AwA dataset has been withdrawn due to copyright restrictions. AwA2 is the recommended replacement~\citep{Xian2018}, sharing the same 50 classes and 85 attributes but containing different images sourced from Flickr and Wikipedia with free-use licenses.
 
-\subsection{Why the 15-Class aPY Subset?}
+\subsection{The 15-Class aPY Subset}
 
 DDC reports aPY results on 5274 instances from 15 classes, not the full 32-class dataset. The 15 classes were identified from DDC's Figure~3 ontology visualization. Using all 32 classes with $K = 15$ clusters (as in our initial experiments) is a fundamentally different task: it asks the algorithm to merge 32 true classes into 15 clusters, rather than finding 15 clusters within 15 classes. Filtering to the correct 15-class subset increased NMI from 0.418 to 0.666, confirming that the experimental setup matters as much as the algorithm.
 
@@ -75,15 +75,15 @@ DDC reports aPY results on 5274 instances from 15 classes, not the full 32-class
 
 \subsection{RQ1: How can DDC be integrated into DECCS to improve interpretability?}
 
-We integrate DDC's interpretability through the ILP-based description module, which generates concise, orthogonal cluster descriptions using semantic attributes. This integration is post-hoc: the ILP operates on cluster assignments produced by DECCS consensus, rather than being embedded in the training loop. The descriptions are meaningful (average TC = 0.68 on AwA2, TC = 0.46 on aPY), distinctive (average ITF = 2.65 on AwA2, ITF = 2.05 on aPY), and computationally efficient (the ILP solves in seconds).
+We integrate DDC's interpretability through the ILP-based description module, which generates concise, orthogonal cluster descriptions using semantic attributes. This integration is post-hoc: the ILP operates on cluster assignments produced by DECCS consensus, rather than being embedded in the training loop. The descriptions are meaningful (average TC = 0.70 on AwA2, TC = 0.46 on aPY), distinctive (average ITF = 2.65 on AwA2, ITF = 2.05 on aPY), and computationally efficient (the ILP solves in seconds).
 
 \subsection{RQ2: What impact does the integration have on clustering performance?}
 
-The ILP description module has zero impact on clustering performance---it operates post-hoc and does not modify cluster assignments. The DECCS consensus module provides a measurable improvement on aPY (+14.4\% NMI) and matched K-means on AwA2 with improved stability. Our pipeline achieves NMI = 0.0.869 on AwA2 (vs.\ DDC's 0.896) and NMI = 0.677 on aPY-15 (vs.\ DDC's 0.863). The gap to DDC is attributable to DDC's MLP training, which refines features for the specific clustering task.
+The ILP description module has zero impact on clustering performance---it operates post-hoc and does not modify cluster assignments. The DECCS consensus module provides a measurable improvement on aPY (+14.4\% NMI) and matched K-means on AwA2 with improved stability. Our pipeline achieves NMI = 0.871 on AwA2 (vs.\ DDC's 0.896) and NMI = 0.677 on aPY-15 (vs.\ DDC's 0.863). The gap to DDC is attributable to DDC's MLP training, which refines features for the specific clustering task.
 
 \subsection{RQ3: How does the approach perform on AwA2 and aPY?}
 
-On AwA2, our approach achieves near-state-of-the-art clustering (NMI = 0.869) with interpretable descriptions. The strong performance reflects the quality of pretrained ResNet-101 features for animal classification. On aPY, the approach is less competitive with DDC (NMI = 0.677 vs.\ 0.863) but demonstrates that DECCS consensus provides substantial value over K-means (+14.4\% on the full 32-class dataset). The per-instance attribute annotations and diverse object categories in aPY make it inherently more challenging for frozen-features approaches.
+On AwA2, our approach achieves near-state-of-the-art clustering (NMI = 0.871) with interpretable descriptions. The strong performance reflects the quality of pretrained ResNet-101 features for animal classification. On aPY, the approach is less competitive with DDC (NMI = 0.677 vs.\ 0.863) but demonstrates that DECCS consensus provides substantial value over K-means (+14.4\% on the full 32-class dataset). The per-instance attribute annotations and diverse object categories in aPY make it inherently more challenging for frozen-features approaches.
 
 \section{Limitations}
 

@@ -4,28 +4,29 @@
 \contentsline {table}{\numberline {2.2}{\ignorespaces Feature comparison of deep clustering methods. DDECCS is the only method combining ensemble clustering with interpretable descriptions.}}{16}{table.2.2}%
 \contentsline {table}{\numberline {2.3}{\ignorespaces Computational complexity comparison. $N$ = samples, $K$ = clusters, $d$ = feature dimension, $m$ = ensemble size, $T$ = number of attributes.}}{16}{table.2.3}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {3.1}{\ignorespaces Four experimental modes. DDECCS (bottom row) is the thesis contribution, combining consensus clustering with interpretable descriptions.}}{19}{table.3.1}%
+\contentsline {table}{\numberline {3.1}{\ignorespaces Four experimental modes. DDECCS (bottom row) is the thesis contribution, combining consensus clustering with interpretable descriptions.}}{20}{table.3.1}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {4.1}{\ignorespaces Configuration parameters for all experiments.}}{23}{table.4.1}%
-\contentsline {table}{\numberline {4.2}{\ignorespaces Clustering performance on AwA2 (29,857 samples, 50 classes). Mean $\pm $ std over 10 runs. TC and ITF are reported for modes with ILP descriptions.}}{24}{table.4.2}%
-\contentsline {table}{\numberline {4.3}{\ignorespaces Clustering performance on aPY full (12,271 samples, 32 classes). Mean $\pm $ std over 10 runs.}}{24}{table.4.3}%
-\contentsline {table}{\numberline {4.4}{\ignorespaces Clustering performance on aPY 15-class subset (5189 training samples, 15 classes). Mean $\pm $ std over 10 runs.}}{25}{table.4.4}%
-\contentsline {table}{\numberline {4.5}{\ignorespaces Comparison with DDC paper results. DDC uses AwA1 (not AwA2) and trains an MLP with MI + pairwise loss. Our approach uses frozen ResNet features + K-means/DECCS + post-hoc ILP. DDC results at tag ratio $r\% = 50$.}}{25}{table.4.5}%
-\contentsline {table}{\numberline {4.6}{\ignorespaces Selected ILP cluster descriptions for AwA2 (DDC mode). Full descriptions available in \texttt {results/awa2/ddc/ilp\_descriptions.json}.}}{26}{table.4.6}%
-\contentsline {table}{\numberline {4.7}{\ignorespaces Selected ILP cluster descriptions for aPY 15-class subset (DDC mode). Full descriptions in \texttt {results/apy\_15/ddc/ilp\_descriptions.json}.}}{27}{table.4.7}%
+\contentsline {table}{\numberline {4.1}{\ignorespaces Configuration parameters for all experiments.}}{25}{table.4.1}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Clustering performance on AwA2 (29857 samples, 50 classes). Mean $\pm $ std over 10 runs. TC and ITF are reported for modes with ILP descriptions.}}{26}{table.4.2}%
+\contentsline {table}{\numberline {4.3}{\ignorespaces Clustering performance on aPY full (12,271 samples, 32 classes). Mean $\pm $ std over 10 runs.}}{26}{table.4.3}%
+\contentsline {table}{\numberline {4.4}{\ignorespaces Clustering performance on aPY 15-class subset (5189 training samples, 15 classes). Mean $\pm $ std over 10 runs.}}{27}{table.4.4}%
+\contentsline {table}{\numberline {4.5}{\ignorespaces Comparison with DDC paper results. DDC uses AwA1 (not AwA2) and trains an MLP with MI + pairwise loss. Our approach uses frozen ResNet features + K-means/DECCS + post-hoc ILP. DDC results at tag ratio $r\% = 50$.}}{27}{table.4.5}%
+\contentsline {table}{\numberline {4.6}{\ignorespaces Selected ILP cluster descriptions for AwA2 (DDC mode). Full descriptions available in \texttt {results/awa2/ddc/ilp\_descriptions.json}.}}{28}{table.4.6}%
+\contentsline {table}{\numberline {4.7}{\ignorespaces Selected ILP cluster descriptions for aPY 15-class subset (DDC mode). Full descriptions in \texttt {results/apy\_15/ddc/ilp\_descriptions.json}.}}{29}{table.4.7}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {A.1}{\ignorespaces Complete AwA2 results (29,857 training samples, 50 classes, 85 attributes). Mean $\pm $ std over 10 runs with different random seeds.}}{47}{table.A.1}%
-\contentsline {table}{\numberline {A.2}{\ignorespaces Complete aPY results (12,271 training samples, 32 classes, 64 attributes).}}{47}{table.A.2}%
-\contentsline {table}{\numberline {A.3}{\ignorespaces aPY 15-class subset results (5,189 training samples, 15 classes, 64 attributes). The 15 classes match DDC's evaluation setup.}}{48}{table.A.3}%
-\contentsline {table}{\numberline {A.4}{\ignorespaces Autoencoder results on AwA2 sample (N = 800, 30 epochs). All configurations performed at or below the random baseline (NMI $\approx 0.33$ for 50 classes). These results motivated the switch to pretrained features.}}{48}{table.A.4}%
-\contentsline {table}{\numberline {A.5}{\ignorespaces MLP training results on AwA2. Per-instance tag masking ($r = 0.5$) was essential for any learning, but results did not scale from sample to full dataset.}}{49}{table.A.5}%
-\contentsline {table}{\numberline {A.6}{\ignorespaces ILP solver parameters and behavior across datasets.}}{49}{table.A.6}%
+\contentsline {table}{\numberline {A.1}{\ignorespaces Complete AwA2 results (29857 training samples, 50 classes, 85 attributes). Mean $\pm $ std over 10 runs with different random seeds.}}{49}{table.A.1}%
+\contentsline {table}{\numberline {A.2}{\ignorespaces Complete aPY results (12,271 training samples, 32 classes, 64 attributes).}}{49}{table.A.2}%
+\contentsline {table}{\numberline {A.3}{\ignorespaces aPY 15-class subset results (5,189 training samples, 15 classes, 64 attributes). The 15 classes match DDC's evaluation setup.}}{50}{table.A.3}%
+\contentsline {table}{\numberline {A.4}{\ignorespaces Autoencoder results on AwA2 sample (N = 800, 30 epochs). All configurations performed at or below the random baseline (NMI $\approx 0.33$ for 50 classes). These results motivated the switch to pretrained features.}}{50}{table.A.4}%
+\contentsline {table}{\numberline {A.5}{\ignorespaces MLP training results on AwA2. Per-instance tag masking ($r = 0.5$) was essential for any learning, but results did not scale from sample to full dataset.}}{51}{table.A.5}%
+\contentsline {table}{\numberline {A.6}{\ignorespaces ILP solver parameters and behavior across datasets.}}{51}{table.A.6}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {B.1}{\ignorespaces Complete ILP cluster descriptions for AwA2. TC = Tag Coverage, ITF = Inverse Tag Frequency. Dominant class determined by majority vote of cluster members.}}{50}{table.B.1}%
-\contentsline {table}{\numberline {B.2}{\ignorespaces Complete ILP cluster descriptions for aPY 15-class subset.}}{51}{table.B.2}%
-\contentsline {table}{\numberline {B.3}{\ignorespaces AwA2 dataset statistics. AwA2~\citep {Xian2018} replaces the original AwA dataset~\citep {Lampert2013}, which was withdrawn due to copyright restrictions. Both datasets share the same 50 classes and 85 attributes.}}{51}{table.B.3}%
-\contentsline {table}{\numberline {B.4}{\ignorespaces aPY dataset statistics. The dataset combines Pascal VOC~2008 and Yahoo images~\citep {Farhadi2009}.}}{52}{table.B.4}%
-\contentsline {table}{\numberline {B.5}{\ignorespaces DECCS base clustering algorithms and their configurations.}}{52}{table.B.5}%
-\contentsline {table}{\numberline {B.6}{\ignorespaces Source code files and their roles in the DDECCS pipeline.}}{53}{table.B.6}%
+\contentsline {table}{\numberline {B.1}{\ignorespaces Complete ILP cluster descriptions for all 50 AwA2 clusters (DDC mode, seed=42).}}{53}{table.B.1}%
+\contentsline {table}{\numberline {B.2}{\ignorespaces Complete ILP cluster descriptions for aPY 15-class subset.}}{54}{table.B.2}%
+\contentsline {table}{\numberline {B.3}{\ignorespaces Complete ILP cluster descriptions for aPY full dataset (DDC mode, 32 clusters, seed=42).}}{54}{table.B.3}%
+\contentsline {table}{\numberline {B.4}{\ignorespaces AwA2 dataset statistics. AwA2~\citep {Xian2018} replaces the original AwA dataset~\citep {Lampert2013}, which was withdrawn due to copyright restrictions. Both datasets share the same 50 classes and 85 attributes.}}{55}{table.B.4}%
+\contentsline {table}{\numberline {B.5}{\ignorespaces aPY dataset statistics. The dataset combines Pascal VOC~2008 and Yahoo images~\citep {Farhadi2009}.}}{55}{table.B.5}%
+\contentsline {table}{\numberline {B.6}{\ignorespaces DECCS base clustering algorithms and their configurations.}}{56}{table.B.6}%
+\contentsline {table}{\numberline {B.7}{\ignorespaces Source code files and their roles in the DDECCS pipeline.}}{56}{table.B.7}%

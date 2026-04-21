@@ -39,96 +39,96 @@
 \contentsline {section}{\numberline {3.1}Overview}{17}{section.3.1}%
 \contentsline {paragraph}{Terminology.}{17}{section.3.1}%
 \contentsline {section}{\numberline {3.2}Pipeline Architecture}{17}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Feature Extraction}{18}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Clustering Methods}{19}{section.3.4}%
-\contentsline {subsection}{\numberline {3.4.1}K-means Baseline}{19}{subsection.3.4.1}%
-\contentsline {subsection}{\numberline {3.4.2}DECCS Consensus Clustering}{19}{subsection.3.4.2}%
-\contentsline {section}{\numberline {3.5}Cluster Description via Integer Linear Programming}{20}{section.3.5}%
-\contentsline {subsection}{\numberline {3.5.1}Problem Formulation}{20}{subsection.3.5.1}%
-\contentsline {subsection}{\numberline {3.5.2}Adaptive $\alpha $ Parameter}{20}{subsection.3.5.2}%
-\contentsline {subsection}{\numberline {3.5.3}Interpretability Metrics}{21}{subsection.3.5.3}%
-\contentsline {section}{\numberline {3.6}Datasets}{21}{section.3.6}%
-\contentsline {subsection}{\numberline {3.6.1}Animals with Attributes 2 (AwA2)}{21}{subsection.3.6.1}%
-\contentsline {subsection}{\numberline {3.6.2}Attribute Pascal and Yahoo (aPY)}{22}{subsection.3.6.2}%
-\contentsline {section}{\numberline {3.7}Design Rationale: Why Frozen Features Instead of End-to-End Training}{22}{section.3.7}%
-\contentsline {section}{\numberline {3.8}Evaluation Metrics}{22}{section.3.8}%
-\contentsline {chapter}{\numberline {4}Experiments}{23}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Experimental Setup}{23}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Implementation Details}{23}{subsection.4.1.1}%
-\contentsline {section}{\numberline {4.2}Main Results}{23}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}AwA2 Dataset (K = 50)}{23}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}aPY Dataset --- Full (K = 32)}{24}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}aPY Dataset --- DDC 15-Class Subset (K = 15)}{24}{subsection.4.2.3}%
-\contentsline {subsection}{\numberline {4.2.4}Comparison with DDC Paper}{25}{subsection.4.2.4}%
-\contentsline {paragraph}{Note on DDC's tag annotation ratio ($r\%$).}{25}{table.4.5}%
-\contentsline {section}{\numberline {4.3}ILP Cluster Descriptions}{26}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}AwA2 ILP Descriptions}{26}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}aPY Cluster Descriptions (15-class subset)}{27}{subsection.4.3.2}%
-\contentsline {section}{\numberline {4.4}Visualizations}{27}{section.4.4}%
-\contentsline {subsection}{\numberline {4.4.1}AwA2: K-means vs.\ DECCS Consensus}{28}{subsection.4.4.1}%
-\contentsline {subsection}{\numberline {4.4.2}aPY Full (K = 32): K-means vs.\ DECCS Consensus}{28}{subsection.4.4.2}%
-\contentsline {subsection}{\numberline {4.4.3}aPY 15-Class Subset (K = 15): K-means vs.\ DECCS Consensus}{29}{subsection.4.4.3}%
-\contentsline {section}{\numberline {4.5}The Path to the Current Approach: Early Experiments and Lessons Learned}{29}{section.4.5}%
-\contentsline {subsection}{\numberline {4.5.1}Autoencoder-Based Approach Initial Attempt}{29}{subsection.4.5.1}%
-\contentsline {subsection}{\numberline {4.5.2}DDC-Style MLP Training Attempt}{30}{subsection.4.5.2}%
-\contentsline {subsection}{\numberline {4.5.3}The K-Means Baseline Finding}{30}{subsection.4.5.3}%
-\contentsline {section}{\numberline {4.6}Summary of Results}{30}{section.4.6}%
-\contentsline {chapter}{\numberline {5}Discussion}{31}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Overview}{31}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Interpretation of Results}{31}{section.5.2}%
-\contentsline {subsection}{\numberline {5.2.1}When Does Consensus Clustering Help?}{31}{subsection.5.2.1}%
-\contentsline {subsection}{\numberline {5.2.2}Quality of ILP-Generated Descriptions}{31}{subsection.5.2.2}%
-\contentsline {subsection}{\numberline {5.2.3}Comparison with DDC}{32}{subsection.5.2.3}%
-\contentsline {section}{\numberline {5.3}Justification of Design Decisions}{32}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}Why Frozen ResNet-101 Features?}{32}{subsection.5.3.1}%
-\contentsline {subsection}{\numberline {5.3.2}Why K-means and DECCS Consensus (Not DDC's MI + Pairwise)?}{33}{subsection.5.3.2}%
-\contentsline {subsection}{\numberline {5.3.3}Why Four Base Clusterers in DECCS?}{33}{subsection.5.3.3}%
-\contentsline {subsection}{\numberline {5.3.4}Why Spectral Clustering on the Consensus Matrix?}{33}{subsection.5.3.4}%
-\contentsline {subsection}{\numberline {5.3.5}Why Post-Hoc ILP Instead of ILP-in-the-Loop?}{34}{subsection.5.3.5}%
-\contentsline {subsection}{\numberline {5.3.6}Why Adaptive $\alpha $?}{34}{subsection.5.3.6}%
-\contentsline {subsection}{\numberline {5.3.7}Why AwA2 Instead of AwA?}{34}{subsection.5.3.7}%
-\contentsline {subsection}{\numberline {5.3.8}Why the 15-Class aPY Subset?}{34}{subsection.5.3.8}%
-\contentsline {section}{\numberline {5.4}Research Questions Revisited}{34}{section.5.4}%
-\contentsline {subsection}{\numberline {5.4.1}RQ1: How can DDC be integrated into DECCS to improve interpretability?}{34}{subsection.5.4.1}%
-\contentsline {subsection}{\numberline {5.4.2}RQ2: What impact does the integration have on clustering performance?}{35}{subsection.5.4.2}%
-\contentsline {subsection}{\numberline {5.4.3}RQ3: How does the approach perform on AwA2 and aPY?}{35}{subsection.5.4.3}%
-\contentsline {section}{\numberline {5.5}Limitations}{35}{section.5.5}%
-\contentsline {subsection}{\numberline {5.5.1}No End-to-End Feature Refinement}{35}{subsection.5.5.1}%
-\contentsline {subsection}{\numberline {5.5.2}Post-Hoc Descriptions Cannot Improve Clustering}{35}{subsection.5.5.2}%
-\contentsline {subsection}{\numberline {5.5.3}Dependence on Pretrained Features}{36}{subsection.5.5.3}%
-\contentsline {subsection}{\numberline {5.5.4}Attribute Requirements}{36}{subsection.5.5.4}%
-\contentsline {section}{\numberline {5.6}Summary}{36}{section.5.6}%
-\contentsline {chapter}{\numberline {6}Conclusion}{37}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Summary of Contributions}{37}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Research Questions Answered}{37}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Lessons Learned}{38}{section.6.3}%
-\contentsline {subsection}{\numberline {6.3.1}Pretrained Features Can Be Sufficient}{38}{subsection.6.3.1}%
-\contentsline {subsection}{\numberline {6.3.2}Loss Balancing in Deep Clustering Is Fragile}{38}{subsection.6.3.2}%
-\contentsline {subsection}{\numberline {6.3.3}Experimental Setup Details Matter}{38}{subsection.6.3.3}%
-\contentsline {section}{\numberline {6.4}Limitations}{38}{section.6.4}%
-\contentsline {section}{\numberline {6.5}Future Work}{38}{section.6.5}%
-\contentsline {subsection}{\numberline {6.5.1}Resolving the MLP Training Challenge}{38}{subsection.6.5.1}%
-\contentsline {subsection}{\numberline {6.5.2}End-to-End Consensus with Descriptions}{39}{subsection.6.5.2}%
-\contentsline {subsection}{\numberline {6.5.3}Extension to Other Domains}{39}{subsection.6.5.3}%
-\contentsline {section}{\numberline {6.6}Final Remarks}{39}{section.6.6}%
-\contentsline {chapter}{Bibliography}{40}{chapter*.2}%
-\contentsline {chapter}{List of Figures}{44}{chapter*.3}%
-\contentsline {chapter}{List of Tables}{45}{chapter*.4}%
-\contentsline {chapter}{\numberline {A}Hyperparameter Analysis and Early Experiments}{47}{appendix.A}%
-\contentsline {section}{\numberline {A.1}Complete Results Tables}{47}{section.A.1}%
-\contentsline {subsection}{\numberline {A.1.1}AwA2 Full Results (K = 50, 10 runs)}{47}{subsection.A.1.1}%
-\contentsline {subsection}{\numberline {A.1.2}aPY Full Results (K = 32, 10 runs)}{47}{subsection.A.1.2}%
-\contentsline {subsection}{\numberline {A.1.3}aPY DDC 15-Class Subset (K = 15, 10 runs)}{48}{subsection.A.1.3}%
-\contentsline {section}{\numberline {A.2}Early Experiment Results}{48}{section.A.2}%
-\contentsline {subsection}{\numberline {A.2.1}Autoencoder-Based Approach}{48}{subsection.A.2.1}%
-\contentsline {subsection}{\numberline {A.2.2}DDC-Style MLP Training}{48}{subsection.A.2.2}%
-\contentsline {section}{\numberline {A.3}ILP Solver Configuration}{49}{section.A.3}%
-\contentsline {chapter}{\numberline {B}Cluster Descriptions and Dataset Details}{50}{appendix.B}%
-\contentsline {section}{\numberline {B.1}Complete ILP Cluster Descriptions}{50}{section.B.1}%
-\contentsline {subsection}{\numberline {B.1.1}AwA2 Cluster Descriptions (DDC mode, K = 50)}{50}{subsection.B.1.1}%
-\contentsline {subsection}{\numberline {B.1.2}aPY 15-Class Cluster Descriptions (DDC mode, K = 15)}{50}{subsection.B.1.2}%
-\contentsline {section}{\numberline {B.2}Dataset Statistics}{51}{section.B.2}%
-\contentsline {subsection}{\numberline {B.2.1}AwA2 Dataset}{51}{subsection.B.2.1}%
-\contentsline {subsection}{\numberline {B.2.2}aPY Dataset}{52}{subsection.B.2.2}%
-\contentsline {section}{\numberline {B.3}DECCS Ensemble Details}{52}{section.B.3}%
-\contentsline {section}{\numberline {B.4}Implementation Details}{52}{section.B.4}%
+\contentsline {section}{\numberline {3.3}Feature Extraction}{20}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Clustering Methods}{20}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}K-means Baseline}{20}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}DECCS Consensus Clustering}{20}{subsection.3.4.2}%
+\contentsline {section}{\numberline {3.5}Cluster Description via Integer Linear Programming}{21}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}Problem Formulation}{21}{subsection.3.5.1}%
+\contentsline {subsection}{\numberline {3.5.2}Adaptive $\alpha $ Parameter}{22}{subsection.3.5.2}%
+\contentsline {subsection}{\numberline {3.5.3}Interpretability Metrics}{22}{subsection.3.5.3}%
+\contentsline {section}{\numberline {3.6}Datasets}{23}{section.3.6}%
+\contentsline {subsection}{\numberline {3.6.1}Animals with Attributes 2 (AwA2)}{23}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {3.6.2}Attribute Pascal and Yahoo (aPY)}{23}{subsection.3.6.2}%
+\contentsline {section}{\numberline {3.7}Design Rationale: Why Frozen Features Instead of End-to-End Training}{23}{section.3.7}%
+\contentsline {section}{\numberline {3.8}Evaluation Metrics}{24}{section.3.8}%
+\contentsline {chapter}{\numberline {4}Experiments}{25}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Experimental Setup}{25}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Implementation Details}{25}{subsection.4.1.1}%
+\contentsline {section}{\numberline {4.2}Main Results}{25}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}AwA2 Dataset (K = 50)}{25}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}aPY Dataset --- Full (K = 32)}{26}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}aPY Dataset --- DDC 15-Class Subset (K = 15)}{26}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}Comparison with DDC Paper}{27}{subsection.4.2.4}%
+\contentsline {paragraph}{Note on DDC's tag annotation ratio ($r\%$).}{27}{table.4.5}%
+\contentsline {section}{\numberline {4.3}ILP Cluster Descriptions}{28}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}AwA2 ILP Descriptions}{28}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}aPY Cluster Descriptions (15-class subset)}{29}{subsection.4.3.2}%
+\contentsline {section}{\numberline {4.4}Visualizations}{29}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}AwA2: K-means vs.\ DECCS Consensus}{30}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}aPY Full (K = 32): K-means vs.\ DECCS Consensus}{30}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}aPY 15-Class Subset (K = 15): K-means vs.\ DECCS Consensus}{31}{subsection.4.4.3}%
+\contentsline {section}{\numberline {4.5}The Path to the Current Approach: Early Experiments and Lessons Learned}{31}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Autoencoder-Based Approach Attempt}{31}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}DDC-Style MLP Training Attempt}{32}{subsection.4.5.2}%
+\contentsline {subsection}{\numberline {4.5.3}The K-Means Baseline Finding}{32}{subsection.4.5.3}%
+\contentsline {section}{\numberline {4.6}Summary of Results}{32}{section.4.6}%
+\contentsline {chapter}{\numberline {5}Discussion}{33}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Overview}{33}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Interpretation of Results}{33}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}When Does Consensus Clustering Help?}{33}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Quality of ILP-Generated Descriptions}{33}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Comparison with DDC}{34}{subsection.5.2.3}%
+\contentsline {section}{\numberline {5.3}Justification of Design Decisions}{34}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}The Frozen ResNet-101 Features}{34}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}K-means and DECCS Consensus (instead of DDC's MI + Pairwise)}{35}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}The Four Base Clusterers in DECCS?}{35}{subsection.5.3.3}%
+\contentsline {subsection}{\numberline {5.3.4}Spectral Clustering on the Consensus Matrix}{35}{subsection.5.3.4}%
+\contentsline {subsection}{\numberline {5.3.5}Post-Hoc ILP Instead of ILP-in-the-Loop}{36}{subsection.5.3.5}%
+\contentsline {subsection}{\numberline {5.3.6}The Adaptive $\alpha $}{36}{subsection.5.3.6}%
+\contentsline {subsection}{\numberline {5.3.7}AwA2 Instead of AwA}{36}{subsection.5.3.7}%
+\contentsline {subsection}{\numberline {5.3.8}The 15-Class aPY Subset}{36}{subsection.5.3.8}%
+\contentsline {section}{\numberline {5.4}Research Questions Revisited}{36}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}RQ1: How can DDC be integrated into DECCS to improve interpretability?}{36}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}RQ2: What impact does the integration have on clustering performance?}{37}{subsection.5.4.2}%
+\contentsline {subsection}{\numberline {5.4.3}RQ3: How does the approach perform on AwA2 and aPY?}{37}{subsection.5.4.3}%
+\contentsline {section}{\numberline {5.5}Limitations}{37}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}No End-to-End Feature Refinement}{37}{subsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.5.2}Post-Hoc Descriptions Cannot Improve Clustering}{37}{subsection.5.5.2}%
+\contentsline {subsection}{\numberline {5.5.3}Dependence on Pretrained Features}{38}{subsection.5.5.3}%
+\contentsline {subsection}{\numberline {5.5.4}Attribute Requirements}{38}{subsection.5.5.4}%
+\contentsline {section}{\numberline {5.6}Summary}{38}{section.5.6}%
+\contentsline {chapter}{\numberline {6}Conclusion}{39}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Summary of Contributions}{39}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Research Questions Answered}{39}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Lessons Learned}{40}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Pretrained Features Can Be Sufficient}{40}{subsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.3.2}Loss Balancing in Deep Clustering Is Fragile}{40}{subsection.6.3.2}%
+\contentsline {subsection}{\numberline {6.3.3}Experimental Setup Details Matter}{40}{subsection.6.3.3}%
+\contentsline {section}{\numberline {6.4}Limitations}{40}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Future Work}{40}{section.6.5}%
+\contentsline {subsection}{\numberline {6.5.1}Resolving the MLP Training Challenge}{40}{subsection.6.5.1}%
+\contentsline {subsection}{\numberline {6.5.2}End-to-End Consensus with Descriptions}{41}{subsection.6.5.2}%
+\contentsline {subsection}{\numberline {6.5.3}Extension to Other Domains}{41}{subsection.6.5.3}%
+\contentsline {section}{\numberline {6.6}Final Remarks}{41}{section.6.6}%
+\contentsline {chapter}{Bibliography}{42}{chapter*.2}%
+\contentsline {chapter}{List of Figures}{46}{chapter*.3}%
+\contentsline {chapter}{List of Tables}{47}{chapter*.4}%
+\contentsline {chapter}{\numberline {A}Hyperparameter Analysis and Early Experiments}{49}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Complete Results Tables}{49}{section.A.1}%
+\contentsline {subsection}{\numberline {A.1.1}AwA2 Full Results (K = 50, 10 runs)}{49}{subsection.A.1.1}%
+\contentsline {subsection}{\numberline {A.1.2}aPY Full Results (K = 32, 10 runs)}{49}{subsection.A.1.2}%
+\contentsline {subsection}{\numberline {A.1.3}aPY DDC 15-Class Subset (K = 15, 10 runs)}{50}{subsection.A.1.3}%
+\contentsline {section}{\numberline {A.2}Early Experiment Results}{50}{section.A.2}%
+\contentsline {subsection}{\numberline {A.2.1}Autoencoder-Based Approach}{50}{subsection.A.2.1}%
+\contentsline {subsection}{\numberline {A.2.2}DDC-Style MLP Training}{50}{subsection.A.2.2}%
+\contentsline {section}{\numberline {A.3}ILP Solver Configuration}{51}{section.A.3}%
+\contentsline {chapter}{\numberline {B}Cluster Descriptions and Dataset Details}{52}{appendix.B}%
+\contentsline {section}{\numberline {B.1}Complete ILP Cluster Descriptions}{52}{section.B.1}%
+\contentsline {subsection}{\numberline {B.1.1}AwA2 Cluster Descriptions (DDC mode, K = 50)}{52}{subsection.B.1.1}%
+\contentsline {subsection}{\numberline {B.1.2}aPY 15-Class Cluster Descriptions (DDC mode, K = 15)}{53}{subsection.B.1.2}%
+\contentsline {section}{\numberline {B.2}Dataset Statistics}{55}{section.B.2}%
+\contentsline {subsection}{\numberline {B.2.1}AwA2 Dataset}{55}{subsection.B.2.1}%
+\contentsline {subsection}{\numberline {B.2.2}aPY Dataset}{55}{subsection.B.2.2}%
+\contentsline {section}{\numberline {B.3}DECCS Ensemble Details}{56}{section.B.3}%
+\contentsline {section}{\numberline {B.4}Implementation Details}{56}{section.B.4}%
