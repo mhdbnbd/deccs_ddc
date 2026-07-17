@@ -1,63 +1,71 @@
+This appendix collects the full experimental tables, the early-experiment results that motivated the final design, and the ILP solver configuration.
+
 \section{Complete Results Tables}
 
 This appendix provides the complete experimental results across all configurations, including per-run metrics where available.
 
 \subsection{AwA2 Full Results (K = 50, 10 runs)}
 
+Table~\ref{tab:awa2_full} reports all four modes on AwA2 over ten seeds.
+
 \begin{table}[H]
-\centering
-\caption{Complete AwA2 results (29857 training samples, 50 classes, 85 attributes). Mean $\pm$ std over 10 runs with different random seeds.}
-\label{tab:awa2_full}
-\begin{tabular}{lcccccc}
-\toprule
-\textbf{Mode} & \textbf{NMI} & \textbf{ACC} & \textbf{ARI} & \textbf{Sil} & \textbf{TC} & \textbf{ITF} \\
-\midrule
-\texttt{kmeans} & $0.869 \pm 0.002$ & $0.785 \pm 0.008$ & $0.744 \pm 0.008$ & $0.189$ & --- & --- \\
-\texttt{deccs} & $0.871 \pm 0.000$ & $0.807 \pm 0.000$ & $0.736 \pm 0.000$ & $0.160$ & --- & --- \\
-\texttt{ddc} & $0.869 \pm 0.002$ & $0.785 \pm 0.008$ & $0.744 \pm 0.008$ & $0.189$ & $0.681$ & $2.652$ \\
-\texttt{ddeccs} & $0.871 \pm 0.000$ & $0.807 \pm 0.000$ & $0.736 \pm 0.000$ & $0.160$ & $0.698$ & $2.656$ \\
-\bottomrule
-\end{tabular}
+    \centering
+    \caption{Complete AwA2 results (29857 training samples, 50 classes, 85 attributes). Mean $\pm$ std over 10 runs with different random seeds.}
+    \label{tab:awa2_full}
+    \begin{tabular}{lcccccc}
+        \toprule
+        \textbf{Mode} & \textbf{NMI} & \textbf{ACC} & \textbf{ARI} & \textbf{Sil} & \textbf{TC} & \textbf{ITF} \\
+        \midrule
+        \texttt{kmeans} & $0.869 \pm 0.002$ & $0.785 \pm 0.008$ & $0.744 \pm 0.008$ & $0.189$ & --- & --- \\
+        \texttt{deccs} & $0.871 \pm 0.000$ & $0.807 \pm 0.000$ & $0.736 \pm 0.000$ & $0.160$ & --- & --- \\
+        \texttt{ddc} & $0.869 \pm 0.002$ & $0.785 \pm 0.008$ & $0.744 \pm 0.008$ & $0.189$ & $0.681$ & $2.652$ \\
+        \texttt{ddeccs} & $0.871 \pm 0.000$ & $0.807 \pm 0.000$ & $0.736 \pm 0.000$ & $0.160$ & $0.698$ & $2.656$ \\
+        \bottomrule
+    \end{tabular}
 \end{table}
 
 % Source: results/awa2/*/summary.json
 
 \subsection{aPY Full Results (K = 32, 10 runs)}
 
+Table~\ref{tab:apy32_full} reports all four modes on the full 32-class aPY dataset over ten seeds.
+
 \begin{table}[H]
-\centering
-\caption{Complete aPY results (12,271 training samples, 32 classes, 64 attributes).}
-\label{tab:apy32_full}
-\begin{tabular}{lcccccc}
-\toprule
-\textbf{Mode} & \textbf{NMI} & \textbf{ACC} & \textbf{ARI} & \textbf{Sil} & \textbf{TC} & \textbf{ITF} \\
-\midrule
-\texttt{kmeans} & $0.534 \pm 0.014$ & $0.390 \pm 0.016$ & $0.138 \pm 0.012$ & $0.013$ & --- & --- \\
-\texttt{deccs} & $0.611 \pm 0.001$ & $0.547 \pm 0.000$ & $0.253 \pm 0.000$ & $-0.016$ & --- & --- \\
-\texttt{ddc} & $0.534 \pm 0.014$ & $0.390 \pm 0.016$ & $0.138 \pm 0.012$ & $0.019$ & $0.497$ & $2.156$ \\
-\texttt{ddeccs} & $0.611 \pm 0.001$ & $0.547 \pm 0.000$ & $0.253 \pm 0.000$ & $-0.017$ & $0.570$ & $2.413$ \\
-\bottomrule
-\end{tabular}
+    \centering
+    \caption{Complete aPY results (12,271 training samples, 32 classes, 64 attributes).}
+    \label{tab:apy32_full}
+    \begin{tabular}{lcccccc}
+        \toprule
+        \textbf{Mode} & \textbf{NMI} & \textbf{ACC} & \textbf{ARI} & \textbf{Sil} & \textbf{TC} & \textbf{ITF} \\
+        \midrule
+        \texttt{kmeans} & $0.534 \pm 0.014$ & $0.390 \pm 0.016$ & $0.138 \pm 0.012$ & $0.013$ & --- & --- \\
+        \texttt{deccs} & $0.611 \pm 0.001$ & $0.547 \pm 0.000$ & $0.253 \pm 0.000$ & $-0.016$ & --- & --- \\
+        \texttt{ddc} & $0.534 \pm 0.014$ & $0.390 \pm 0.016$ & $0.138 \pm 0.012$ & $0.013$ & $0.497$ & $2.156$ \\
+        \texttt{ddeccs} & $0.611 \pm 0.001$ & $0.547 \pm 0.000$ & $0.253 \pm 0.000$ & $-0.016$ & $0.570$ & $2.413$ \\
+        \bottomrule
+    \end{tabular}
 \end{table}
 
 % Source: results/apy/*/summary.json
 
 \subsection{aPY DDC 15-Class Subset (K = 15, 10 runs)}
 
+Table~\ref{tab:apy15_full} reports all four modes on the 15-class aPY subset over ten seeds.
+
 \begin{table}[H]
-\centering
-\caption{aPY 15-class subset results (5,189 training samples, 15 classes, 64 attributes). The 15 classes match DDC's evaluation setup.}
-\label{tab:apy15_full}
-\begin{tabular}{lcccccc}
-\toprule
-\textbf{Mode} & \textbf{NMI} & \textbf{ACC} & \textbf{ARI} & \textbf{Sil} & \textbf{TC} & \textbf{ITF} \\
-\midrule
-\texttt{kmeans} & $0.666 \pm 0.028$ & $0.615 \pm 0.046$ & $0.458 \pm 0.048$ & $0.051$ & --- & --- \\
-\texttt{deccs} & $0.677 \pm 0.000$ & $0.644 \pm 0.000$ & $0.459 \pm 0.000$ & $0.029$ & --- & --- \\
-\texttt{ddc} & $0.666 \pm 0.028$ & $0.615 \pm 0.046$ & $0.458 \pm 0.048$ & $0.051$ & $0.450$ & $2.030$ \\
-\texttt{ddeccs} & $0.677 \pm 0.000$ & $0.644 \pm 0.000$ & $0.459 \pm 0.000$ & $0.029$ & $0.491$ & $2.223$ \\
-\bottomrule
-\end{tabular}
+    \centering
+    \caption{aPY 15-class subset results (5,189 training samples, 15 classes, 64 attributes). The 15 classes match DDC's evaluation setup.}
+    \label{tab:apy15_full}
+    \begin{tabular}{lcccccc}
+        \toprule
+        \textbf{Mode} & \textbf{NMI} & \textbf{ACC} & \textbf{ARI} & \textbf{Sil} & \textbf{TC} & \textbf{ITF} \\
+        \midrule
+        \texttt{kmeans} & $0.666 \pm 0.028$ & $0.615 \pm 0.046$ & $0.458 \pm 0.048$ & $0.027$ & --- & --- \\
+        \texttt{deccs} & $0.677 \pm 0.000$ & $0.644 \pm 0.000$ & $0.459 \pm 0.000$ & $0.029$ & --- & --- \\
+        \texttt{ddc} & $0.666 \pm 0.028$ & $0.615 \pm 0.046$ & $0.458 \pm 0.048$ & $0.027$ & $0.447$ & $2.050$ \\
+        \texttt{ddeccs} & $0.677 \pm 0.000$ & $0.644 \pm 0.000$ & $0.459 \pm 0.000$ & $0.029$ & $0.492$ & $2.224$ \\
+        \bottomrule
+    \end{tabular}
 \end{table}
 
 % Source: results/apy_15/*/summary.json
@@ -65,77 +73,56 @@ This appendix provides the complete experimental results across all configuratio
 \section{Early Experiment Results}
 \label{sec:early_results}
 
-This section documents the results from approaches attempted before the final DDECCS pipeline, providing context for the design decisions discussed in Chapter~5.
+This section documents the results from approaches attempted before the final DDECCS pipeline, providing context for the design decisions discussed in Chapter~\ref{chap:discussion}.
 
 \subsection{Autoencoder-Based Approach}
 
-The initial approach used convolutional autoencoders with tag prediction branches, trained with reconstruction + tag BCE + consensus losses.
-
-\begin{table}[H]
-\centering
-\caption{Autoencoder results on AwA2 sample (N = 800, 30 epochs). All configurations performed at or below the random baseline (NMI $\approx 0.33$ for 50 classes). These results motivated the switch to pretrained features.}
-\label{tab:ae_results}
-\begin{tabular}{lccc}
-\toprule
-\textbf{Configuration} & \textbf{NMI} & \textbf{ACC} & \textbf{Sil} \\
-\midrule
-AE small (128$\times$128) & 0.296 & 0.121 & 0.208 \\
-CAE small + tags & 0.296 & 0.114 & 0.147 \\
-DECCS small + consensus & 0.315 & 0.121 & 0.252 \\
-AE large (224$\times$224) & 0.300 & 0.123 & 0.139 \\
-CAE large + tags & 0.308 & 0.120 & 0.139 \\
-AE ResNet backbone & 0.290 & 0.114 & 0.082 \\
-CAE ResNet + tags & 0.295 & 0.115 & 0.190 \\
-\midrule
-Random baseline & 0.335 & --- & --- \\
-\bottomrule
-\end{tabular}
-\end{table}
+The initial approach used convolutional autoencoders with tag-prediction branches, trained with reconstruction + tag BCE + consensus losses. These variants---with and without the tag-prediction branch, at $128\times128$ and $224\times224$ resolution, and with a frozen ResNet-101 backbone---all produced low-quality clusterings far below the frozen-features K-means baseline (NMI = 0.869 on AwA2). This is what motivated abandoning the autoencoder design in favour of pretrained features.
 
 \subsection{DDC-Style MLP Training}
 
 The second approach used DDC's actual loss functions (MI + pairwise) with a trainable 3-layer MLP on frozen ResNet features.
 
 \begin{table}[H]
-\centering
-\caption{MLP training results on AwA2. Per-instance tag masking ($r = 0.5$) was essential for any learning, but results did not scale from sample to full dataset.}
-\label{tab:mlp_results}
-\begin{tabular}{lcccc}
-\toprule
-\textbf{Configuration} & \textbf{N} & \textbf{Epochs} & \textbf{NMI} & \textbf{Active Clusters} \\
-\midrule
-No tag masking (sample) & 1,600 & 10 & 0.052 & 13/50 \\
-With tag masking $r=0.5$ (sample) & 1,600 & 10 & 0.056 & 13/50 \\
-With tag masking $r=0.5$ (sample) & 1,600 & 200 & 0.124 & 30/50 \\
-Full dataset, $\lambda_P = 1.0$ & 29857 & 200 & 0.006 & 28/50 \\
-Full dataset, $\lambda_P = 6.0$ & 29857 & 200 & 0.000 & 1/50 \\
-Full dataset, lr = $10^{-4}$ & 29857 & 200 & 0.006 & 24/50 \\
-\midrule
-K-means on raw features & 29857 & --- & 0.869 & 50/50 \\
-\bottomrule
-\end{tabular}
+    \centering
+    \caption{MLP training results on AwA2. Per-instance tag masking ($r = 0.5$) was needed for the self-generated pairwise constraints to be meaningful; even so, results did not scale from the 1,600-sample subset to the full dataset.}
+    \label{tab:mlp_results}
+    \begin{tabular}{lcccc}
+        \toprule
+        \textbf{Configuration} & \textbf{N} & \textbf{Epochs} & \textbf{NMI} & \textbf{Active Clusters} \\
+        \midrule
+        No tag masking (sample) & 1,600 & 10 & 0.052 & 13/50 \\
+        With tag masking $r=0.5$ (sample) & 1,600 & 10 & 0.056 & 13/50 \\
+        With tag masking $r=0.5$ (sample) & 1,600 & 200 & 0.124 & 30/50 \\
+        Full dataset, $\lambda_P = 1.0$ & 29857 & 200 & 0.006 & 28/50 \\
+        Full dataset, $\lambda_P = 6.0$ & 29857 & 200 & 0.000 & 1/50 \\
+        Full dataset, lr = $10^{-4}$ & 29857 & 200 & 0.006 & 24/50 \\
+        \midrule
+        K-means on raw features & 29857 & --- & 0.869 & 50/50 \\
+        \bottomrule
+    \end{tabular}
 \end{table}
 
-The K-means baseline (NMI = 0.869) dramatically outperformed all MLP training attempts, leading to the current frozen-features pipeline.
+As the final row shows, K-means on raw features outperformed every MLP attempt, which led to the frozen-features pipeline.
 
 \section{ILP Solver Configuration}
 
 The ILP is solved using PuLP's CBC solver with the following configuration:
 
 \begin{table}[H]
-\centering
-\caption{ILP solver parameters and behavior across datasets.}
-\label{tab:ilp_config}
-\begin{tabular}{lccc}
-\toprule
-\textbf{Parameter} & \textbf{AwA2} & \textbf{aPY (32)} & \textbf{aPY (15)} \\
-\midrule
-Attribute density & 0.50 & 0.087 & 0.087 \\
-$\alpha$ (adaptive) & 8 & 2 & 2 \\
-$\beta$ (solved) & 10 & 1 & 1 \\
-Tags selected & 77/85 & 43/64 & 43/64 \\
-Tags per cluster & 4.7 & 5.1 & 5.6 \\
-Solve time & $\sim$150s & $\sim$10s & $\sim$0.5s \\
-\bottomrule
-\end{tabular}
+    \centering
+    \caption{ILP solver parameters and behavior across datasets. Tag counts and tags-per-cluster are for the representative run (seed = 42) shown in Appendix~\ref{app:descriptions}; average TC/ITF in Chapter~\ref{chap:experiments} are over all 10 runs.}
+    \label{tab:ilp_config}
+    \begin{tabular}{lccc}
+        \toprule
+        \textbf{Parameter} & \textbf{AwA2} & \textbf{aPY (32)} & \textbf{aPY (15)} \\
+        \midrule
+        Attribute density & 0.217 & 0.111 & 0.087 \\
+        $\alpha$ (adaptive) & 3 & 2 & 2 \\
+        $\beta$ (solved) & 3 & 2 & 1 \\
+        Tags selected & 73/85 & 52/64 & 43/64 \\
+        Tags per cluster & 4.7 & 5.1 & 6.0 \\
+        Solve time & $\sim$60s & $\sim$30s & $\sim$1s \\
+        \bottomrule
+    \end{tabular}
 \end{table}

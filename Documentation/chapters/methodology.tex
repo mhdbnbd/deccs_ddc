@@ -1,10 +1,20 @@
-\section{Overview}
+\label{chap:methodology}
 
-This chapter presents the methodology of our integrated approach, which we term DDECCS (Deep Descriptive Clustering with Consensus Representations). The approach combines pretrained deep feature extraction with consensus-based ensemble clustering and interpretable cluster descriptions via Integer Linear Programming (ILP). Our pipeline operates in four sequential stages: feature extraction, clustering, description generation, and evaluation.
-
-Unlike approaches that jointly train feature representations and clustering objectives---which can suffer from loss balancing instability as we discuss in Section~\ref{sec:design_rationale}---our method decouples feature extraction from clustering. This design choice leverages the strong visual representations already learned by modern pretrained networks while allowing each downstream component (clustering, description) to operate independently and reliably.
+This chapter presents the methodology of our integrated approach, which we term DDECCS (Deep Descriptive Clustering with Consensus Representations). The approach combines pretrained deep feature extraction with consensus-based ensemble clustering and interpretable cluster descriptions via Integer Linear Programming (ILP). The pipeline operates in four stages---feature extraction, clustering, description generation, and evaluation---which we present in turn, before situating the design relative to DECCS and DDC and justifying its main choices. Unlike approaches that jointly train feature representations and clustering objectives---which can suffer from loss-balancing instability, as we discuss in Section~\ref{sec:design_rationale}---our method decouples feature extraction from clustering. This leverages the strong visual representations already learned by modern pretrained networks while allowing each downstream component to operate independently and reliably.
 
 \paragraph{Terminology.} The DDC paper uses the term ``tags'' to refer to semantic properties of instances (e.g., ``furry,'' ``has wheels''). The dataset literature (AwA2, aPY) uses ``attributes'' for the same concept. Throughout this thesis, we use ``attributes'' as the primary term and note that DDC's ``tags'' are synonymous.
+
+\section{Problem Definition}
+\label{sec:problem_def}
+
+Given a dataset $\mathcal{D} = \{(\mathbf{x}_i, \mathbf{t}_i)\}_{i=1}^{N}$, where $\mathbf{x}_i$ is an image and $\mathbf{t}_i \in [0,1]^M$ is its associated semantic attribute vector over $M$ attributes, our goal is to produce two outputs:
+
+\begin{enumerate}
+    \item A partition of the data into $K$ clusters $\{C_1, \ldots, C_K\}$ that aligns with the underlying semantic categories.
+    \item For each cluster $C_k$, a concise description $D_k \subset \{1, \ldots, M\}$: a small subset of attributes that characterizes the cluster. The descriptions are \emph{orthogonal}, meaning the ILP discourages any attribute from being reused across many clusters, so that descriptions remain distinctive across clusters.
+\end{enumerate}
+
+The clustering is assessed by its agreement with ground-truth class labels, and the descriptions by how well they cover their clusters and how distinctive they are; the specific metrics are defined in Chapter~\ref{chap:experiments}.
 
 \section{Pipeline Architecture}
 
@@ -75,25 +85,25 @@ Algorithm~\ref{alg:ddeccs} summarizes the complete DDECCS pipeline.
     \ElsIf{mode $\in \{\texttt{deccs}, \texttt{ddeccs}\}$}
     \State $\pi_1 \gets \text{KMeans}(F, K)$
     \State $\pi_2 \gets \text{SpectralClustering}(F, K, k\text{-NN affinity}, k=15)$
-    \State $F_{\text{pca}} \gets \text{PCA}(F, d=\min(256, \dim))$ \Comment{For GMM numerical stability}
+    \State $F_{\text{pca}} \gets \text{PCA}(F, d=\min(256, \dim, \max(64, N/2K)))$ \Comment{For GMM numerical stability}
     \State $\pi_3 \gets \text{GMM}(F_{\text{pca}}, K, \text{full covariance})$
     \State $\pi_4 \gets \text{Agglomerative}(F, K, \text{Ward linkage})$
-    \State Build co-association matrix: $C_{ij} \gets \frac{1}{4}\sum_{m=1}^{4} \mathbb{1}[\pi_m(i) = \pi_m(j)]$
-    \State Sparsify $C$ using $k$-nearest neighbors ($k=20$)
-    \State $\mathbf{y} \gets \text{SpectralClustering}(C, K)$
+    \State Build co-association matrix: $A_{ij} \gets \frac{1}{4}\sum_{m=1}^{4} \mathbb{1}[\pi_m(i) = \pi_m(j)]$
+    \State Sparsify $A$ using $k$-nearest neighbors ($k=20$)
+    \State $\mathbf{y} \gets \text{SpectralClustering}(A, K)$
     \EndIf
 
     \State
     \State \textbf{Step 3: ILP Description Generation} (only if mode $\in \{\texttt{ddc}, \texttt{ddeccs}\}$)
     \State Compute adaptive $\alpha \gets \text{clip}(\text{round}(16 \cdot \bar{d}), 2, 8)$ where $\bar{d}$ is mean attribute density
     \For{each cluster $i = 1, \ldots, K$}
-        \For{each attribute $j = 1, \ldots, A$}
+        \For{each attribute $j = 1, \ldots, M$}
             \State $Q_{ij} \gets$ mean of attribute $j$ across instances in cluster $i$
         \EndFor
     \EndFor
     \State Solve ILP: minimize $\sum_{i,j} W_{ij}$ subject to:
     \State \quad Coverage: $\sum_j W_{ij} \cdot Q_{ij} \geq \alpha \quad \forall i$
-    \State \quad Orthogonality: $\sum_i W_{ij} \leq \beta \quad \forall j$ (starting $\beta=1$, increment if infeasible)
+    \State \quad Orthogonality: $\sum_i W_{ij} \cdot Q_{ij} \leq \beta \quad \forall j$ (smallest feasible $\beta$)
     \State \quad $W_{ij} \in \{0, 1\}$
     \State $\mathbf{D} \gets \{(i, \{j : W_{ij} = 1\}) \mid \forall i\}$
 
@@ -111,29 +121,32 @@ We use ResNet-101~\citep{He2016} pretrained on ImageNet~\citep{Deng2009} as our 
 
 Images are preprocessed with standard ImageNet normalization: resized to $224 \times 224$ pixels, converted to tensors, and normalized with mean $[0.485, 0.456, 0.406]$ and standard deviation $[0.229, 0.224, 0.225]$. Features are extracted once and cached to disk for reuse across experiments.
 
-This approach follows DDC~\citep{Zhang2021}, which also uses frozen ResNet-101 features, ensuring fair comparison. The use of pretrained features is well-established in the clustering literature---K-means on ResNet features already achieves NMI = 0.869 on AwA2, demonstrating that the backbone captures sufficient class-discriminative information without task-specific training.
+This approach follows DDC~\citep{Zhang2021}, which uses the same frozen, pre-trained ResNet-101 features---DDC additionally trains a small encoder on top of them, whereas we cluster the features directly. The use of pretrained features is well-established in the clustering literature; K-means on these frozen ResNet-101 features already achieves NMI = 0.869 on AwA2, demonstrating that the backbone captures sufficient class-discriminative information without task-specific training.
 
 % Source: extract_resnet_features() in main_experiments.py
 
 \section{Clustering Methods}
+\label{sec:clustering_methods}
 
 We evaluate four clustering configurations that systematically vary the clustering method and the presence of interpretable descriptions:
 
 \begin{table}[H]
-\centering
-\begin{tabular}{lll}
-\hline
-\textbf{Mode} & \textbf{Clustering} & \textbf{Interpretability} \\
-\hline
-\texttt{kmeans} & K-means & --- \\
-\texttt{deccs} & DECCS consensus & --- \\
-\texttt{ddc} & K-means + ILP & Cluster descriptions \\
-\texttt{ddeccs} & DECCS consensus + ILP & Cluster descriptions \\
-\hline
-\end{tabular}
-\caption{Four experimental modes. DDECCS (bottom row) is the thesis contribution, combining consensus clustering with interpretable descriptions.}
-\label{tab:modes}
+    \centering
+    \begin{tabular}{lll}
+        \hline
+        \textbf{Mode} & \textbf{Clustering} & \textbf{Interpretability} \\
+        \hline
+        \texttt{kmeans} & K-means & --- \\
+        \texttt{deccs} & DECCS consensus & --- \\
+        \texttt{ddc} & K-means + ILP & Cluster descriptions \\
+        \texttt{ddeccs} & DECCS consensus + ILP & Cluster descriptions \\
+        \hline
+    \end{tabular}
+    \caption{Four experimental modes. DDECCS (bottom row) is the thesis contribution, combining consensus clustering with interpretable descriptions. The clustering assignments of \texttt{ddc} are identical to \texttt{kmeans}, and those of \texttt{ddeccs} are identical to \texttt{deccs}; the modes differ only in whether the post-hoc ILP description step is applied.}
+    \label{tab:modes}
 \end{table}
+
+\paragraph{A note on the \texttt{ddc} and \texttt{ddeccs} mode names.} The \texttt{ddc} mode is \emph{not} a reimplementation of the original Deep Descriptive Clustering method of Zhang and Davidson~\citep{Zhang2021}. The original DDC trains a small encoder (three fully-connected layers) on top of frozen ResNet-101 features, maximizing mutual information and using a self-generated pairwise loss, and solves the ILP \emph{iteratively inside} the training loop so that the explanation can reshape the clustering. In contrast, our \texttt{ddc} mode performs no training: it applies the ILP \emph{once, post-hoc}, to the K-means clustering of frozen features. We use the name only because the mode pairs a single-algorithm clustering with ILP-based descriptions, mirroring DDC's combination at a high level. The \texttt{deccs} and \texttt{ddeccs} modes are named analogously: as detailed in Section~\ref{sec:deccs_consensus}, our consensus step adapts the consensus idea of DECCS in a post-hoc fashion rather than reimplementing its trained representation learning. We do not have a working reimplementation of the original DDC, and all comparisons to it in Chapter~\ref{chap:experiments} use its published results.
 
 \subsection{K-means Baseline}
 
@@ -144,18 +157,20 @@ K-means clustering~\citep{Lloyd1982} is applied directly to the 2048-dimensional
 \subsection{DECCS Consensus Clustering}
 \label{sec:deccs_consensus}
 
-DECCS~\citep{Miklautz2022} improves clustering robustness through ensemble consensus. Our implementation constructs a consensus from four base clustering algorithms applied to standardized features:
+DECCS~\citep{Miklautz2022} improves clustering robustness through ensemble consensus. Our implementation builds a consensus from four base clustering algorithms applied to the standardized features. Each algorithm makes a different assumption about cluster shape---its \emph{inductive bias}---and these assumptions are complementary, which is precisely what makes the consensus robust: a grouping that several algorithms with different biases agree on is unlikely to be an artifact of any single one.
 
 \begin{enumerate}
-    \item \textbf{K-means}: Fast centroid-based clustering (Elkan algorithm).
-    \item \textbf{Spectral Clustering}: Graph-based method using a $k$-nearest-neighbor affinity matrix ($k=15$), which captures non-linear cluster structures.
-    \item \textbf{Gaussian Mixture Model (GMM)}: Probabilistic clustering with full covariance. For high-dimensional features (e.g., 2048-dim), we apply PCA reduction to 256 dimensions before fitting GMM to ensure numerical stability.
-    \item \textbf{Agglomerative Clustering}: Hierarchical method with Ward linkage, which minimizes within-cluster variance.
+    \item \textbf{K-means} assigns each point to the nearest of $K$ centroids and minimizes within-cluster variance. It implicitly assumes clusters are convex, roughly spherical, and of similar size, and is fast but fails on elongated or non-convex clusters. We use the Elkan algorithm for efficiency.
+    \item \textbf{Spectral Clustering} builds a $k$-nearest-neighbour affinity graph ($k = 15$) and clusters using the eigenvectors of the graph Laplacian. Because it operates on graph connectivity rather than raw distances, it recovers non-convex, manifold-shaped clusters that K-means cannot.
+    \item \textbf{Gaussian Mixture Model (GMM)} models the data as a mixture of $K$ Gaussians with full covariance, giving each point a soft probabilistic membership and capturing elliptical clusters of differing orientation and size. Estimating a full covariance matrix in 2048 dimensions is numerically unstable, so we first reduce the features with PCA before fitting the GMM.
+    \item \textbf{Agglomerative Clustering} starts with each point as its own cluster and repeatedly merges the pair whose merger least increases within-cluster variance (Ward linkage). It is hierarchical and makes no centroid or distributional assumption, capturing nested structure.
 \end{enumerate}
 
-The ensemble results are combined via a sparse co-association matrix $A$, where $A_{ij}$ counts how often instances $i$ and $j$ are assigned to the same cluster across the base clusterers, restricted to $k$-nearest neighbors for efficiency~\citep{Fred2005}. The final clustering applies Spectral Clustering to this consensus matrix.
+The ensemble results are combined via a sparse co-association matrix $A$, where $A_{ij}$ counts how often instances $i$ and $j$ are assigned to the same cluster across the base clusterers, restricted to $k$-nearest neighbours for efficiency~\citep{Fred2005}. The final clustering applies Spectral Clustering to this consensus matrix.
 
-This differs from the original DECCS, which trains an autoencoder with consensus loss during representation learning. Our post-hoc consensus approach applies the ensemble after feature extraction, trading the iterative refinement of learned representations for the reliability and reproducibility of frozen pretrained features. As our experiments demonstrate (Section~\ref{sec:results}), this trade-off is favorable: DECCS consensus provides significant improvements on datasets where individual clustering methods are less reliable (e.g., +14\% NMI on aPY).
+We apply Spectral Clustering rather than K-means to this matrix because the co-association values define a graph---instances are nodes and co-association frequencies are edge weights---and Spectral Clustering is designed to partition exactly this kind of graph structure; running K-means on the matrix would instead treat the co-association values as raw features and discard the graph interpretation~\citep{Fred2005}.
+
+This differs from the original DECCS, which trains an autoencoder with a consensus loss during representation learning. Our post-hoc consensus applies the ensemble after feature extraction, trading the iterative refinement of learned representations for the reliability and reproducibility of frozen pretrained features. As our experiments demonstrate (Section~\ref{sec:results}), this trade-off is favorable: DECCS consensus provides significant improvements on datasets where individual clustering methods are less reliable (e.g., +14.4\% relative NMI on aPY's 32-class task).
 
 % Source: get_base_clusterings() and build_sparse_consensus() in utils.py
 
@@ -180,7 +195,7 @@ Given cluster assignments $\{C_1, \ldots, C_K\}$ and a set of $M$ semantic attri
     \label{eq:ilp_coverage}
 \end{equation}
 
-\textbf{Orthogonality constraint} (DDC Eq.\ 4): Each attribute should describe at most $\beta$ clusters:
+\textbf{Orthogonality constraint} (DDC Eq.\ 4): the total coverage-weighted usage of each attribute across all clusters is bounded by $\beta$, which keeps descriptions distinctive by discouraging any single attribute from being shared widely across clusters:
 \begin{equation}
     \sum_{i=1}^{K} W_{ij} \cdot Q_{ij} \leq \beta \quad \forall j \in \{1, \ldots, M\}
     \label{eq:ilp_orthogonal}
@@ -188,15 +203,16 @@ Given cluster assignments $\{C_1, \ldots, C_K\}$ and a set of $M$ semantic attri
 
 The solver searches for the smallest feasible $\beta$ starting from $\beta = 1$, ensuring the tightest possible orthogonality. We use the PuLP library~\citep{Mitchell2011} with the CBC solver and a 30-second timeout per $\beta$ value.
 
-\subsection{Adaptive $\alpha$ Parameter}
+\subsection{Adaptive \texorpdfstring{$\alpha$}{alpha} Parameter}
+\label{sec:adaptive_alpha}
 
-DDC uses a fixed $\alpha = 8$, which assumes dense attribute annotations. For datasets with sparse binary attributes, $\alpha = 8$ can make the ILP infeasible. We introduce an adaptive $\alpha$ that scales with the mean attribute value, and explain the issue with a concrete example.
+DDC uses a fixed $\alpha = 8$, which assumes dense attribute annotations. For datasets with sparse attributes, $\alpha = 8$ can make the ILP infeasible, and even when it is feasible it forces overly long descriptions. We therefore introduce an adaptive $\alpha$ that scales with the mean attribute value, and explain the issue with a concrete example.
 
-The coverage constraint (Eq.~\ref{eq:ilp_coverage}) requires $\sum_j W_{ij} \cdot Q_{ij} \geq \alpha$ for each cluster. The $Q_{ij}$ values---the mean attribute values within each cluster---determine whether this sum can reach $\alpha$. Consider two scenarios:
+The coverage constraint (Eq.~\ref{eq:ilp_coverage}) requires $\sum_j W_{ij} \cdot Q_{ij} \geq \alpha$ for each cluster, where the $Q_{ij}$ are the mean attribute values within the cluster. A cluster's maximum achievable coverage is therefore $\sum_j Q_{ij}$, which is small when the attributes are sparse.
 
-On AwA2, attributes are continuous with mean value $\bar{d} \approx 0.5$. A typical cluster might have $Q$ values like: furry = 0.89, stripes = 0.95, big = 0.82, swims = 0.12, and so on. Selecting 10 attributes with average $Q$ value 0.8 gives a weighted sum of $10 \times 0.8 = 8.0$, meeting $\alpha = 8$.
+On aPY, attributes are binary and sparse, with mean value $\bar{d} \approx 0.087$ on the 15-class subset. A typical cluster might have $Q$ values like Wheel = 0.30, Metal = 0.25, Pedal = 0.15, Furry = 0.02---most values are small because only $8.7\%$ of attribute entries are 1. Even selecting all 64 attributes yields a coverage of only about $64 \times 0.087 \approx 5.6$ for a typical cluster---well below $8$---so $\alpha = 8$ is infeasible on aPY.
 
-On aPY, attributes are binary with mean value $\bar{d} \approx 0.087$. A typical cluster might have $Q$ values like: Wheel = 0.30, Metal = 0.25, Pedal = 0.15, Furry = 0.02, and so on---most values are small because only 8.7\% of all attribute entries are 1. Selecting 10 attributes with average $Q$ value 0.09 gives a weighted sum of only $10 \times 0.09 = 0.9$. Even selecting all 64 attributes yields at most $64 \times 0.087 = 5.6$, which is below 8. Hence $\alpha = 8$ is infeasible on aPY.
+On AwA2, attributes are continuous (normalized to $[0,1]$) with mean value $\bar{d} \approx 0.217$. The dominant attributes in a clean cluster have high coverage---for a tiger cluster, \textit{stripes}, \textit{orange}, and \textit{muscle} are each around $0.85$--$0.9$---so four such attributes already sum to roughly $3.4$. Here $\alpha = 8$ would be feasible but would force each cluster to include ten or more attributes to accumulate that much coverage, producing verbose, less distinctive descriptions.
 
 Our adaptive formula scales $\alpha$ proportionally to $\bar{d}$:
 
@@ -205,64 +221,13 @@ Our adaptive formula scales $\alpha$ proportionally to $\bar{d}$:
     \label{eq:alpha_adaptive}
 \end{equation}
 
-where $\bar{d}$ is the mean attribute value across all instances and all attributes (i.e., the average entry in the attribute matrix). For binary attributes, this equals the fraction of non-zero entries. The constant 16 derives from DDC's setting: $\alpha / \bar{d} = 8 / 0.5 = 16$. The clip to $[2, 8]$ ensures at least two meaningful attributes per cluster description (lower bound) and compatibility with DDC's original setting (upper bound). This yields $\alpha = 8$ for AwA2 and $\alpha = 2$ for aPY.
+where $\bar{d}$ is the mean attribute value across all instances and all attributes (i.e., the average entry in the attribute matrix); for binary attributes this equals the fraction of non-zero entries. The constant 16 recovers DDC's $\alpha = 8$ at a reference density of $\bar{d} = 0.5$ and scales the requirement down for sparser attributes. The clip to $[2, 8]$ guarantees at least two meaningful attributes per cluster (lower bound) and never exceeds DDC's original setting (upper bound). This yields $\alpha = 3$ for AwA2 ($\bar{d} = 0.217$) and $\alpha = 2$ for aPY (both the 15-class subset, $\bar{d} = 0.087$, and the full 32-class set, $\bar{d} = 0.111$), producing concise descriptions of roughly four to six attributes per cluster on both datasets.
 
 % Source: solve_ilp_descriptions() in main_experiments.py
 
-\subsection{Interpretability Metrics}
-
-Following DDC, we evaluate cluster descriptions using Tag Coverage (TC) and Inverse Tag Frequency (ITF):
-
-\textbf{Tag Coverage} (DDC Eq.\ 8): The average fraction of cluster members possessing each descriptive attribute:
-\begin{equation}
-    TC(C_i) = \frac{1}{|D_i|} \sum_{d \in D_i} \frac{|\{(x,t) \in C_i : d \in t\}|}{|C_i|}
-\end{equation}
-
-\textbf{Inverse Tag Frequency} (DDC Eq.\ 9): Measures how unique each cluster's description is:
-\begin{equation}
-    ITF(C_i) = \frac{1}{|D_i|} \sum_{d \in D_i} \log \frac{K}{\sum_{j=1}^{K} |d \in D_j|}
-\end{equation}
-
-Higher TC indicates that the selected attributes are prevalent within the cluster; higher ITF indicates that the attributes are distinctive to that cluster rather than shared across many clusters.
-
-\section{Datasets}
-\label{sec:datasets}
-
-We evaluate on two established attribute-annotated image datasets used in the DDC literature.
-
-\subsection{Animals with Attributes 2 (AwA2)}
-
-AwA2~\citep{Xian2018} contains 37,322 images across 50 animal classes, each annotated with 85 continuous semantic attributes (e.g., \textit{furry}, \textit{stripes}, \textit{swims}). Attributes are defined per class---all instances of a given class share the same attribute vector. We use the standard 80/20 train/test split, yielding 29857 training instances.
-
-We note that DDC's original evaluation uses the AwA1 dataset~\citep{Lampert2013} (19832 images), which has been withdrawn due to copyright restrictions. AwA2 is the recommended drop-in replacement, sharing the same class definitions and attribute structure but containing different images. This means direct numerical comparison with DDC's reported results on AwA1 is approximate.
-
-% Source: data/AwA2-data/Animals_with_Attributes2/
-
-\subsection{Attribute Pascal and Yahoo (aPY)}
-
-aPY~\citep{Farhadi2009} contains 15339 object instances across 32 classes from Pascal VOC 2008 and Yahoo images, annotated with 64 binary semantic attributes (e.g., \textit{Wheel}, \textit{Furry}, \textit{Metal}). Unlike AwA2, attributes in aPY are annotated per instance---each object has its own binary attribute vector based on its bounding box crop.
-
-DDC reports results on a 15-class subset of aPY consisting of 5,274 instances. In our dataset, filtering to these 15 classes yields 6,487 instances; after our standard 80/20 train/test split, we cluster on 5,189 training instances. The discrepancy with DDC's reported count likely reflects differences in preprocessing or filtering criteria. Following their setup, we evaluate with both the full 32-class dataset and the 15-class subset matching DDC's configuration. The 15 classes, identified from DDC's Figure~3 ontology, are: dog, cat, monkey, zebra, bird, bag, mug, bottle, chair, car, building, bicycle, boat, sofa, and dining table.
-
-% Source: data/aPY-data/aPY/, setup_apy.py, APY_DDC_15_CLASSES in dataset.py
-
-\section{Design Rationale: Why Frozen Features Instead of End-to-End Training}
+\section{Design Rationale: Why Frozen Features Instead of a Trained Representation}
 \label{sec:design_rationale}
 
-Our initial approach attempted to replicate DDC's end-to-end training with a trainable MLP on top of frozen ResNet features, using mutual information maximization and pairwise constraints from semantic tags. This approach faced fundamental scaling challenges: on the full AwA2 dataset (29857 instances), the mutual information loss dominated from the first epoch ($L_{MI} = -0.92$ at epoch 1), locking the model into approximately 24 clusters before pairwise constraints could influence the cluster structure. Despite extensive debugging---including per-instance tag masking ($r = 0.5$), proper ILP implementation via PuLP, learning rate tuning, and mini-batch pairwise computation---the trained MLP consistently produced worse results (NMI $\approx 0.006$) than simple K-means on the raw features (NMI $= 0.869$).
+Our initial approach attempted to replicate DDC's trained-encoder approach---a trainable MLP on frozen ResNet features, optimized with mutual information maximization and self-generated pairwise constraints. This did not scale: the trained representation collapsed on the full datasets, performing far worse than K-means on the same frozen features. We give the full diagnosis of this failure in Sections~\ref{sec:early_experiments} and~\ref{sec:why_failed}.
 
-This finding led us to the current architecture: rather than training features that are already excellent, we focus the thesis contribution on (1) consensus clustering for improved robustness and (2) ILP-based descriptions for interpretability. This decoupled approach achieves competitive results with DDC on AwA2 (NMI $= 0.869$ vs.\ DDC's $0.896$) while offering the additional benefit of consensus-based stability and the ability to evaluate clustering and description independently.
-
-\section{Evaluation Metrics}
-
-We evaluate clustering quality using four standard metrics:
-
-\textbf{Normalized Mutual Information (NMI)}~\citep{Strehl2002} measures the agreement between predicted clusters and ground-truth classes, normalized to $[0,1]$. NMI $= 1$ indicates perfect agreement.
-
-\textbf{Clustering Accuracy (ACC)} uses the Hungarian algorithm~\citep{Kuhn1955} to find the optimal one-to-one mapping between predicted clusters and true classes, then computes the fraction of correctly assigned instances.
-
-\textbf{Adjusted Rand Index (ARI)}~\citep{Hubert1985} measures pairwise agreement between clusterings, adjusted for chance. ARI $= 0$ indicates random clustering; ARI $= 1$ indicates perfect agreement.
-
-\textbf{Silhouette Score}~\citep{Rousseeuw1987} measures how similar instances are to their own cluster compared to other clusters, ranging from $-1$ to $+1$.
-
-Following DDC's experimental protocol, all experiments are repeated 10 times with different random seeds, and we report mean $\pm$ standard deviation.
+This outcome motivates the design above. Rather than training features that already separate the classes well, we focus the contribution on two decoupled components: consensus clustering for robustness, and post-hoc ILP descriptions for interpretability. Decoupling them lets us evaluate clustering quality and description quality independently and yields a deterministic, reproducible pipeline free of training instabilities---at the cost of task-specific feature adaptation, a trade-off we examine in Chapter~\ref{chap:discussion}.

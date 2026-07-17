@@ -1,6 +1,11 @@
-\section{Experimental Setup}
+\label{chap:experiments}
 
-All experiments were conducted using the pipeline described in Chapter~3. We evaluate four modes---\texttt{kmeans}, \texttt{deccs}, \texttt{ddc}, and \texttt{ddeccs}---on two datasets: AwA2 (50 classes, 85 attributes, 29857 training instances) and aPY (evaluated with both 32 classes and the DDC-matching 15-class subset). Following DDC's protocol, each experiment is repeated 10 times with different random seeds, and we report mean $\pm$ standard deviation.
+This chapter presents the experimental evaluation of DDECCS. We first describe the experimental setup and implementation (Section~\ref{sec:exp_setup}), the datasets (Section~\ref{sec:datasets}), and the evaluation and interpretability metrics (Section~\ref{sec:metrics}). We then report the main clustering results across all modes and datasets and compare them against DDC's published numbers (Section~\ref{sec:results}), present the generated cluster descriptions (Section~\ref{sec:ilp_results}), and visualize the clusterings (Section~\ref{sec:viz}). Finally, we document the early experiments that informed the final design (Section~\ref{sec:early_experiments}).
+
+\section{Experimental Setup}
+\label{sec:exp_setup}
+
+All experiments were conducted using the pipeline described in Chapter~\ref{chap:methodology}. We evaluate four modes---\texttt{kmeans}, \texttt{deccs}, \texttt{ddc}, and \texttt{ddeccs}---on two datasets: AwA2 (50 classes, 85 attributes, 29857 training instances) and aPY (evaluated with both 32 classes and the DDC-matching 15-class subset). Following DDC's protocol, each experiment is repeated 10 times with different random seeds, and we report mean $\pm$ standard deviation.
 
 Experiments were run on an NVIDIA GeForce RTX 4090 GPU. Feature extraction takes approximately 90 seconds per dataset; subsequent clustering and evaluation take seconds for K-means and 5--20 minutes for DECCS consensus (depending on dataset size). Features are cached to disk after the first extraction, so repeated runs skip this step entirely.
 
@@ -11,156 +16,261 @@ Experiments were run on an NVIDIA GeForce RTX 4090 GPU. Feature extraction takes
 The implementation uses PyTorch for feature extraction, scikit-learn for clustering algorithms, and PuLP with the CBC solver for the ILP. Key parameters:
 
 \begin{table}[H]
-\centering
-\caption{Configuration parameters for all experiments.}
-\label{tab:config}
-\begin{tabular}{ll}
-\hline
-\textbf{Parameter} & \textbf{Value} \\
-\hline
-Feature extractor & ResNet-101, ImageNet pretrained, frozen \\
-Feature dimension & 2048 \\
-Image resolution & $224 \times 224$ \\
-Train/test split & 80/20 (seed = 42) \\
-K-means initializations & 10 \\
-DECCS base clusterers & KMeans, Spectral, GMM, Agglomerative \\
-GMM PCA reduction & 256 dimensions (for numerical stability) \\
-ILP solver & PuLP CBC, 30s timeout per $\beta$ \\
-ILP $\alpha$ & 8 (AwA2), 2 (aPY) --- adaptive, see Eq.~\ref{eq:alpha_adaptive} \\
-Number of runs & 10 (different seeds) \\
-\hline
-\end{tabular}
+    \centering
+    \caption{Configuration parameters for all experiments.}
+    \label{tab:config}
+    \begin{tabular}{ll}
+        \hline
+        \textbf{Parameter} & \textbf{Value} \\
+        \hline
+        Feature extractor & ResNet-101, ImageNet pretrained, frozen \\
+        Feature dimension & 2048 \\
+        Image resolution & $224 \times 224$ \\
+        Train/test split & 80/20 (seed = 42) \\
+        K-means initializations & 10 \\
+        DECCS base clusterers & KMeans, Spectral, GMM, Agglomerative \\
+        GMM PCA reduction & $\min(256, \dim, \max(64, N/2K))$ dims (for numerical stability) \\
+        ILP solver & PuLP CBC, 30s timeout per $\beta$ \\
+        ILP $\alpha$ & 3 (AwA2), 2 (aPY) --- adaptive, see Eq.~\ref{eq:alpha_adaptive} \\
+        Number of runs & 10 (different seeds) \\
+        \hline
+    \end{tabular}
 \end{table}
 
 % Source: main_experiments.py, utils.py
 
+\section{Datasets}
+\label{sec:datasets}
+
+We evaluate on two established attribute-annotated image datasets used in the DDC literature.
+
+\subsection{Animals with Attributes 2 (AwA2)}
+
+AwA2~\citep{Xian2018} contains 37,322 images across 50 animal classes, each annotated with 85 continuous semantic attributes (e.g., \textit{furry}, \textit{stripes}, \textit{swims}). Attributes are defined per class---all instances of a given class share the same attribute vector. We use the standard 80/20 train/test split, yielding 29857 training instances.
+
+We note that DDC's original evaluation uses the AwA1 dataset~\citep{Lampert2013} (19832 images), which has been withdrawn due to copyright restrictions. AwA2 is the recommended drop-in replacement, sharing the same class definitions and attribute structure but containing different images. This means direct numerical comparison with DDC's reported results on AwA1 is approximate.
+
+% Source: data/AwA2-data/Animals_with_Attributes2/
+
+\subsection{Attribute Pascal and Yahoo (aPY)}
+
+aPY~\citep{Farhadi2009} contains 15339 object instances across 32 classes from Pascal VOC 2008 and Yahoo images, annotated with 64 binary semantic attributes (e.g., \textit{Wheel}, \textit{Furry}, \textit{Metal}). Unlike AwA2, attributes in aPY are annotated per instance---each object has its own binary attribute vector based on its bounding box crop.
+
+DDC reports results on a 15-class subset of aPY consisting of 5,274 instances. In our dataset, filtering to these 15 classes yields 6,487 instances; after our standard 80/20 train/test split, we cluster on 5,189 training instances. The discrepancy with DDC's reported count likely reflects differences in preprocessing or filtering criteria. Following their setup, we evaluate with both the full 32-class dataset and the 15-class subset matching DDC's configuration. The 15 classes, identified from DDC's Figure~3 ontology, are: dog, cat, monkey, zebra, bird, bag, mug, bottle, chair, car, building, bicycle, boat, sofa, and dining table.
+
+% Source: data/aPY-data/aPY/, setup_apy.py, APY_DDC_15_CLASSES in dataset.py
+
+\section{Evaluation and Interpretability Metrics}
+\label{sec:metrics}
+
+We assess results along two axes: how well clusters recover the ground-truth classes, and how interpretable the generated descriptions are. The former is captured by four standard clustering metrics (Section~\ref{subsec:clustering_metrics}); the latter by the Tag Coverage and Inverse Tag Frequency metrics introduced by DDC (Section~\ref{subsec:interp_metrics}).
+
+\subsection{Clustering Metrics}
+\label{subsec:clustering_metrics}
+
+We evaluate clustering quality using four standard metrics:
+
+\textbf{Normalized Mutual Information (NMI)}~\citep{Strehl2002} measures the agreement between predicted clusters and ground-truth classes, normalized to $[0,1]$. NMI $= 1$ indicates perfect agreement.
+
+\textbf{Clustering Accuracy (ACC)} uses the Hungarian algorithm~\citep{Kuhn1955} to find the optimal one-to-one mapping between predicted clusters and true classes, then computes the fraction of correctly assigned instances.
+
+\textbf{Adjusted Rand Index (ARI)}~\citep{Hubert1985} measures pairwise agreement between clusterings, adjusted for chance. ARI $= 0$ indicates random clustering; ARI $= 1$ indicates perfect agreement.
+
+\textbf{Silhouette Score}~\citep{Rousseeuw1987} measures how similar instances are to their own cluster compared to other clusters, ranging from $-1$ to $+1$. Unlike the other three, it requires no ground-truth labels.
+
+\subsection{Interpretability Metrics}
+\label{subsec:interp_metrics}
+
+Following DDC, we evaluate cluster descriptions using Tag Coverage (TC) and Inverse Tag Frequency (ITF). For a cluster $C_i$ with description $D_i$:
+
+\textbf{Tag Coverage} (DDC Eq.\ 8) is the average fraction of cluster members possessing each descriptive attribute:
+\begin{equation}
+    TC(C_i) = \frac{1}{|D_i|} \sum_{d \in D_i} \frac{|\{(x,t) \in C_i : d \in t\}|}{|C_i|}
+\end{equation}
+
+\textbf{Inverse Tag Frequency} (DDC Eq.\ 9) measures how unique each cluster's description is:
+\begin{equation}
+    ITF(C_i) = \frac{1}{|D_i|} \sum_{d \in D_i} \log \frac{K}{\sum_{j=1}^{K} \mathbb{1}[d \in D_j]}
+\end{equation}
+
+where $\log$ denotes the natural logarithm.
+
+Higher TC indicates that the selected attributes are prevalent within the cluster; higher ITF indicates that the attributes are distinctive to that cluster rather than shared across many clusters.
+
 \section{Main Results}
 \label{sec:results}
+
+This section reports clustering performance across the four modes on AwA2, the full aPY dataset, and the 15-class aPY subset, followed by a comparison with DDC's published results. Recall from Chapter~\ref{chap:methodology} that the four modes yield only \emph{two} distinct clusterings: \texttt{ddc} reuses the \texttt{kmeans} clustering and \texttt{ddeccs} reuses the \texttt{deccs} clustering, each adding post-hoc ILP descriptions. The clustering metrics (NMI, ACC, ARI, Silhouette) are therefore identical within each pair; the description modes differ only in their TC and ITF values.
 
 \subsection{AwA2 Dataset (K = 50)}
 
 Table~\ref{tab:awa2_results} presents the clustering results on the full AwA2 dataset with $K = 50$ clusters.
 
 \begin{table}[H]
-\centering
-\caption{Clustering performance on AwA2 (29857 samples, 50 classes). Mean $\pm$ std over 10 runs. TC and ITF are reported for modes with ILP descriptions.}
-\label{tab:awa2_results}
-\begin{tabular}{lcccccc}
-\hline
-\textbf{Mode} & \textbf{NMI} & \textbf{ACC} & \textbf{ARI} & \textbf{Sil} & \textbf{TC} & \textbf{ITF} \\
-\hline
-\texttt{kmeans} & $0.869 \pm 0.002$ & $0.785 \pm 0.008$ & $0.744 \pm 0.008$ & $0.186$ & --- & --- \\
-\texttt{deccs} & $0.871 \pm 0.000$ & $0.807 \pm 0.000$ & $0.736 \pm 0.000$ & $0.156$ & --- & --- \\
-\texttt{ddc} & $0.869 \pm 0.002$ & $0.785 \pm 0.008$ & $0.744 \pm 0.008$ & $0.186$ & $0.681$ & $2.652$ \\
-\texttt{ddeccs} & $0.871 \pm 0.000$ & $0.807 \pm 0.000$ & $0.736 \pm 0.000$ & $0.156$ & $0.698$ & $2.656$ \\
-\hline
-\end{tabular}
+    \centering
+    \caption{Clustering performance on AwA2 (29857 samples, 50 classes). Mean $\pm$ std over 10 runs. Here \texttt{ddc} and \texttt{ddeccs} are our K-means+ILP and consensus+ILP description modes, \emph{not} the original DDC; their clustering metrics therefore match \texttt{kmeans} and \texttt{deccs}, and only TC/ITF are added.}
+    \label{tab:awa2_results}
+    \begin{tabular}{lcccccc}
+        \hline
+        \textbf{Mode} & \textbf{NMI} & \textbf{ACC} & \textbf{ARI} & \textbf{Sil} & \textbf{TC} & \textbf{ITF} \\
+        \hline
+        \texttt{kmeans} & $0.869 \pm 0.002$ & $0.785 \pm 0.008$ & $0.744 \pm 0.008$ & $0.189$ & --- & --- \\
+        \texttt{deccs} & $0.871 \pm 0.000$ & $0.807 \pm 0.000$ & $0.736 \pm 0.000$ & $0.160$ & --- & --- \\
+        \texttt{ddc} & $0.869 \pm 0.002$ & $0.785 \pm 0.008$ & $0.744 \pm 0.008$ & $0.189$ & $0.681$ & $2.652$ \\
+        \texttt{ddeccs} & $0.871 \pm 0.000$ & $0.807 \pm 0.000$ & $0.736 \pm 0.000$ & $0.160$ & $0.698$ & $2.656$ \\
+        \hline
+    \end{tabular}
 \end{table}
 
 % Source: results/awa2/*/summary.json
 
-On AwA2, all four modes achieve strong clustering performance (NMI $\approx 0.87$). K-means and DECCS consensus produce nearly identical NMI, which is expected given that ResNet-101 features already provide excellent class separation for animal images. The ILP descriptions (DDC and DDECCS modes) add interpretability without affecting clustering quality, as they operate post-hoc on the cluster assignments.
+As the caption notes, the \texttt{ddc}/\texttt{ddeccs} rows add only the TC and ITF columns; their clustering metrics are inherited from \texttt{kmeans}/\texttt{deccs}. The comparison with the original DDC's published numbers appears in Section~\ref{sec:ddc_comparison}.
 
-DECCS consensus shows notably higher ACC ($0.807$ vs.\ $0.785$) and near-zero standard deviation, indicating that the ensemble approach produces more stable and accurately aligned clusters than K-means alone, even when NMI is similar. The K-means standard deviation of $\pm 0.002$, while small, reflects sensitivity to random initialization that DECCS eliminates through ensemble agreement.
+On AwA2, all four modes achieve strong clustering performance (NMI $\approx 0.87$). K-means and DECCS consensus produce nearly identical NMI ($0.869$ vs.\ $0.871$). DECCS consensus shows notably higher ACC ($0.807$ vs.\ $0.785$) and near-zero standard deviation, though ARI is marginally lower ($0.736$ vs.\ $0.744$); on AwA2 the consensus mainly improves accuracy and stability rather than every metric uniformly, producing more reproducible clusters than K-means alone even when NMI is similar. The K-means standard deviation of $\pm 0.002$, while small, reflects sensitivity to random initialization that DECCS eliminates through ensemble agreement.
 
 \subsection{aPY Dataset --- Full (K = 32)}
 
 Table~\ref{tab:apy32_results} presents results on the full aPY dataset with all 32 classes.
 
 \begin{table}[H]
-\centering
-\caption{Clustering performance on aPY full (12,271 samples, 32 classes). Mean $\pm$ std over 10 runs.}
-\label{tab:apy32_results}
-\begin{tabular}{lcccccc}
-\hline
-\textbf{Mode} & \textbf{NMI} & \textbf{ACC} & \textbf{ARI} & \textbf{Sil} & \textbf{TC} & \textbf{ITF} \\
-\hline
-\texttt{kmeans} & $0.534 \pm 0.014$ & $0.390 \pm 0.016$ & $0.138 \pm 0.012$ & $0.019$ & --- & --- \\
-\texttt{deccs} & $0.611 \pm 0.001$ & $0.547 \pm 0.000$ & $0.253 \pm 0.000$ & $-0.017$ & --- & --- \\
-\texttt{ddc} & $0.534 \pm 0.014$ & $0.390 \pm 0.016$ & $0.138 \pm 0.012$ & $0.019$ & $0.497$ & $2.156$ \\
-\texttt{ddeccs} & $0.611 \pm 0.001$ & $0.547 \pm 0.000$ & $0.253 \pm 0.000$ & $-0.017$ & $0.570$ & $2.413$ \\
-\hline
-\end{tabular}
+    \centering
+    \caption{Clustering performance on aPY full (12,271 samples, 32 classes). Mean $\pm$ std over 10 runs. Here \texttt{ddc} and \texttt{ddeccs} are our K-means+ILP and consensus+ILP description modes, \emph{not} the original DDC; their clustering metrics therefore match \texttt{kmeans} and \texttt{deccs}, and only TC/ITF are added.}
+    \label{tab:apy32_results}
+    \begin{tabular}{lcccccc}
+        \hline
+        \textbf{Mode} & \textbf{NMI} & \textbf{ACC} & \textbf{ARI} & \textbf{Sil} & \textbf{TC} & \textbf{ITF} \\
+        \hline
+        \texttt{kmeans} & $0.534 \pm 0.014$ & $0.390 \pm 0.016$ & $0.138 \pm 0.012$ & $0.013$ & --- & --- \\
+        \texttt{deccs} & $0.611 \pm 0.001$ & $0.547 \pm 0.000$ & $0.253 \pm 0.000$ & $-0.016$ & --- & --- \\
+        \texttt{ddc} & $0.534 \pm 0.014$ & $0.390 \pm 0.016$ & $0.138 \pm 0.012$ & $0.013$ & $0.497$ & $2.156$ \\
+        \texttt{ddeccs} & $0.611 \pm 0.001$ & $0.547 \pm 0.000$ & $0.253 \pm 0.000$ & $-0.016$ & $0.570$ & $2.413$ \\
+        \hline
+    \end{tabular}
 \end{table}
 
 % Source: results/apy/*/summary.json
 
-On aPY, DECCS consensus provides a substantial improvement over K-means: NMI increases from $0.534$ to $0.611$ (+14.4\%), ACC from $0.390$ to $0.547$ (+40.3\%), and ARI from $0.138$ to $0.253$ (+83.3\%). This demonstrates that consensus clustering provides significant value on datasets where individual clustering algorithms are less reliable. The aPY dataset is more challenging than AwA2 because it contains diverse object categories (animals, vehicles, furniture, small objects) rather than visually homogeneous animal classes.
-
-DECCS also dramatically reduces variance: K-means shows std = $\pm 0.014$ while DECCS shows std $\approx 0$, confirming that ensemble consensus produces robust, reproducible results.
+On aPY, DECCS consensus provides a substantial improvement over K-means: NMI increases from $0.534$ to $0.611$ ($+14.4\%$ relative), ACC from $0.390$ to $0.547$ ($+40.3\%$), and ARI from $0.138$ to $0.253$ ($+83.3\%$). DECCS also dramatically reduces variance: K-means shows std $= \pm 0.014$ while DECCS shows std $\approx 0$.
 
 \subsection{aPY Dataset --- DDC 15-Class Subset (K = 15)}
 \label{sec:apy15}
 
-To enable direct comparison with DDC's published results, we evaluate on the same 15-class subset used in the DDC paper (5274 instances from the classes shown in DDC's Figure~3 ontology).
+To enable direct comparison with DDC's published results, we evaluate on the same 15-class subset used in the DDC paper.
 
 \begin{table}[H]
-\centering
-\caption{Clustering performance on aPY 15-class subset (5189 training samples, 15 classes). Mean $\pm$ std over 10 runs.}
-\label{tab:apy15_results}
-\begin{tabular}{lcccccc}
-\hline
-\textbf{Mode} & \textbf{NMI} & \textbf{ACC} & \textbf{ARI} & \textbf{Sil} & \textbf{TC} & \textbf{ITF} \\
-\hline
-\texttt{kmeans} & $0.666 \pm 0.028$ & $0.615 \pm 0.046$ & $0.458 \pm 0.048$ & $0.051$ & --- & --- \\
-\texttt{deccs} & $0.677 \pm 0.000$ & $0.644 \pm 0.000$ & $0.459 \pm 0.000$ & $0.029$ & --- & --- \\
-\texttt{ddc} & $0.666 \pm 0.028$ & $0.615 \pm 0.046$ & $0.458 \pm 0.048$ & $0.051$ & $0.450$ & $2.030$ \\
-\texttt{ddeccs} & $0.677 \pm 0.000$ & $0.644 \pm 0.000$ & $0.459 \pm 0.000$ & $0.029$ & $0.491$ & $2.223$ \\
-\hline
-\end{tabular}
+    \centering
+    \caption{Clustering performance on aPY 15-class subset (5189 training samples, 15 classes). Mean $\pm$ std over 10 runs. Here \texttt{ddc} and \texttt{ddeccs} are our K-means+ILP and consensus+ILP description modes, \emph{not} the original DDC; their clustering metrics therefore match \texttt{kmeans} and \texttt{deccs}, and only TC/ITF are added.}
+    \label{tab:apy15_results}
+    \begin{tabular}{lcccccc}
+        \hline
+        \textbf{Mode} & \textbf{NMI} & \textbf{ACC} & \textbf{ARI} & \textbf{Sil} & \textbf{TC} & \textbf{ITF} \\
+        \hline
+        \texttt{kmeans} & $0.666 \pm 0.028$ & $0.615 \pm 0.046$ & $0.458 \pm 0.048$ & $0.027$ & --- & --- \\
+        \texttt{deccs} & $0.677 \pm 0.000$ & $0.644 \pm 0.000$ & $0.459 \pm 0.000$ & $0.029$ & --- & --- \\
+        \texttt{ddc} & $0.666 \pm 0.028$ & $0.615 \pm 0.046$ & $0.458 \pm 0.048$ & $0.027$ & $0.447$ & $2.050$ \\
+        \texttt{ddeccs} & $0.677 \pm 0.000$ & $0.644 \pm 0.000$ & $0.459 \pm 0.000$ & $0.029$ & $0.492$ & $2.224$ \\
+        \hline
+    \end{tabular}
 \end{table}
 
 % Source: results/apy_15/*/summary.json
 
-On the 15-class subset, results are closer between K-means and DECCS. Notably, DECCS achieves slightly higher NMI ($0.677$ vs.\ $0.666$) and higher ACC ($0.644$ vs.\ $0.615$), indicating better alignment between cluster assignments and true class identities. DECCS again shows near-zero variance.
+On the 15-class subset, results are closer between K-means and DECCS. DECCS achieves slightly higher NMI ($0.677$ vs.\ $0.666$) and higher ACC ($0.644$ vs.\ $0.615$), and again shows near-zero variance.
 
 \subsection{Comparison with DDC Paper}
+\label{sec:ddc_comparison}
 
-Table~\ref{tab:ddc_comparison} compares our results with those reported in the DDC paper~\citep{Zhang2021}.
+Table~\ref{tab:ddc_comparison} compares our results with those reported in the DDC paper~\citep{Zhang2021}. We stress that the rows labelled ``DDC paper'' are the original DDC method (a trained encoder with MI and pairwise losses), whereas our rows use frozen ResNet features with K-means/DECCS and post-hoc ILP; the \texttt{ddc} mode of the previous tables is not shown here, as its clustering is identical to our K-means.
 
 \begin{table}[H]
-\centering
-\caption{Comparison with DDC paper results. DDC uses AwA1 (not AwA2) and trains an MLP with MI + pairwise loss. Our approach uses frozen ResNet features + K-means/DECCS + post-hoc ILP. DDC results at tag ratio $r\% = 50$.}
-\label{tab:ddc_comparison}
-\begin{tabular}{llcc}
-\hline
-\textbf{Dataset} & \textbf{Method} & \textbf{NMI} & \textbf{ACC} \\
-\hline
-\multirow{4}{*}{AwA (K=40 vs. k=50)} & DDC paper: K-means & $74.23 \pm 0.69$ & $68.24 \pm 0.54$ \\
- & DDC paper: DDC & $89.57 \pm 1.37$ & $84.48 \pm 1.20$ \\
- & Ours: K-means & $86.94 \pm 0.17$ & $78.52 \pm 0.80$ \\
- & Ours: DDECCS & $87.12 \pm 0.00$ & $80.69 \pm 0.00$ \\
-\hline
-\multirow{4}{*}{aPY (K=15)} & DDC paper: K-means & $64.38 \pm 0.48$ & $58.98 \pm 0.37$ \\
- & DDC paper: DDC & $86.30 \pm 1.22$ & $79.87 \pm 1.02$ \\
- & Ours: K-means & $66.55 \pm 2.80$ & $61.53 \pm 4.58$ \\
- & Ours: DDECCS & $67.69 \pm 0.00$ & $64.42 \pm 0.00$ \\
-\hline
-\end{tabular}
+    \centering
+    \caption{Comparison with DDC paper results. DDC uses AwA1 (not AwA2) and trains an MLP with MI + pairwise loss. Our approach uses frozen ResNet features + K-means/DECCS + post-hoc ILP. DDC results at tag ratio $r\% = 50$.}
+    \label{tab:ddc_comparison}
+    \begin{tabular}{llcc}
+        \hline
+        \textbf{Dataset} & \textbf{Method} & \textbf{NMI} & \textbf{ACC} \\
+        \hline
+        \multirow{4}{*}{AwA (K=40 vs.\ K=50)} & DDC paper: K-means & $74.23 \pm 0.69$ & $68.24 \pm 0.54$ \\
+        & DDC paper: DDC & $89.57 \pm 1.37$ & $84.48 \pm 1.20$ \\
+        & Ours: K-means & $86.94 \pm 0.17$ & $78.52 \pm 0.80$ \\
+        & Ours: DDECCS & $87.12 \pm 0.00$ & $80.69 \pm 0.00$ \\
+        \hline
+        \multirow{4}{*}{aPY (K=15)} & DDC paper: K-means & $64.38 \pm 0.48$ & $58.98 \pm 0.37$ \\
+        & DDC paper: DDC & $86.30 \pm 1.22$ & $79.87 \pm 1.02$ \\
+        & Ours: K-means & $66.55 \pm 2.80$ & $61.53 \pm 4.58$ \\
+        & Ours: DDECCS & $67.69 \pm 0.00$ & $64.42 \pm 0.00$ \\
+        \hline
+    \end{tabular}
 \end{table}
 
 % Source: DDC paper Table 3 (r%=50); our results from results/awa2/ and results/apy_15/
 
-Several observations emerge from this comparison. First, our K-means baseline outperforms DDC's K-means baseline on both datasets (+12.7 NMI points on AwA, +2.2 on aPY). However, this comparison is not strictly apples-to-apples: DDC uses K=40 clusters on the original AwA dataset (19832 instances), while we use K=50 on AwA2 (29857 instances). Higher K generally yields higher NMI, and the different datasets contain different images. The aPY comparison is closer (both use K=15), but DDC uses AwA1-era preprocessing. Second, DDC's trained encoder network achieves higher NMI than our frozen-features approach, particularly on aPY (+19.8 points). This gap reflects the benefit of DDC's end-to-end training, which refines features specifically for the clustering task using pairwise constraints derived from semantic attributes. Third, we note that DDC uses the original AwA1 dataset while we use the replacement AwA2, making direct numerical comparison approximate.
+We do not reimplement the full original DDC. Its ILP description module is reused exactly in our \texttt{ddc} and \texttt{ddeccs} modes, and its training objective (mutual-information clustering with a self-generated pairwise loss) was attempted but did not scale to our datasets (Section~\ref{sec:early_experiments}). All figures attributed to the original DDC are therefore taken from the published paper rather than from a controlled re-run, and the comparison is indicative rather than head-to-head.
 
-\paragraph{Note on DDC's tag annotation ratio ($r\%$).} DDC's results in Table~\ref{tab:ddc_comparison} are reported at tag annotation ratio $r = 50\%$, meaning half of each instance's attributes are randomly masked during training. This masking is part of DDC's \emph{training procedure}---it simulates incomplete annotation and creates diversity in the pairwise constraint generation. At lower masking rates ($r = 10\%$), DDC reports lower performance (NMI = 75.62 on AwA). DDC does not report results at $r = 0\%$ (no masking), so we cannot determine how much the masking itself contributes to their performance. Our pipeline does not use masking because we do not train with pairwise constraints; we use full (unmasked) attributes only for the post-hoc ILP description step, which is comparable to DDC's ILP step, which computes cluster-level tag statistics from the attribute matrix.
+\paragraph{A global caveat.} No row in Table~\ref{tab:ddc_comparison} compares methods on identical data, and we do not reimplement DDC. On AwA, DDC uses the withdrawn AwA1 (19{,}832 instances, $K=40$) whereas we use AwA2 (29{,}857 instances, $K=50$). On aPY, the same 15 classes yield 6{,}487 instances in our data versus DDC's reported 5{,}274 (about 23\% more); we cluster on our 5{,}189-instance training split while DDC clusters on its full set, so the underlying populations differ even though the per-set sizes are similar. Every DDC figure is taken from the published paper, not from a controlled re-run on our data and splits. The comparisons below should therefore be read as indicative of relative standing rather than exact head-to-head measurements.
+
+Two substantive findings emerge from the comparison, read subject to the caveat above. First, our K-means baseline exceeds DDC's reported K-means baseline on both datasets (+12.7 NMI points on AwA, +2.2 on aPY)---though on AwA this is inflated by our larger $K$ (50 vs.\ 40) and different images. Second, the original DDC's trained encoder achieves higher NMI than our frozen-features approach, substantially so on aPY (+18.6 points), reflecting the benefit of refining features for the clustering task using pairwise constraints derived from semantic attributes.
+
+\paragraph{Note on DDC's tag annotation ratio ($r\%$).} DDC's results in Table~\ref{tab:ddc_comparison} are reported at tag annotation ratio $r = 50\%$, meaning half of each instance's attributes are randomly masked during training. This masking is part of DDC's \emph{training procedure}---it simulates incomplete annotation and creates diversity in pairwise constraint generation. At lower masking rates ($r = 10\%$), DDC reports lower performance (NMI = 75.62 on AwA). DDC does not report results at $r = 0\%$, so we cannot determine how much the masking itself contributes. Our pipeline does not use masking, since we do not train with pairwise constraints; we use full (unmasked) attributes only for the post-hoc ILP description step, which computes cluster-level attribute statistics from the attribute matrix.
 
 \section{ILP Cluster Descriptions}
 \label{sec:ilp_results}
 
-A key contribution of our approach is the generation of interpretable cluster descriptions. Our pipeline produces two types of description output per experiment, which serve different purposes:
+A key contribution of our approach is the generation of interpretable cluster descriptions. We focus on the ILP-optimized descriptions, which select attributes that are both prevalent within a cluster (coverage constraint) and distinctive to it (orthogonality constraint). This contrasts with a naive top-5 ranking by mean attribute value, which would surface dataset-wide attributes such as ``Occluded'' that appear in many clusters; the ILP instead skips such non-distinctive attributes in favour of ones like ``Pedal'' and ``Handlebars'' that uniquely identify a cluster.
 
-The \texttt{cluster\_descriptions.json} file contains a simple summary: for each cluster, the top-5 attributes ranked by their mean value within that cluster. This is a naive ranking that does not consider whether an attribute is unique to the cluster---for instance, ``Occluded'' may rank highly in many clusters because it is common across the entire dataset.
+\paragraph{These are our modes, not the DDC paper.} The descriptions in this section are generated by our pipeline (the \texttt{ddc} and \texttt{ddeccs} modes), not taken from the original DDC paper. The original DDC publishes per-cluster TC/ITF only for a controlled 10-class AwA subset (where it reports TC up to 1.0), and does not report per-dataset average TC/ITF for its full AwA or aPY runs. A fully controlled TC/ITF comparison with the original DDC would require reimplementing it, which was outside the scope of this thesis; Section~\ref{subsec:ddc_tcitf_comparison} reports the limited comparison that DDC's published figures allow. We can more directly compare our two description modes, which differ only in the clustering they describe.
 
-The \texttt{ilp\_descriptions.json} file contains the ILP-optimized descriptions (DDC Eq.\ 2--4). The ILP selects attributes that are both prevalent within the cluster (coverage constraint) and distinctive to that cluster (orthogonality constraint). This is why the two files show different attributes: the ILP may skip ``Occluded'' because it appears everywhere and instead select ``Pedal'' and ``Handlebars'' which uniquely identify the bicycle cluster. We focus on the ILP descriptions as the primary interpretability output.
+\subsection{Description Quality: \texttt{ddc} vs.\ \texttt{ddeccs}}
 
-\subsection{AwA2 ILP Descriptions}
-
-Table~\ref{tab:awa2_descriptions} shows selected ILP-generated descriptions for AwA2 clusters. The ILP solved with $\alpha = 8$, $\beta = 10$, selecting 77 of 85 attributes with an average of 4.7 tags per cluster.
+Table~\ref{tab:tc_itf_comparison} compares the average TC and ITF of our two description modes across all three datasets. The \texttt{ddeccs} mode (ILP applied to the consensus clustering) achieves higher TC and ITF than \texttt{ddc} (ILP applied to the K-means clustering) on every dataset. This indicates that the more coherent clusters produced by consensus yield descriptions that are both more representative of their members and more distinctive across clusters.
 
 \begin{table}[H]
     \centering
-    \caption{Selected ILP cluster descriptions for AwA2 (DDC mode). Full descriptions available in \texttt{results/awa2/ddc/ilp\_descriptions.json}.}
+    \caption{Average TC and ITF for our two ILP description modes. \texttt{ddc} applies the ILP to the K-means clustering; \texttt{ddeccs} applies it to the DECCS consensus clustering.}
+    \label{tab:tc_itf_comparison}
+    \begin{tabular}{lcccc}
+        \hline
+        & \multicolumn{2}{c}{\textbf{\texttt{ddc}}} & \multicolumn{2}{c}{\textbf{\texttt{ddeccs}}} \\
+        \textbf{Dataset} & \textbf{TC} & \textbf{ITF} & \textbf{TC} & \textbf{ITF} \\
+        \hline
+        AwA2 & 0.681 & 2.652 & 0.698 & 2.656 \\
+        aPY (32-class) & 0.497 & 2.156 & 0.570 & 2.413 \\
+        aPY (15-class) & 0.447 & 2.050 & 0.492 & 2.224 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+% Source: results/*/ddc/summary.json and results/*/ddeccs/summary.json
+
+\subsection{Reported Description Metrics of the Original DDC}
+\label{subsec:ddc_tcitf_comparison}
+
+The original DDC reports average TC and ITF only for a down-sampled AwA setting (10 classes clustered into 5). Table~\ref{tab:ddc_tcitf} places those figures alongside our \texttt{ddeccs} descriptions on AwA2. The two are not directly comparable; Section~\ref{sec:interpretation} explains why.
+
+\begin{table}[H]
+    \centering
+    \caption{Average TC and ITF reported by the original DDC versus our DDECCS on AwA. The two are not directly comparable; see Section~\ref{sec:interpretation}.}
+    \label{tab:ddc_tcitf}
+    \begin{tabular}{lcccc}
+        \hline
+        \textbf{Method} & \textbf{K} & \textbf{$\alpha$} & \textbf{Avg TC} & \textbf{Avg ITF} \\
+        \hline
+        Original DDC (AwA, 10 cls $\to$ 5 clusters) & 5 & 8 & 1.00 & 2.32$^{*}$ \\
+        DDECCS, \texttt{ddeccs} mode (AwA2, 50 classes) & 50 & 3 & 0.698 & 2.656 \\
+        \hline
+    \end{tabular}
+
+    \vspace{2pt}
+    {\footnotesize $^{*}$DDC computes ITF with $\log_2$, whereas we use the natural logarithm. On the natural-log scale DDC's value is $2.32\ln 2 \approx 1.61 = \ln 5$ --- the maximum possible for $K=5$, i.e.\ every descriptive tag is unique to one cluster.}
+\end{table}
+
+\subsection{AwA2 ILP Descriptions}
+
+Table~\ref{tab:awa2_descriptions} shows selected \texttt{ddc}-mode descriptions for AwA2 clusters. The ILP solved with $\alpha = 3$, $\beta = 3$, selecting 73 of 85 attributes with an average of 4.7 attributes per cluster.
+
+\begin{table}[H]
+    \centering
+    \caption{Selected ILP cluster descriptions for AwA2 (our \texttt{ddc} mode). Full descriptions available in \texttt{results/awa2/ddc/ilp\_descriptions.json}.}
     \label{tab:awa2_descriptions}
     \begin{tabular}{clccc}
         \hline
@@ -168,9 +278,9 @@ Table~\ref{tab:awa2_descriptions} shows selected ILP-generated descriptions for 
         \hline
         0 & strong, fish, arctic, fierce & polar bear & 0.76 & 2.77 \\
         3 & stripes, chewteeth, plains, group & zebra & 0.76 & 2.61 \\
-        5 & gray, swims, skimmer, water, timid & blue/humpback whale & 0.67 & 1.88 \\
         13 & orange, stripes, muscle, fierce & tiger & 0.82 & 3.12 \\
         17 & bush, jungle, tree, smart & chimpanzee & 0.78 & 3.19 \\
+        34 & gray, hairless, tusks, oldworld & elephant & 0.76 & 2.94 \\
         35 & spots, longleg, longneck, plains & giraffe & 0.77 & 2.89 \\
         \hline
     \end{tabular}
@@ -178,14 +288,32 @@ Table~\ref{tab:awa2_descriptions} shows selected ILP-generated descriptions for 
 
 % Source: results/awa2/ddc/ilp_descriptions.json
 
-The descriptions are semantically meaningful and distinguishable. Cluster~13 (tiger) is described by ``orange, stripes, muscle, fierce'' with TC = 0.82, meaning 82\% of cluster members on average possess each of these attributes. The ITF = 3.12 indicates these attributes are relatively unique to this cluster. Cluster~17 (chimpanzee) is described by habitat and cognitive attributes (``bush, jungle, tree, smart'') rather than physical appearance, showing that the ILP captures diverse semantic dimensions.
+\begin{table}[H]
+    \centering
+    \caption{Selected ILP cluster descriptions for AwA2 (our \texttt{ddeccs} mode, the proposed method). Dominant classes confirmed from per-cluster sample images. Full descriptions in \texttt{results/awa2/ddeccs/ilp\_descriptions.json}.}
+    \label{tab:awa2_descriptions_ddeccs}
+    \begin{tabular}{clccc}
+        \hline
+        \textbf{C} & \textbf{Description} & \textbf{Dominant Class} & \textbf{TC} & \textbf{ITF} \\
+        \hline
+        17 & orange, stripes, claws, muscle & tiger & 0.80 & 3.09 \\
+        26 & strong, fish, arctic, fierce & polar bear & 0.76 & 2.77 \\
+        21 & hands, bipedal, jungle, group & chimpanzee & 0.77 & 2.87 \\
+        33 & gray, toughskin, tusks, oldworld & elephant & 0.78 & 2.70 \\
+        4 & spots, longleg, longneck, grazer & giraffe & 0.77 & 2.89 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+Table~\ref{tab:awa2_descriptions} lists representative \texttt{ddc}-mode clusters with their descriptions and TC/ITF values---for example, cluster~13 (tiger) at TC = 0.82, ITF = 3.12, and cluster~17 (chimpanzee), described by ``bush, jungle, tree, smart.'' Table~\ref{tab:awa2_descriptions_ddeccs} shows the corresponding \texttt{ddeccs}-mode descriptions for the same classes; the two are near-identical (e.g.\ the tiger cluster at 0.82/3.12 versus 0.80/3.09), confirming that consensus preserves description quality. We interpret these descriptions in Section~\ref{sec:interpretation}.
+
 \subsection{aPY Cluster Descriptions (15-class subset)}
 
-Table~\ref{tab:apy15_descriptions} shows ILP-generated descriptions for the aPY 15-class subset. The ILP solved with $\alpha = 2$, $\beta = 1$, selecting 43 of 64 attributes with 6.0 tags per cluster. The strict orthogonality ($\beta = 1$) means each attribute is used by at most one cluster.
+Table~\ref{tab:apy15_descriptions} shows \texttt{ddc}-mode descriptions for the aPY 15-class subset. The ILP solved with $\alpha = 2$, $\beta = 1$, selecting 43 of 64 attributes with 6.0 attributes per cluster. The low orthogonality bound ($\beta = 1$) keeps each attribute's coverage-weighted usage across clusters small, so the descriptions stay distinctive.
 
 \begin{table}[H]
     \centering
-    \caption{Selected ILP cluster descriptions for aPY 15-class subset (DDC mode). Full descriptions in \texttt{results/apy\_15/ddc/ilp\_descriptions.json}.}
+    \caption{Selected ILP cluster descriptions for aPY 15-class subset (our \texttt{ddc} mode). Full descriptions in \texttt{results/apy\_15/ddc/ilp\_descriptions.json}.}
     \label{tab:apy15_descriptions}
     \begin{tabular}{clccc}
         \hline
@@ -193,7 +321,7 @@ Table~\ref{tab:apy15_descriptions} shows ILP-generated descriptions for the aPY 
         \hline
         1 & Wheel, Door, Taillight, Side mirror, Exhaust & car & 0.41 & 2.07 \\
         4 & Furn.\ Back, Furn.\ Seat, Furn.\ Arm, Leather & chair/sofa & 0.51 & 2.01 \\
-        9 & Leg, Foot/Shoe, Furry & dog/cat/zebra & 0.70 & 2.48 \\
+        9 & Leg, Foot/Shoe, Furry & mixed animals & 0.70 & 2.48 \\
         12 & Tail, Ear, Snout & dog/cat & 0.69 & 2.71 \\
         14 & Pedal, Handlebars, Text, Plastic & bicycle & 0.53 & 2.01 \\
         \hline
@@ -202,13 +330,56 @@ Table~\ref{tab:apy15_descriptions} shows ILP-generated descriptions for the aPY 
 
 % Source: results/apy_15/ddc/ilp_descriptions.json
 
-The aPY descriptions capture meaningful distinctions between diverse object categories. Cluster~14 (bicycle: ``Pedal, Handlebars, Text, Plastic'') is clearly separated from Cluster~1 (car: ``Wheel, Door, Taillight, Side mirror, Exhaust'')---both involve vehicles, but the ILP's orthogonality constraint ensures the descriptions highlight differentiating attributes. Cluster~12 (``Tail, Ear, Snout'') achieves TC = 0.69 and the highest ITF (2.71), indicating a compact, distinctive animal cluster.
+\begin{table}[H]
+    \centering
+    \caption{Selected ILP cluster descriptions for aPY 15-class subset (our \texttt{ddeccs} mode, the proposed method). Dominant classes are confirmed from per-cluster sample images. Full descriptions in \texttt{results/apy\_15/ddeccs/ilp\_descriptions.json}.}
+    \label{tab:apy15_descriptions_ddeccs}
+    \begin{tabular}{clccc}
+        \hline
+        \textbf{C} & \textbf{Description} & \textbf{Dominant Class} & \textbf{TC} & \textbf{ITF} \\
+        \hline
+        6 & Wheel, Door, Headlight, Side mirror, Exhaust & car & 0.41 & 2.15 \\
+        5 & Pedal, Handlebars, Text, Plastic & bicycle & 0.52 & 2.01 \\
+        7 & Tail, Snout, Furry & cat & 0.70 & 2.71 \\
+        14 & Beak, Foot/Shoe, Feather & bird & 0.71 & 2.48 \\
+        1 & Vert Cyl, Label, Clear, Shiny & bottle & 0.52 & 2.01 \\
+        12 & 2D Boxy, Round, Plastic, Glass, Clear, Shiny & mug & 0.34 & 1.95 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+% Source: results/apy_15/ddeccs/ilp_descriptions.json
+
+Table~\ref{tab:apy15_descriptions} lists representative aPY clusters with their descriptions and TC/ITF values; the car (C1) and bicycle (C14) clusters receive disjoint attribute sets, and cluster~12 reaches the subset's highest ITF (2.71). Section~\ref{sec:interpretation} discusses what these descriptions reveal.
+
+Interestingly, the representative car attribute differs between modes---``Taillight'' in \texttt{ddc} (Table~\ref{tab:apy15_descriptions}) and ``Headlight'' in \texttt{ddeccs} (Table~\ref{tab:apy15_descriptions_ddeccs})---because the consensus groups the car instances slightly differently, illustrating that the descriptions track the underlying clustering rather than being fixed to a class.
+
+\subsection{aPY Cluster Descriptions (Full 32-class)}
+
+Table~\ref{tab:apy32_descriptions_ddeccs} shows verified \texttt{ddeccs}-mode descriptions on the full 32-class aPY dataset (we show the proposed mode here; per-cluster \texttt{ddc} and \texttt{ddeccs} listings for all clusters are in Appendix~\ref{app:descriptions}). The most distinctive cluster, potted plant, reaches the maximum ITF of $\ln 32 \approx 3.47$.
+
+\begin{table}[H]
+    \centering
+    \caption{Selected ILP cluster descriptions for the full aPY dataset (our \texttt{ddeccs} mode). Dominant classes confirmed from per-cluster sample images.}
+    \label{tab:apy32_descriptions_ddeccs}
+    \begin{tabular}{clccc}
+        \hline
+        \textbf{C} & \textbf{Description} & \textbf{Dominant Class} & \textbf{TC} & \textbf{ITF} \\
+        \hline
+        4 & Leaf, Pot, Vegetation & potted plant & 0.85 & 3.47 \\
+        10 & Tail, Beak, Feather & bird & 0.77 & 3.00 \\
+        12 & Horiz Cyl, Wing, Propeller, Jet engine & aeroplane & 0.55 & 3.12 \\
+        24 & Wheel, Door, Headlight, Shiny & car & 0.51 & 2.10 \\
+        21 & Vert Cyl, Glass, Shiny & mug & 0.71 & 2.27 \\
+        9 & Vert Cyl, Label, Glass & bottle & 0.67 & 2.73 \\
+        \hline
+    \end{tabular}
+\end{table}
 
 \section{Visualizations}
+\label{sec:viz}
 
-Our four experimental modes produce only \emph{two} distinct sets of cluster assignments per dataset, not four. This is because the ILP description module (used in \texttt{ddc} and \texttt{ddeccs} modes) operates entirely post-hoc: it takes the cluster assignments as input and generates textual descriptions, but never modifies which instances belong to which cluster. Consequently, \texttt{ddc} produces the same cluster assignments as \texttt{kmeans} (both use K-means for clustering), and \texttt{ddeccs} produces the same assignments as \texttt{deccs} (both use DECCS consensus). The only difference between paired modes is the presence of ILP-generated descriptions, which appear in the JSON output files but do not affect visualizations.
-
-The two genuinely distinct visualizations per dataset---K-means versus DECCS consensus---illustrate how ensemble consensus changes cluster boundaries. On AwA2, the differences are subtle because both methods achieve similar NMI. On aPY, the differences are more pronounced, reflecting DECCS's 14.4\% NMI improvement.
+Because the ILP description module operates post-hoc, the four modes produce only two distinct clusterings per dataset: \texttt{ddc} matches \texttt{kmeans}, and \texttt{ddeccs} matches \texttt{deccs}. We therefore visualize the two genuinely distinct clusterings---K-means versus DECCS consensus---which illustrate how ensemble consensus changes cluster boundaries. On AwA2 the differences are subtle, since both achieve similar NMI; on aPY they are more pronounced, reflecting DECCS's larger improvement.
 
 \subsection{AwA2: K-means vs.\ DECCS Consensus}
 
@@ -223,7 +394,7 @@ The two genuinely distinct visualizations per dataset---K-means versus DECCS con
         \centering
         \includegraphics[width=\textwidth]{figs/awa2_deccs_tsne.png}
     \end{minipage}
-    \caption{t-SNE projections of AwA2 ResNet features colored by cluster assignment. Left: K-means (NMI = 0.869). Right: DECCS consensus (NMI = 0.871). Both methods produce well-separated clusters, reflecting the strong discriminative power of ResNet features on animal images. Source: \texttt{results/awa2/kmeans/tsne.png} and \texttt{results/awa2/deccs/tsne.png}.}
+    \caption{t-SNE projections of AwA2 ResNet features colored by cluster assignment. Left: K-means (NMI = 0.869). Right: DECCS consensus (NMI = 0.871). Both produce well-separated clusters, reflecting the strong discriminative power of ResNet features on animal images. (The projection shows a single representative seed; the tables report 10-run means.) Source: \texttt{results/awa2/kmeans/tsne.png} and \texttt{results/awa2/deccs/tsne.png}.}
     \label{fig:tsne_awa2}
 \end{figure}
 
@@ -240,7 +411,7 @@ The two genuinely distinct visualizations per dataset---K-means versus DECCS con
         \centering
         \includegraphics[width=\textwidth]{figs/apy_deccs_tsne.png}
     \end{minipage}
-    \caption{t-SNE projections of aPY full dataset (32 classes). Left: K-means (NMI = 0.534). Right: DECCS consensus (NMI = 0.611). The consensus ensemble produces noticeably more coherent cluster boundaries, particularly in separating vehicles from furniture and small objects. This +14.4\% NMI improvement is the largest gain from consensus in our experiments. Source: \texttt{results/apy/kmeans/tsne.png} and \texttt{results/apy/deccs/tsne.png}.}
+    \caption{t-SNE projections of aPY full dataset (32 classes). Left: K-means (NMI = 0.534). Right: DECCS consensus (NMI = 0.611). The consensus ensemble produces clusters that align more closely with the true object classes, particularly in separating vehicles from furniture and small objects---the largest gain from consensus in our experiments. As discussed in Section~\ref{sec:interpretation}, this class-level improvement coexists with a lower Silhouette score, which measures Euclidean compactness rather than class agreement. (The projection shows a single representative seed; the tables report 10-run means.) Source: \texttt{results/apy/kmeans/tsne.png} and \texttt{results/apy/deccs/tsne.png}.}
     \label{fig:tsne_apy32}
 \end{figure}
 
@@ -257,31 +428,27 @@ The two genuinely distinct visualizations per dataset---K-means versus DECCS con
         \centering
         \includegraphics[width=\textwidth]{figs/apy15_deccs_tsne.png}
     \end{minipage}
-    \caption{t-SNE projections of aPY 15-class subset. Left: K-means (NMI = 0.666). Right: DECCS consensus (NMI = 0.677, ACC = 0.644). Distinct groups are visible for animals (top), vehicles (left), and furniture/objects (bottom). DECCS produces more coherent cluster boundaries, reflected in its higher NMI and ACC. Source: \texttt{results/apy\_15/kmeans/tsne.png} and \texttt{results/apy\_15/deccs/tsne.png}.}
+    \caption{t-SNE projections of aPY 15-class subset. Left: K-means (NMI = 0.666). Right: DECCS consensus (NMI = 0.677, ACC = 0.644). Distinct groups are visible for animals (top), vehicles (left), and furniture/objects (bottom). (The projection shows a single representative seed; the tables report 10-run means.) Source: \texttt{results/apy\_15/kmeans/tsne.png} and \texttt{results/apy\_15/deccs/tsne.png}.}
     \label{fig:tsne_apy15}
 \end{figure}
 
-\section{The Path to the Current Approach: Early Experiments and Lessons Learned}
+\section{The Path to the Current Approach: Early Experiments}
 \label{sec:early_experiments}
 
-Before arriving at the current frozen-features pipeline, we explored several alternative approaches that provided important insights into the challenges of deep descriptive clustering. We document these unsuccessful experiments, as the negative results informed our final design decisions.
+Before arriving at the current frozen-features pipeline, we explored several alternative approaches. We document these experiments because their outcomes directly motivated the final design.
 
-\subsection{Autoencoder-Based Approach Attempt}
+\subsection{Autoencoder-Based Approach}
 
-Our initial design followed the DECCS architecture more closely: a convolutional autoencoder with a tag prediction branch, trained with a combined loss $\mathcal{L} = \mathcal{L}_{recon} + \lambda_{tag} \cdot \mathcal{L}_{tag} + \lambda_{cons} \cdot \mathcal{L}_{consensus}$. Three encoder architectures were tested: a small 4-layer CNN ($128 \times 128$), a larger 5-layer CNN with BatchNorm ($224 \times 224$), and a frozen ResNet-101 backbone with a trainable projector.
+Our initial design followed the DECCS architecture more closely: a convolutional autoencoder with a tag-prediction branch, trained with a combined loss $\mathcal{L} = \mathcal{L}_{recon} + \lambda_{tag} \cdot \mathcal{L}_{tag} + \lambda_{cons} \cdot \mathcal{L}_{consensus}$. Three encoder architectures were tested: a 4-layer CNN ($128 \times 128$), a 5-layer CNN with BatchNorm ($224 \times 224$), and a frozen ResNet-101 backbone with a trainable projector.
 
-On a 160-image sample, this approach achieved NMI = 0.642, which appeared promising. However, full-scale evaluation on 37,322 images produced NMI = 0.012---essentially random clustering. Extensive debugging revealed multiple contributing factors: DBSCAN in the ensemble was labeling all points as noise (corrupting the consensus matrix), visualization metrics were being computed on different label sets than training, and the reconstruction loss on ImageNet-normalized images was dominating the gradient signal due to a normalization mismatch between encoder input and decoder output.
+On a 160-image sample this achieved NMI = 0.642, but full-scale evaluation on the entire 37,322-image dataset produced NMI = 0.012---essentially random clustering. These early runs predate the standardized 80/20 split adopted for the main results, which is why they are evaluated on the full image set rather than the 29{,}857-instance training split; the gap to K-means (itself NMI = 0.869 on the training split) is far too large for this difference to explain. Debugging revealed several contributing factors: DBSCAN in the ensemble was labelling all points as noise (corrupting the consensus matrix), visualization metrics were computed on different label sets than training, and the reconstruction loss on ImageNet-normalized images dominated the gradient due to a normalization mismatch between encoder input and decoder output.
 
-\subsection{DDC-Style MLP Training Attempt}
+\subsection{DDC-Style MLP Training}
 
-After identifying the reconstruction loss as a fundamental obstacle, we implemented DDC's actual training objectives: mutual information maximization combined with pairwise constraints from semantic tags, using a 3-layer MLP (2048 $\to$ 1200 $\to$ 1200 $\to$ K) on top of frozen ResNet features. This approach faced a critical scaling challenge: on the full dataset, the MI loss dominated from the first epoch (reaching $L_{MI} = -0.92$ after a single epoch of 116 mini-batches), locking the model into approximately 24 coarse clusters before the pairwise constraints could influence the structure.
+We then implemented DDC's actual training objectives: mutual information maximization with pairwise constraints from semantic tags, using a 3-layer MLP (2048 $\to$ 1200 $\to$ 1200 $\to$ K) on frozen ResNet features. This faced a critical scaling challenge: on the full dataset the MI loss dominated from the first epoch (reaching $L_{MI} = -0.92$ after a single epoch of 116 mini-batches), locking the model into approximately 24 coarse clusters before the pairwise constraints could take effect.
 
-Several fixes were attempted. Per-instance tag masking ($r = 0.5$), which randomly zeros 50\% of each instance's attributes during training, proved essential for making pairwise constraints meaningful---without it, all instances of the same class had identical attribute vectors, causing the pairwise selection to ignore tag information entirely. This fix improved results on a 1,600-sample subset (NMI = 0.124, 30 active clusters, first positive silhouette score), but the improvement did not transfer to the full dataset. A proper ILP solver (PuLP CBC) was also implemented to replace an initial greedy heuristic that selected 75 of 85 tags (providing almost no filtering), but this too did not resolve the MI dominance issue at scale.
+Several fixes were attempted. Per-instance tag masking ($r = 0.5$) proved essential for making pairwise constraints meaningful---without it, all instances of a class shared identical attribute vectors and the pairwise selection ignored tag information. This improved results on a 1,600-sample subset (NMI = 0.124, 30 active clusters, first positive silhouette), but the improvement did not transfer to the full dataset. Replacing an initial greedy tag-selection heuristic (which selected 75 of 85 tags, providing almost no filtering) with a proper PuLP CBC solver did not resolve the MI dominance at scale either.
 
 \subsection{The K-Means Baseline Finding}
 
-The refactoring decision came when we evaluated K-means directly on the raw 2048-dimensional ResNet features: NMI = 0.869 on AwA2. This was higher than any result achieved by the trained MLP, demonstrating that the pretrained features already contained sufficient class-discriminative information and that our MLP training was actively destroying this information rather than refining it. This finding redirected the experimental setup toward the current approach: leveraging the strong pretrained features and adding value through consensus clustering and interpretable descriptions.
-
-\section{Summary of Results}
-
-The experimental results support two main conclusions. First, DECCS consensus clustering provides significant and consistent improvements on challenging datasets: +14.4\% NMI on aPY ($32$ classes), with dramatically reduced variance. On AwA2, where ResNet features already provide near-perfect class separation, consensus matches K-means performance while providing improved accuracy and stability. Second, the ILP-based description generation produces meaningful, orthogonal cluster explanations that align with human intuition, with Tag Coverage values ranging from 0.18 to 0.83 and Inverse Tag Frequency up to 3.47, indicating distinctive descriptions for each cluster.
+The decisive moment came when we evaluated K-means directly on the raw 2048-dimensional ResNet features: NMI = 0.869 on AwA2---higher than any result from the trained MLP. This showed that the pretrained features already contained sufficient class-discriminative information, and that our training was destroying rather than refining it. This finding redirected the work toward the current approach: leveraging the strong pretrained features and adding value through consensus clustering and interpretable descriptions.

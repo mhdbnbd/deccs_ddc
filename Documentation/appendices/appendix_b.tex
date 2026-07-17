@@ -1,8 +1,13 @@
 \section{Complete ILP Cluster Descriptions}
+\label{app:descriptions}
+
+This appendix lists the full per-cluster ILP descriptions for every dataset, complementing the selected examples in Chapter~\ref{chap:experiments}. All descriptions are from the \texttt{ddc} mode (ILP applied to the K-means clustering) at the representative seed.
 
 \subsection{AwA2 Cluster Descriptions (DDC mode, K = 50)}
 
-Table~\ref{tab:awa2_ilp_all} presents the complete ILP-generated descriptions for all 50 AwA2 clusters. The ILP solved with $\alpha = 8$, $\beta = 10$, selecting 77 of 85 attributes.
+Table~\ref{tab:awa2_ilp_all} presents the complete ILP-generated descriptions for all 50 AwA2 clusters. The ILP solved with $\alpha = 3$, $\beta = 3$, selecting 73 of 85 attributes.
+
+The descriptions below are from a representative run (seed = 42). Because both the clustering and the ILP are recomputed per seed, the specific attributes and tag counts vary slightly across runs, whereas the average TC and ITF reported in Chapter~\ref{chap:experiments} are over all 10 runs.
 
 \begin{table}[H]
     \centering
@@ -68,11 +73,11 @@ Table~\ref{tab:awa2_ilp_all} presents the complete ILP-generated descriptions fo
 \end{table}
 
 
-% Source: results/awa2/ddc/ilp_descriptions.json (selected rows shown; full file contains all 50 clusters)
+% Source: results/awa2/ddc/ilp_descriptions.json (all 50 clusters)
 
 \subsection{aPY 15-Class Cluster Descriptions (DDC mode, K = 15)}
 
-Table~\ref{tab:apy15_ilp_all} presents the complete ILP descriptions for the 15-class aPY subset. The ILP solved with $\alpha = 2$, $\beta = 1$ (perfect orthogonality), selecting 43 of 64 attributes.
+Table~\ref{tab:apy15_ilp_all} presents the complete ILP descriptions for the 15-class aPY subset. The ILP solved with $\alpha = 2$, $\beta = 1$, selecting 43 of 64 attributes.
 
 \begin{table}[H]
     \centering
@@ -104,6 +109,10 @@ Table~\ref{tab:apy15_ilp_all} presents the complete ILP descriptions for the 15-
 \end{table}
 
 % Source: results/apy_15/ddc/ilp_descriptions.json
+
+\subsection{aPY Full Cluster Descriptions (DDC mode, K = 32)}
+
+Table~\ref{tab:apy32_ilp_all} presents the complete ILP descriptions for all 32 clusters of the full aPY dataset. The ILP solved with $\alpha = 2$, $\beta = 2$, selecting 52 of 64 attributes.
 
 \begin{table}[H]
     \centering
@@ -153,9 +162,165 @@ Table~\ref{tab:apy15_ilp_all} presents the complete ILP descriptions for the 15-
 \end{table}
 
 % Source: results/apy/ddc/ilp_descriptions.json
+
+\subsection{AwA2 Cluster Descriptions (DDECCS mode, K = 50)}
+
+Table~\ref{tab:awa2_ilp_all_ddeccs} gives the \texttt{ddeccs}-mode descriptions for all 50 AwA2 clusters, the consensus-clustering counterpart to Table~\ref{tab:awa2_ilp_all}.
+
+\begin{table}[H]
+    \centering
+    \scriptsize
+    \caption{Complete ILP cluster descriptions for all 50 AwA2 clusters (\texttt{ddeccs} mode).}
+    \label{tab:awa2_ilp_all_ddeccs}
+    \begin{tabular}{clccc}
+        \toprule
+        \textbf{C} & \textbf{ILP Description} & \textbf{n} & \textbf{TC} & \textbf{ITF} \\
+        \midrule
+        0 & black, white, spots, lean & 438 & 0.76 & 2.54 \\
+        1 & hooves, horns, vegetation, grazer, timid & 2412 & 0.62 & 2.77 \\
+        2 & black, patches, slow, oldworld & 689 & 0.76 & 3.05 \\
+        3 & furry, small, quadrapedal, vegetation, newworld & 1286 & 0.60 & 2.44 \\
+        4 & spots, longleg, longneck, grazer & 947 & 0.77 & 2.89 \\
+        5 & white, hooves, chewteeth, group & 956 & 0.76 & 2.87 \\
+        6 & tail, strong, vegetation, grazer, domestic & 1717 & 0.61 & 2.44 \\
+        7 & meatteeth, walks, quadrapedal, meat & 730 & 0.76 & 2.53 \\
+        8 & flippers, swims, arctic, ocean & 888 & 0.77 & 2.84 \\
+        9 & hooves, longleg, fast, fields & 1273 & 0.76 & 2.47 \\
+        10 & paws, claws, walks, newworld, oldworld & 986 & 0.61 & 2.54 \\
+        11 & white, quadrapedal, fields, group & 1166 & 0.75 & 2.47 \\
+        12 & black, stripes, active, nocturnal, forest & 396 & 0.62 & 2.82 \\
+        13 & small, walks, ground, domestic & 383 & 0.76 & 2.53 \\
+        14 & meatteeth, meat, hunter, fierce & 832 & 0.76 & 2.53 \\
+        15 & white, paws, newworld, ground, domestic & 497 & 0.61 & 2.48 \\
+        16 & paws, fast, active, solitary, domestic & 24 & 0.61 & 2.58 \\
+        17 & orange, stripes, claws, muscle & 703 & 0.80 & 3.09 \\
+        18 & gray, hairless, toughskin, bulbous, horns & 538 & 0.60 & 2.64 \\
+        19 & gray, tail, forager, tree & 918 & 0.76 & 2.70 \\
+        20 & lean, flippers, swims, fish, water & 663 & 0.62 & 2.60 \\
+        21 & hands, bipedal, jungle, group & 571 & 0.77 & 2.87 \\
+        22 & gray, toughskin, bulbous, slow, inactive & 560 & 0.65 & 3.00 \\
+        23 & hands, longleg, agility, jungle, tree & 257 & 0.61 & 2.66 \\
+        24 & big, bulbous, hooves, smelly, vegetation, newworld & 516 & 0.51 & 2.61 \\
+        25 & black, stripes, smelly, fields & 147 & 0.81 & 2.72 \\
+        26 & strong, fish, arctic, fierce & 700 & 0.76 & 2.77 \\
+        27 & claws, strong, hibernate, forest & 652 & 0.77 & 2.61 \\
+        28 & hairless, flippers, ocean, water & 804 & 0.76 & 2.60 \\
+        29 & plankton, ocean, water, smart & 710 & 0.75 & 2.94 \\
+        30 & furry, hops, vegetation, ground & 891 & 0.76 & 2.82 \\
+        31 & orange, agility, stalker, forest, smart & 414 & 0.60 & 2.54 \\
+        32 & active, meat, stalker, fierce & 484 & 0.75 & 2.53 \\
+        33 & gray, toughskin, tusks, oldworld & 514 & 0.78 & 2.70 \\
+        34 & hairless, flippers, swims, fish & 238 & 0.76 & 2.67 \\
+        35 & furry, bipedal, oldworld, jungle & 686 & 0.75 & 2.70 \\
+        36 & meatteeth, fast, quadrapedal, hunter & 494 & 0.75 & 2.53 \\
+        37 & tail, active, agility, tree & 34 & 0.76 & 2.53 \\
+        38 & paws, walks, meat, newworld, ground & 178 & 0.60 & 2.48 \\
+        39 & hairless, toughskin, big, tusks & 364 & 0.75 & 2.70 \\
+        40 & lean, fast, stalker, jungle & 141 & 0.77 & 2.47 \\
+        41 & brown, small, lean, forest, fields, fierce & 169 & 0.51 & 2.41 \\
+        42 & orange, hunter, forest, smart, solitary & 39 & 0.60 & 2.60 \\
+        43 & small, buckteeth, hibernate, forager, tree & 57 & 0.60 & 2.86 \\
+        44 & spots, lean, agility, stalker & 428 & 0.76 & 2.54 \\
+        45 & brown, tail, buckteeth, water & 159 & 0.77 & 2.70 \\
+        46 & brown, meatteeth, hunter, smart, solitary & 46 & 0.60 & 2.58 \\
+        47 & furry, big, strong, hibernate & 33 & 0.76 & 2.60 \\
+        48 & brown, big, grazer, plains, group & 1090 & 0.60 & 2.62 \\
+        49 & longleg, horns, grazer, plains, fields & 39 & 0.61 & 2.63 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{aPY 15-Class Cluster Descriptions (DDECCS mode, K = 15)}
+
+Table~\ref{tab:apy15_ilp_all_ddeccs} gives the \texttt{ddeccs}-mode descriptions for the 15-class aPY subset, the consensus-clustering counterpart to Table~\ref{tab:apy15_ilp_all}.
+
+\begin{table}[H]
+    \centering
+    \caption{Complete ILP cluster descriptions for aPY 15-class subset (\texttt{ddeccs} mode).}
+    \label{tab:apy15_ilp_all_ddeccs}
+    \resizebox{\textwidth}{!}{
+        \begin{tabular}{clccc}
+            \toprule
+            \textbf{C} & \textbf{ILP Description} & \textbf{n} & \textbf{TC} & \textbf{ITF} \\
+            \midrule
+            0 & Ear, Eye, Leg, Foot/Shoe & 1159 & 0.53 & 2.53 \\
+            1 & Vert Cyl, Label, Clear, Shiny & 352 & 0.52 & 2.01 \\
+            2 & 2D Boxy, Horiz Cyl, Row Wind, Sail, Mast, Plastic, Wood & 249 & 0.29 & 2.06 \\
+            3 & Furn.\ Leg, Furn.\ Back, Furn.\ Seat, Cloth & 928 & 0.51 & 2.53 \\
+            4 & 3D Boxy, Occluded, Wheel, Door, Headlight, Taillight, Side mirror, Label & 507 & 0.26 & 2.10 \\
+            5 & Pedal, Handlebars, Text, Plastic & 229 & 0.52 & 2.01 \\
+            6 & Wheel, Door, Headlight, Side mirror, Exhaust & 578 & 0.41 & 2.15 \\
+            7 & Tail, Snout, Furry & 258 & 0.70 & 2.71 \\
+            8 & 3D Boxy, Horiz Cyl, Window, Row Wind, Text & 149 & 0.40 & 1.88 \\
+            9 & Occluded, Window, Text, Metal, Wood & 85 & 0.42 & 1.88 \\
+            10 & Head, Torso, Wing & 33 & 0.68 & 2.71 \\
+            11 & 2D Boxy, Round, Vert Cyl, Text, Rein, Metal, Plastic, Cloth, Leather & 247 & 0.22 & 1.97 \\
+            12 & 2D Boxy, Round, Plastic, Glass, Clear, Shiny & 166 & 0.34 & 1.95 \\
+            13 & Hair, Face, Arm & 125 & 0.87 & 2.71 \\
+            14 & Beak, Foot/Shoe, Feather & 124 & 0.71 & 2.48 \\
+            \bottomrule
+        \end{tabular}
+    }
+\end{table}
+
+\subsection{aPY Full Cluster Descriptions (DDECCS mode, K = 32)}
+
+Table~\ref{tab:apy32_ilp_all_ddeccs} gives the \texttt{ddeccs}-mode descriptions for all 32 clusters of the full aPY dataset, the consensus-clustering counterpart to Table~\ref{tab:apy32_ilp_all}.
+
+\begin{table}[H]
+    \centering
+    \scriptsize
+    \caption{Complete ILP cluster descriptions for aPY full dataset (\texttt{ddeccs} mode, 32 clusters).}
+    \label{tab:apy32_ilp_all_ddeccs}
+    \resizebox{\textwidth}{!}{
+        \begin{tabular}{clccc}
+            \toprule
+            \textbf{C} & \textbf{ILP Description} & \textbf{n} & \textbf{TC} & \textbf{ITF} \\
+            \midrule
+            0 & 2D Boxy, 3D Boxy, Round, Vert Cyl, Text, Rein, Cloth, Furry, Leather & 248 & 0.22 & 2.66 \\
+            1 & Torso, Handlebars, Skin, Metal, Cloth & 534 & 0.40 & 2.14 \\
+            2 & Tail, Ear, Furry & 299 & 0.68 & 2.27 \\
+            3 & Torso, Arm, Cloth & 253 & 0.67 & 2.18 \\
+            4 & Leaf, Pot, Vegetation & 188 & 0.85 & 3.47 \\
+            5 & Occluded, Furn.\ Leg, Furn.\ Back, Furn.\ Seat & 731 & 0.52 & 3.12 \\
+            6 & Snout, Leg, Foot/Shoe & 460 & 0.68 & 2.41 \\
+            7 & Hair, Face, Arm, Skin & 259 & 0.51 & 2.22 \\
+            8 & Head, Hair, Face, Skin & 2174 & 0.51 & 2.22 \\
+            9 & Vert Cyl, Label, Glass & 298 & 0.67 & 2.73 \\
+            10 & Tail, Beak, Feather & 270 & 0.77 & 3.00 \\
+            11 & Occluded, Head, Hair, Torso, Skin & 1378 & 0.40 & 2.14 \\
+            12 & Horiz Cyl, Wing, Propeller, Jet engine & 277 & 0.55 & 3.12 \\
+            13 & Tail, Mouth, Hand & 137 & 0.69 & 2.77 \\
+            14 & 3D Boxy, Window, Row Wind, Wood & 243 & 0.51 & 2.17 \\
+            15 & Screen, Plastic, Glass & 244 & 0.71 & 2.73 \\
+            16 & Window, Row Wind, Door, Shiny & 93 & 0.52 & 2.17 \\
+            17 & Horiz Cyl, Handlebars, Text, Plastic, Cloth & 551 & 0.40 & 2.33 \\
+            18 & 2D Boxy, 3D Boxy, Occluded, Metal, Wood & 189 & 0.40 & 2.03 \\
+            19 & Head, Hair, Arm & 1022 & 0.67 & 2.27 \\
+            20 & Nose, Mouth, Face & 135 & 0.83 & 2.87 \\
+            21 & Vert Cyl, Glass, Shiny & 172 & 0.71 & 2.27 \\
+            22 & Row Wind, Door, Headlight, Side mirror & 73 & 0.54 & 2.27 \\
+            23 & Tail, Leg, Furry & 159 & 0.74 & 2.27 \\
+            24 & Wheel, Door, Headlight, Shiny & 600 & 0.51 & 2.10 \\
+            25 & 2D Boxy, 3D Boxy, Horiz Cyl, Occluded, Wheel, Door, Metal, Plastic, Wood, Shiny & 132 & 0.20 & 2.09 \\
+            26 & Wheel, Headlight, Side mirror, Handlebars & 235 & 0.50 & 2.40 \\
+            27 & Horiz Cyl, Window, Door, Headlight & 26 & 0.50 & 2.10 \\
+            28 & Snout, Eye, Foot/Shoe & 347 & 0.67 & 2.41 \\
+            29 & Ear, Eye, Torso, Leg, Foot/Shoe & 238 & 0.40 & 2.25 \\
+            30 & 2D Boxy, 3D Boxy, Mast, Metal, Wood & 27 & 0.41 & 2.31 \\
+            31 & Ear, Eye, Foot/Shoe & 279 & 0.69 & 2.27 \\
+            \bottomrule
+        \end{tabular}
+    }
+\end{table}
+
 \section{Dataset Statistics}
 
+This section summarizes the key statistics of the two datasets used in our evaluation.
+
 \subsection{AwA2 Dataset}
+
+Table~\ref{tab:awa2_stats} summarizes the AwA2 dataset used for evaluation.
 
 \begin{table}[H]
 \centering
@@ -170,13 +335,15 @@ Training split (80\%) & 29857 \\
 Number of classes & 50 \\
 Number of attributes & 85 \\
 Attribute type & Continuous, per-class \\
-Attribute density & $\approx 0.50$ \\
+Attribute density & $\approx 0.217$ \\
 Image source & Flickr, Wikipedia \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \subsection{aPY Dataset}
+
+Table~\ref{tab:apy_stats} summarizes the aPY dataset and its 15-class subset.
 
 \begin{table}[H]
 \centering
@@ -193,7 +360,7 @@ Number of classes (DDC subset) & 15 \\
 DDC subset training instances & 5189 \\
 Number of attributes & 64 \\
 Attribute type & Binary, per-instance \\
-Attribute density & $\approx 0.087$ \\
+Attribute density & $\approx 0.111$ \\
 Annotation type & Per-object bounding box crop \\
 \bottomrule
 \end{tabular}
@@ -202,6 +369,8 @@ Annotation type & Per-object bounding box crop \\
 The 15 classes in the DDC subset are: dog, cat, monkey, zebra, bird, bag, mug, bottle, chair, car, building, bicycle, boat, sofa, and dining table. These were identified from the ontology visualization in DDC's Figure~3.
 
 \section{DECCS Ensemble Details}
+
+The DECCS consensus step combines four base clustering algorithms; Table~\ref{tab:ensemble_details} lists each algorithm and its configuration.
 
 \begin{table}[H]
 \centering
@@ -213,7 +382,7 @@ The 15 classes in the DDC subset are: dog, cat, monkey, zebra, bird, bag, mug, b
 \midrule
 K-means & scikit-learn & Elkan algorithm, $n\_init = \text{auto}$, $max\_iter = 300$ \\
 Spectral & scikit-learn & Nearest-neighbor affinity ($k = 15$, scikit default), arpack solver \\
-GMM & scikit-learn & Full covariance, $reg\_covar = 10^{-3}$, PCA to 256 dims \\
+GMM & scikit-learn & Full covariance, $reg\_covar = 10^{-3}$, PCA to $\min(256, \dim, \max(64, N/2K))$ dims \\
 Agglomerative & scikit-learn & Ward linkage \\
 \midrule
 Consensus & scikit-learn & Sparse co-association matrix via $k$-NN ($k = 20$), final Spectral Clustering \\
@@ -225,7 +394,7 @@ Consensus & scikit-learn & Sparse co-association matrix via $k$-NN ($k = 20$), f
 
 \section{Implementation Details}
 
-The complete implementation is available in the project repository. Table~\ref{tab:code_files} lists the main source files and their purposes.
+Table~\ref{tab:code_files} lists the main source files and their purposes.
 
 \begin{table}[H]
 \centering

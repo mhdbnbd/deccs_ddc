@@ -3,50 +3,44 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
 The style file: plainnat.bst
 Database file #1: bibliography.bib
-Warning--empty booktitle in Fred2005
-Warning--can't use both volume and number fields in Fred2005
-Warning--can't use both volume and number fields in Li2021
-Warning--empty journal in Mitchell2011
-Warning--can't use both volume and number fields in Xian2018
-You've used 43 entries,
+You've used 33 entries,
             2773 wiz_defined-function locations,
-            875 strings with 12893 characters,
-and the built_in function-call counts, 25936 in all, are:
-= -- 2286
-> -- 1713
-< -- 39
-+ -- 574
-- -- 531
-* -- 2120
-:= -- 3799
-add.period$ -- 139
-call.type$ -- 43
-change.case$ -- 305
-chr.to.int$ -- 43
-cite$ -- 91
-duplicate$ -- 1161
-empty$ -- 1956
-format.name$ -- 591
-if$ -- 5559
+            821 strings with 11116 characters,
+and the built_in function-call counts, 19176 in all, are:
+= -- 1728
+> -- 1198
+< -- 21
++ -- 402
+- -- 369
+* -- 1573
+:= -- 2816
+add.period$ -- 109
+call.type$ -- 33
+change.case$ -- 222
+chr.to.int$ -- 33
+cite$ -- 66
+duplicate$ -- 858
+empty$ -- 1483
+format.name$ -- 412
+if$ -- 4103
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 43
-newline$ -- 232
-num.names$ -- 172
-pop$ -- 650
+missing$ -- 32
+newline$ -- 182
+num.names$ -- 132
+pop$ -- 459
 preamble$ -- 1
-purify$ -- 262
+purify$ -- 189
 quote$ -- 0
-skip$ -- 1012
+skip$ -- 725
 stack$ -- 0
-substring$ -- 1043
-swap$ -- 278
-text.length$ -- 26
+substring$ -- 856
+swap$ -- 183
+text.length$ -- 12
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 473
-warning$ -- 5
-while$ -- 205
+type$ -- 363
+warning$ -- 0
+while$ -- 163
 width$ -- 0
-write$ -- 582
-(There were 5 warnings)
+write$ -- 451
