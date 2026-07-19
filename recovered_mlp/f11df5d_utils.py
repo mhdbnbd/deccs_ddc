@@ -269,7 +269,7 @@ def evaluate_clustering(embeddings, true_labels, k=None, mode_desc=""):
         "clusters": final_labels.tolist()
     }
 
-def get_base_clusterings(embeddings_np, n_clusters=10, seed=42):
+def get_base_clusterings(embeddings_np, n_clusters=10):
     """
     Build an ensemble of classical clusterers for DECCS consensus.
 
@@ -284,47 +284,38 @@ def get_base_clusterings(embeddings_np, n_clusters=10, seed=42):
     # --- Normalize embeddings ---
     X = StandardScaler().fit_transform(embeddings_np)
 
-    # --- PCA for GMM: full covariance on 2048-dim is infeasible ---
-    n_gmm_dim = min(256, X.shape[1], max(64, X.shape[0] // (n_clusters * 2)))
-    if X.shape[1] > n_gmm_dim:
-        from sklearn.decomposition import PCA as PCA_sk
-        X_gmm = PCA_sk(n_components=n_gmm_dim,  random_state=seed).fit_transform(X)
-        logging.info(f"[DECCS] GMM uses PCA-reduced features: {X.shape[1]} → {n_gmm_dim}")
-    else:
-        X_gmm = X
-
     # --- Prepare ensemble containers ---
     base_labels = []
     classical_models = {
-        "KMeans": (KMeans(
+        "KMeans": KMeans(
             n_clusters=n_clusters,
             n_init='auto',
             max_iter=300,
             algorithm="elkan",
-             random_state=seed
-        ), X),
-        "Spectral": (SpectralClustering(
+            random_state=42
+        ),
+        "Spectral": SpectralClustering(
             n_clusters=n_clusters,
             affinity="nearest_neighbors",
             n_neighbors=15,
             assign_labels="kmeans",
             eigen_solver="arpack",
-             random_state=seed
-        ), X),
-        "GMM": (GaussianMixture(n_components=n_clusters,  random_state=seed,
-                                covariance_type="full", reg_covar=1e-3, max_iter=300), X_gmm),
-        "Agglomerative": (AgglomerativeClustering(
+            random_state=42
+        ),
+        "GMM": GaussianMixture(n_components=n_clusters, random_state=42,
+                               covariance_type="full", reg_covar=1e-4, max_iter=200),
+        "Agglomerative": AgglomerativeClustering(
             n_clusters=n_clusters,
             linkage="ward",
             compute_full_tree=False
-        ), X),
+        ),
     }
 
     # --- Run classical clustering ensemble ---
-    for name, (algo, data) in classical_models.items():
+    for name, algo in classical_models.items():
         start = time.time()
         try:
-            labels = algo.fit_predict(data)
+            labels = algo.fit_predict(X)
             base_labels.append(labels)
             logging.info(f"[DECCS] Classical base clustering '{name}' completed.")
             logging.info(f"Base clustering '{name}' completed in {time.time() - start:.2f}s")
@@ -415,8 +406,9 @@ def describe_clusters(embeddings, tags, n_clusters=None):
 
 def load_attribute_names(predicates_path="data/AwA2-data/Animals_with_Attributes2/predicates.txt"):
     """
-    Load attribute names from predicates.txt.
-    Handles both AwA2 (single-word names) and aPY (multi-word names like 'Jet engine').
+    Load AwA2 attribute names from predicates.txt.
+    Returns:
+        List[str]: Ordered list of 85 attribute names.
     """
     if not os.path.exists(predicates_path):
         raise FileNotFoundError(f"Predicates file not found at {predicates_path}")
@@ -424,16 +416,9 @@ def load_attribute_names(predicates_path="data/AwA2-data/Animals_with_Attributes
     attribute_names = []
     with open(predicates_path, "r") as f:
         for line in f:
-            line = line.strip()
-            if not line:
-                continue
-            # Format: "index\tname" or "index name"
-            if '\t' in line:
-                parts = line.split('\t', 1)
-                attribute_names.append(parts[1] if len(parts) > 1 else parts[0])
-            else:
-                parts = line.split(None, 1)
-                attribute_names.append(parts[1] if len(parts) > 1 else parts[0])
+            parts = line.strip().split()
+            if len(parts) == 2:
+                attribute_names.append(parts[1])
     return attribute_names
 
 
@@ -465,7 +450,7 @@ def summarize_clusters_with_attributes(
 
     for cluster_id, desc in enumerate(cluster_descriptions):
         top_attrs = np.argsort(desc)[-top_k:][::-1]
-        readable_attrs = [attribute_names[j] if j < len(attribute_names) else f"attr_{j}" for j in top_attrs]
+        readable_attrs = [attribute_names[j] for j in top_attrs]
 
         # Get sample images from this cluster
         indices = np.where(cluster_labels == cluster_id)[0]

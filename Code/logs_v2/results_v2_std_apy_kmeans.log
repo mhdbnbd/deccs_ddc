@@ -1,0 +1,77 @@
+2026-07-19 02:28:24,440 - INFO - GPU: NVIDIA GeForce RTX 4090
+2026-07-19 02:28:24,462 - INFO - Predicate matrix: 32 classes × 64 attributes
+2026-07-19 02:28:24,479 - INFO - Train split: 12271 samples, 32 classes, 64 attributes
+2026-07-19 02:28:24,480 - INFO - === Attribute Pascal & Yahoo | Mode: KMEANS | K=32 | N=12271 | Runs=10 ===
+2026-07-19 02:28:24,481 - INFO - Loaded cached features from cache/resnet101_apy_full.npz
+2026-07-19 02:28:24,959 - INFO - Features: (12271, 2048) (0.5s)
+2026-07-19 02:28:24,959 - INFO - --- Run 1/10 (seed=42) ---
+2026-07-19 02:28:25,297 - INFO - Features z-scored before clustering
+2026-07-19 02:28:47,285 - INFO -   NMI=0.5070  ACC=0.3617  ARI=0.1373  Sil=-0.0315
+2026-07-19 02:28:47,286 - INFO - --- Run 2/10 (seed=43) ---
+2026-07-19 02:28:47,629 - INFO - Features z-scored before clustering
+2026-07-19 02:29:08,604 - INFO -   NMI=0.5074  ACC=0.3842  ARI=0.1324  Sil=-0.0330
+2026-07-19 02:29:08,605 - INFO - --- Run 3/10 (seed=44) ---
+2026-07-19 02:29:08,945 - INFO - Features z-scored before clustering
+2026-07-19 02:29:31,505 - INFO -   NMI=0.5305  ACC=0.3908  ARI=0.1542  Sil=-0.0295
+2026-07-19 02:29:31,505 - INFO - --- Run 4/10 (seed=45) ---
+2026-07-19 02:29:31,838 - INFO - Features z-scored before clustering
+2026-07-19 02:29:53,657 - INFO -   NMI=0.5242  ACC=0.3942  ARI=0.1517  Sil=-0.0312
+2026-07-19 02:29:53,658 - INFO - --- Run 5/10 (seed=46) ---
+2026-07-19 02:29:53,994 - INFO - Features z-scored before clustering
+2026-07-19 02:30:15,179 - INFO -   NMI=0.5394  ACC=0.4078  ARI=0.1645  Sil=-0.0292
+2026-07-19 02:30:15,179 - INFO - --- Run 6/10 (seed=47) ---
+2026-07-19 02:30:15,511 - INFO - Features z-scored before clustering
+2026-07-19 02:30:35,517 - INFO -   NMI=0.5181  ACC=0.3827  ARI=0.1515  Sil=-0.0288
+2026-07-19 02:30:35,517 - INFO - --- Run 7/10 (seed=48) ---
+2026-07-19 02:30:35,849 - INFO - Features z-scored before clustering
+2026-07-19 02:30:57,412 - INFO -   NMI=0.5028  ACC=0.3829  ARI=0.1398  Sil=-0.0327
+2026-07-19 02:30:57,413 - INFO - --- Run 8/10 (seed=49) ---
+2026-07-19 02:30:57,755 - INFO - Features z-scored before clustering
+2026-07-19 02:31:18,241 - INFO -   NMI=0.5451  ACC=0.4268  ARI=0.1757  Sil=-0.0333
+2026-07-19 02:31:18,241 - INFO - --- Run 9/10 (seed=50) ---
+2026-07-19 02:31:18,573 - INFO - Features z-scored before clustering
+2026-07-19 02:31:39,746 - INFO -   NMI=0.5213  ACC=0.3874  ARI=0.1445  Sil=-0.0322
+2026-07-19 02:31:39,746 - INFO - --- Run 10/10 (seed=51) ---
+2026-07-19 02:31:40,088 - INFO - Features z-scored before clustering
+2026-07-19 02:32:01,345 - INFO -   NMI=0.5081  ACC=0.3851  ARI=0.1397  Sil=-0.0327
+2026-07-19 02:32:01,345 - INFO - === Aggregated (10 runs) ===
+2026-07-19 02:32:01,345 - INFO -   NMI: 0.5204 ± 0.0138
+2026-07-19 02:32:01,346 - INFO -   ACC: 0.3904 ± 0.0163
+2026-07-19 02:32:01,346 - INFO -   ARI: 0.1491 ± 0.0126
+2026-07-19 02:32:01,350 - INFO - Cluster 00: top attributes -> Occluded, Cloth, Head, Skin, Torso
+2026-07-19 02:32:01,350 - INFO - Cluster 01: top attributes -> Occluded, Furn. Back, Cloth, Wood, 3D Boxy
+2026-07-19 02:32:01,350 - INFO - Cluster 02: top attributes -> Cloth, Head, Skin, Occluded, Torso
+2026-07-19 02:32:01,350 - INFO - Cluster 03: top attributes -> Metal, Plastic, 3D Boxy, Handlebars, Text
+2026-07-19 02:32:01,350 - INFO - Cluster 04: top attributes -> Cloth, Head, Skin, Torso, Arm
+2026-07-19 02:32:01,351 - INFO - Cluster 05: top attributes -> Head, Ear, Furry, Snout, Eye
+2026-07-19 02:32:01,351 - INFO - Cluster 06: top attributes -> Cloth, Head, Skin, Torso, Arm
+2026-07-19 02:32:01,351 - INFO - Cluster 07: top attributes -> Cloth, Head, Skin, Torso, Arm
+2026-07-19 02:32:01,351 - INFO - Cluster 08: top attributes -> Head, Ear, Torso, Eye, Leg
+2026-07-19 02:32:01,351 - INFO - Cluster 09: top attributes -> Head, Torso, Ear, Leg, Furry
+2026-07-19 02:32:01,351 - INFO - Cluster 10: top attributes -> Metal, Wheel, Occluded, Handlebars, Shiny
+2026-07-19 02:32:01,351 - INFO - Cluster 11: top attributes -> Occluded, Head, Torso, Eye, Leg
+2026-07-19 02:32:01,352 - INFO - Cluster 12: top attributes -> Metal, Occluded, 3D Boxy, Window, Shiny
+2026-07-19 02:32:01,352 - INFO - Cluster 13: top attributes -> Vert Cyl, Shiny, Glass, 3D Boxy, Round
+2026-07-19 02:32:01,352 - INFO - Cluster 14: top attributes -> Occluded, Furn. Back, 3D Boxy, Furn. Seat, 2D Boxy
+2026-07-19 02:32:01,352 - INFO - Cluster 15: top attributes -> Head, Torso, Leg, Eye, Ear
+2026-07-19 02:32:01,352 - INFO - Cluster 16: top attributes -> Row Wind, Glass, 3D Boxy, Metal, Occluded
+2026-07-19 02:32:01,352 - INFO - Cluster 17: top attributes -> Rein, Cloth, 3D Boxy, Leather, Metal
+2026-07-19 02:32:01,352 - INFO - Cluster 18: top attributes -> Head, Ear, Furry, Torso, Eye
+2026-07-19 02:32:01,352 - INFO - Cluster 19: top attributes -> Occluded, Cloth, Head, Skin, Torso
+2026-07-19 02:32:01,352 - INFO - Cluster 20: top attributes -> Metal, Window, 3D Boxy, Wheel, Occluded
+2026-07-19 02:32:01,353 - INFO - Cluster 21: top attributes -> Feather, Head, Torso, Beak, Tail
+2026-07-19 02:32:01,353 - INFO - Cluster 22: top attributes -> Head, Face, Torso, Arm, Eye
+2026-07-19 02:32:01,353 - INFO - Cluster 23: top attributes -> Head, Ear, Torso, Snout, Leg
+2026-07-19 02:32:01,353 - INFO - Cluster 24: top attributes -> Metal, 3D Boxy, Window, Row Wind, Wheel
+2026-07-19 02:32:01,353 - INFO - Cluster 25: top attributes -> Cloth, Head, Occluded, Skin, Torso
+2026-07-19 02:32:01,353 - INFO - Cluster 26: top attributes -> Cloth, Head, Skin, Occluded, Torso
+2026-07-19 02:32:01,353 - INFO - Cluster 27: top attributes -> Head, Torso, Eye, Furry, Ear
+2026-07-19 02:32:01,353 - INFO - Cluster 28: top attributes -> Cloth, Head, Skin, Torso, Arm
+2026-07-19 02:32:01,353 - INFO - Cluster 29: top attributes -> Cloth, Head, Skin, Torso, Arm
+2026-07-19 02:32:01,354 - INFO - Cluster 30: top attributes -> Head, Torso, Cloth, Occluded, Skin
+2026-07-19 02:32:01,354 - INFO - Cluster 31: top attributes -> Vert Cyl, Label, Glass, Shiny, Occluded
+2026-07-19 02:32:22,469 - INFO - t-SNE plot saved to results_v2_std/apy/kmeans/tsne.png
+2026-07-19 02:32:23,483 - INFO - PCA plot saved to results_v2_std/apy/kmeans/pca.png
+2026-07-19 02:32:23,695 - INFO - Cluster examples saved to results_v2_std/apy/kmeans/cluster_samples
+2026-07-19 02:32:23,701 - INFO - Results saved to results_v2_std/apy/kmeans/
+2026-07-19 02:32:23,701 - INFO - Total time: 239.2s

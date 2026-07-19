@@ -1,0 +1,745 @@
+2026-07-19 03:24:52,451 - INFO - GPU: NVIDIA GeForce RTX 4090
+2026-07-19 03:24:52,502 - INFO - Predicate matrix: 50 classes × 85 attributes
+2026-07-19 03:24:52,548 - INFO - Train split: 29857 samples, 50 classes, 85 attributes
+2026-07-19 03:24:52,550 - INFO - === Animals with Attributes 2 | Mode: DDECCS | K=50 | N=29857 | Runs=10 ===
+2026-07-19 03:24:52,551 - INFO - Loaded cached features from cache/resnet101_awa2_full.npz
+2026-07-19 03:24:53,557 - INFO - Features: (29857, 2048) (1.0s)
+2026-07-19 03:24:53,557 - INFO - --- Run 1/10 (seed=42) ---
+2026-07-19 03:24:56,245 - INFO - [DECCS] GMM uses PCA-reduced features: 2048 → 256
+2026-07-19 03:25:04,212 - INFO - [DECCS] Classical base clustering 'KMeans' completed.
+2026-07-19 03:25:04,212 - INFO - Base clustering 'KMeans' completed in 7.97s
+2026-07-19 03:32:34,554 - INFO - [DECCS] Classical base clustering 'Spectral' completed.
+2026-07-19 03:32:34,554 - INFO - Base clustering 'Spectral' completed in 450.34s
+2026-07-19 03:33:34,189 - INFO - [DECCS] Classical base clustering 'GMM' completed.
+2026-07-19 03:33:34,189 - INFO - Base clustering 'GMM' completed in 59.63s
+2026-07-19 03:43:42,684 - INFO - [DECCS] Classical base clustering 'Agglomerative' completed.
+2026-07-19 03:43:42,685 - INFO - Base clustering 'Agglomerative' completed in 608.50s
+2026-07-19 03:43:42,685 - INFO - [DECCS] 4 base clusterings successful. Shape=(4, 29857)
+/mnt/data/a11850068dm/deccs_ddc/.venv/lib/python3.10/site-packages/sklearn/manifold/_spectral_embedding.py:328: UserWarning: Graph is not fully connected, spectral embedding may not work as expected.
+  warnings.warn(
+2026-07-19 03:46:26,596 - INFO - [ILP] Tag density=0.217 → alpha=3
+2026-07-19 03:46:26,622 - INFO - [ILP] 50 active clusters, 85 attributes, alpha=3
+2026-07-19 03:46:59,732 - INFO - [ILP] Solved: beta=3, 68/85 tags selected, 4.4 tags/cluster
+2026-07-19 03:46:59,733 - INFO -   C 0 (n=  438): black, white, spots, lean                          TC=0.76 ITF=2.54
+2026-07-19 03:46:59,734 - INFO -   C 1 (n= 2412): hooves, horns, vegetation, grazer, timid           TC=0.62 ITF=2.77
+2026-07-19 03:46:59,735 - INFO -   C 2 (n=  689): black, patches, slow, oldworld                     TC=0.76 ITF=3.05
+2026-07-19 03:46:59,735 - INFO -   C 3 (n= 1286): furry, small, quadrapedal, vegetation, newworld    TC=0.60 ITF=2.44
+2026-07-19 03:46:59,736 - INFO -   C 4 (n=  947): spots, longleg, longneck, grazer                   TC=0.77 ITF=2.89
+2026-07-19 03:46:59,736 - INFO -   C 5 (n=  956): white, hooves, chewteeth, group                    TC=0.76 ITF=2.87
+2026-07-19 03:46:59,737 - INFO -   C 6 (n= 1717): tail, strong, vegetation, grazer, domestic         TC=0.61 ITF=2.44
+2026-07-19 03:46:59,737 - INFO -   C 7 (n=  730): meatteeth, walks, quadrapedal, meat                TC=0.76 ITF=2.53
+2026-07-19 03:46:59,737 - INFO -   C 8 (n=  888): flippers, swims, arctic, ocean                     TC=0.77 ITF=2.84
+2026-07-19 03:46:59,738 - INFO -   C 9 (n= 1273): hooves, longleg, fast, fields                      TC=0.76 ITF=2.47
+2026-07-19 03:46:59,739 - INFO -   C10 (n=  986): paws, claws, walks, newworld, oldworld             TC=0.61 ITF=2.54
+2026-07-19 03:46:59,739 - INFO -   C11 (n= 1166): white, quadrapedal, fields, group                  TC=0.75 ITF=2.47
+2026-07-19 03:46:59,739 - INFO -   C12 (n=  396): black, stripes, active, nocturnal, forest          TC=0.62 ITF=2.82
+2026-07-19 03:46:59,740 - INFO -   C13 (n=  383): small, walks, ground, domestic                     TC=0.76 ITF=2.53
+2026-07-19 03:46:59,740 - INFO -   C14 (n=  832): meatteeth, meat, hunter, fierce                    TC=0.76 ITF=2.53
+2026-07-19 03:46:59,741 - INFO -   C15 (n=  497): white, paws, newworld, ground, domestic            TC=0.61 ITF=2.48
+2026-07-19 03:46:59,741 - INFO -   C16 (n=   24): paws, fast, active, solitary, domestic             TC=0.61 ITF=2.58
+2026-07-19 03:46:59,742 - INFO -   C17 (n=  703): orange, stripes, claws, muscle                     TC=0.80 ITF=3.09
+2026-07-19 03:46:59,742 - INFO -   C18 (n=  538): gray, hairless, toughskin, bulbous, horns          TC=0.60 ITF=2.64
+2026-07-19 03:46:59,743 - INFO -   C19 (n=  918): gray, tail, forager, tree                          TC=0.76 ITF=2.70
+2026-07-19 03:46:59,743 - INFO -   C20 (n=  663): lean, flippers, swims, fish, water                 TC=0.62 ITF=2.60
+2026-07-19 03:46:59,743 - INFO -   C21 (n=  571): hands, bipedal, jungle, group                      TC=0.77 ITF=2.87
+2026-07-19 03:46:59,744 - INFO -   C22 (n=  560): gray, toughskin, bulbous, slow, inactive           TC=0.65 ITF=3.00
+2026-07-19 03:46:59,744 - INFO -   C23 (n=  257): hands, longleg, agility, jungle, tree              TC=0.61 ITF=2.66
+2026-07-19 03:46:59,745 - INFO -   C24 (n=  516): big, bulbous, hooves, smelly, vegetation, newworld TC=0.51 ITF=2.61
+2026-07-19 03:46:59,745 - INFO -   C25 (n=  147): black, stripes, smelly, fields                     TC=0.81 ITF=2.72
+2026-07-19 03:46:59,746 - INFO -   C26 (n=  700): strong, fish, arctic, fierce                       TC=0.76 ITF=2.77
+2026-07-19 03:46:59,746 - INFO -   C27 (n=  652): claws, strong, hibernate, forest                   TC=0.77 ITF=2.61
+2026-07-19 03:46:59,747 - INFO -   C28 (n=  804): hairless, flippers, ocean, water                   TC=0.76 ITF=2.60
+2026-07-19 03:46:59,747 - INFO -   C29 (n=  710): plankton, ocean, water, smart                      TC=0.75 ITF=2.94
+2026-07-19 03:46:59,747 - INFO -   C30 (n=  891): furry, hops, vegetation, ground                    TC=0.76 ITF=2.82
+2026-07-19 03:46:59,748 - INFO -   C31 (n=  414): orange, agility, stalker, forest, smart            TC=0.60 ITF=2.54
+2026-07-19 03:46:59,748 - INFO -   C32 (n=  484): active, meat, stalker, fierce                      TC=0.75 ITF=2.53
+2026-07-19 03:46:59,749 - INFO -   C33 (n=  514): gray, toughskin, tusks, oldworld                   TC=0.78 ITF=2.70
+2026-07-19 03:46:59,749 - INFO -   C34 (n=  238): hairless, flippers, swims, fish                    TC=0.76 ITF=2.67
+2026-07-19 03:46:59,750 - INFO -   C35 (n=  686): furry, bipedal, oldworld, jungle                   TC=0.75 ITF=2.70
+2026-07-19 03:46:59,750 - INFO -   C36 (n=  494): meatteeth, fast, quadrapedal, hunter               TC=0.75 ITF=2.53
+2026-07-19 03:46:59,750 - INFO -   C37 (n=   34): tail, active, agility, tree                        TC=0.76 ITF=2.53
+2026-07-19 03:46:59,751 - INFO -   C38 (n=  178): paws, walks, meat, newworld, ground                TC=0.60 ITF=2.48
+2026-07-19 03:46:59,751 - INFO -   C39 (n=  364): hairless, toughskin, big, tusks                    TC=0.75 ITF=2.70
+2026-07-19 03:46:59,752 - INFO -   C40 (n=  141): lean, fast, stalker, jungle                        TC=0.77 ITF=2.47
+2026-07-19 03:46:59,752 - INFO -   C41 (n=  169): brown, small, lean, forest, fields, fierce         TC=0.51 ITF=2.41
+2026-07-19 03:46:59,752 - INFO -   C42 (n=   39): orange, hunter, forest, smart, solitary            TC=0.60 ITF=2.60
+2026-07-19 03:46:59,753 - INFO -   C43 (n=   57): small, buckteeth, hibernate, forager, tree         TC=0.60 ITF=2.86
+2026-07-19 03:46:59,753 - INFO -   C44 (n=  428): spots, lean, agility, stalker                      TC=0.76 ITF=2.54
+2026-07-19 03:46:59,754 - INFO -   C45 (n=  159): brown, tail, buckteeth, water                      TC=0.77 ITF=2.70
+2026-07-19 03:46:59,754 - INFO -   C46 (n=   46): brown, meatteeth, hunter, smart, solitary          TC=0.60 ITF=2.58
+2026-07-19 03:46:59,754 - INFO -   C47 (n=   33): furry, big, strong, hibernate                      TC=0.76 ITF=2.60
+2026-07-19 03:46:59,755 - INFO -   C48 (n= 1090): brown, big, grazer, plains, group                  TC=0.60 ITF=2.62
+2026-07-19 03:46:59,755 - INFO -   C49 (n=   39): longleg, horns, grazer, plains, fields             TC=0.61 ITF=2.63
+2026-07-19 03:46:59,756 - INFO -   Average TC=0.6980, Average ITF=2.6557
+2026-07-19 03:47:01,658 - INFO -   NMI=0.8712  ACC=0.8069  ARI=0.7362  Sil=0.1555  TC=0.6980  ITF=2.6556
+2026-07-19 03:47:01,658 - INFO - --- Run 2/10 (seed=43) ---
+2026-07-19 03:47:04,314 - INFO - [DECCS] GMM uses PCA-reduced features: 2048 → 256
+2026-07-19 03:47:13,441 - INFO - [DECCS] Classical base clustering 'KMeans' completed.
+2026-07-19 03:47:13,441 - INFO - Base clustering 'KMeans' completed in 9.13s
+2026-07-19 03:54:44,385 - INFO - [DECCS] Classical base clustering 'Spectral' completed.
+2026-07-19 03:54:44,385 - INFO - Base clustering 'Spectral' completed in 450.94s
+2026-07-19 03:55:41,475 - INFO - [DECCS] Classical base clustering 'GMM' completed.
+2026-07-19 03:55:41,475 - INFO - Base clustering 'GMM' completed in 57.09s
+2026-07-19 04:06:07,243 - INFO - [DECCS] Classical base clustering 'Agglomerative' completed.
+2026-07-19 04:06:07,243 - INFO - Base clustering 'Agglomerative' completed in 625.77s
+2026-07-19 04:06:07,243 - INFO - [DECCS] 4 base clusterings successful. Shape=(4, 29857)
+/mnt/data/a11850068dm/deccs_ddc/.venv/lib/python3.10/site-packages/sklearn/manifold/_spectral_embedding.py:328: UserWarning: Graph is not fully connected, spectral embedding may not work as expected.
+  warnings.warn(
+2026-07-19 04:08:53,230 - INFO - [ILP] Tag density=0.217 → alpha=3
+2026-07-19 04:08:53,241 - INFO - [ILP] 50 active clusters, 85 attributes, alpha=3
+2026-07-19 04:09:35,011 - INFO - [ILP] Solved: beta=3, 68/85 tags selected, 4.4 tags/cluster
+2026-07-19 04:09:35,012 - INFO -   C 0 (n=  719): bulbous, swims, plankton, ocean                    TC=0.76 ITF=3.02
+2026-07-19 04:09:35,012 - INFO -   C 1 (n=  689): black, patches, chewteeth, oldworld                TC=0.75 ITF=3.12
+2026-07-19 04:09:35,013 - INFO -   C 2 (n= 1091): big, vegetation, grazer, newworld, plains          TC=0.61 ITF=2.58
+2026-07-19 04:09:35,013 - INFO -   C 3 (n=  891): furry, hops, vegetation, newworld                  TC=0.75 ITF=2.82
+2026-07-19 04:09:35,014 - INFO -   C 4 (n=  918): gray, furry, small, forager                        TC=0.75 ITF=2.53
+2026-07-19 04:09:35,015 - INFO -   C 5 (n= 2415): horns, agility, vegetation, grazer, timid          TC=0.60 ITF=2.82
+2026-07-19 04:09:35,015 - INFO -   C 6 (n=  953): lean, longleg, longneck, grazer                    TC=0.75 ITF=2.89
+2026-07-19 04:09:35,015 - INFO -   C 7 (n=  888): flippers, swims, fish, water                       TC=0.75 ITF=2.60
+2026-07-19 04:09:35,016 - INFO -   C 8 (n= 1268): hooves, longleg, fast, fields                      TC=0.76 ITF=2.67
+2026-07-19 04:09:35,017 - INFO -   C 9 (n=  995): paws, claws, walks, smart, domestic                TC=0.62 ITF=2.53
+2026-07-19 04:09:35,017 - INFO -   C10 (n=  656): claws, strong, hibernate, forest                   TC=0.77 ITF=2.60
+2026-07-19 04:09:35,017 - INFO -   C11 (n= 1158): white, walks, vegetation, group                    TC=0.75 ITF=2.54
+2026-07-19 04:09:35,018 - INFO -   C12 (n=  801): hairless, flippers, ocean, water                   TC=0.76 ITF=2.54
+2026-07-19 04:09:35,018 - INFO -   C13 (n=   24): paws, fast, ground, solitary, domestic             TC=0.61 ITF=2.48
+2026-07-19 04:09:35,019 - INFO -   C14 (n= 1265): brown, small, walks, newworld, ground              TC=0.60 ITF=2.44
+2026-07-19 04:09:35,020 - INFO -   C15 (n= 1702): hooves, strong, quadrapedal, grazer, oldworld      TC=0.60 ITF=2.48
+2026-07-19 04:09:35,020 - INFO -   C16 (n=   38): longleg, horns, grazer, plains, group              TC=0.62 ITF=2.69
+2026-07-19 04:09:35,020 - INFO -   C17 (n=  691): furry, bipedal, oldworld, jungle                   TC=0.75 ITF=2.70
+2026-07-19 04:09:35,021 - INFO -   C18 (n=  830): strong, meat, hunter, fierce                       TC=0.76 ITF=2.53
+2026-07-19 04:09:35,021 - INFO -   C19 (n=  668): flippers, swims, fish, water, group                TC=0.60 ITF=2.54
+2026-07-19 04:09:35,022 - INFO -   C20 (n=  698): white, hibernate, fish, arctic                     TC=0.77 ITF=3.02
+2026-07-19 04:09:35,022 - INFO -   C21 (n=  703): orange, claws, muscle, fierce                      TC=0.78 ITF=2.94
+2026-07-19 04:09:35,023 - INFO -   C22 (n=  960): stripes, hooves, chewteeth, group                  TC=0.79 ITF=2.72
+2026-07-19 04:09:35,023 - INFO -   C23 (n=  148): stripes, small, smelly, fields                     TC=0.75 ITF=2.84
+2026-07-19 04:09:35,023 - INFO -   C24 (n=  394): small, paws, ground, domestic                      TC=0.76 ITF=2.47
+2026-07-19 04:09:35,024 - INFO -   C25 (n=  741): meatteeth, walks, quadrapedal, domestic            TC=0.76 ITF=2.53
+2026-07-19 04:09:35,024 - INFO -   C26 (n=  398): stripes, active, nocturnal, forager, forest        TC=0.60 ITF=2.86
+2026-07-19 04:09:35,025 - INFO -   C27 (n=  521): hairless, big, bulbous, hooves, smelly, ground     TC=0.50 ITF=2.57
+2026-07-19 04:09:35,025 - INFO -   C28 (n=  556): hairless, toughskin, bulbous, slow, inactive       TC=0.62 ITF=2.90
+2026-07-19 04:09:35,026 - INFO -   C29 (n=  414): orange, lean, stalker, forest, smart               TC=0.60 ITF=2.58
+2026-07-19 04:09:35,026 - INFO -   C30 (n=  571): hands, bipedal, jungle, tree                       TC=0.79 ITF=2.87
+2026-07-19 04:09:35,027 - INFO -   C31 (n=   34): tail, active, agility, tree                        TC=0.76 ITF=2.53
+2026-07-19 04:09:35,027 - INFO -   C32 (n=  157): brown, tail, buckteeth, water                      TC=0.77 ITF=2.70
+2026-07-19 04:09:35,027 - INFO -   C33 (n=  365): hairless, toughskin, big, tusks                    TC=0.75 ITF=2.82
+2026-07-19 04:09:35,028 - INFO -   C34 (n=  480): active, meat, stalker, fierce                      TC=0.75 ITF=2.53
+2026-07-19 04:09:35,028 - INFO -   C35 (n=  439): black, white, spots, lean                          TC=0.76 ITF=2.74
+2026-07-19 04:09:35,029 - INFO -   C36 (n=  247): hands, agility, jungle, tree, group                TC=0.61 ITF=2.62
+2026-07-19 04:09:35,029 - INFO -   C37 (n=  234): black, flippers, fish, ocean                       TC=0.76 ITF=2.67
+2026-07-19 04:09:35,030 - INFO -   C38 (n=  178): tail, quadrapedal, meat, newworld, ground          TC=0.60 ITF=2.44
+2026-07-19 04:09:35,030 - INFO -   C39 (n=  495): meatteeth, fast, quadrapedal, hunter               TC=0.75 ITF=2.53
+2026-07-19 04:09:35,030 - INFO -   C40 (n=   46): hunter, stalker, forest, smart, solitary           TC=0.61 ITF=2.53
+2026-07-19 04:09:35,031 - INFO -   C41 (n=  498): paws, tail, active, newworld, solitary             TC=0.60 ITF=2.48
+2026-07-19 04:09:35,031 - INFO -   C42 (n=  517): gray, toughskin, slow, oldworld                    TC=0.76 ITF=2.70
+2026-07-19 04:09:35,032 - INFO -   C43 (n=  141): spots, meatteeth, stalker, jungle                  TC=0.75 ITF=2.60
+2026-07-19 04:09:35,032 - INFO -   C44 (n=  428): spots, lean, claws, meat                           TC=0.75 ITF=2.60
+2026-07-19 04:09:35,032 - INFO -   C45 (n=   57): gray, buckteeth, agility, forager, tree            TC=0.61 ITF=2.66
+2026-07-19 04:09:35,033 - INFO -   C46 (n=   38): orange, meatteeth, hunter, smart, solitary         TC=0.61 ITF=2.58
+2026-07-19 04:09:35,033 - INFO -   C47 (n=  175): brown, furry, fast, forager, fields, fierce        TC=0.50 ITF=2.57
+2026-07-19 04:09:35,034 - INFO -   C48 (n=   32): brown, big, strong, hibernate                      TC=0.76 ITF=2.60
+2026-07-19 04:09:35,034 - INFO -   C49 (n=  532): gray, hairless, toughskin, bulbous, horns          TC=0.60 ITF=2.54
+2026-07-19 04:09:35,034 - INFO -   Average TC=0.6951, Average ITF=2.6559
+2026-07-19 04:09:37,124 - INFO -   NMI=0.8710  ACC=0.8070  ARI=0.7365  Sil=0.1563  TC=0.6951  ITF=2.6559
+2026-07-19 04:09:37,124 - INFO - --- Run 3/10 (seed=44) ---
+2026-07-19 04:09:39,969 - INFO - [DECCS] GMM uses PCA-reduced features: 2048 → 256
+2026-07-19 04:09:48,276 - INFO - [DECCS] Classical base clustering 'KMeans' completed.
+2026-07-19 04:09:48,276 - INFO - Base clustering 'KMeans' completed in 8.31s
+2026-07-19 04:17:19,891 - INFO - [DECCS] Classical base clustering 'Spectral' completed.
+2026-07-19 04:17:19,891 - INFO - Base clustering 'Spectral' completed in 451.62s
+2026-07-19 04:18:50,128 - INFO - [DECCS] Classical base clustering 'GMM' completed.
+2026-07-19 04:18:50,129 - INFO - Base clustering 'GMM' completed in 90.24s
+2026-07-19 04:29:24,195 - INFO - [DECCS] Classical base clustering 'Agglomerative' completed.
+2026-07-19 04:29:24,196 - INFO - Base clustering 'Agglomerative' completed in 634.07s
+2026-07-19 04:29:24,196 - INFO - [DECCS] 4 base clusterings successful. Shape=(4, 29857)
+/mnt/data/a11850068dm/deccs_ddc/.venv/lib/python3.10/site-packages/sklearn/manifold/_spectral_embedding.py:328: UserWarning: Graph is not fully connected, spectral embedding may not work as expected.
+  warnings.warn(
+2026-07-19 04:32:25,309 - INFO - [ILP] Tag density=0.217 → alpha=3
+2026-07-19 04:32:25,320 - INFO - [ILP] 50 active clusters, 85 attributes, alpha=3
+2026-07-19 04:33:17,990 - INFO - [ILP] Solved: beta=3, 69/85 tags selected, 4.4 tags/cluster
+2026-07-19 04:33:17,991 - INFO -   C 0 (n=  888): furry, small, hops, vegetation                     TC=0.76 ITF=2.87
+2026-07-19 04:33:17,992 - INFO -   C 1 (n= 2345): hooves, longleg, horns, grazer, timid              TC=0.60 ITF=2.48
+2026-07-19 04:33:17,992 - INFO -   C 2 (n= 1714): tail, strong, vegetation, grazer, ground           TC=0.60 ITF=2.48
+2026-07-19 04:33:17,993 - INFO -   C 3 (n= 1158): white, walks, vegetation, group                    TC=0.75 ITF=2.67
+2026-07-19 04:33:17,993 - INFO -   C 4 (n=  882): flippers, swims, arctic, ocean                     TC=0.77 ITF=2.84
+2026-07-19 04:33:17,994 - INFO -   C 5 (n=  957): stripes, chewteeth, plains, group                  TC=0.75 ITF=3.19
+2026-07-19 04:33:17,994 - INFO -   C 6 (n=  391): black, active, nocturnal, forager, smart           TC=0.60 ITF=2.86
+2026-07-19 04:33:17,995 - INFO -   C 7 (n= 1257): brown, small, walks, newworld, ground              TC=0.60 ITF=2.48
+2026-07-19 04:33:17,995 - INFO -   C 8 (n=  700): white, fish, arctic, fierce                        TC=0.80 ITF=2.84
+2026-07-19 04:33:17,996 - INFO -   C 9 (n=  541): gray, hairless, toughskin, bulbous, horns          TC=0.60 ITF=2.48
+2026-07-19 04:33:17,996 - INFO -   C10 (n=  793): hairless, flippers, ocean, water                   TC=0.76 ITF=2.54
+2026-07-19 04:33:17,997 - INFO -   C11 (n= 1273): hooves, longleg, fast, fields                      TC=0.76 ITF=2.60
+2026-07-19 04:33:17,997 - INFO -   C12 (n=  953): lean, longleg, longneck, grazer                    TC=0.75 ITF=2.82
+2026-07-19 04:33:17,998 - INFO -   C13 (n=  716): toughskin, plankton, ocean, water                  TC=0.76 ITF=2.94
+2026-07-19 04:33:17,998 - INFO -   C14 (n=  238): black, flippers, swims, fish                       TC=0.76 ITF=2.67
+2026-07-19 04:33:17,999 - INFO -   C15 (n=  831): meatteeth, strong, hunter, stalker                 TC=0.76 ITF=2.47
+2026-07-19 04:33:17,999 - INFO -   C16 (n=  650): claws, strong, hibernate, forest                   TC=0.77 ITF=2.70
+2026-07-19 04:33:17,999 - INFO -   C17 (n=  386): small, paws, ground, domestic                      TC=0.76 ITF=2.53
+2026-07-19 04:33:18,000 - INFO -   C18 (n= 1054): paws, claws, agility, newworld, domestic           TC=0.61 ITF=2.48
+2026-07-19 04:33:18,000 - INFO -   C19 (n=   24): furry, paws, active, newworld, timid               TC=0.61 ITF=2.48
+2026-07-19 04:33:18,001 - INFO -   C20 (n=  736): walks, quadrapedal, ground, domestic               TC=0.75 ITF=2.53
+2026-07-19 04:33:18,001 - INFO -   C21 (n=  495): meatteeth, fast, quadrapedal, hunter               TC=0.75 ITF=2.47
+2026-07-19 04:33:18,002 - INFO -   C22 (n=  918): gray, tail, forager, tree                          TC=0.76 ITF=2.60
+2026-07-19 04:33:18,002 - INFO -   C23 (n=  704): orange, stripes, claws, muscle                     TC=0.79 ITF=3.02
+2026-07-19 04:33:18,003 - INFO -   C24 (n=  479): active, meat, stalker, fierce                      TC=0.75 ITF=2.53
+2026-07-19 04:33:18,003 - INFO -   C25 (n=  495): paws, quadrapedal, meat, newworld, solitary        TC=0.60 ITF=2.54
+2026-07-19 04:33:18,004 - INFO -   C26 (n=  687): furry, bipedal, oldworld, jungle                   TC=0.75 ITF=2.77
+2026-07-19 04:33:18,004 - INFO -   C27 (n=  438): black, white, spots, lean                          TC=0.76 ITF=2.67
+2026-07-19 04:33:18,004 - INFO -   C28 (n=  159): brown, tail, buckteeth, water                      TC=0.76 ITF=2.70
+2026-07-19 04:33:18,005 - INFO -   C29 (n=  689): patches, bulbous, oldworld, timid                  TC=0.76 ITF=2.87
+2026-07-19 04:33:18,005 - INFO -   C30 (n=  573): hands, bipedal, jungle, group                      TC=0.77 ITF=3.02
+2026-07-19 04:33:18,006 - INFO -   C31 (n=  414): orange, red, meatteeth, fast, smart                TC=0.60 ITF=2.82
+2026-07-19 04:33:18,006 - INFO -   C32 (n=   57): buckteeth, vegetation, forager, forest, tree       TC=0.61 ITF=2.72
+2026-07-19 04:33:18,007 - INFO -   C33 (n=   37): orange, hunter, stalker, smart, solitary           TC=0.60 ITF=2.64
+2026-07-19 04:33:18,007 - INFO -   C34 (n=  527): hairless, big, bulbous, hooves, smelly, walks      TC=0.50 ITF=2.60
+2026-07-19 04:33:18,008 - INFO -   C35 (n=  140): spots, agility, stalker, fierce                    TC=0.75 ITF=2.60
+2026-07-19 04:33:18,008 - INFO -   C36 (n=  557): hairless, toughskin, bulbous, slow, inactive       TC=0.62 ITF=3.04
+2026-07-19 04:33:18,008 - INFO -   C37 (n=  146): black, stripes, smelly, fields                     TC=0.81 ITF=2.84
+2026-07-19 04:33:18,009 - INFO -   C38 (n=  513): gray, toughskin, big, tusks                        TC=0.78 ITF=2.70
+2026-07-19 04:33:18,009 - INFO -   C39 (n=   34): tail, active, agility, tree                        TC=0.76 ITF=2.53
+2026-07-19 04:33:18,010 - INFO -   C40 (n=  364): gray, hairless, tusks, oldworld                    TC=0.76 ITF=2.64
+2026-07-19 04:33:18,010 - INFO -   C41 (n=  429): spots, lean, claws, meat                           TC=0.75 ITF=2.60
+2026-07-19 04:33:18,011 - INFO -   C42 (n=  165): brown, furry, lean, meatteeth, fields, fierce      TC=0.50 ITF=2.54
+2026-07-19 04:33:18,011 - INFO -   C43 (n=   32): big, strong, hibernate, forest                     TC=0.76 ITF=2.70
+2026-07-19 04:33:18,011 - INFO -   C44 (n=  683): flippers, swims, fish, oldworld, water             TC=0.62 ITF=2.64
+2026-07-19 04:33:18,012 - INFO -   C45 (n=  249): hands, agility, jungle, tree, smart                TC=0.62 ITF=2.72
+2026-07-19 04:33:18,012 - INFO -   C46 (n=   39): hooves, longleg, horns, grazer, timid              TC=0.64 ITF=2.48
+2026-07-19 04:33:18,013 - INFO -   C47 (n=  179): meatteeth, quadrapedal, newworld, solitary, domestic TC=0.60 ITF=2.49
+2026-07-19 04:33:18,013 - INFO -   C48 (n=   46): small, fast, meat, hunter, forest                  TC=0.61 ITF=2.53
+2026-07-19 04:33:18,014 - INFO -   C49 (n= 1122): brown, big, horns, grazer, plains                  TC=0.62 ITF=2.62
+2026-07-19 04:33:18,014 - INFO -   Average TC=0.6981, Average ITF=2.6715
+2026-07-19 04:33:20,037 - INFO -   NMI=0.8721  ACC=0.8076  ARI=0.7404  Sil=0.1618  TC=0.6981  ITF=2.6715
+2026-07-19 04:33:20,037 - INFO - --- Run 4/10 (seed=45) ---
+2026-07-19 04:33:22,770 - INFO - [DECCS] GMM uses PCA-reduced features: 2048 → 256
+2026-07-19 04:33:31,828 - INFO - [DECCS] Classical base clustering 'KMeans' completed.
+2026-07-19 04:33:31,828 - INFO - Base clustering 'KMeans' completed in 9.06s
+2026-07-19 04:41:12,770 - INFO - [DECCS] Classical base clustering 'Spectral' completed.
+2026-07-19 04:41:12,771 - INFO - Base clustering 'Spectral' completed in 460.94s
+2026-07-19 04:42:58,148 - INFO - [DECCS] Classical base clustering 'GMM' completed.
+2026-07-19 04:42:58,148 - INFO - Base clustering 'GMM' completed in 105.38s
+2026-07-19 04:53:37,757 - INFO - [DECCS] Classical base clustering 'Agglomerative' completed.
+2026-07-19 04:53:37,758 - INFO - Base clustering 'Agglomerative' completed in 639.61s
+2026-07-19 04:53:37,758 - INFO - [DECCS] 4 base clusterings successful. Shape=(4, 29857)
+/mnt/data/a11850068dm/deccs_ddc/.venv/lib/python3.10/site-packages/sklearn/manifold/_spectral_embedding.py:328: UserWarning: Graph is not fully connected, spectral embedding may not work as expected.
+  warnings.warn(
+2026-07-19 04:56:40,615 - INFO - [ILP] Tag density=0.217 → alpha=3
+2026-07-19 04:56:40,626 - INFO - [ILP] 50 active clusters, 85 attributes, alpha=3
+2026-07-19 04:57:15,608 - INFO - [ILP] Solved: beta=3, 66/85 tags selected, 4.4 tags/cluster
+2026-07-19 04:57:15,609 - INFO -   C 0 (n=  830): meat, hunter, stalker, fierce                      TC=0.76 ITF=2.53
+2026-07-19 04:57:15,610 - INFO -   C 1 (n=  954): lean, longleg, longneck, grazer                    TC=0.75 ITF=2.87
+2026-07-19 04:57:15,610 - INFO -   C 2 (n= 2380): hooves, horns, agility, grazer, fields             TC=0.60 ITF=2.48
+2026-07-19 04:57:15,611 - INFO -   C 3 (n= 1278): brown, small, quadrapedal, newworld, ground        TC=0.61 ITF=2.48
+2026-07-19 04:57:15,612 - INFO -   C 4 (n= 1702): strong, vegetation, grazer, oldworld, domestic     TC=0.60 ITF=2.53
+2026-07-19 04:57:15,612 - INFO -   C 5 (n=  918): small, chewteeth, hibernate, forager, tree         TC=0.62 ITF=2.78
+2026-07-19 04:57:15,613 - INFO -   C 6 (n=  395): black, active, nocturnal, forager, newworld        TC=0.62 ITF=2.82
+2026-07-19 04:57:15,613 - INFO -   C 7 (n=  988): white, paws, tail, claws, domestic                 TC=0.61 ITF=2.53
+2026-07-19 04:57:15,614 - INFO -   C 8 (n=   24): furry, paws, quadrapedal, domestic                 TC=0.76 ITF=2.53
+2026-07-19 04:57:15,614 - INFO -   C 9 (n=  896): furry, small, hops, vegetation                     TC=0.76 ITF=2.87
+2026-07-19 04:57:15,614 - INFO -   C10 (n=  734): meatteeth, walks, quadrapedal, ground              TC=0.76 ITF=2.53
+2026-07-19 04:57:15,615 - INFO -   C11 (n=  885): flippers, swims, arctic, ocean                     TC=0.77 ITF=2.84
+2026-07-19 04:57:15,615 - INFO -   C12 (n=  545): gray, hairless, toughskin, bulbous, horns          TC=0.60 ITF=2.48
+2026-07-19 04:57:15,616 - INFO -   C13 (n=  567): hands, longleg, jungle, group                      TC=0.76 ITF=2.77
+2026-07-19 04:57:15,616 - INFO -   C14 (n= 1162): white, walks, vegetation, group                    TC=0.75 ITF=2.60
+2026-07-19 04:57:15,617 - INFO -   C15 (n= 1283): hooves, longleg, fast, fields                      TC=0.76 ITF=2.47
+2026-07-19 04:57:15,617 - INFO -   C16 (n=  716): bulbous, plankton, ocean, water                    TC=0.76 ITF=2.89
+2026-07-19 04:57:15,618 - INFO -   C17 (n=  483): active, meat, stalker, fierce                      TC=0.75 ITF=2.53
+2026-07-19 04:57:15,618 - INFO -   C18 (n=  561): gray, hairless, bulbous, slow, muscle              TC=0.61 ITF=2.90
+2026-07-19 04:57:15,619 - INFO -   C19 (n=  438): black, white, spots, lean                          TC=0.76 ITF=2.60
+2026-07-19 04:57:15,619 - INFO -   C20 (n=  665): flippers, buckteeth, swims, fish, water            TC=0.62 ITF=2.70
+2026-07-19 04:57:15,620 - INFO -   C21 (n=  692): black, white, patches, bulbous                     TC=0.76 ITF=2.82
+2026-07-19 04:57:15,620 - INFO -   C22 (n=  956): stripes, chewteeth, plains, group                  TC=0.75 ITF=2.91
+2026-07-19 04:57:15,621 - INFO -   C23 (n=  493): meatteeth, fast, quadrapedal, hunter               TC=0.75 ITF=2.53
+2026-07-19 04:57:15,621 - INFO -   C24 (n=  149): black, stripes, smelly, fields                     TC=0.81 ITF=2.72
+2026-07-19 04:57:15,621 - INFO -   C25 (n= 1098): brown, big, horns, grazer, plains                  TC=0.62 ITF=2.58
+2026-07-19 04:57:15,622 - INFO -   C26 (n=  241): hairless, flippers, swims, fish                    TC=0.76 ITF=2.67
+2026-07-19 04:57:15,622 - INFO -   C27 (n=  510): toughskin, big, tusks, oldworld                    TC=0.79 ITF=2.70
+2026-07-19 04:57:15,623 - INFO -   C28 (n=  699): strong, fish, arctic, fierce                       TC=0.76 ITF=2.77
+2026-07-19 04:57:15,623 - INFO -   C29 (n=  523): toughskin, big, bulbous, hooves, smelly, newworld  TC=0.52 ITF=2.57
+2026-07-19 04:57:15,624 - INFO -   C30 (n=  498): tail, fast, meat, newworld, domestic               TC=0.61 ITF=2.48
+2026-07-19 04:57:15,624 - INFO -   C31 (n=   34): tail, active, agility, tree                        TC=0.76 ITF=2.53
+2026-07-19 04:57:15,625 - INFO -   C32 (n=  654): claws, strong, hibernate, forest                   TC=0.77 ITF=2.60
+2026-07-19 04:57:15,625 - INFO -   C33 (n=  428): spots, agility, meat, jungle                       TC=0.76 ITF=2.60
+2026-07-19 04:57:15,625 - INFO -   C34 (n=  703): orange, stripes, claws, muscle                     TC=0.80 ITF=2.84
+2026-07-19 04:57:15,626 - INFO -   C35 (n=  392): small, paws, walks, ground                         TC=0.76 ITF=2.53
+2026-07-19 04:57:15,626 - INFO -   C36 (n=   39): orange, meatteeth, forest, smart, solitary         TC=0.61 ITF=2.64
+2026-07-19 04:57:15,627 - INFO -   C37 (n=  176): brown, furry, lean, claws, fields, fierce          TC=0.51 ITF=2.49
+2026-07-19 04:57:15,627 - INFO -   C38 (n=  691): furry, bipedal, oldworld, jungle                   TC=0.75 ITF=2.87
+2026-07-19 04:57:15,628 - INFO -   C39 (n=  420): orange, fast, hunter, smart, solitary              TC=0.61 ITF=2.64
+2026-07-19 04:57:15,628 - INFO -   C40 (n=  160): brown, tail, buckteeth, water                      TC=0.77 ITF=2.60
+2026-07-19 04:57:15,629 - INFO -   C41 (n=  365): gray, toughskin, tusks, oldworld                   TC=0.79 ITF=2.70
+2026-07-19 04:57:15,629 - INFO -   C42 (n=   58): gray, buckteeth, vegetation, forager, tree         TC=0.61 ITF=2.64
+2026-07-19 04:57:15,629 - INFO -   C43 (n=   46): hunter, stalker, forest, smart, solitary           TC=0.61 ITF=2.58
+2026-07-19 04:57:15,630 - INFO -   C44 (n=  179): paws, walks, active, newworld, ground              TC=0.61 ITF=2.48
+2026-07-19 04:57:15,630 - INFO -   C45 (n=   32): big, strong, hibernate, forest                     TC=0.76 ITF=2.60
+2026-07-19 04:57:15,631 - INFO -   C46 (n=   38): hooves, longleg, horns, plains, fields             TC=0.61 ITF=2.54
+2026-07-19 04:57:15,631 - INFO -   C47 (n=  141): spots, lean, meatteeth, stalker                    TC=0.76 ITF=2.60
+2026-07-19 04:57:15,632 - INFO -   C48 (n=  793): hairless, flippers, ocean, water                   TC=0.76 ITF=2.60
+2026-07-19 04:57:15,632 - INFO -   C49 (n=  245): hands, agility, jungle, tree, smart                TC=0.63 ITF=2.66
+2026-07-19 04:57:15,632 - INFO -   Average TC=0.6987, Average ITF=2.6434
+2026-07-19 04:57:17,609 - INFO -   NMI=0.8714  ACC=0.8076  ARI=0.7393  Sil=0.1634  TC=0.6987  ITF=2.6434
+2026-07-19 04:57:17,609 - INFO - --- Run 5/10 (seed=46) ---
+2026-07-19 04:57:20,272 - INFO - [DECCS] GMM uses PCA-reduced features: 2048 → 256
+2026-07-19 04:57:30,112 - INFO - [DECCS] Classical base clustering 'KMeans' completed.
+2026-07-19 04:57:30,112 - INFO - Base clustering 'KMeans' completed in 9.84s
+2026-07-19 05:05:10,660 - INFO - [DECCS] Classical base clustering 'Spectral' completed.
+2026-07-19 05:05:10,661 - INFO - Base clustering 'Spectral' completed in 460.55s
+2026-07-19 05:06:18,551 - INFO - [DECCS] Classical base clustering 'GMM' completed.
+2026-07-19 05:06:18,551 - INFO - Base clustering 'GMM' completed in 67.89s
+2026-07-19 05:16:59,414 - INFO - [DECCS] Classical base clustering 'Agglomerative' completed.
+2026-07-19 05:16:59,414 - INFO - Base clustering 'Agglomerative' completed in 640.86s
+2026-07-19 05:16:59,414 - INFO - [DECCS] 4 base clusterings successful. Shape=(4, 29857)
+/mnt/data/a11850068dm/deccs_ddc/.venv/lib/python3.10/site-packages/sklearn/manifold/_spectral_embedding.py:328: UserWarning: Graph is not fully connected, spectral embedding may not work as expected.
+  warnings.warn(
+2026-07-19 05:19:59,446 - INFO - [ILP] Tag density=0.217 → alpha=3
+2026-07-19 05:19:59,457 - INFO - [ILP] 50 active clusters, 85 attributes, alpha=3
+2026-07-19 05:20:32,538 - INFO - [ILP] Solved: beta=3, 68/85 tags selected, 4.4 tags/cluster
+2026-07-19 05:20:32,540 - INFO -   C 0 (n= 1709): grazer, newworld, oldworld, ground, domestic       TC=0.60 ITF=2.44
+2026-07-19 05:20:32,541 - INFO -   C 1 (n= 1129): big, horns, grazer, newworld, plains               TC=0.60 ITF=2.58
+2026-07-19 05:20:32,541 - INFO -   C 2 (n=  729): meatteeth, walks, quadrapedal, meat                TC=0.76 ITF=2.53
+2026-07-19 05:20:32,542 - INFO -   C 3 (n=  955): stripes, hooves, chewteeth, group                  TC=0.79 ITF=2.94
+2026-07-19 05:20:32,542 - INFO -   C 4 (n=  891): white, furry, hops, vegetation                     TC=0.76 ITF=2.70
+2026-07-19 05:20:32,543 - INFO -   C 5 (n= 2385): hooves, horns, vegetation, grazer, timid           TC=0.62 ITF=2.62
+2026-07-19 05:20:32,543 - INFO -   C 6 (n= 1275): hooves, longleg, fast, fields                      TC=0.76 ITF=2.67
+2026-07-19 05:20:32,544 - INFO -   C 7 (n=   25): furry, paws, quadrapedal, domestic                 TC=0.76 ITF=2.53
+2026-07-19 05:20:32,544 - INFO -   C 8 (n= 1280): brown, small, walks, newworld, ground              TC=0.60 ITF=2.48
+2026-07-19 05:20:32,545 - INFO -   C 9 (n=  998): paws, claws, newworld, oldworld, domestic          TC=0.62 ITF=2.44
+2026-07-19 05:20:32,545 - INFO -   C10 (n= 1162): white, walks, vegetation, group                    TC=0.75 ITF=2.53
+2026-07-19 05:20:32,546 - INFO -   C11 (n=  652): claws, strong, hibernate, forest                   TC=0.77 ITF=2.54
+2026-07-19 05:20:32,546 - INFO -   C12 (n=  799): hairless, flippers, ocean, water                   TC=0.76 ITF=2.60
+2026-07-19 05:20:32,547 - INFO -   C13 (n=  917): gray, tail, forager, tree                          TC=0.76 ITF=2.67
+2026-07-19 05:20:32,547 - INFO -   C14 (n=  952): spots, longleg, longneck, grazer                   TC=0.77 ITF=2.96
+2026-07-19 05:20:32,548 - INFO -   C15 (n=  664): flippers, claws, swims, fish, water                TC=0.62 ITF=2.54
+2026-07-19 05:20:32,548 - INFO -   C16 (n=  716): flippers, swims, plankton, water                   TC=0.77 ITF=2.94
+2026-07-19 05:20:32,549 - INFO -   C17 (n=  515): toughskin, big, bulbous, hooves, smelly, vegetation TC=0.51 ITF=2.64
+2026-07-19 05:20:32,549 - INFO -   C18 (n=  395): black, active, nocturnal, forager, forest          TC=0.63 ITF=2.86
+2026-07-19 05:20:32,550 - INFO -   C19 (n=  541): gray, toughskin, bulbous, horns, strong            TC=0.60 ITF=2.53
+2026-07-19 05:20:32,550 - INFO -   C20 (n=  702): orange, stripes, claws, muscle                     TC=0.80 ITF=2.89
+2026-07-19 05:20:32,551 - INFO -   C21 (n=  829): meatteeth, meat, hunter, fierce                    TC=0.76 ITF=2.53
+2026-07-19 05:20:32,551 - INFO -   C22 (n=  690): black, white, patches, bulbous                     TC=0.76 ITF=2.87
+2026-07-19 05:20:32,552 - INFO -   C23 (n=  700): strong, fish, arctic, fierce                       TC=0.76 ITF=2.70
+2026-07-19 05:20:32,552 - INFO -   C24 (n=  497): paws, newworld, timid, solitary, domestic          TC=0.60 ITF=2.62
+2026-07-19 05:20:32,552 - INFO -   C25 (n=  497): meatteeth, fast, quadrapedal, hunter               TC=0.75 ITF=2.53
+2026-07-19 05:20:32,553 - INFO -   C26 (n=  482): active, meat, stalker, fierce                      TC=0.75 ITF=2.53
+2026-07-19 05:20:32,553 - INFO -   C27 (n=  158): brown, tail, buckteeth, water                      TC=0.77 ITF=2.94
+2026-07-19 05:20:32,554 - INFO -   C28 (n=  385): brown, small, hops, walks, ground                  TC=0.61 ITF=2.66
+2026-07-19 05:20:32,554 - INFO -   C29 (n=  891): swims, fish, arctic, ocean                         TC=0.75 ITF=2.84
+2026-07-19 05:20:32,555 - INFO -   C30 (n=  516): gray, toughskin, big, tusks                        TC=0.78 ITF=2.70
+2026-07-19 05:20:32,555 - INFO -   C31 (n=  438): black, white, spots, lean                          TC=0.76 ITF=2.60
+2026-07-19 05:20:32,555 - INFO -   C32 (n=  428): lean, fast, stalker, jungle                        TC=0.77 ITF=2.60
+2026-07-19 05:20:32,556 - INFO -   C33 (n=  561): hands, bipedal, jungle, group                      TC=0.77 ITF=2.94
+2026-07-19 05:20:32,556 - INFO -   C34 (n=  688): furry, bipedal, oldworld, jungle                   TC=0.75 ITF=2.77
+2026-07-19 05:20:32,557 - INFO -   C35 (n=  412): orange, meatteeth, forest, smart, solitary         TC=0.60 ITF=2.53
+2026-07-19 05:20:32,557 - INFO -   C36 (n=  558): hairless, toughskin, bulbous, slow, inactive       TC=0.62 ITF=3.08
+2026-07-19 05:20:32,558 - INFO -   C37 (n=  146): black, stripes, smelly, fields                     TC=0.81 ITF=2.84
+2026-07-19 05:20:32,558 - INFO -   C38 (n=   34): tail, active, agility, tree                        TC=0.76 ITF=2.60
+2026-07-19 05:20:32,558 - INFO -   C39 (n=   46): orange, meat, hunter, smart, solitary              TC=0.60 ITF=2.53
+2026-07-19 05:20:32,559 - INFO -   C40 (n=  259): small, hands, agility, tree, smart                 TC=0.61 ITF=2.66
+2026-07-19 05:20:32,559 - INFO -   C41 (n=  364): gray, hairless, tusks, oldworld                    TC=0.76 ITF=2.70
+2026-07-19 05:20:32,560 - INFO -   C42 (n=  141): spots, lean, agility, stalker                      TC=0.76 ITF=2.60
+2026-07-19 05:20:32,560 - INFO -   C43 (n=   58): small, hibernate, agility, forager, tree           TC=0.62 ITF=2.64
+2026-07-19 05:20:32,561 - INFO -   C44 (n=  163): brown, furry, lean, claws, fields, fierce          TC=0.51 ITF=2.54
+2026-07-19 05:20:32,561 - INFO -   C45 (n=  177): paws, fast, quadrapedal, active, ground            TC=0.61 ITF=2.53
+2026-07-19 05:20:32,562 - INFO -   C46 (n=   37): orange, hunter, stalker, smart, solitary           TC=0.60 ITF=2.53
+2026-07-19 05:20:32,562 - INFO -   C47 (n=   39): longleg, horns, grazer, plains, group              TC=0.62 ITF=2.68
+2026-07-19 05:20:32,562 - INFO -   C48 (n=  240): hairless, flippers, fish, ocean                    TC=0.76 ITF=2.60
+2026-07-19 05:20:32,563 - INFO -   C49 (n=   32): big, strong, hibernate, forest                     TC=0.76 ITF=2.60
+2026-07-19 05:20:32,563 - INFO -   Average TC=0.6990, Average ITF=2.6614
+2026-07-19 05:20:34,495 - INFO -   NMI=0.8708  ACC=0.8066  ARI=0.7370  Sil=0.1626  TC=0.6990  ITF=2.6614
+2026-07-19 05:20:34,495 - INFO - --- Run 6/10 (seed=47) ---
+2026-07-19 05:20:37,156 - INFO - [DECCS] GMM uses PCA-reduced features: 2048 → 256
+2026-07-19 05:20:46,374 - INFO - [DECCS] Classical base clustering 'KMeans' completed.
+2026-07-19 05:20:46,375 - INFO - Base clustering 'KMeans' completed in 9.22s
+2026-07-19 05:28:21,151 - INFO - [DECCS] Classical base clustering 'Spectral' completed.
+2026-07-19 05:28:21,151 - INFO - Base clustering 'Spectral' completed in 454.78s
+2026-07-19 05:29:16,054 - INFO - [DECCS] Classical base clustering 'GMM' completed.
+2026-07-19 05:29:16,055 - INFO - Base clustering 'GMM' completed in 54.90s
+2026-07-19 05:39:56,744 - INFO - [DECCS] Classical base clustering 'Agglomerative' completed.
+2026-07-19 05:39:56,745 - INFO - Base clustering 'Agglomerative' completed in 640.69s
+2026-07-19 05:39:56,745 - INFO - [DECCS] 4 base clusterings successful. Shape=(4, 29857)
+/mnt/data/a11850068dm/deccs_ddc/.venv/lib/python3.10/site-packages/sklearn/manifold/_spectral_embedding.py:328: UserWarning: Graph is not fully connected, spectral embedding may not work as expected.
+  warnings.warn(
+2026-07-19 05:42:46,025 - INFO - [ILP] Tag density=0.217 → alpha=3
+2026-07-19 05:42:46,036 - INFO - [ILP] 50 active clusters, 85 attributes, alpha=3
+2026-07-19 05:43:23,951 - INFO - [ILP] Solved: beta=3, 68/85 tags selected, 4.4 tags/cluster
+2026-07-19 05:43:23,952 - INFO -   C 0 (n=  556): hairless, toughskin, bulbous, slow, inactive       TC=0.62 ITF=3.04
+2026-07-19 05:43:23,953 - INFO -   C 1 (n=  703): orange, stripes, claws, muscle                     TC=0.80 ITF=3.19
+2026-07-19 05:43:23,953 - INFO -   C 2 (n= 1715): big, tail, strong, grazer, fields                  TC=0.60 ITF=2.54
+2026-07-19 05:43:23,954 - INFO -   C 3 (n= 1277): hooves, longleg, fast, fields                      TC=0.76 ITF=2.60
+2026-07-19 05:43:23,954 - INFO -   C 4 (n=  955): hooves, chewteeth, ground, group                   TC=0.76 ITF=2.64
+2026-07-19 05:43:23,955 - INFO -   C 5 (n=  886): white, furry, hops, vegetation                     TC=0.76 ITF=2.87
+2026-07-19 05:43:23,955 - INFO -   C 6 (n= 1158): white, walks, vegetation, group                    TC=0.75 ITF=2.47
+2026-07-19 05:43:23,956 - INFO -   C 7 (n= 2386): hooves, horns, vegetation, grazer, timid           TC=0.62 ITF=2.54
+2026-07-19 05:43:23,957 - INFO -   C 8 (n=  947): lean, longleg, longneck, grazer                    TC=0.75 ITF=2.82
+2026-07-19 05:43:23,957 - INFO -   C 9 (n=  400): black, nocturnal, forager, newworld, forest        TC=0.61 ITF=2.68
+2026-07-19 05:43:23,957 - INFO -   C10 (n=  169): brown, furry, small, lean, fast, fields            TC=0.53 ITF=2.57
+2026-07-19 05:43:23,958 - INFO -   C11 (n=  890): flippers, swims, arctic, ocean                     TC=0.77 ITF=2.84
+2026-07-19 05:43:23,958 - INFO -   C12 (n=   25): quadrapedal, newworld, ground, solitary, domestic  TC=0.62 ITF=2.44
+2026-07-19 05:43:23,959 - INFO -   C13 (n=  917): small, tail, forager, tree                         TC=0.76 ITF=2.60
+2026-07-19 05:43:23,959 - INFO -   C14 (n=  807): hairless, flippers, ocean, water                   TC=0.76 ITF=2.60
+2026-07-19 05:43:23,960 - INFO -   C15 (n=   39): longleg, horns, grazer, timid, group               TC=0.60 ITF=2.49
+2026-07-19 05:43:23,960 - INFO -   C16 (n=  988): paws, claws, agility, oldworld, domestic           TC=0.62 ITF=2.58
+2026-07-19 05:43:23,961 - INFO -   C17 (n=  662): flippers, swims, fish, water, group                TC=0.60 ITF=2.60
+2026-07-19 05:43:23,961 - INFO -   C18 (n=  260): hands, longleg, agility, jungle, tree              TC=0.61 ITF=2.72
+2026-07-19 05:43:23,962 - INFO -   C19 (n=  480): active, meat, stalker, fierce                      TC=0.75 ITF=2.53
+2026-07-19 05:43:23,962 - INFO -   C20 (n=  147): black, stripes, smelly, solitary                   TC=0.81 ITF=2.82
+2026-07-19 05:43:23,962 - INFO -   C21 (n=  498): furry, paws, chewteeth, quadrapedal, solitary      TC=0.61 ITF=2.62
+2026-07-19 05:43:23,963 - INFO -   C22 (n=  382): small, paws, walks, ground                         TC=0.76 ITF=2.53
+2026-07-19 05:43:23,963 - INFO -   C23 (n=  713): bulbous, swims, plankton, water                    TC=0.76 ITF=2.89
+2026-07-19 05:43:23,964 - INFO -   C24 (n=  166): brown, tail, buckteeth, water                      TC=0.76 ITF=2.87
+2026-07-19 05:43:23,964 - INFO -   C25 (n=  438): black, white, spots, lean                          TC=0.76 ITF=2.60
+2026-07-19 05:43:23,965 - INFO -   C26 (n=  700): strong, fish, arctic, fierce                       TC=0.76 ITF=2.77
+2026-07-19 05:43:23,965 - INFO -   C27 (n=  732): meatteeth, walks, quadrapedal, meat                TC=0.76 ITF=2.53
+2026-07-19 05:43:23,965 - INFO -   C28 (n=  561): hands, bipedal, jungle, group                      TC=0.77 ITF=2.89
+2026-07-19 05:43:23,966 - INFO -   C29 (n=  652): claws, strong, hibernate, forest                   TC=0.77 ITF=2.67
+2026-07-19 05:43:23,966 - INFO -   C30 (n=   34): tail, active, agility, tree                        TC=0.76 ITF=2.53
+2026-07-19 05:43:23,967 - INFO -   C31 (n=  534): gray, hairless, toughskin, bulbous, horns          TC=0.60 ITF=2.48
+2026-07-19 05:43:23,967 - INFO -   C32 (n=  517): big, bulbous, hooves, smelly, vegetation, domestic TC=0.50 ITF=2.60
+2026-07-19 05:43:23,968 - INFO -   C33 (n=  237): hairless, flippers, fish, ocean                    TC=0.76 ITF=2.67
+2026-07-19 05:43:23,968 - INFO -   C34 (n=  500): meatteeth, fast, quadrapedal, hunter               TC=0.75 ITF=2.53
+2026-07-19 05:43:23,969 - INFO -   C35 (n=  832): meatteeth, meat, hunter, fierce                    TC=0.76 ITF=2.53
+2026-07-19 05:43:23,969 - INFO -   C36 (n=   39): orange, hunter, stalker, smart, solitary           TC=0.60 ITF=2.60
+2026-07-19 05:43:23,969 - INFO -   C37 (n=  416): orange, nocturnal, meat, forest, smart             TC=0.60 ITF=2.78
+2026-07-19 05:43:23,970 - INFO -   C38 (n=  688): furry, bipedal, oldworld, jungle                   TC=0.75 ITF=2.77
+2026-07-19 05:43:23,970 - INFO -   C39 (n=  690): black, white, patches, bulbous                     TC=0.76 ITF=2.82
+2026-07-19 05:43:23,971 - INFO -   C40 (n=  428): spots, fast, agility, fierce                       TC=0.76 ITF=2.60
+2026-07-19 05:43:23,971 - INFO -   C41 (n=  365): gray, toughskin, tusks, oldworld                   TC=0.79 ITF=2.70
+2026-07-19 05:43:23,972 - INFO -   C42 (n=   46): meatteeth, hunter, stalker, smart, solitary        TC=0.62 ITF=2.54
+2026-07-19 05:43:23,972 - INFO -   C43 (n=  515): gray, toughskin, tusks, oldworld                   TC=0.78 ITF=2.70
+2026-07-19 05:43:23,972 - INFO -   C44 (n=   58): gray, hibernate, forager, newworld, tree           TC=0.62 ITF=2.60
+2026-07-19 05:43:23,973 - INFO -   C45 (n=  141): spots, lean, active, stalker                       TC=0.75 ITF=2.60
+2026-07-19 05:43:23,973 - INFO -   C46 (n=  177): paws, active, newworld, timid, domestic            TC=0.62 ITF=2.54
+2026-07-19 05:43:23,974 - INFO -   C47 (n=   32): big, strong, hibernate, forest                     TC=0.76 ITF=2.60
+2026-07-19 05:43:23,974 - INFO -   C48 (n= 1106): brown, big, horns, grazer, plains                  TC=0.61 ITF=2.76
+2026-07-19 05:43:23,975 - INFO -   C49 (n= 1293): brown, small, walks, newworld, ground              TC=0.60 ITF=2.48
+2026-07-19 05:43:23,975 - INFO -   Average TC=0.6986, Average ITF=2.6584
+2026-07-19 05:43:25,905 - INFO -   NMI=0.8723  ACC=0.8073  ARI=0.7385  Sil=0.1609  TC=0.6986  ITF=2.6584
+2026-07-19 05:43:25,906 - INFO - --- Run 7/10 (seed=48) ---
+2026-07-19 05:43:28,595 - INFO - [DECCS] GMM uses PCA-reduced features: 2048 → 256
+2026-07-19 05:43:37,977 - INFO - [DECCS] Classical base clustering 'KMeans' completed.
+2026-07-19 05:43:37,978 - INFO - Base clustering 'KMeans' completed in 9.38s
+2026-07-19 05:51:11,879 - INFO - [DECCS] Classical base clustering 'Spectral' completed.
+2026-07-19 05:51:11,879 - INFO - Base clustering 'Spectral' completed in 453.90s
+2026-07-19 05:52:04,692 - INFO - [DECCS] Classical base clustering 'GMM' completed.
+2026-07-19 05:52:04,693 - INFO - Base clustering 'GMM' completed in 52.81s
+2026-07-19 06:02:41,236 - INFO - [DECCS] Classical base clustering 'Agglomerative' completed.
+2026-07-19 06:02:41,237 - INFO - Base clustering 'Agglomerative' completed in 636.54s
+2026-07-19 06:02:41,237 - INFO - [DECCS] 4 base clusterings successful. Shape=(4, 29857)
+/mnt/data/a11850068dm/deccs_ddc/.venv/lib/python3.10/site-packages/sklearn/manifold/_spectral_embedding.py:328: UserWarning: Graph is not fully connected, spectral embedding may not work as expected.
+  warnings.warn(
+2026-07-19 06:05:54,223 - INFO - [ILP] Tag density=0.217 → alpha=3
+2026-07-19 06:05:54,235 - INFO - [ILP] 50 active clusters, 85 attributes, alpha=3
+2026-07-19 06:06:54,679 - INFO - [ILP] Solved: beta=3, 69/85 tags selected, 4.5 tags/cluster
+2026-07-19 06:06:54,680 - INFO -   C 0 (n=  394): patches, active, nocturnal, forager, newworld, forest TC=0.57 ITF=2.68
+2026-07-19 06:06:54,681 - INFO -   C 1 (n=  955): stripes, hooves, chewteeth, grazer                 TC=0.79 ITF=2.94
+2026-07-19 06:06:54,681 - INFO -   C 2 (n= 1087): brown, big, horns, plains, group                   TC=0.60 ITF=2.76
+2026-07-19 06:06:54,682 - INFO -   C 3 (n= 1716): big, strong, grazer, fields, domestic              TC=0.61 ITF=2.48
+2026-07-19 06:06:54,682 - INFO -   C 4 (n= 1276): hooves, fast, grazer, fields                       TC=0.77 ITF=2.47
+2026-07-19 06:06:54,683 - INFO -   C 5 (n= 1290): black, brown, small, fast, forager, ground         TC=0.53 ITF=2.49
+2026-07-19 06:06:54,683 - INFO -   C 6 (n=  898): white, furry, hops, vegetation                     TC=0.75 ITF=2.87
+2026-07-19 06:06:54,684 - INFO -   C 7 (n=  235): hairless, flippers, swims, fish                    TC=0.76 ITF=2.67
+2026-07-19 06:06:54,684 - INFO -   C 8 (n=  656): brown, claws, strong, hibernate                    TC=0.76 ITF=2.70
+2026-07-19 06:06:54,685 - INFO -   C 9 (n=  889): flippers, swims, arctic, ocean                     TC=0.77 ITF=2.74
+2026-07-19 06:06:54,685 - INFO -   C10 (n=  480): active, meat, stalker, fierce                      TC=0.75 ITF=2.53
+2026-07-19 06:06:54,685 - INFO -   C11 (n=  946): yellow, spots, longleg, longneck                   TC=0.75 ITF=3.36
+2026-07-19 06:06:54,686 - INFO -   C12 (n= 2396): hooves, longleg, horns, vegetation, grazer         TC=0.62 ITF=2.58
+2026-07-19 06:06:54,687 - INFO -   C13 (n=  920): small, tail, forager, tree                         TC=0.76 ITF=2.53
+2026-07-19 06:06:54,687 - INFO -   C14 (n=  829): meat, hunter, stalker, fierce                      TC=0.76 ITF=2.53
+2026-07-19 06:06:54,687 - INFO -   C15 (n=  502): furry, paws, quadrapedal, domestic                 TC=0.76 ITF=2.53
+2026-07-19 06:06:54,688 - INFO -   C16 (n= 1159): white, walks, vegetation, group                    TC=0.75 ITF=2.47
+2026-07-19 06:06:54,688 - INFO -   C17 (n=   25): tail, newworld, ground, smart, domestic            TC=0.60 ITF=2.44
+2026-07-19 06:06:54,689 - INFO -   C18 (n=  703): orange, stripes, claws, muscle                     TC=0.80 ITF=3.12
+2026-07-19 06:06:54,689 - INFO -   C19 (n=  738): meatteeth, walks, quadrapedal, meat                TC=0.76 ITF=2.60
+2026-07-19 06:06:54,690 - INFO -   C20 (n=  542): gray, hairless, toughskin, bulbous, horns          TC=0.60 ITF=2.48
+2026-07-19 06:06:54,690 - INFO -   C21 (n=  519): toughskin, big, bulbous, smelly, vegetation, ground TC=0.51 ITF=2.57
+2026-07-19 06:06:54,691 - INFO -   C22 (n=  987): paws, claws, walks, newworld, oldworld             TC=0.61 ITF=2.48
+2026-07-19 06:06:54,691 - INFO -   C23 (n=  687): furry, bipedal, oldworld, jungle                   TC=0.75 ITF=2.94
+2026-07-19 06:06:54,692 - INFO -   C24 (n=  569): hands, bush, jungle, group                         TC=0.76 ITF=3.06
+2026-07-19 06:06:54,692 - INFO -   C25 (n=  386): small, paws, walks, ground                         TC=0.76 ITF=2.47
+2026-07-19 06:06:54,692 - INFO -   C26 (n=  254): furry, hands, tail, jungle, tree                   TC=0.61 ITF=2.72
+2026-07-19 06:06:54,693 - INFO -   C27 (n=  512): gray, toughskin, slow, oldworld                    TC=0.76 ITF=2.60
+2026-07-19 06:06:54,693 - INFO -   C28 (n=  556): hairless, toughskin, bulbous, slow, inactive       TC=0.62 ITF=2.82
+2026-07-19 06:06:54,694 - INFO -   C29 (n=  157): brown, tail, buckteeth, water                      TC=0.77 ITF=2.70
+2026-07-19 06:06:54,694 - INFO -   C30 (n=  438): black, white, spots, newworld                      TC=0.76 ITF=2.54
+2026-07-19 06:06:54,695 - INFO -   C31 (n=  689): black, white, patches, bulbous                     TC=0.76 ITF=2.64
+2026-07-19 06:06:54,695 - INFO -   C32 (n=  699): strong, fish, arctic, fierce                       TC=0.76 ITF=2.67
+2026-07-19 06:06:54,696 - INFO -   C33 (n=  494): lean, fast, hunter, fierce, solitary               TC=0.65 ITF=2.54
+2026-07-19 06:06:54,696 - INFO -   C34 (n=  147): black, stripes, smelly, fields                     TC=0.81 ITF=2.72
+2026-07-19 06:06:54,696 - INFO -   C35 (n=   46): meatteeth, nocturnal, hunter, forest, smart        TC=0.61 ITF=2.68
+2026-07-19 06:06:54,697 - INFO -   C36 (n=  362): gray, tusks, slow, oldworld                        TC=0.75 ITF=2.94
+2026-07-19 06:06:54,697 - INFO -   C37 (n=  428): spots, lean, quadrapedal, stalker                  TC=0.76 ITF=2.54
+2026-07-19 06:06:54,698 - INFO -   C38 (n=  670): flippers, swims, fish, arctic, water               TC=0.63 ITF=2.70
+2026-07-19 06:06:54,698 - INFO -   C39 (n=  420): lean, agility, hunter, stalker, smart              TC=0.60 ITF=2.48
+2026-07-19 06:06:54,698 - INFO -   C40 (n=  178): paws, active, newworld, solitary, domestic         TC=0.63 ITF=2.54
+2026-07-19 06:06:54,699 - INFO -   C41 (n=   58): gray, buckteeth, forager, forest, tree             TC=0.61 ITF=2.62
+2026-07-19 06:06:54,699 - INFO -   C42 (n=   39): orange, meatteeth, meat, smart, solitary           TC=0.62 ITF=2.78
+2026-07-19 06:06:54,700 - INFO -   C43 (n=   34): active, agility, forest, tree, group               TC=0.61 ITF=2.44
+2026-07-19 06:06:54,700 - INFO -   C44 (n=  166): small, lean, quadrapedal, agility, fields, ground  TC=0.50 ITF=2.41
+2026-07-19 06:06:54,701 - INFO -   C45 (n=   32): big, strong, hibernate, forest                     TC=0.76 ITF=2.64
+2026-07-19 06:06:54,701 - INFO -   C46 (n=  795): hairless, flippers, ocean, water                   TC=0.76 ITF=2.60
+2026-07-19 06:06:54,701 - INFO -   C47 (n=   39): hooves, longleg, horns, fields, group              TC=0.61 ITF=2.49
+2026-07-19 06:06:54,702 - INFO -   C48 (n=  720): bulbous, plankton, ocean, water                    TC=0.76 ITF=2.89
+2026-07-19 06:06:54,702 - INFO -   C49 (n=  140): lean, claws, fast, agility                         TC=0.76 ITF=2.47
+2026-07-19 06:06:54,702 - INFO -   Average TC=0.6938, Average ITF=2.6530
+2026-07-19 06:06:56,682 - INFO -   NMI=0.8715  ACC=0.8073  ARI=0.7376  Sil=0.1593  TC=0.6938  ITF=2.6530
+2026-07-19 06:06:56,682 - INFO - --- Run 8/10 (seed=49) ---
+2026-07-19 06:06:59,336 - INFO - [DECCS] GMM uses PCA-reduced features: 2048 → 256
+2026-07-19 06:07:08,229 - INFO - [DECCS] Classical base clustering 'KMeans' completed.
+2026-07-19 06:07:08,230 - INFO - Base clustering 'KMeans' completed in 8.89s
+2026-07-19 06:14:43,450 - INFO - [DECCS] Classical base clustering 'Spectral' completed.
+2026-07-19 06:14:43,450 - INFO - Base clustering 'Spectral' completed in 455.22s
+2026-07-19 06:16:20,287 - INFO - [DECCS] Classical base clustering 'GMM' completed.
+2026-07-19 06:16:20,288 - INFO - Base clustering 'GMM' completed in 96.84s
+2026-07-19 06:26:56,304 - INFO - [DECCS] Classical base clustering 'Agglomerative' completed.
+2026-07-19 06:26:56,304 - INFO - Base clustering 'Agglomerative' completed in 636.02s
+2026-07-19 06:26:56,305 - INFO - [DECCS] 4 base clusterings successful. Shape=(4, 29857)
+/mnt/data/a11850068dm/deccs_ddc/.venv/lib/python3.10/site-packages/sklearn/manifold/_spectral_embedding.py:328: UserWarning: Graph is not fully connected, spectral embedding may not work as expected.
+  warnings.warn(
+2026-07-19 06:30:10,130 - INFO - [ILP] Tag density=0.217 → alpha=3
+2026-07-19 06:30:10,142 - INFO - [ILP] 50 active clusters, 85 attributes, alpha=3
+2026-07-19 06:30:42,976 - INFO - [ILP] Solved: beta=3, 67/85 tags selected, 4.4 tags/cluster
+2026-07-19 06:30:42,978 - INFO -   C 0 (n=  571): hands, bipedal, jungle, group                      TC=0.77 ITF=2.87
+2026-07-19 06:30:42,978 - INFO -   C 1 (n=  878): swims, fish, arctic, ocean                         TC=0.75 ITF=2.84
+2026-07-19 06:30:42,979 - INFO -   C 2 (n=  888): white, furry, hops, vegetation                     TC=0.76 ITF=2.82
+2026-07-19 06:30:42,979 - INFO -   C 3 (n= 1154): white, quadrapedal, fields, group                  TC=0.76 ITF=2.53
+2026-07-19 06:30:42,980 - INFO -   C 4 (n=  700): strong, fish, arctic, fierce                       TC=0.76 ITF=2.70
+2026-07-19 06:30:42,980 - INFO -   C 5 (n= 1277): hooves, longleg, fast, fields                      TC=0.76 ITF=2.60
+2026-07-19 06:30:42,981 - INFO -   C 6 (n= 2396): hooves, horns, vegetation, grazer, group           TC=0.62 ITF=2.49
+2026-07-19 06:30:42,981 - INFO -   C 7 (n= 1280): small, fast, quadrapedal, newworld, ground         TC=0.61 ITF=2.44
+2026-07-19 06:30:42,982 - INFO -   C 8 (n=  955): lean, longleg, longneck, grazer                    TC=0.75 ITF=2.89
+2026-07-19 06:30:42,982 - INFO -   C 9 (n=  997): paws, tail, claws, walks, oldworld                 TC=0.62 ITF=2.58
+2026-07-19 06:30:42,983 - INFO -   C10 (n=  397): black, nocturnal, forager, newworld, forest        TC=0.61 ITF=2.76
+2026-07-19 06:30:42,983 - INFO -   C11 (n=  704): orange, stripes, claws, muscle                     TC=0.79 ITF=3.02
+2026-07-19 06:30:42,984 - INFO -   C12 (n= 1719): big, strong, grazer, fields, domestic              TC=0.61 ITF=2.48
+2026-07-19 06:30:42,984 - INFO -   C13 (n=  737): meatteeth, walks, quadrapedal, meat                TC=0.75 ITF=2.53
+2026-07-19 06:30:42,985 - INFO -   C14 (n=  803): hairless, flippers, ocean, water                   TC=0.76 ITF=2.60
+2026-07-19 06:30:42,985 - INFO -   C15 (n= 1095): brown, big, vegetation, grazer, plains             TC=0.62 ITF=2.49
+2026-07-19 06:30:42,986 - INFO -   C16 (n=   25): furry, paws, tail, domestic                        TC=0.75 ITF=2.53
+2026-07-19 06:30:42,986 - INFO -   C17 (n=  438): black, white, spots, lean                          TC=0.76 ITF=2.60
+2026-07-19 06:30:42,987 - INFO -   C18 (n=  161): brown, buckteeth, active, water, timid             TC=0.64 ITF=2.80
+2026-07-19 06:30:42,987 - INFO -   C19 (n=  518): big, bulbous, hooves, smelly, vegetation, ground   TC=0.51 ITF=2.57
+2026-07-19 06:30:42,988 - INFO -   C20 (n=  532): gray, hairless, toughskin, bulbous, horns          TC=0.60 ITF=2.58
+2026-07-19 06:30:42,988 - INFO -   C21 (n=  962): stripes, hooves, plains, group                     TC=0.78 ITF=2.67
+2026-07-19 06:30:42,988 - INFO -   C22 (n=  653): brown, claws, hibernate, forest                    TC=0.76 ITF=2.77
+2026-07-19 06:30:42,989 - INFO -   C23 (n=  686): furry, bipedal, oldworld, jungle                   TC=0.75 ITF=2.70
+2026-07-19 06:30:42,989 - INFO -   C24 (n=  385): small, walks, ground, domestic                     TC=0.76 ITF=2.47
+2026-07-19 06:30:42,990 - INFO -   C25 (n=  918): gray, tail, forager, tree                          TC=0.76 ITF=2.53
+2026-07-19 06:30:42,990 - INFO -   C26 (n=  147): black, stripes, smelly, forager                    TC=0.77 ITF=2.77
+2026-07-19 06:30:42,990 - INFO -   C27 (n=  495): meatteeth, fast, quadrapedal, hunter               TC=0.75 ITF=2.53
+2026-07-19 06:30:42,991 - INFO -   C28 (n=  558): hairless, toughskin, bulbous, slow, vegetation     TC=0.61 ITF=2.76
+2026-07-19 06:30:42,991 - INFO -   C29 (n=   34): tail, active, agility, tree                        TC=0.76 ITF=2.53
+2026-07-19 06:30:42,992 - INFO -   C30 (n=  256): hands, agility, jungle, tree, smart                TC=0.62 ITF=2.66
+2026-07-19 06:30:42,992 - INFO -   C31 (n=  827): meatteeth, strong, hunter, stalker                 TC=0.76 ITF=2.53
+2026-07-19 06:30:42,993 - INFO -   C32 (n=  690): black, white, patches, bulbous                     TC=0.76 ITF=2.87
+2026-07-19 06:30:42,993 - INFO -   C33 (n=  416): orange, agility, stalker, newworld, smart          TC=0.60 ITF=2.48
+2026-07-19 06:30:42,994 - INFO -   C34 (n=  716): flippers, plankton, ocean, water                   TC=0.77 ITF=2.94
+2026-07-19 06:30:42,994 - INFO -   C35 (n=  236): hairless, flippers, swims, fish                    TC=0.76 ITF=2.60
+2026-07-19 06:30:42,994 - INFO -   C36 (n=  482): active, meat, stalker, fierce                      TC=0.75 ITF=2.53
+2026-07-19 06:30:42,995 - INFO -   C37 (n=  428): spots, lean, agility, stalker                      TC=0.76 ITF=2.60
+2026-07-19 06:30:42,995 - INFO -   C38 (n=  516): gray, toughskin, tusks, oldworld                   TC=0.78 ITF=2.70
+2026-07-19 06:30:42,996 - INFO -   C39 (n=  177): paws, walks, meat, newworld, ground                TC=0.60 ITF=2.44
+2026-07-19 06:30:42,996 - INFO -   C40 (n=   57): small, buckteeth, forager, forest, tree            TC=0.63 ITF=2.66
+2026-07-19 06:30:42,997 - INFO -   C41 (n=   39): orange, meatteeth, hunter, smart, solitary         TC=0.61 ITF=2.66
+2026-07-19 06:30:42,997 - INFO -   C42 (n=  365): gray, toughskin, tusks, oldworld                   TC=0.79 ITF=2.70
+2026-07-19 06:30:42,997 - INFO -   C43 (n=   46): orange, meat, hunter, smart, solitary              TC=0.60 ITF=2.66
+2026-07-19 06:30:42,998 - INFO -   C44 (n=  141): spots, fast, jungle, fierce                        TC=0.75 ITF=2.60
+2026-07-19 06:30:42,998 - INFO -   C45 (n=   32): big, strong, hibernate, forest                     TC=0.76 ITF=2.70
+2026-07-19 06:30:42,999 - INFO -   C46 (n=  667): flippers, swims, fish, water, nestspot             TC=0.61 ITF=2.86
+2026-07-19 06:30:42,999 - INFO -   C47 (n=   36): longleg, horns, grazer, plains, timid              TC=0.61 ITF=2.79
+2026-07-19 06:30:43,000 - INFO -   C48 (n=  500): brown, paws, active, newworld, domestic            TC=0.63 ITF=2.48
+2026-07-19 06:30:43,000 - INFO -   C49 (n=  167): furry, small, lean, fields, ground, fierce         TC=0.50 ITF=2.49
+2026-07-19 06:30:43,000 - INFO -   Average TC=0.6980, Average ITF=2.6475
+2026-07-19 06:30:44,991 - INFO -   NMI=0.8715  ACC=0.8075  ARI=0.7376  Sil=0.1597  TC=0.6980  ITF=2.6475
+2026-07-19 06:30:44,991 - INFO - --- Run 9/10 (seed=50) ---
+2026-07-19 06:30:47,637 - INFO - [DECCS] GMM uses PCA-reduced features: 2048 → 256
+2026-07-19 06:30:56,311 - INFO - [DECCS] Classical base clustering 'KMeans' completed.
+2026-07-19 06:30:56,311 - INFO - Base clustering 'KMeans' completed in 8.67s
+2026-07-19 06:38:32,727 - INFO - [DECCS] Classical base clustering 'Spectral' completed.
+2026-07-19 06:38:32,727 - INFO - Base clustering 'Spectral' completed in 456.42s
+2026-07-19 06:40:34,031 - INFO - [DECCS] Classical base clustering 'GMM' completed.
+2026-07-19 06:40:34,031 - INFO - Base clustering 'GMM' completed in 121.30s
+2026-07-19 06:51:08,283 - INFO - [DECCS] Classical base clustering 'Agglomerative' completed.
+2026-07-19 06:51:08,284 - INFO - Base clustering 'Agglomerative' completed in 634.25s
+2026-07-19 06:51:08,284 - INFO - [DECCS] 4 base clusterings successful. Shape=(4, 29857)
+/mnt/data/a11850068dm/deccs_ddc/.venv/lib/python3.10/site-packages/sklearn/manifold/_spectral_embedding.py:328: UserWarning: Graph is not fully connected, spectral embedding may not work as expected.
+  warnings.warn(
+2026-07-19 06:54:15,511 - INFO - [ILP] Tag density=0.217 → alpha=3
+2026-07-19 06:54:15,522 - INFO - [ILP] 50 active clusters, 85 attributes, alpha=3
+2026-07-19 06:55:04,277 - INFO - [ILP] Solved: beta=3, 68/85 tags selected, 4.5 tags/cluster
+2026-07-19 06:55:04,278 - INFO -   C 0 (n=  806): hairless, flippers, ocean, water                   TC=0.76 ITF=2.67
+2026-07-19 06:55:04,279 - INFO -   C 1 (n=  886): flippers, fish, ocean, water                       TC=0.75 ITF=2.74
+2026-07-19 06:55:04,279 - INFO -   C 2 (n= 1262): hooves, longleg, fast, fields                      TC=0.76 ITF=2.60
+2026-07-19 06:55:04,280 - INFO -   C 3 (n= 1721): tail, strong, grazer, oldworld, domestic           TC=0.60 ITF=2.48
+2026-07-19 06:55:04,280 - INFO -   C 4 (n=  690): hands, fast, muscle, bipedal, jungle               TC=0.63 ITF=2.86
+2026-07-19 06:55:04,281 - INFO -   C 5 (n=  945): flippers, swims, plankton, ocean                   TC=0.75 ITF=3.02
+2026-07-19 06:55:04,281 - INFO -   C 6 (n= 2401): hooves, longleg, horns, grazer, timid              TC=0.60 ITF=2.76
+2026-07-19 06:55:04,282 - INFO -   C 7 (n=  956): spots, longleg, longneck, grazer                   TC=0.77 ITF=2.89
+2026-07-19 06:55:04,282 - INFO -   C 8 (n=  702): orange, stripes, claws, muscle                     TC=0.80 ITF=2.89
+2026-07-19 06:55:04,283 - INFO -   C 9 (n=   58): brown, buckteeth, vegetation, forager, tree        TC=0.60 ITF=2.64
+2026-07-19 06:55:04,283 - INFO -   C10 (n=  431): small, claws, agility, newworld, ground            TC=0.60 ITF=2.44
+2026-07-19 06:55:04,284 - INFO -   C11 (n=  499): furry, paws, quadrapedal, domestic                 TC=0.76 ITF=2.53
+2026-07-19 06:55:04,284 - INFO -   C12 (n=   24): meatteeth, walks, active, newworld, domestic       TC=0.61 ITF=2.48
+2026-07-19 06:55:04,285 - INFO -   C13 (n= 1165): white, walks, vegetation, group                    TC=0.75 ITF=2.47
+2026-07-19 06:55:04,285 - INFO -   C14 (n=  897): white, furry, hops, vegetation                     TC=0.75 ITF=2.87
+2026-07-19 06:55:04,286 - INFO -   C15 (n=  561): hairless, toughskin, bulbous, slow, inactive       TC=0.61 ITF=2.94
+2026-07-19 06:55:04,286 - INFO -   C16 (n=  574): hands, bipedal, jungle, group                      TC=0.77 ITF=2.72
+2026-07-19 06:55:04,287 - INFO -   C17 (n=  547): white, paws, claws, oldworld, domestic             TC=0.60 ITF=2.48
+2026-07-19 06:55:04,287 - INFO -   C18 (n=  533): gray, hairless, toughskin, bulbous, horns          TC=0.60 ITF=2.53
+2026-07-19 06:55:04,288 - INFO -   C19 (n=  519): toughskin, big, bulbous, hooves, smelly, vegetation TC=0.51 ITF=2.64
+2026-07-19 06:55:04,288 - INFO -   C20 (n=  963): stripes, hooves, chewteeth, group                  TC=0.79 ITF=2.89
+2026-07-19 06:55:04,289 - INFO -   C21 (n=  666): flippers, swims, fish, water, group                TC=0.60 ITF=2.65
+2026-07-19 06:55:04,289 - INFO -   C22 (n=   46): furry, lean, stalker, smart, solitary              TC=0.60 ITF=2.54
+2026-07-19 06:55:04,289 - INFO -   C23 (n=  178): paws, quadrapedal, active, newworld, solitary      TC=0.61 ITF=2.54
+2026-07-19 06:55:04,290 - INFO -   C24 (n=  399): small, paws, walks, ground                         TC=0.75 ITF=2.53
+2026-07-19 06:55:04,290 - INFO -   C25 (n=  394): black, nocturnal, forager, newworld, forest        TC=0.61 ITF=2.68
+2026-07-19 06:55:04,291 - INFO -   C26 (n=  483): active, meat, stalker, fierce                      TC=0.75 ITF=2.53
+2026-07-19 06:55:04,291 - INFO -   C27 (n=  493): meatteeth, fast, quadrapedal, hunter               TC=0.75 ITF=2.53
+2026-07-19 06:55:04,292 - INFO -   C28 (n=  826): meatteeth, meat, hunter, fierce                    TC=0.76 ITF=2.53
+2026-07-19 06:55:04,292 - INFO -   C29 (n=  253): hands, agility, jungle, tree, smart                TC=0.62 ITF=2.58
+2026-07-19 06:55:04,292 - INFO -   C30 (n=  727): meatteeth, walks, quadrapedal, meat                TC=0.76 ITF=2.53
+2026-07-19 06:55:04,293 - INFO -   C31 (n=  699): strong, fish, arctic, fierce                       TC=0.76 ITF=2.94
+2026-07-19 06:55:04,293 - INFO -   C32 (n=  655): claws, strong, hibernate, forest                   TC=0.77 ITF=2.64
+2026-07-19 06:55:04,294 - INFO -   C33 (n=  439): black, white, spots, lean                          TC=0.76 ITF=2.54
+2026-07-19 06:55:04,294 - INFO -   C34 (n=  428): spots, lean, agility, stalker                      TC=0.76 ITF=2.54
+2026-07-19 06:55:04,295 - INFO -   C35 (n=  514): gray, toughskin, slow, oldworld                    TC=0.76 ITF=2.70
+2026-07-19 06:55:04,295 - INFO -   C36 (n=  689): black, patches, big, bulbous                       TC=0.77 ITF=2.87
+2026-07-19 06:55:04,295 - INFO -   C37 (n=  419): orange, nocturnal, meat, forest, smart             TC=0.60 ITF=2.80
+2026-07-19 06:55:04,296 - INFO -   C38 (n=  146): black, stripes, smelly, fields                     TC=0.81 ITF=2.84
+2026-07-19 06:55:04,296 - INFO -   C39 (n= 1285): furry, small, buckteeth, newworld, ground          TC=0.61 ITF=2.54
+2026-07-19 06:55:04,297 - INFO -   C40 (n=  368): gray, hairless, tusks, oldworld                    TC=0.76 ITF=2.87
+2026-07-19 06:55:04,297 - INFO -   C41 (n= 1077): brown, big, horns, grazer, plains                  TC=0.61 ITF=2.62
+2026-07-19 06:55:04,298 - INFO -   C42 (n=  160): brown, tail, buckteeth, swims                      TC=0.79 ITF=2.67
+2026-07-19 06:55:04,298 - INFO -   C43 (n=   34): tail, active, agility, tree                        TC=0.76 ITF=2.53
+2026-07-19 06:55:04,298 - INFO -   C44 (n=   39): lean, hunter, ground, smart, solitary              TC=0.60 ITF=2.54
+2026-07-19 06:55:04,299 - INFO -   C45 (n=   39): longleg, horns, grazer, plains, group              TC=0.62 ITF=2.58
+2026-07-19 06:55:04,299 - INFO -   C46 (n=   32): big, strong, hibernate, forest                     TC=0.76 ITF=2.70
+2026-07-19 06:55:04,300 - INFO -   C47 (n=  141): fast, hunter, stalker, jungle                      TC=0.76 ITF=2.53
+2026-07-19 06:55:04,300 - INFO -   C48 (n=  170): brown, small, lean, claws, fields, fierce          TC=0.52 ITF=2.50
+2026-07-19 06:55:04,301 - INFO -   C49 (n=  918): gray, tail, forager, tree                          TC=0.76 ITF=2.60
+2026-07-19 06:55:04,301 - INFO -   Average TC=0.6946, Average ITF=2.6538
+2026-07-19 06:55:06,276 - INFO -   NMI=0.8719  ACC=0.8116  ARI=0.7385  Sil=0.1659  TC=0.6946  ITF=2.6538
+2026-07-19 06:55:06,276 - INFO - --- Run 10/10 (seed=51) ---
+2026-07-19 06:55:08,939 - INFO - [DECCS] GMM uses PCA-reduced features: 2048 → 256
+2026-07-19 06:55:17,696 - INFO - [DECCS] Classical base clustering 'KMeans' completed.
+2026-07-19 06:55:17,696 - INFO - Base clustering 'KMeans' completed in 8.76s
+2026-07-19 07:02:53,761 - INFO - [DECCS] Classical base clustering 'Spectral' completed.
+2026-07-19 07:02:53,762 - INFO - Base clustering 'Spectral' completed in 456.07s
+2026-07-19 07:04:03,050 - INFO - [DECCS] Classical base clustering 'GMM' completed.
+2026-07-19 07:04:03,051 - INFO - Base clustering 'GMM' completed in 69.29s
+2026-07-19 07:14:31,489 - INFO - [DECCS] Classical base clustering 'Agglomerative' completed.
+2026-07-19 07:14:31,489 - INFO - Base clustering 'Agglomerative' completed in 628.44s
+2026-07-19 07:14:31,490 - INFO - [DECCS] 4 base clusterings successful. Shape=(4, 29857)
+/mnt/data/a11850068dm/deccs_ddc/.venv/lib/python3.10/site-packages/sklearn/manifold/_spectral_embedding.py:328: UserWarning: Graph is not fully connected, spectral embedding may not work as expected.
+  warnings.warn(
+2026-07-19 07:17:52,498 - INFO - [ILP] Tag density=0.217 → alpha=3
+2026-07-19 07:17:52,509 - INFO - [ILP] 50 active clusters, 85 attributes, alpha=3
+2026-07-19 07:18:46,324 - INFO - [ILP] Solved: beta=3, 69/85 tags selected, 4.4 tags/cluster
+2026-07-19 07:18:46,326 - INFO -   C 0 (n= 1530): brown, big, vegetation, newworld, plains           TC=0.60 ITF=2.76
+2026-07-19 07:18:46,326 - INFO -   C 1 (n=  798): hairless, flippers, ocean, water                   TC=0.76 ITF=2.60
+2026-07-19 07:18:46,327 - INFO -   C 2 (n= 1235): hooves, longleg, fast, fields                      TC=0.76 ITF=2.54
+2026-07-19 07:18:46,328 - INFO -   C 3 (n=  993): paws, claws, oldworld, smart, domestic             TC=0.60 ITF=2.48
+2026-07-19 07:18:46,328 - INFO -   C 4 (n=   25): paws, meatteeth, quadrapedal, newworld, solitary   TC=0.60 ITF=2.40
+2026-07-19 07:18:46,328 - INFO -   C 5 (n= 1148): white, walks, vegetation, group                    TC=0.75 ITF=2.53
+2026-07-19 07:18:46,329 - INFO -   C 6 (n= 1270): brown, small, walks, newworld, ground              TC=0.60 ITF=2.48
+2026-07-19 07:18:46,330 - INFO -   C 7 (n=  919): small, tail, forager, tree                         TC=0.76 ITF=2.60
+2026-07-19 07:18:46,330 - INFO -   C 8 (n= 2158): hooves, horns, grazer, fields, timid               TC=0.61 ITF=2.82
+2026-07-19 07:18:46,331 - INFO -   C 9 (n=  679): flippers, claws, swims, fish, water                TC=0.62 ITF=2.60
+2026-07-19 07:18:46,331 - INFO -   C10 (n=  397): small, walks, weak, ground, solitary               TC=0.67 ITF=2.72
+2026-07-19 07:18:46,332 - INFO -   C11 (n=  387): black, active, nocturnal, forager, forest          TC=0.63 ITF=2.86
+2026-07-19 07:18:46,332 - INFO -   C12 (n=  519): hairless, big, bulbous, hooves, smelly, newworld   TC=0.50 ITF=2.57
+2026-07-19 07:18:46,333 - INFO -   C13 (n=  877): flippers, arctic, ocean, water                     TC=0.76 ITF=2.77
+2026-07-19 07:18:46,333 - INFO -   C14 (n=  527): gray, toughskin, bulbous, horns, oldworld          TC=0.64 ITF=2.54
+2026-07-19 07:18:46,334 - INFO -   C15 (n=  428): spots, lean, agility, stalker                      TC=0.76 ITF=2.60
+2026-07-19 07:18:46,334 - INFO -   C16 (n=  147): black, stripes, smelly, fields                     TC=0.81 ITF=2.72
+2026-07-19 07:18:46,334 - INFO -   C17 (n=  950): spots, longleg, longneck, grazer                   TC=0.77 ITF=2.94
+2026-07-19 07:18:46,335 - INFO -   C18 (n=  719): meatteeth, walks, quadrapedal, ground              TC=0.77 ITF=2.53
+2026-07-19 07:18:46,335 - INFO -   C19 (n=  887): white, furry, hops, vegetation                     TC=0.76 ITF=2.87
+2026-07-19 07:18:46,336 - INFO -   C20 (n=  954): stripes, chewteeth, grazer, group                  TC=0.80 ITF=2.94
+2026-07-19 07:18:46,336 - INFO -   C21 (n=  717): bulbous, swims, plankton, ocean                    TC=0.76 ITF=2.96
+2026-07-19 07:18:46,337 - INFO -   C22 (n=  493): meatteeth, fast, quadrapedal, hunter               TC=0.75 ITF=2.60
+2026-07-19 07:18:46,337 - INFO -   C23 (n=  238): hairless, flippers, swims, fish                    TC=0.76 ITF=2.67
+2026-07-19 07:18:46,337 - INFO -   C24 (n=  490): paws, meat, newworld, solitary, domestic           TC=0.62 ITF=2.40
+2026-07-19 07:18:46,338 - INFO -   C25 (n= 1647): tail, strong, grazer, ground, domestic             TC=0.62 ITF=2.53
+2026-07-19 07:18:46,339 - INFO -   C26 (n=  559): hairless, toughskin, bulbous, slow, inactive       TC=0.62 ITF=3.04
+2026-07-19 07:18:46,339 - INFO -   C27 (n=  560): hands, bipedal, jungle, group                      TC=0.77 ITF=2.94
+2026-07-19 07:18:46,339 - INFO -   C28 (n=  703): orange, stripes, claws, muscle                     TC=0.80 ITF=2.96
+2026-07-19 07:18:46,340 - INFO -   C29 (n=  439): black, white, spots, lean                          TC=0.76 ITF=2.60
+2026-07-19 07:18:46,340 - INFO -   C30 (n=  649): brown, claws, hibernate, forest                    TC=0.76 ITF=2.54
+2026-07-19 07:18:46,341 - INFO -   C31 (n=  825): strong, meat, hunter, fierce                       TC=0.76 ITF=2.53
+2026-07-19 07:18:46,341 - INFO -   C32 (n=  415): orange, meatteeth, hunter, smart, solitary         TC=0.60 ITF=2.50
+2026-07-19 07:18:46,342 - INFO -   C33 (n=  689): black, white, patches, bulbous                     TC=0.76 ITF=2.82
+2026-07-19 07:18:46,342 - INFO -   C34 (n=  513): gray, toughskin, big, tusks                        TC=0.78 ITF=2.70
+2026-07-19 07:18:46,342 - INFO -   C35 (n=  699): strong, fish, arctic, fierce                       TC=0.76 ITF=2.77
+2026-07-19 07:18:46,343 - INFO -   C36 (n=  178): furry, paws, quadrapedal, domestic                 TC=0.76 ITF=2.53
+2026-07-19 07:18:46,343 - INFO -   C37 (n=  158): brown, tail, buckteeth, water                      TC=0.77 ITF=2.87
+2026-07-19 07:18:46,344 - INFO -   C38 (n=   57): gray, hibernate, vegetation, forager, tree         TC=0.62 ITF=2.64
+2026-07-19 07:18:46,344 - INFO -   C39 (n=  479): active, meat, stalker, fierce                      TC=0.75 ITF=2.53
+2026-07-19 07:18:46,345 - INFO -   C40 (n=  362): gray, toughskin, tusks, oldworld                   TC=0.79 ITF=2.70
+2026-07-19 07:18:46,345 - INFO -   C41 (n=   34): tail, active, agility, tree                        TC=0.76 ITF=2.53
+2026-07-19 07:18:46,345 - INFO -   C42 (n=   46): agility, meat, forest, smart, solitary             TC=0.60 ITF=2.44
+2026-07-19 07:18:46,346 - INFO -   C43 (n=  689): furry, bipedal, oldworld, jungle                   TC=0.75 ITF=2.77
+2026-07-19 07:18:46,346 - INFO -   C44 (n=   32): big, strong, hibernate, forest                     TC=0.76 ITF=2.60
+2026-07-19 07:18:46,347 - INFO -   C45 (n=  168): furry, small, lean, active, fields, fierce         TC=0.51 ITF=2.49
+2026-07-19 07:18:46,347 - INFO -   C46 (n=  141): lean, claws, fast, stalker                         TC=0.77 ITF=2.54
+2026-07-19 07:18:46,347 - INFO -   C47 (n=  252): hands, longleg, agility, jungle, tree              TC=0.62 ITF=2.72
+2026-07-19 07:18:46,348 - INFO -   C48 (n=   39): hooves, longleg, horns, fields, group              TC=0.61 ITF=2.54
+2026-07-19 07:18:46,348 - INFO -   C49 (n=   39): orange, hunter, stalker, smart, solitary           TC=0.60 ITF=2.50
+2026-07-19 07:18:46,348 - INFO -   Average TC=0.7018, Average ITF=2.6559
+2026-07-19 07:18:48,298 - INFO -   NMI=0.8706  ACC=0.8042  ARI=0.7372  Sil=0.1580  TC=0.7018  ITF=2.6559
+2026-07-19 07:18:48,298 - INFO - === Aggregated (10 runs) ===
+2026-07-19 07:18:48,298 - INFO -   NMI: 0.8714 ± 0.0005
+2026-07-19 07:18:48,298 - INFO -   ACC: 0.8074 ± 0.0017
+2026-07-19 07:18:48,298 - INFO -   ARI: 0.7379 ± 0.0012
+2026-07-19 07:18:48,309 - INFO - Cluster 00: top attributes -> spots, quadrapedal, white, domestic, black
+2026-07-19 07:18:48,309 - INFO - Cluster 01: top attributes -> horns, quadrapedal, fast, grazer, hooves
+2026-07-19 07:18:48,309 - INFO - Cluster 02: top attributes -> patches, oldworld, furry, black, big
+2026-07-19 07:18:48,309 - INFO - Cluster 03: top attributes -> small, furry, ground, newworld, quadrapedal
+2026-07-19 07:18:48,310 - INFO - Cluster 04: top attributes -> longneck, longleg, big, quadrapedal, spots
+2026-07-19 07:18:48,310 - INFO - Cluster 05: top attributes -> stripes, oldworld, quadrapedal, white, black
+2026-07-19 07:18:48,310 - INFO - Cluster 06: top attributes -> big, quadrapedal, walks, domestic, ground
+2026-07-19 07:18:48,310 - INFO - Cluster 07: top attributes -> quadrapedal, walks, meatteeth, ground, tail
+2026-07-19 07:18:48,310 - INFO - Cluster 08: top attributes -> swims, ocean, water, flippers, arctic
+2026-07-19 07:18:48,310 - INFO - Cluster 09: top attributes -> hooves, fast, grazer, big, quadrapedal
+2026-07-19 07:18:48,311 - INFO - Cluster 10: top attributes -> furry, domestic, quadrapedal, paws, walks
+2026-07-19 07:18:48,311 - INFO - Cluster 11: top attributes -> white, quadrapedal, walks, group, vegetation
+2026-07-19 07:18:48,311 - INFO - Cluster 12: top attributes -> active, tail, nocturnal, furry, quadrapedal
+2026-07-19 07:18:48,311 - INFO - Cluster 13: top attributes -> small, quadrapedal, domestic, paws, ground
+2026-07-19 07:18:48,311 - INFO - Cluster 14: top attributes -> meat, strong, stalker, hunter, meatteeth
+2026-07-19 07:18:48,311 - INFO - Cluster 15: top attributes -> domestic, furry, paws, quadrapedal, tail
+2026-07-19 07:18:48,311 - INFO - Cluster 16: top attributes -> domestic, furry, paws, quadrapedal, tail
+2026-07-19 07:18:48,312 - INFO - Cluster 17: top attributes -> stripes, stalker, meat, meatteeth, hunter
+2026-07-19 07:18:48,312 - INFO - Cluster 18: top attributes -> big, toughskin, oldworld, horns, ground
+2026-07-19 07:18:48,312 - INFO - Cluster 19: top attributes -> tail, furry, forager, small, gray
+2026-07-19 07:18:48,312 - INFO - Cluster 20: top attributes -> swims, fish, water, newworld, small
+2026-07-19 07:18:48,312 - INFO - Cluster 21: top attributes -> jungle, smart, furry, tree, hands
+2026-07-19 07:18:48,312 - INFO - Cluster 22: top attributes -> gray, big, oldworld, slow, toughskin
+2026-07-19 07:18:48,312 - INFO - Cluster 23: top attributes -> agility, tree, active, fast, furry
+2026-07-19 07:18:48,312 - INFO - Cluster 24: top attributes -> quadrapedal, bulbous, newworld, walks, ground
+2026-07-19 07:18:48,313 - INFO - Cluster 25: top attributes -> smelly, black, stripes, white, tail
+2026-07-19 07:18:48,313 - INFO - Cluster 26: top attributes -> arctic, white, big, furry, strong
+2026-07-19 07:18:48,313 - INFO - Cluster 27: top attributes -> big, hibernate, furry, strong, forest
+2026-07-19 07:18:48,313 - INFO - Cluster 28: top attributes -> flippers, ocean, water, hairless, swims
+2026-07-19 07:18:48,313 - INFO - Cluster 29: top attributes -> big, water, ocean, swims, plankton
+2026-07-19 07:18:48,313 - INFO - Cluster 30: top attributes -> hops, furry, vegetation, ground, small
+2026-07-19 07:18:48,313 - INFO - Cluster 31: top attributes -> smart, meat, fast, quadrapedal, tail
+2026-07-19 07:18:48,314 - INFO - Cluster 32: top attributes -> quadrapedal, meat, active, fierce, stalker
+2026-07-19 07:18:48,314 - INFO - Cluster 33: top attributes -> big, oldworld, gray, toughskin, quadrapedal
+2026-07-19 07:18:48,314 - INFO - Cluster 34: top attributes -> swims, ocean, big, flippers, water
+2026-07-19 07:18:48,314 - INFO - Cluster 35: top attributes -> furry, jungle, oldworld, strong, big
+2026-07-19 07:18:48,314 - INFO - Cluster 36: top attributes -> hunter, quadrapedal, fast, meatteeth, agility
+2026-07-19 07:18:48,314 - INFO - Cluster 37: top attributes -> agility, active, tree, tail, furry
+2026-07-19 07:18:48,314 - INFO - Cluster 38: top attributes -> domestic, furry, paws, quadrapedal, tail
+2026-07-19 07:18:48,314 - INFO - Cluster 39: top attributes -> big, oldworld, gray, toughskin, quadrapedal
+2026-07-19 07:18:48,314 - INFO - Cluster 40: top attributes -> fast, meat, stalker, quadrapedal, meatteeth
+2026-07-19 07:18:48,315 - INFO - Cluster 41: top attributes -> brown, fast, fierce, quadrapedal, small
+2026-07-19 07:18:48,315 - INFO - Cluster 42: top attributes -> smart, meat, fast, quadrapedal, tail
+2026-07-19 07:18:48,315 - INFO - Cluster 43: top attributes -> tail, furry, small, forager, gray
+2026-07-19 07:18:48,315 - INFO - Cluster 44: top attributes -> fast, meat, stalker, quadrapedal, meatteeth
+2026-07-19 07:18:48,315 - INFO - Cluster 45: top attributes -> tail, brown, buckteeth, swims, active
+2026-07-19 07:18:48,315 - INFO - Cluster 46: top attributes -> smart, meat, furry, quadrapedal, fast
+2026-07-19 07:18:48,315 - INFO - Cluster 47: top attributes -> big, strong, furry, hibernate, brown
+2026-07-19 07:18:48,315 - INFO - Cluster 48: top attributes -> big, quadrapedal, brown, walks, newworld
+2026-07-19 07:18:48,315 - INFO - Cluster 49: top attributes -> horns, fast, quadrapedal, hooves, grazer
+2026-07-19 07:19:07,082 - INFO - t-SNE plot saved to results_v2/awa2/ddeccs/tsne.png
+2026-07-19 07:19:08,909 - INFO - PCA plot saved to results_v2/awa2/ddeccs/pca.png
+2026-07-19 07:19:09,414 - INFO - Cluster examples saved to results_v2/awa2/ddeccs/cluster_samples
+2026-07-19 07:19:09,457 - INFO - Results saved to results_v2/awa2/ddeccs/
+2026-07-19 07:19:09,457 - INFO - Total time: 14056.9s
