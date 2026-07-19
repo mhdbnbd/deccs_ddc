@@ -42,7 +42,7 @@ from dataset import AttributeDataset, get_dataset_paths, DATASET_CONFIGS, APY_DD
 from utils import (
     custom_collate, create_sample_dataset, setup_logging,
     get_base_clusterings, build_sparse_consensus, clustering_acc,
-    summarize_clusters_with_attributes, generate_cluster_report,
+    summarize_clusters_with_attributes
 )
 from visualize import plot_tsne, plot_pca, save_cluster_examples
 
