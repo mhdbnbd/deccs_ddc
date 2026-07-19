@@ -172,7 +172,7 @@ DATASET_CONFIGS = {
 
 # DDC paper's 15-class aPY subset (from Figure 3 ontology)
 APY_DDC_15_CLASSES = [
-    "dog", "cat", "monkey", "zebra", "centaur",
+    "dog", "cat", "monkey", "zebra", "bird",
     "bag", "mug", "bottle", "chair",
     "car", "building", "bicycle", "boat",
     "sofa", "diningtable",
