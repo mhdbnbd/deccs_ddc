@@ -1,9 +1,9 @@
 torch
 torchvision
-pandas
+numpy
+scipy
 scikit-learn
 Pillow
 tqdm
-nbformat
 matplotlib
 pulp
