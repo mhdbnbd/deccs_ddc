@@ -217,10 +217,10 @@ def load_predicate_names(predicates_path):
 # =========================================================================
 
 def run_single(features, true_labels, symbolic_tags, cluster_labels_override,
-               mode, K, seed, cfg, paths, output_dir, pca_dim=None):
+               mode, K, seed, cfg, paths, output_dir, pca_dim=None,
+               standardize=False):
     """Run clustering + evaluation for a single seed. Returns metrics dict."""
 
-    rng = np.random.RandomState(seed)
     feats = features.copy()
 
     # Optional PCA
@@ -228,11 +228,19 @@ def run_single(features, true_labels, symbolic_tags, cluster_labels_override,
         feats = PCA(n_components=pca_dim, random_state=seed).fit_transform(feats)
         logging.info(f"PCA: {features.shape[1]} → {pca_dim}")
 
+    # Optional standardization (ablation). Applied before clustering so that
+    # clustering and silhouette share one space. Near-no-op for deccs/ddeccs,
+    # which already standardize inside get_base_clusterings.
+    if standardize:
+        from sklearn.preprocessing import StandardScaler
+        feats = StandardScaler().fit_transform(feats)
+        logging.info("Features z-scored before clustering")
+
     # Clustering
     if mode in ["kmeans", "ddc"]:
         cluster_labels = KMeans(n_clusters=K, random_state=seed, n_init=10).fit_predict(feats)
     else:
-        base_labels = get_base_clusterings(feats, n_clusters=K)
+        base_labels = get_base_clusterings(feats, n_clusters=K, seed=seed)
         consensus = build_sparse_consensus(base_labels, feats)
         cluster_labels = SpectralClustering(
             n_clusters=K, affinity="precomputed",
@@ -306,6 +314,10 @@ def main():
     parser.add_argument("--use_gpu", action="store_true")
     parser.add_argument("--use_sample", action="store_true")
     parser.add_argument("--sample_size", type=int, default=2000)
+    parser.add_argument("--output_root", type=str, default="results",
+                        help="Root dir for outputs; use results_v2 for new runs")
+    parser.add_argument("--standardize", action="store_true",
+                        help="z-score features before clustering (ablation)")
     args = parser.parse_args()
 
     setup_logging()
@@ -315,7 +327,7 @@ def main():
     suffix = f"_k{args.n_clusters}" if args.n_clusters else ""
     suffix += f"_pca{args.pca_dim}" if args.pca_dim else ""
     ds_name = f"{args.dataset}_15" if args.apy_15 else args.dataset
-    output_dir = os.path.join("results", ds_name, f"{args.mode}{suffix}")
+    output_dir = os.path.join(args.output_root, ds_name, f"{args.mode}{suffix}")
     os.makedirs(output_dir, exist_ok=True)
 
     # --- Dataset ---
@@ -384,7 +396,7 @@ def main():
         metrics, cluster_labels = run_single(
             features, true_labels, symbolic_tags, None,
             args.mode, K, seed, cfg, paths, output_dir,
-            pca_dim=args.pca_dim,
+            pca_dim=args.pca_dim, standardize=args.standardize,
         )
         all_metrics.append(metrics)
         if seed == 42:
