@@ -54,7 +54,7 @@ We note that DDC's original evaluation uses the AwA1 dataset~\citep{Lampert2013}
 
 \subsection{Attribute Pascal and Yahoo (aPY)}
 
-aPY~\citep{Farhadi2009} contains 15339 object instances across 32 classes from Pascal VOC 2008 and Yahoo images, annotated with 64 binary semantic attributes (e.g., \textit{Wheel}, \textit{Furry}, \textit{Metal}). Unlike AwA2, attributes in aPY are annotated per instance---each object has its own binary attribute vector based on its bounding box crop.
+aPY~\citep{Farhadi2009} contains 15339 object instances across 32 classes from Pascal VOC 2008 and Yahoo images, annotated with 64 binary semantic attributes (e.g., \textit{Wheel}, \textit{Furry}, \textit{Metal}). Unlike AwA2, attributes in aPY are annotated per instance---each object has its own binary attribute vector based on its bounding box crop. Our preprocessing averages these per-instance annotations into a per-class mean attribute vector, so that both datasets enter the pipeline in the same form: one continuous attribute vector per class. This discards within-class attribute variation, and Section~\ref{sec:limitations} returns to it as a limitation.
 
 DDC reports results on a 15-class subset of aPY consisting of 5,274 instances. In our dataset, filtering to these 15 classes yields 6,487 instances; after our standard 80/20 train/test split, we cluster on 5,189 training instances. The discrepancy with DDC's reported count likely reflects differences in preprocessing or filtering criteria. Following their setup, we evaluate with both the full 32-class dataset and the 15-class subset matching DDC's configuration. The 15 classes, identified from DDC's Figure~3 ontology, are: dog, cat, monkey, zebra, bird, bag, mug, bottle, chair, car, building, bicycle, boat, sofa, and dining table.
 
@@ -76,7 +76,7 @@ We evaluate clustering quality using four standard metrics:
 
 \textbf{Adjusted Rand Index (ARI)}~\citep{Hubert1985} measures pairwise agreement between clusterings, adjusted for chance. ARI $= 0$ indicates random clustering; ARI $= 1$ indicates perfect agreement.
 
-\textbf{Silhouette Score}~\citep{Rousseeuw1987} measures how similar instances are to their own cluster compared to other clusters, ranging from $-1$ to $+1$. Unlike the other three, it requires no ground-truth labels.
+\textbf{Silhouette Score}~\citep{Rousseeuw1987} measures how similar instances are to their own cluster compared to other clusters, ranging from $-1$ to $+1$. Unlike the other three, it requires no ground-truth labels. Because it is quadratic in the number of instances, we compute it on a random subsample of at most 10{,}000 instances per run; this affects AwA2 and the 32-class aPY set.
 
 \subsection{Interpretability Metrics}
 \label{subsec:interp_metrics}
@@ -115,9 +115,9 @@ Table~\ref{tab:awa2_results} presents the clustering results on the full AwA2 da
         \textbf{Mode} & \textbf{NMI} & \textbf{ACC} & \textbf{ARI} & \textbf{Sil} & \textbf{TC} & \textbf{ITF} \\
         \hline
         \texttt{kmeans} & $0.869 \pm 0.002$ & $0.785 \pm 0.008$ & $0.744 \pm 0.008$ & $0.189$ & --- & --- \\
-        \texttt{deccs} & $0.871 \pm 0.000$ & $0.807 \pm 0.000$ & $0.736 \pm 0.000$ & $0.160$ & --- & --- \\
+        \texttt{deccs} & $0.871 \pm 0.001$ & $0.807 \pm 0.002$ & $0.738 \pm 0.001$ & $0.160$ & --- & --- \\
         \texttt{ddc} & $0.869 \pm 0.002$ & $0.785 \pm 0.008$ & $0.744 \pm 0.008$ & $0.189$ & $0.681$ & $2.652$ \\
-        \texttt{ddeccs} & $0.871 \pm 0.000$ & $0.807 \pm 0.000$ & $0.736 \pm 0.000$ & $0.160$ & $0.698$ & $2.656$ \\
+        \texttt{ddeccs} & $0.871 \pm 0.001$ & $0.807 \pm 0.002$ & $0.738 \pm 0.001$ & $0.160$ & $0.698$ & $2.656$ \\
         \hline
     \end{tabular}
 \end{table}
@@ -126,7 +126,7 @@ Table~\ref{tab:awa2_results} presents the clustering results on the full AwA2 da
 
 As the caption notes, the \texttt{ddc}/\texttt{ddeccs} rows add only the TC and ITF columns; their clustering metrics are inherited from \texttt{kmeans}/\texttt{deccs}. The comparison with the original DDC's published numbers appears in Section~\ref{sec:ddc_comparison}.
 
-On AwA2, all four modes achieve strong clustering performance (NMI $\approx 0.87$). K-means and DECCS consensus produce nearly identical NMI ($0.869$ vs.\ $0.871$). DECCS consensus shows notably higher ACC ($0.807$ vs.\ $0.785$) and near-zero standard deviation, though ARI is marginally lower ($0.736$ vs.\ $0.744$); on AwA2 the consensus mainly improves accuracy and stability rather than every metric uniformly, producing more reproducible clusters than K-means alone even when NMI is similar. The K-means standard deviation of $\pm 0.002$, while small, reflects sensitivity to random initialization that DECCS eliminates through ensemble agreement.
+On AwA2, all four modes achieve strong clustering performance (NMI $\approx 0.87$). K-means and DECCS consensus produce nearly identical NMI ($0.869$ vs.\ $0.871$). DECCS consensus shows notably higher ACC ($0.807$ vs.\ $0.785$) and markedly lower run-to-run variance, though ARI is marginally lower ($0.738$ vs.\ $0.744$); on AwA2 the consensus mainly improves accuracy and stability rather than every metric uniformly, producing more reproducible clusters than K-means alone even when NMI is similar. Across the ten seeds the consensus reduces the NMI standard deviation from $\pm 0.002$ to $\pm 0.001$, and the ACC and ARI standard deviations by factors of roughly five and seven respectively.
 
 \subsection{aPY Dataset --- Full (K = 32)}
 
@@ -141,16 +141,16 @@ Table~\ref{tab:apy32_results} presents results on the full aPY dataset with all 
         \textbf{Mode} & \textbf{NMI} & \textbf{ACC} & \textbf{ARI} & \textbf{Sil} & \textbf{TC} & \textbf{ITF} \\
         \hline
         \texttt{kmeans} & $0.534 \pm 0.014$ & $0.390 \pm 0.016$ & $0.138 \pm 0.012$ & $0.013$ & --- & --- \\
-        \texttt{deccs} & $0.611 \pm 0.001$ & $0.547 \pm 0.000$ & $0.253 \pm 0.000$ & $-0.016$ & --- & --- \\
+        \texttt{deccs} & $0.618 \pm 0.006$ & $0.578 \pm 0.034$ & $0.297 \pm 0.046$ & $-0.018$ & --- & --- \\
         \texttt{ddc} & $0.534 \pm 0.014$ & $0.390 \pm 0.016$ & $0.138 \pm 0.012$ & $0.013$ & $0.497$ & $2.156$ \\
-        \texttt{ddeccs} & $0.611 \pm 0.001$ & $0.547 \pm 0.000$ & $0.253 \pm 0.000$ & $-0.016$ & $0.570$ & $2.413$ \\
+        \texttt{ddeccs} & $0.618 \pm 0.006$ & $0.578 \pm 0.034$ & $0.297 \pm 0.046$ & $-0.018$ & $0.574$ & $2.440$ \\
         \hline
     \end{tabular}
 \end{table}
 
 % Source: results/apy/*/summary.json
 
-On aPY, DECCS consensus provides a substantial improvement over K-means: NMI increases from $0.534$ to $0.611$ ($+14.4\%$ relative), ACC from $0.390$ to $0.547$ ($+40.3\%$), and ARI from $0.138$ to $0.253$ ($+83.3\%$). DECCS also dramatically reduces variance: K-means shows std $= \pm 0.014$ while DECCS shows std $\approx 0$.
+On aPY, DECCS consensus provides a substantial improvement over K-means: NMI increases from $0.534$ to $0.618$ ($+15.6\%$ relative), ACC from $0.390$ to $0.578$ ($+48.0\%$), and ARI from $0.138$ to $0.297$ ($+114.8\%$). Its effect on variance is metric-dependent: DECCS reduces the NMI standard deviation by roughly a factor of $2.5$ ($\pm 0.014$ to $\pm 0.006$) but increases it for ACC ($\pm 0.016$ to $\pm 0.034$) and ARI ($\pm 0.012$ to $\pm 0.046$). On this hardest of the three settings the consensus stabilises how much class information the partition carries without stabilising the partition itself: NMI is invariant to label permutation and tolerant of cluster-size imbalance, whereas ARI counts agreeing pairs and ACC depends on an optimal-assignment matching that can switch between near-equivalent alternatives.
 
 \subsection{aPY Dataset --- DDC 15-Class Subset (K = 15)}
 \label{sec:apy15}
@@ -166,16 +166,59 @@ To enable direct comparison with DDC's published results, we evaluate on the sam
         \textbf{Mode} & \textbf{NMI} & \textbf{ACC} & \textbf{ARI} & \textbf{Sil} & \textbf{TC} & \textbf{ITF} \\
         \hline
         \texttt{kmeans} & $0.666 \pm 0.028$ & $0.615 \pm 0.046$ & $0.458 \pm 0.048$ & $0.027$ & --- & --- \\
-        \texttt{deccs} & $0.677 \pm 0.000$ & $0.644 \pm 0.000$ & $0.459 \pm 0.000$ & $0.029$ & --- & --- \\
+        \texttt{deccs} & $0.684 \pm 0.005$ & $0.658 \pm 0.012$ & $0.477 \pm 0.014$ & $0.032$ & --- & --- \\
         \texttt{ddc} & $0.666 \pm 0.028$ & $0.615 \pm 0.046$ & $0.458 \pm 0.048$ & $0.027$ & $0.447$ & $2.050$ \\
-        \texttt{ddeccs} & $0.677 \pm 0.000$ & $0.644 \pm 0.000$ & $0.459 \pm 0.000$ & $0.029$ & $0.492$ & $2.224$ \\
+        \texttt{ddeccs} & $0.684 \pm 0.005$ & $0.658 \pm 0.012$ & $0.477 \pm 0.014$ & $0.032$ & $0.493$ & $2.228$ \\
         \hline
     \end{tabular}
 \end{table}
 
 % Source: results/apy_15/*/summary.json
 
-On the 15-class subset, results are closer between K-means and DECCS. DECCS achieves slightly higher NMI ($0.677$ vs.\ $0.666$) and higher ACC ($0.644$ vs.\ $0.615$), and again shows near-zero variance.
+On the 15-class subset, results are closer between K-means and DECCS. DECCS achieves slightly higher NMI ($0.684$ vs.\ $0.666$) and higher ACC ($0.658$ vs.\ $0.615$), and reduces run-to-run variance on every metric---by roughly a factor of six on NMI ($\pm 0.028$ to $\pm 0.005$) and close to four on ACC and ARI.
+
+
+\subsection{Feature Standardization Ablation}
+\label{subsec:standardization_ablation}
+
+The K-means baseline clusters the raw 2048-dimensional ResNet features, whereas the
+DECCS ensemble standardizes them to zero mean and unit variance before clustering
+(Section~\ref{sec:deccs_consensus}). Because the two arms of our main comparison
+therefore differ in preprocessing as well as in algorithm, we verify that the
+reported consensus gains are not an artifact of standardization by rerunning the
+K-means baseline on standardized features under identical seeds.
+
+\begin{table}[H]
+    \centering
+    \caption{K-means on raw versus standardized features, mean $\pm$ std over 10 runs.
+    Standardization reduces NMI on all three configurations and drives the Silhouette
+    score negative.}
+    \label{tab:standardization_ablation}
+    \begin{tabular}{lcccc}
+        \hline
+        & \multicolumn{2}{c}{\textbf{NMI}} & \multicolumn{2}{c}{\textbf{Silhouette}} \\
+        \textbf{Dataset} & \textbf{raw} & \textbf{standardized} & \textbf{raw} & \textbf{standardized} \\
+        \hline
+        AwA2 & $0.869 \pm 0.002$ & $0.777 \pm 0.017$ & $0.189$ & $-0.057$ \\
+        aPY (32-class) & $0.534 \pm 0.014$ & $0.520 \pm 0.014$ & $0.013$ & $-0.031$ \\
+        aPY (15-class) & $0.666 \pm 0.028$ & $0.573 \pm 0.024$ & $0.027$ & $-0.026$ \\
+        \hline
+    \end{tabular}
+\end{table}
+
+% Source: results_v2_control/*/kmeans/summary.json and results_v2_std/*/kmeans/summary.json
+
+Standardization does not help K-means on these features; it costs $0.093$ NMI on
+AwA2, $0.093$ on aPY-15, and $0.014$ on aPY-32, and turns the Silhouette score
+negative in every case, meaning the average instance sits closer to a neighbouring
+cluster than to its own. Per-dimension scale in ResNet-101 activations evidently
+carries class information that whitening discards. The consensus gains reported
+above are therefore not attributable to preprocessing: the ensemble reaches
+NMI $= 0.618$ on aPY-32 from a representation on which K-means manages only
+$0.520$. Because raw features give the stronger single-algorithm baseline, we
+retain them for the comparison in Tables~\ref{tab:awa2_results}--\ref{tab:apy15_results},
+which makes the reported improvements conservative.
+
 
 \subsection{Comparison with DDC Paper}
 \label{sec:ddc_comparison}
@@ -234,8 +277,8 @@ Table~\ref{tab:tc_itf_comparison} compares the average TC and ITF of our two des
         \textbf{Dataset} & \textbf{TC} & \textbf{ITF} & \textbf{TC} & \textbf{ITF} \\
         \hline
         AwA2 & 0.681 & 2.652 & 0.698 & 2.656 \\
-        aPY (32-class) & 0.497 & 2.156 & 0.570 & 2.413 \\
-        aPY (15-class) & 0.447 & 2.050 & 0.492 & 2.224 \\
+        aPY (32-class) & 0.497 & 2.156 & 0.574 & 2.440 \\
+        aPY (15-class) & 0.447 & 2.050 & 0.493 & 2.228 \\
         \hline
     \end{tabular}
 \end{table}
@@ -411,7 +454,7 @@ Because the ILP description module operates post-hoc, the four modes produce onl
         \centering
         \includegraphics[width=\textwidth]{figs/apy_deccs_tsne.png}
     \end{minipage}
-    \caption{t-SNE projections of aPY full dataset (32 classes). Left: K-means (NMI = 0.534). Right: DECCS consensus (NMI = 0.611). The consensus ensemble produces clusters that align more closely with the true object classes, particularly in separating vehicles from furniture and small objects---the largest gain from consensus in our experiments. As discussed in Section~\ref{sec:interpretation}, this class-level improvement coexists with a lower Silhouette score, which measures Euclidean compactness rather than class agreement. (The projection shows a single representative seed; the tables report 10-run means.) Source: \texttt{results/apy/kmeans/tsne.png} and \texttt{results/apy/deccs/tsne.png}.}
+    \caption{t-SNE projections of aPY full dataset (32 classes). Left: K-means (NMI = 0.534). Right: DECCS consensus (NMI = 0.618). The consensus ensemble produces clusters that align more closely with the true object classes, particularly in separating vehicles from furniture and small objects---the largest gain from consensus in our experiments. As discussed in Section~\ref{sec:interpretation}, this class-level improvement coexists with a lower Silhouette score, which measures Euclidean compactness rather than class agreement. (The projection shows a single representative seed; the tables report 10-run means.) Source: \texttt{results/apy/kmeans/tsne.png} and \texttt{results/apy/deccs/tsne.png}.}
     \label{fig:tsne_apy32}
 \end{figure}
 
@@ -428,7 +471,7 @@ Because the ILP description module operates post-hoc, the four modes produce onl
         \centering
         \includegraphics[width=\textwidth]{figs/apy15_deccs_tsne.png}
     \end{minipage}
-    \caption{t-SNE projections of aPY 15-class subset. Left: K-means (NMI = 0.666). Right: DECCS consensus (NMI = 0.677, ACC = 0.644). Distinct groups are visible for animals (top), vehicles (left), and furniture/objects (bottom). (The projection shows a single representative seed; the tables report 10-run means.) Source: \texttt{results/apy\_15/kmeans/tsne.png} and \texttt{results/apy\_15/deccs/tsne.png}.}
+    \caption{t-SNE projections of aPY 15-class subset. Left: K-means (NMI = 0.666). RRight: DECCS consensus (NMI = 0.684, ACC = 0.658). Distinct groups are visible for animals (top), vehicles (left), and furniture/objects (bottom). (The projection shows a single representative seed; the tables report 10-run means.) Source: \texttt{results/apy\_15/kmeans/tsne.png} and \texttt{results/apy\_15/deccs/tsne.png}.}
     \label{fig:tsne_apy15}
 \end{figure}
 

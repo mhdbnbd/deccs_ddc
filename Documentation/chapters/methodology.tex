@@ -88,7 +88,8 @@ Algorithm~\ref{alg:ddeccs} summarizes the complete DDECCS pipeline.
     \State $F_{\text{pca}} \gets \text{PCA}(F, d=\min(256, \dim, \max(64, N/2K)))$ \Comment{For GMM numerical stability}
     \State $\pi_3 \gets \text{GMM}(F_{\text{pca}}, K, \text{full covariance})$
     \State $\pi_4 \gets \text{Agglomerative}(F, K, \text{Ward linkage})$
-    \State Build co-association matrix: $A_{ij} \gets \frac{1}{4}\sum_{m=1}^{4} \mathbb{1}[\pi_m(i) = \pi_m(j)]$
+    \State Build sparse co-association matrix over $k$-NN pairs ($k = 20$):
+    \State \quad $B_{ij} \gets \sum_{m=1}^{4} \mathbb{1}[\pi_m(i) = \pi_m(j)]$ for $j \in \mathcal{N}_k(i)$, \quad $A \gets \frac{1}{4}(B + B^{\top})$
     \State Sparsify $A$ using $k$-nearest neighbors ($k=20$)
     \State $\mathbf{y} \gets \text{SpectralClustering}(A, K)$
     \EndIf
@@ -150,7 +151,7 @@ We evaluate four clustering configurations that systematically vary the clusteri
 
 \subsection{K-means Baseline}
 
-K-means clustering~\citep{Lloyd1982} is applied directly to the 2048-dimensional ResNet features with $K$ clusters, 10 random initializations, and the Elkan algorithm for efficiency. This serves as the baseline against which consensus clustering is compared.
+K-means clustering~\citep{Lloyd1982} is applied directly to the 2048-dimensional ResNet features with $K$ clusters and 10 random initializations, using scikit-learn's default Lloyd solver. This serves as the baseline against which consensus clustering is compared.
 
 % Source: KMeans(n_clusters=K, random_state=seed, n_init=10) in main_experiments.py
 
@@ -166,11 +167,11 @@ DECCS~\citep{Miklautz2022} improves clustering robustness through ensemble conse
     \item \textbf{Agglomerative Clustering} starts with each point as its own cluster and repeatedly merges the pair whose merger least increases within-cluster variance (Ward linkage). It is hierarchical and makes no centroid or distributional assumption, capturing nested structure.
 \end{enumerate}
 
-The ensemble results are combined via a sparse co-association matrix $A$, where $A_{ij}$ counts how often instances $i$ and $j$ are assigned to the same cluster across the base clusterers, restricted to $k$-nearest neighbours for efficiency~\citep{Fred2005}. The final clustering applies Spectral Clustering to this consensus matrix.
+The ensemble results are combined via a sparse co-association matrix $A$, where $A_{ij}$ counts how often instances $i$ and $j$ are assigned to the same cluster across the base clusterers, restricted to each instance's $k = 20$ nearest neighbours for efficiency~\citep{Fred2005}. The matrix is symmetrized as $B + B^{\top}$ before normalization, so a pair that is mutually within each other's neighbourhood carries twice the weight of a one-directional pair and entries range over $[0, 2]$ rather than $[0, 1]$. Because the final step treats $A$ as an affinity graph, only the relative edge weights matter. The final clustering applies Spectral Clustering to this consensus matrix.
 
 We apply Spectral Clustering rather than K-means to this matrix because the co-association values define a graph---instances are nodes and co-association frequencies are edge weights---and Spectral Clustering is designed to partition exactly this kind of graph structure; running K-means on the matrix would instead treat the co-association values as raw features and discard the graph interpretation~\citep{Fred2005}.
 
-This differs from the original DECCS, which trains an autoencoder with a consensus loss during representation learning. Our post-hoc consensus applies the ensemble after feature extraction, trading the iterative refinement of learned representations for the reliability and reproducibility of frozen pretrained features. As our experiments demonstrate (Section~\ref{sec:results}), this trade-off is favorable: DECCS consensus provides significant improvements on datasets where individual clustering methods are less reliable (e.g., +14.4\% relative NMI on aPY's 32-class task).
+This differs from the original DECCS, which trains an autoencoder with a consensus loss during representation learning. Our post-hoc consensus applies the ensemble after feature extraction, trading the iterative refinement of learned representations for the reliability and reproducibility of frozen pretrained features. As our experiments demonstrate (Section~\ref{sec:results}), this trade-off is favorable: DECCS consensus provides significant improvements on datasets where individual clustering methods are less reliable (e.g., +15.6\% relative NMI on aPY's 32-class task).
 
 % Source: get_base_clusterings() and build_sparse_consensus() in utils.py
 
@@ -221,13 +222,13 @@ Our adaptive formula scales $\alpha$ proportionally to $\bar{d}$:
     \label{eq:alpha_adaptive}
 \end{equation}
 
-where $\bar{d}$ is the mean attribute value across all instances and all attributes (i.e., the average entry in the attribute matrix); for binary attributes this equals the fraction of non-zero entries. The constant 16 recovers DDC's $\alpha = 8$ at a reference density of $\bar{d} = 0.5$ and scales the requirement down for sparser attributes. The clip to $[2, 8]$ guarantees at least two meaningful attributes per cluster (lower bound) and never exceeds DDC's original setting (upper bound). This yields $\alpha = 3$ for AwA2 ($\bar{d} = 0.217$) and $\alpha = 2$ for aPY (both the 15-class subset, $\bar{d} = 0.087$, and the full 32-class set, $\bar{d} = 0.111$), producing concise descriptions of roughly four to six attributes per cluster on both datasets.
+where $\bar{d}$ is the mean attribute value across all instances and all attributes (i.e., the average entry in the attribute matrix, min--max normalized to $[0,1]$); were the attributes strictly binary this would reduce to the fraction of non-zero entries. The constant 16 recovers DDC's $\alpha = 8$ at a reference density of $\bar{d} = 0.5$ and scales the requirement down for sparser attributes. The clip to $[2, 8]$ guarantees at least two meaningful attributes per cluster (lower bound) and never exceeds DDC's original setting (upper bound). This yields $\alpha = 3$ for AwA2 ($\bar{d} = 0.217$) and $\alpha = 2$ for aPY (both the 15-class subset, $\bar{d} = 0.087$, and the full 32-class set, $\bar{d} = 0.111$), producing concise descriptions of roughly four to six attributes per cluster on both datasets.
 
 % Source: solve_ilp_descriptions() in main_experiments.py
 
 \section{Design Rationale: Why Frozen Features Instead of a Trained Representation}
 \label{sec:design_rationale}
 
-Our initial approach attempted to replicate DDC's trained-encoder approach---a trainable MLP on frozen ResNet features, optimized with mutual information maximization and self-generated pairwise constraints. This did not scale: the trained representation collapsed on the full datasets, performing far worse than K-means on the same frozen features. We give the full diagnosis of this failure in Sections~\ref{sec:early_experiments} and~\ref{sec:why_failed}.
+Our initial approach attempted to replicate DDC's trained-encoder approach---a trainable MLP on frozen ResNet features, optimized with mutual information maximization and self-generated pairwise constraints. This did not scale: the trained representation collapsed on the full datasets, performing far worse than K-means on the same frozen features. A later code review additionally found implementation defects in these variants, so the collapse reflects our implementations rather than a verdict on trained approaches as such. We give the full diagnosis in Sections~\ref{sec:early_experiments} and~\ref{sec:why_failed}.
 
 This outcome motivates the design above. Rather than training features that already separate the classes well, we focus the contribution on two decoupled components: consensus clustering for robustness, and post-hoc ILP descriptions for interpretability. Decoupling them lets us evaluate clustering quality and description quality independently and yields a deterministic, reproducible pipeline free of training instabilities---at the cost of task-specific feature adaptation, a trade-off we examine in Chapter~\ref{chap:discussion}.

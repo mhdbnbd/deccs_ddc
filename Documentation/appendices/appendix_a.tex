@@ -17,9 +17,9 @@ Table~\ref{tab:awa2_full} reports all four modes on AwA2 over ten seeds.
         \textbf{Mode} & \textbf{NMI} & \textbf{ACC} & \textbf{ARI} & \textbf{Sil} & \textbf{TC} & \textbf{ITF} \\
         \midrule
         \texttt{kmeans} & $0.869 \pm 0.002$ & $0.785 \pm 0.008$ & $0.744 \pm 0.008$ & $0.189$ & --- & --- \\
-        \texttt{deccs} & $0.871 \pm 0.000$ & $0.807 \pm 0.000$ & $0.736 \pm 0.000$ & $0.160$ & --- & --- \\
+        \texttt{deccs} & $0.871 \pm 0.001$ & $0.807 \pm 0.002$ & $0.738 \pm 0.001$ & $0.160$ & --- & --- \\
         \texttt{ddc} & $0.869 \pm 0.002$ & $0.785 \pm 0.008$ & $0.744 \pm 0.008$ & $0.189$ & $0.681$ & $2.652$ \\
-        \texttt{ddeccs} & $0.871 \pm 0.000$ & $0.807 \pm 0.000$ & $0.736 \pm 0.000$ & $0.160$ & $0.698$ & $2.656$ \\
+        \texttt{ddeccs} & $0.871 \pm 0.001$ & $0.807 \pm 0.002$ & $0.738 \pm 0.001$ & $0.160$ & $0.698$ & $2.656$ \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -39,9 +39,9 @@ Table~\ref{tab:apy32_full} reports all four modes on the full 32-class aPY datas
         \textbf{Mode} & \textbf{NMI} & \textbf{ACC} & \textbf{ARI} & \textbf{Sil} & \textbf{TC} & \textbf{ITF} \\
         \midrule
         \texttt{kmeans} & $0.534 \pm 0.014$ & $0.390 \pm 0.016$ & $0.138 \pm 0.012$ & $0.013$ & --- & --- \\
-        \texttt{deccs} & $0.611 \pm 0.001$ & $0.547 \pm 0.000$ & $0.253 \pm 0.000$ & $-0.016$ & --- & --- \\
+        \texttt{deccs} & $0.618 \pm 0.006$ & $0.578 \pm 0.034$ & $0.297 \pm 0.046$ & $-0.018$ & --- & --- \\
         \texttt{ddc} & $0.534 \pm 0.014$ & $0.390 \pm 0.016$ & $0.138 \pm 0.012$ & $0.013$ & $0.497$ & $2.156$ \\
-        \texttt{ddeccs} & $0.611 \pm 0.001$ & $0.547 \pm 0.000$ & $0.253 \pm 0.000$ & $-0.016$ & $0.570$ & $2.413$ \\
+        \texttt{ddeccs} & $0.618 \pm 0.006$ & $0.578 \pm 0.034$ & $0.297 \pm 0.046$ & $-0.018$ & $0.574$ & $2.440$ \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -61,9 +61,9 @@ Table~\ref{tab:apy15_full} reports all four modes on the 15-class aPY subset ove
         \textbf{Mode} & \textbf{NMI} & \textbf{ACC} & \textbf{ARI} & \textbf{Sil} & \textbf{TC} & \textbf{ITF} \\
         \midrule
         \texttt{kmeans} & $0.666 \pm 0.028$ & $0.615 \pm 0.046$ & $0.458 \pm 0.048$ & $0.027$ & --- & --- \\
-        \texttt{deccs} & $0.677 \pm 0.000$ & $0.644 \pm 0.000$ & $0.459 \pm 0.000$ & $0.029$ & --- & --- \\
+        \texttt{deccs} & $0.684 \pm 0.005$ & $0.658 \pm 0.012$ & $0.477 \pm 0.014$ & $0.032$ & --- & --- \\
         \texttt{ddc} & $0.666 \pm 0.028$ & $0.615 \pm 0.046$ & $0.458 \pm 0.048$ & $0.027$ & $0.447$ & $2.050$ \\
-        \texttt{ddeccs} & $0.677 \pm 0.000$ & $0.644 \pm 0.000$ & $0.459 \pm 0.000$ & $0.029$ & $0.492$ & $2.224$ \\
+        \texttt{ddeccs} & $0.684 \pm 0.005$ & $0.658 \pm 0.012$ & $0.477 \pm 0.014$ & $0.032$ & $0.493$ & $2.228$ \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -78,6 +78,8 @@ This section documents the results from approaches attempted before the final DD
 \subsection{Autoencoder-Based Approach}
 
 The initial approach used convolutional autoencoders with tag-prediction branches, trained with reconstruction + tag BCE + consensus losses. These variants---with and without the tag-prediction branch, at $128\times128$ and $224\times224$ resolution, and with a frozen ResNet-101 backbone---all produced low-quality clusterings far below the frozen-features K-means baseline (NMI = 0.869 on AwA2). This is what motivated abandoning the autoencoder design in favour of pretrained features.
+
+A later line-by-line review of the archived training code found that these runs were compromised beyond the design issues discussed in Chapter~\ref{chap:discussion}. Most importantly, the consensus term contributed no gradient at all: the embeddings it compared were computed inside a \texttt{torch.no\_grad()} block, so the consensus loss was recorded in the logs but could not influence the weights, and the models were in effect trained on reconstruction and tag prediction alone. Secondary defects compounded this---the consensus target was rebuilt only once every five epochs, the optimizer state was re-initialized each epoch, and the co-association target mixed value ranges---so the reported autoencoder results measure a partially specified objective rather than the intended one. They therefore show that \emph{these} training runs failed; they do not establish that consensus-guided representation learning fails on this data.
 
 \subsection{DDC-Style MLP Training}
 
@@ -104,6 +106,8 @@ The second approach used DDC's actual loss functions (MI + pairwise) with a trai
 \end{table}
 
 As the final row shows, K-means on raw features outperformed every MLP attempt, which led to the frozen-features pipeline.
+
+The same review identified two implementation gaps in this variant. First, DDC's defining mechanism was never active: the ILP that selects informative tags was fully implemented but never invoked during training, so the pairwise constraints were always generated from the raw tag space rather than from the ILP-filtered one, leaving the model permanently in what DDC treats as a pre-training phase. Second, the constraint generation itself deviated from DDC: the class-level continuous predicates make the tag-distance term dominate DDC's pair-selection score by several orders of magnitude,disabling the intended preference for tag-similar but cluster-different pairs, and the per-batch random tag masking (re-drawn each step) replaces DDC's one-time missing-tag simulation with mean imputation, making partner selection between same-class instances depend on mask sampling rather than semantics. The early cluster collapse described in Section~\ref{sec:why_failed}---the MI objective committing the model to roughly 24 coarse clusters within one epoch---is confirmed and remains the proximate optimization failure; the gaps above explain why the pairwise term had no corrective signal to offer.
 
 \section{ILP Solver Configuration}
 
