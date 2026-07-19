@@ -14,18 +14,24 @@
 \usepackage{natbib}
 \usepackage{tocbibind}
 \usepackage{float}
+\usepackage{caption}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman,english]{babel}
 \usepackage{dirtytalk}
 \usepackage{dsfont}
 \usepackage{algorithm}
-\usepackage{algorithmic}
-\usepackage{multirow}        % For spanning table rows
-\usepackage{multicol}        % For multi-column layouts
-\usepackage{pifont}          % For checkmarks/xmarks
-\usepackage{tikz}            % For diagrams
+\usepackage{algpseudocode}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{pifont}
+\usepackage{tikz}
 \usepackage{enumitem}
 \usepackage{pgfplots}
+\usepackage{booktabs}
+\usepackage{microtype}
 \pgfplotsset{compat=1.18}
-\usetikzlibrary{positioning,shapes,arrows}  % TikZ libraries needed
+\usetikzlibrary{positioning,shapes,arrows}
 
 % Define checkmark/xmark
 \newcommand{\cmark}{\ding{51}}
@@ -83,7 +89,8 @@
   {\cleardoublepage}
 
 % Prevent duplicate destination identifiers
-\hypersetup{pageanchor=true}
+\pagenumbering{roman}
+\hypersetup{pageanchor=false}
 
 % Schema environment definition
 \usepackage{tcolorbox}
@@ -104,7 +111,7 @@
 
         \vspace{0.5cm}
         \LARGE
-        for Enhanced Interpretability and Performance on AwA and APY Datasets
+        for Enhanced Interpretability and Performance on AwA2 and aPY Datasets
 
         \vspace{1.5cm}
 
@@ -132,33 +139,71 @@
 % Abstract
 \begin{abstract}
     \addcontentsline{toc}{chapter}{Abstract}
-    This thesis introduces a novel approach to enhance the interpretability of the Deep Embedded Clustering with Consensus Representations (DECCS) algorithm by incorporating principles from the Deep Descriptive Clustering (DDC) framework. DECCS has shown significant advances in clustering precision but, similarly to many clustering methods, it does not consider interpretability. This research aims to bridge this gap by refining the DECCS algorithm to not only generate clusters but also provide meaningful, cluster-level explanations that enhance transparency and comprehensibility in the clustering process.
+    This thesis presents DDECCS, a framework that combines consensus-based clustering with interpretable cluster descriptions for attribute-annotated image datasets. The approach integrates two complementary methods: DECCS (Deep Clustering with Consensus Representations), which improves clustering robustness through ensemble agreement, and DDC (Deep Descriptive Clustering), which generates concise, human-readable cluster explanations via Integer Linear Programming (ILP).
 
-The methodology involves adapting DECCS to effectively interface with a specific dataset used in the DDC experimental framework, namely the Animals with Attributes (AwA). This adaptation incorporates DDC’s symbolic level representations into DECCS, aiming to create a seamless integration between raw data clustering and semantic interpretability.
+    Our pipeline extracts frozen ResNet-101 features, applies consensus clustering from a heterogeneous ensemble of four algorithms (K-means, Spectral Clustering, Gaussian Mixture Models, and Agglomerative Clustering), and generates orthogonal ILP descriptions---which penalize attribute overlap across clusters to keep explanations distinctive---using the datasets' semantic attributes. We introduce an adaptive ILP coverage parameter ($\alpha$) that extends DDC's formulation to datasets with sparse binary attributes, where DDC's fixed $\alpha = 8$ cannot be satisfied and the description step would otherwise fail.
 
-A significant aspect of this thesis is the integration of DDC’s interpretative capabilities with DECCS’s clustering method. This integration strives to maintain the high quality of cluster formation inherent to DECCS while introducing the level of interpretability. The dual focus ensures that the resulting predictions are both accurate and comprehensible, providing insights into the underlying structure and relationships within the data.
+    We evaluate on two established datasets: Animals with Attributes~2 (AwA2, 50 classes, 85 attributes) and Attribute Pascal and Yahoo (aPY, 15 and 32 classes, 64 attributes). On AwA2, frozen ResNet-101 features already cluster well (K-means NMI = 0.869), and DDECCS reaches NMI = 0.871---approaching DDC's published 0.896 without task-specific training; on this dataset the consensus step mainly improves accuracy and reduces variance rather than raising NMI. On aPY, DDC's trained model remains stronger (published NMI = 0.863), but our consensus step still improves substantially over a single-algorithm K-means baseline---by 14.4\% relative NMI on the 32-class task (0.534 $\to$ 0.611)---while reducing run-to-run variance to near zero. The post-hoc ILP descriptions are semantically coherent, producing explanations such as ``orange, stripes, claws, muscle'' for a tiger cluster and ``Pedal, Handlebars, Text, Plastic'' for a bicycle cluster.
 
-This thesis evaluates the integrated approach through extensive experiments, assessing both clustering performance and the quality of explanations generated. The evaluation includes comparisons with recent advancements and foundational algorithms in the field, demonstrating the efficacy of combining DECCS with DDC principles. By highlighting the advantages of this combination in practical clustering applications, the research contributes to the field of data clustering by offering a novel methodology that combines the efficiency of DECCS with the interpretative power of DDC.
+    The thesis also documents extensive experiments with alternative approaches---including autoencoder-based training and DDC-style optimization on frozen features---that informed the final design and provide practical insights into the challenges of multi-objective deep clustering.
+\end{abstract}
 
-Overall, this research sets a new benchmark for transparent, understandable, and insightful data analysis in various domains, addressing the increasing demand for interpretability and accountability in complex data clustering.
+\renewcommand{\abstractname}{Zusammenfassung}
+\begin{abstract}
+    \addcontentsline{toc}{chapter}{Zusammenfassung}
+    \selectlanguage{ngerman}
+    Deep-Clustering-Verfahren lernen gemeinsam eine Merkmalsrepräsentation und eine
+    Clusterzuordnung, stützen sich dabei jedoch typischerweise auf ein einzelnes
+    Clustering-Ziel und liefern keine für Menschen verständliche Erklärung dafür, was
+    die einzelnen Cluster voneinander unterscheidet. Diese Arbeit stellt DDECCS (Deep
+    Descriptive Clustering with Consensus Representations) vor, ein Verfahren, das die
+    interpretierbaren Cluster-Beschreibungen von Deep Descriptive Clustering (DDC) mit
+    der ensemblebasierten Robustheit des DECCS-Konsens-Clusterings verbindet. Die
+    Pipeline extrahiert 2048-dimensionale Merkmale aus einem eingefrorenen, auf ImageNet
+    vortrainierten ResNet-101, clustert diese entweder mit K-Means oder mit einem
+    Konsens-Ensemble aus vier Basisalgorithmen und erzeugt anschließend mittels
+    ganzzahliger linearer Optimierung (ILP) für jeden Cluster eine kompakte, möglichst
+    trennscharfe Menge semantischer Attribute.
+
+    Da das feste $\alpha = 8$ von DDC bei dünn besetzten binären Attributen zu einer
+    unlösbaren ILP führt, führen wir ein adaptives $\alpha$ ein, das proportional zur
+    mittleren Attributdichte skaliert und die Lösbarkeit auf solchen Datensätzen
+    wiederherstellt. Wir evaluieren das Verfahren auf den attributannotierten
+    Bilddatensätzen AwA2 und aPY. Auf AwA2 erreicht das Konsens-Clustering eine
+    vergleichbare Clustering-Güte wie K-Means (NMI = 0{,}871) bei deutlich höherer
+    Stabilität, während es auf dem aPY-Datensatz eine relative Verbesserung der NMI um
+    14{,}4\,\% gegenüber K-Means erzielt. Das ursprüngliche, end-to-end trainierte DDC
+    bleibt auf aPY stärker (publizierte NMI = 0{,}863), da es seine Merkmale gezielt für
+    die Clustering-Aufgabe verfeinert.
+
+    Ein zentrales negatives Ergebnis dieser Arbeit ist, dass K-Means auf den
+    eingefrorenen ResNet-Merkmalen jede von uns trainierte Repräsentation übertraf: Die
+    vortrainierten Merkmale kodieren bereits hinreichend klassentrennende Information,
+    sodass ein zusätzliches Training diese eher zerstörte als verbesserte. Die erzeugten
+    ILP-Beschreibungen sind kompakt und trennscharf -- ein Tiger-Cluster wird etwa durch
+    „orange, gestreift, Krallen, muskulös“ beschrieben -- und das Beschreibungsmodul
+    beeinflusst die Clusterzuordnung nicht, da es nachgelagert arbeitet. Insgesamt zeigt
+    DDECCS, dass robustes Konsens-Clustering und interpretierbare Cluster-Beschreibungen
+    ohne Einbußen bei der Clustering-Güte kombiniert werden können.
+    \selectlanguage{english}
 \end{abstract}
 
 % Acknowledgements
 %\begin{acknowledgements}
 %    \addcontentsline{toc}{chapter}{Acknowledgements}
-%    Write your acknowledgements here. Thank those who helped you with your research and thesis.
+%    Write your acknowledgements here.
 %\end{acknowledgements}
 
 % Table of Contents
 \tableofcontents
 
-
+\pagenumbering{arabic}
 % Chapters
 \chapter{Introduction}
 \input{chapters/introduction}
 
-\chapter{Related Works}
-\input{chapters/related_works}
+\chapter{Related Work}
+\input{chapters/related_work}
 
 \chapter{Methodology}
 \input{chapters/methodology}
@@ -180,10 +225,10 @@ Overall, this research sets a new benchmark for transparent, understandable, and
 
 % Appendices
 \appendix
-\chapter{Appendix A}
+\chapter{Hyperparameter Analysis and Early Experiments}
 \input{appendices/appendix_a}
 
-\chapter{Appendix B}
+\chapter{Cluster Descriptions and Dataset Details}
 \input{appendices/appendix_b}
 
 \end{document}

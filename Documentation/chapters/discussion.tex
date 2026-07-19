@@ -1,243 +1,86 @@
-\section{Overview}
+\label{chap:discussion}
 
-This chapter provides a critical analysis of our experimental findings, interprets the results in the context of our research questions, and discusses the significant challenges encountered when integrating Deep Descriptive Clustering (DDC) principles into the DECCS framework. We examine why the approach failed to scale from sample data to the full dataset, what this reveals about multi-objective optimization in deep clustering, and what implications these findings have for future research.
+This chapter interprets the experimental results in light of the research questions. We first explain when and why consensus clustering helps, assess the quality of the generated descriptions, and account for the gap to DDC (Section~\ref{sec:interpretation}). We then analyse why the trained alternatives we attempted failed (Section~\ref{sec:why_failed}) and what trade-offs the final design entails (Section~\ref{sec:tradeoffs}). Finally, we highlight the thesis contributions (Section~\ref{sec:contributions_disc}) and revisit the three research questions (Section~\ref{sec:rq_revisited}).
 
 \section{Interpretation of Results}
+\label{sec:interpretation}
 
-\subsection{Analysis of Scaling Failure}
+The experiments support two headline findings. First, DECCS consensus delivers its largest gains precisely where individual algorithms struggle, while adding little where the features already separate the classes. Second, the post-hoc ILP produces concise, distinctive descriptions across both datasets without affecting clustering quality. We examine each finding in turn, then account for the gap to the original DDC.
 
-The most significant finding of this research is the dramatic performance gap between sample-scale and full-scale experiments. While the sample data (N=160) achieved NMI=0.642, the full dataset (N=37,322) achieved only NMI=0.012---a near-complete failure that requires careful analysis.
+\subsection{When Does Consensus Clustering Help?}
 
-\subsubsection{Consensus Matrix Scalability}
+Our results reveal a clear pattern: DECCS consensus provides significant improvements when the underlying features do not perfectly separate classes, but offers diminishing returns when features are already highly discriminative.
 
-DECCS builds a consensus matrix of size $N \times N$, where $N$ is the number of samples. For the full AwA2 dataset, this would require storing and processing a matrix of approximately 1.4 billion entries. The original DECCS implementation uses k-NN sparsification to reduce memory requirements, but this introduces additional complexity:
+On AwA2, ResNet-101 features separate the 50 animal classes so effectively that K-means alone achieves NMI = 0.869. DECCS consensus matches this performance (NMI = 0.871) but does not substantially improve it. The four base clusterers (K-means, Spectral, GMM, Agglomerative) largely agree because the feature space has clear class structure, so ensembling their decisions adds little information. However, DECCS does provide measurably higher ACC (0.807 vs.\ 0.785) and near-zero variance across seeds, indicating more consistent and accurately aligned cluster assignments.
 
-\begin{itemize}
-    \item Sparse consensus matrices may lose important pairwise relationships
-    \item The sparsity pattern itself becomes a hyperparameter that must be tuned
-    \item The approximation quality may degrade with larger datasets
-\end{itemize}
+On aPY, the picture changes dramatically. The 32-class aPY dataset contains diverse object categories---animals, vehicles, furniture, containers---that are less cleanly separated in ResNet feature space. Here, K-means achieves only NMI = 0.534 with substantial variance ($\pm 0.014$), while DECCS consensus reaches NMI = 0.611 ($\pm 0.001$), an improvement of 14.4\%. This demonstrates that consensus clustering serves as a regularizer: when individual algorithms make different errors (K-means is sensitive to initialization, Spectral clustering captures different structure than GMM), their agreement signal identifies robust cluster boundaries. The near-zero variance of DECCS is particularly valuable in practice, as it means results are reproducible without dependence on random initialization.
 
-\subsubsection{Multi-Objective Optimization Challenges}
+One metric runs counter to this improvement, and it is worth addressing directly. The Silhouette score---our only label-free measure---falls under consensus on AwA2 (0.189 to 0.160) and turns slightly negative on aPY-32 (0.013 to $-0.016$), even though NMI, ACC, and ARI improve or hold. This is expected rather than contradictory. Silhouette rewards clusters that are compact and well-separated in Euclidean feature space, whereas the final DECCS step applies spectral clustering to the co-association graph, which optimizes a normalized graph cut rather than Euclidean compactness. A consensus partition can therefore agree more closely with the true classes (higher NMI/ACC) while being less Euclidean-compact (lower Silhouette). Because our objective is agreement with the semantic classes, we treat the label-based metrics as primary and report Silhouette only as a label-free diagnostic rather than as the arbiter of cluster quality.
 
-Our integrated framework combines multiple loss terms:
-\begin{equation}
-    \mathcal{L}_{total} = \mathcal{L}_{recon} + \lambda_{tag} \mathcal{L}_{tag} + \lambda_{cons} \mathcal{L}_{consensus}
-\end{equation}
+\subsection{Quality of ILP-Generated Descriptions}
 
-This multi-objective setup introduces several challenges:
-\begin{itemize}
-    \item \textbf{Task Interference}: The reconstruction, tag prediction, and consensus objectives may compete, with gradients pulling the representation in conflicting directions
-    \item \textbf{Loss Scale Imbalance}: Different loss terms operate at different scales, making weight selection ($\lambda$ values) difficult
-    \item \textbf{Hyperparameter Sensitivity}: Configurations that work for small samples may be catastrophically wrong at scale
-\end{itemize}
+The ILP produces descriptions that are both concise and semantically meaningful. On AwA2, the tiger cluster (in \texttt{ddc} mode) is described by ``orange, stripes, muscle, fierce'' (TC = 0.82, ITF = 3.12), meaning 82\% of cluster members on average possess these attributes and the attributes are highly distinctive to this cluster. On aPY, the orthogonality constraint keeps descriptions distinctive: the car cluster (``Wheel, Door, Taillight, Side mirror, Exhaust'') and the bicycle cluster (``Pedal, Handlebars, Text, Plastic'') are described by disjoint attribute sets, even though both are vehicles.
 
-Multi-task learning literature has documented these challenges extensively \citep{Ruder2017, Crawshaw2020}, and our results suggest that integrating DDC's semantic supervision with DECCS's consensus mechanism compounds these difficulties.
+Across all datasets and clusters, Tag Coverage ranges from 0.18 to 0.83 and Inverse Tag Frequency reaches up to 3.47, confirming that the ILP generates descriptions that are representative of their clusters and distinctive across them. The lower TC values occur on aPY, where the per-instance binary attributes and visually mixed clusters dilute coverage; the higher values occur on AwA2 and on the cleaner aPY clusters.
 
-\subsubsection{Sample Representativeness}
+The adaptive $\alpha$ parameter (Section~\ref{sec:adaptive_alpha}) was essential for obtaining ILP solutions on aPY at all: DDC's default $\alpha = 8$ is infeasible on aPY's sparse attributes (Section~\ref{sec:adaptive_alpha}), and our density-proportional scaling restores feasibility while keeping descriptions concise.
 
-The sample subset of 160 points (4 per class for 40 classes) may not be representative of the full dataset:
-\begin{itemize}
-    \item Artificially low variance due to small sample size
-    \item Class distribution differences between sample and full dataset
-    \item Potential selection bias in how samples were chosen
-\end{itemize}
+The comparison to the original DDC's reported description metrics (Table~\ref{tab:ddc_tcitf}) must be read with care. Three differences make a direct comparison unsafe. First, scale: DDC reports description metrics only on a down-sampled setting of 10 AwA classes merged into 5 clusters, each a clean pair of classes, whereas we describe 50 clusters of the full AwA2; coverage and distinctiveness are both far easier to maximise over 5 well-separated clusters than over 50. Second, the coverage parameter differs ($\alpha = 8$ versus our adaptive $\alpha = 3$): more tags per cluster raises TC and, through overlap, lowers ITF, so the two methods occupy different points on the coverage--distinctiveness trade-off by construction. Third, the ITF logarithm base differs ($\log_2$ versus natural log). Once these are accounted for, DDC's TC = 1.00 and maximal ITF reflect the ease of its 5-cluster evaluation rather than evidence that iterative training yields better descriptions than our post-hoc ILP. A controlled comparison would require running both methods on the same clustering at the same $\alpha$, which in turn requires a working DDC implementation; we therefore leave it to future work.
 
-This raises fundamental questions about the validity of hyperparameter tuning on small samples for deep clustering. Recent surveys on deep clustering \citep{Ren2024, Zhou2024} highlight that joint optimization of representation learning and clustering remains challenging, particularly when additional objectives like interpretability are introduced. Our experience confirms these observations, suggesting that careful balancing of loss terms and training dynamics is essential.
+The most distinctive cluster is invariant to the clustering method: the potted-plant cluster attains the maximum possible ITF ($\ln 32 \approx 3.47$) in both \texttt{ddc} and \texttt{ddeccs} modes, indicating that the consensus step preserves the descriptions' distinctiveness rather than eroding it.
 
-\subsection{Comparison with DDC}
+\subsection{Why Our Approach Trails DDC}
 
-DDC achieves NMI $\approx$ 0.78 on AwA, while our approach achieved only NMI=0.012 on the full AwA2 dataset. Understanding this gap is crucial:
+The original DDC outperforms our pipeline, and the reason is consistent across both datasets: DDC refines its features for the clustering task, whereas we do not. Our K-means baseline (NMI = 0.869 on AwA2) actually exceeds DDC's K-means baseline (NMI = 0.742), but this comparison is not direct: DDC uses K = 40 on the original AwA (19832 instances), while we use K = 50 on AwA2 (29857 instances), and higher K and different images both contribute to the gap. The more meaningful comparison is between the full methods. DDC's trained MLP (NMI = 0.896) outperforms our best frozen-features result (DDECCS, NMI = 0.871) by about 2.5 points on AwA2.
 
-\subsubsection{Missing Pairwise Consistency Loss}
+On aPY the gap is larger: DDC achieves NMI = 0.863 while our best result (DDECCS) is 0.677, a gap of 18.6 points. This is attributable to DDC's MLP training, which refines features specifically for the 15-class aPY clustering task using pairwise constraints from semantic attributes. Because aPY images are bounding-box object crops rather than full scenes, ImageNet-pretrained ResNet features are less discriminative on aPY than on AwA2, so task-specific refinement adds more value there.
 
-DDC uses a self-generated pairwise loss that enforces consistency between clustering and explanation modules. We did not implement this component, relying instead on DECCS's consensus mechanism. This may have been a critical omission---the pairwise loss may be essential for aligning the learned representation with semantic supervision.
+Two caveats temper this comparison. First, DDC reports results on the original AwA dataset, which has been withdrawn for copyright reasons; we use the replacement AwA2, with different images, so the AwA comparison is approximate. Second, DDC trains with a tag annotation ratio $r = 0.5$ (half of each instance's attributes randomly masked). Our own MLP experiments (Section~\ref{sec:why_failed}) found this per-instance masking critical for making pairwise constraints work, which corroborates its importance in DDC's framework.
 
-\subsubsection{Single Model vs. Ensemble Complexity}
+\section{Why the Trained Approaches Failed}
+\label{sec:why_failed}
 
-DDC operates on a single clustering objective (maximizing mutual information), while our approach must balance multiple clustering algorithms through the consensus mechanism. The added complexity may make optimization more difficult.
+A central empirical finding of this thesis is negative: every attempt to train a feature representation underperformed simple K-means on frozen features. Understanding why this happened is what justified the final design.
 
-\subsubsection{Architecture Differences}
+We first tried a convolutional autoencoder with a tag-prediction branch, then DDC's own objective (mutual information maximization with self-generated pairwise constraints) using a 3-layer MLP on frozen features. The MLP approach failed in a specific, diagnosable way: on the full dataset the MI loss dominated from the very first epoch, reaching $L_{MI} = -0.92$ after a single epoch of 116 mini-batches on 29857 samples and committing the model to roughly 24 coarse clusters before the pairwise constraints ($L_P \approx 0.5$) could exert any influence. On a small 1,600-instance subset (6 mini-batches per epoch), both losses started near zero and grew together, allowing the pairwise term to shape cluster formation---but this behaviour did not survive at scale.
 
-DDC uses a carefully designed architecture that has been validated on AwA. Our adaptation required modifications to integrate with DECCS's framework, potentially introducing suboptimal design choices.
+The decisive observation was that K-means on raw 2048-dimensional ResNet features achieves NMI = 0.869 on AwA2, whereas every trained variant collapsed at full scale (NMI $\leq 0.012$). The pretrained backbone already encodes the class-discriminative structure these datasets require; our training was destroying that structure rather than refining it. This is what redirected the work toward frozen features plus consensus and post-hoc descriptions.
 
-\subsection{Potential Issues to Investigate}
+\section{Trade-offs of the Frozen-Features Design}
+\label{sec:tradeoffs}
 
-Several aspects of the implementation warrant further investigation:
+The frozen-features design buys reliability at the cost of adaptivity, and this trade-off explains the pattern of results.
 
-\subsubsection{Metric Calculation}
+On the positive side, the pipeline is deterministic and reproducible. DECCS consensus drives run-to-run variance to near zero, and because no training is involved there are no loss-balancing instabilities, no learning-rate sensitivity, and no risk of the optimization collapsing into a degenerate solution---all problems we encountered in the trained variants. Feature extraction is also a one-time cost, cached to disk, so the full sweep of experiments is cheap to repeat.
 
-The t-SNE visualizations show some apparent structure in the embedding space, yet the NMI and ACC scores are near-random. This discrepancy suggests either:
-\begin{itemize}
-    \item A bug in the metric calculation code
-    \item The visual structure does not correspond to ground truth classes
-    \item t-SNE is revealing local structure that does not translate to good clustering
-\end{itemize}
+On the negative side, the representation cannot adapt to the task. Where the pretrained features do not naturally separate the target classes---most clearly on aPY's cropped object categories---there is no mechanism to improve them, which is the proximate cause of the gap to DDC. A second, structural trade-off concerns the descriptions: because the ILP runs post-hoc on a fixed clustering, the descriptions explain the clusters but cannot feed back to improve them. In DDC's iterative loop, better descriptions yield better-filtered pairwise constraints, which yield better clusters; our design forgoes that virtuous cycle in exchange for the ability to evaluate clustering and description quality independently. The trade-off is therefore favorable on well-separated data (AwA2), where adaptivity buys little, and unfavorable on harder data (aPY), where it would buy more.
 
-\subsubsection{Training Dynamics}
+\section{Contributions}
+\label{sec:contributions_disc}
 
-The loss curves show convergence, but the final clustering quality is poor. This may indicate:
-\begin{itemize}
-    \item Convergence to a local minimum that does not correspond to meaningful clusters
-    \item Task interference during multi-objective optimization, where gradients from reconstruction, tag prediction, and consensus losses conflict, preventing the model from learning cluster-aligned representations
-    \item Loss imbalance, where the reconstruction objective dominates and the model does not sufficiently optimize for clustering structure
-\end{itemize}
+We highlight what this thesis contributes and why each contribution matters.
 
-\section{Comparison with Research Hypotheses}
+\textbf{The DDECCS framework.} This is the thesis's primary contribution: the first pipeline to pair DECCS-style consensus clustering with DDC-style ILP descriptions on frozen pretrained features. It matters because it occupies a gap no prior method filled---robust, ensemble-based clustering \emph{together with} human-readable cluster descriptions---and it does so with a deterministic, reproducible pipeline.
 
-\subsection{Hypothesis 1: DDC Integration Improves Interpretability}
+\textbf{The adaptive coverage parameter $\alpha$.} This is a concrete methodological contribution. DDC's fixed $\alpha = 8$ makes the ILP infeasible on datasets with sparse binary attributes, where no attribute selection can reach the required coverage. Our density-proportional rule, $\alpha = \mathrm{clip}(\mathrm{round}(16\bar{d}), 2, 8)$, restores feasibility while never exceeding DDC's original $\alpha = 8$; without it, the entire description stage fails on aPY. This is what makes DDC's ILP usable beyond the dense-attribute setting it was designed for.
 
-\textbf{Partially achieved (framework only).} We successfully implemented the framework for generating cluster descriptions using semantic attributes. However, with NMI=0.012 on the full dataset, the clusters themselves are not meaningful, so any generated explanations would not describe genuine semantic structure.
+\textbf{The aPY preprocessing pipeline and 15-class subset.} Identifying and reproducing DDC's exact 15-class evaluation subset from the raw annotations is a practical contribution that enables fair comparison. Its importance is shown by a striking result: filtering to the correct 15 classes---rather than forcing all 32 classes into 15 clusters, as in our initial experiments---raised K-means NMI to 0.666, showing that the experimental setup matters as much as the algorithm.
 
-\subsection{Hypothesis 2: Interpretability Does Not Compromise Performance}
+\textbf{A systematic empirical study, including negative results.} We evaluate four modes across two datasets and ten seeds, and---unusually---document in detail the trained approaches that failed and why (Section~\ref{sec:why_failed}). The finding that K-means on frozen features beats training the representation on these datasets is itself a useful, transferable result for practitioners in deep descriptive clustering.
 
-\textbf{Cannot be conclusively answered.} Given the full-scale failure (NMI=0.012), we cannot draw conclusions about whether interpretability constraints affect performance. The failure may be due to implementation issues, multi-objective optimization challenges, or fundamental incompatibilities between the DDC and DECCS approaches.
+\section{Research Questions Revisited}
+\label{sec:rq_revisited}
 
-\subsection{Hypothesis 3: Consensus Clustering Enhances Robustness}
+We now return to the three research questions posed in the introduction and summarize how the thesis answers each.
 
-\textbf{Not confirmed at scale.} While the DECCS consensus mechanism is theoretically sound, our integration with DDC's semantic supervision did not achieve robust clustering on the full dataset. The interaction between consensus learning and semantic supervision may require more careful design.
-\section{Limitations and Challenges}
+\subsection{RQ1: How can DDC's interpretability be integrated into DECCS?}
 
-\subsection{Implementation Limitations}
+We integrate DDC's interpretability through the ILP-based description module, which generates concise, orthogonal cluster descriptions from semantic attributes. The integration is post-hoc: the ILP operates on the cluster assignments produced by DECCS consensus rather than being embedded in a training loop. The resulting descriptions (in DDECCS mode) are meaningful---average TC = 0.70 on AwA2 and 0.57 on the 32-class aPY---and distinctive---average ITF = 2.66 and 2.41 respectively---while the ILP itself solves in seconds to about a minute.
 
-\subsubsection{Incomplete DECCS Integration}
+\subsection{RQ2: What impact does the integration have on clustering performance?}
 
-Due to time and computational constraints, we did not fully implement the iterative refinement loop proposed in the original DECCS paper. Specifically:
+The ILP description module has zero impact on clustering performance: it operates post-hoc and does not modify cluster assignments. The DECCS consensus module, by contrast, improves clustering substantially on aPY (+14.4\% NMI over K-means) and matches K-means on AwA2 with improved accuracy and stability. Our pipeline achieves NMI = 0.871 on AwA2 (vs.\ the original DDC's 0.896) and 0.677 on aPY-15 (vs.\ DDC's 0.863); the remaining gap is attributable to DDC's task-specific feature training, as discussed in Section~\ref{sec:why_failed}.
 
-\begin{itemize}
-    \item The consensus matrix is rebuilt only every 5 epochs rather than continuously updated
-    \item The pairwise consistency loss from DDC (ensuring clustering and explanations agree) was not fully integrated
-    \item We did not implement the Integer Linear Programming (ILP) optimization for generating minimal, orthogonal explanations
-\end{itemize}
+\subsection{RQ3: How does the approach perform on AwA2 and aPY?}
 
-These omissions likely limited the potential performance gains. The full DECCS algorithm with iterative consensus refinement would be expected to achieve better convergence.
-
-\subsubsection{Simple Architecture}
-
-We used a relatively simple 4-layer convolutional autoencoder with 1.2M parameters. Modern image clustering methods often employ pretrained ResNet or Vision Transformer backbones with hundreds of millions of parameters.
-
-Our choice of a simple architecture was deliberate---to isolate the effect of our methodological contributions from architectural improvements---but it means our absolute performance numbers are not directly comparable to state-of-the-art methods.
-
-\subsection{Methodological Limitations}
-
-\subsubsection{Dependence on Predefined Attributes}
-
-Our approach requires predefined semantic attributes for the target domain. The AwA2 dataset provides 85 carefully curated attributes, but many real-world datasets lack such annotations.
-
-The quality of our cluster explanations is fundamentally limited by the quality and coverage of the attribute vocabulary. If important distinguishing features are not captured by the predefined attributes, the explanations will be incomplete or misleading.
-
-\subsubsection{Class-Level vs. Instance-Level Attributes}
-
-AwA2 provides class-level attribute annotations: all images of ``tiger'' share the same 85-dimensional attribute vector. This assumption may not hold for highly variable classes or images with unusual viewpoints.
-
-Instance-level attribute prediction would require more sophisticated models and richer annotation, but would enable more accurate cluster descriptions that account for within-class variation.
-
-\subsubsection{Binary Clustering Evaluation}
-
-Our evaluation metrics (NMI, ARI, ACC) assume hard cluster assignments, but many real-world categories have fuzzy boundaries. A penguin is both a bird and an aquatic animal; forcing a single assignment loses important information.
-
-Future work could explore soft clustering methods that assign membership probabilities to multiple clusters.
-
-\subsection{Dataset-Specific Challenges}
-
-\subsubsection{Class Imbalance}
-
-The AwA2 dataset has significant class imbalance, with some classes containing over 1,600 images and others fewer than 100. This imbalance affects both training (majority classes dominate gradients) and evaluation (metrics may be skewed by large classes).
-
-\subsubsection{Attribute Noise}
-
-Some AwA2 attributes have ambiguous or inconsistent annotations. For example, the ``smart'' attribute is difficult to define objectively, and ``fierce'' may depend on context rather than inherent animal properties.
-
-This attribute noise introduces label noise into our tag prediction objective, potentially limiting learning quality.
-
-\section{Theoretical Implications}
-
-\subsection{Multi-Task Learning for Clustering}
-
-Our results contribute to the growing body of evidence that multi-task learning can improve clustering. By jointly optimizing for reconstruction and attribute prediction, we learn representations that are useful for multiple related tasks, avoiding the overfitting that can occur with single-task optimization.
-
-This finding suggests a general principle: clustering objectives should be augmented with auxiliary tasks that encourage semantically meaningful representations.
-
-\subsection{The Value of Human-Aligned Representations}
-
-The success of semantic supervision highlights the value of aligning learned representations with human conceptual categories. While purely unsupervised methods can discover statistically coherent clusters, these clusters may not correspond to categories that humans find meaningful or useful.
-
-By incorporating human-defined attributes, we bridge the gap between statistical patterns and semantic meaning, producing clusters that are both mathematically coherent and humanly interpretable.
-
-\section{Practical Implications}
-
-\subsection{When to Use This Approach}
-
-Our integrated DECCS-DDC approach is most suitable when:
-
-\begin{enumerate}
-    \item \textbf{Interpretability is required}: Applications in healthcare, finance, or scientific discovery where understanding cluster membership is as important as the clustering itself
-    \item \textbf{Semantic attributes are available}: Domains with existing ontologies or attribute vocabularies (e.g., medical diagnosis codes, product taxonomies)
-    \item \textbf{Robustness is valued}: Settings where consistent, reproducible clusters are more important than marginal performance gains
-    \item \textbf{Categories have semantic structure}: Domains where human-defined categories are meaningful (as opposed to purely statistical patterns)
-\end{enumerate}
-
-\subsection{When Other Methods May Be Preferable}
-
-Alternative approaches may be more suitable when:
-
-\begin{enumerate}
-    \item \textbf{No semantic attributes exist}: Purely exploratory analysis where categories are unknown
-    \item \textbf{Maximum performance is critical}: Applications where interpretability can be sacrificed for accuracy
-    \item \textbf{Categories are purely statistical}: Domains like anomaly detection where human categories are not relevant
-    \item \textbf{Computational resources are limited}: The ensemble approach adds overhead compared to single-algorithm methods
-\end{enumerate}
-
-\subsection{Deployment Considerations}
-
-For practitioners considering this approach, we recommend:
-
-\begin{enumerate}
-    \item \textbf{Validate attribute quality}: Ensure semantic attributes are accurate, complete, and relevant to the clustering task
-    \item \textbf{Tune hyperparameters carefully}: The balance between reconstruction, tag prediction, and consensus losses significantly affects results
-    \item \textbf{Monitor for overfitting}: With multiple loss terms, it's possible for one objective to dominate; track all loss components during training
-\end{enumerate}
-
-\section{Comparison with Related Work}
-
-\subsection{Comparison with Original DECCS}
-
-Our approach differs from the original DECCS \citep{Miklautz2021} in several ways:
-
-\begin{itemize}
-    \item \textbf{Semantic supervision}: Original DECCS does not use attribute prediction; our approach adds this objective
-    \item \textbf{Explanation generation}: Original DECCS produces clusters without explanations; we generate attribute-based descriptions
-    \item \textbf{Architecture}: We use a constrained autoencoder; original DECCS uses a standard autoencoder
-\end{itemize}
-
-Direct numerical comparison is difficult due to different datasets and experimental setups, but our approach demonstrates that DECCS can be extended with semantic supervision without sacrificing its consensus-based robustness.
-
-\subsection{Comparison with Original DDC}
-
-Compared to the original DDC framework \citep{Zhang2021}:
-
-\begin{itemize}
-    \item \textbf{Ensemble vs. single algorithm}: DDC uses a single clustering algorithm; we use consensus clustering
-    \item \textbf{ILP vs. top-K explanations}: DDC uses Integer Linear Programming for minimal explanations; we use simpler top-K attribute selection
-    \item \textbf{Pairwise consistency}: DDC enforces strict consistency between clustering and explanations; our integration is looser
-\end{itemize}
-
-The DDC paper reports higher absolute performance numbers on AwA, but uses different experimental protocols (different train/test splits, different architectures) that preclude direct comparison.
-
-\section{Summary}
-
-This chapter has provided a critical analysis of our experimental findings. The key insights are:
-
-\begin{enumerate}
-    \item The approach showed promise on sample data (NMI=0.642 for N=160) but failed completely when scaled to the full dataset (NMI=0.012 for N=37,322).
-
-    \item The scaling failure likely stems from multiple factors: consensus matrix scalability issues, multi-objective optimization challenges, and hyperparameters that do not generalize from small samples.
-
-    \item Our implementation is missing DDC's pairwise consistency loss, which may be essential for aligning learned representations with semantic supervision.
-
-    \item This negative result provides important lessons about the difficulty of integrating complex deep clustering frameworks and the dangers of drawing conclusions from small-scale experiments.
-
-    \item Future work should focus on implementing the missing pairwise loss, investigating potential metric calculation bugs, and using more principled approaches to multi-objective optimization.
-\end{enumerate}
-
-These results highlight the importance of full-scale validation before claiming success, and demonstrate that promising sample-scale results do not guarantee scalability.
+On AwA2, the approach achieves strong clustering (NMI = 0.871, within 2.5 points of DDC's reported 0.896) with interpretable descriptions, reflecting the quality of pretrained ResNet-101 features for animal classification. On aPY it is less competitive with DDC (NMI = 0.677 vs.\ 0.863) but demonstrates that DECCS consensus provides substantial value over K-means (+14.4\% on the full 32-class dataset). The per-instance attribute annotations and diverse, cropped object categories make aPY inherently harder for a frozen-features approach, which is precisely where task-specific training would help most.
