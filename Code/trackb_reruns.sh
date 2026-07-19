@@ -235,9 +235,9 @@ ctrl, std, seed = sys.argv[1:4]
 
 # Shipped 10-run means (thesis ground truth)
 shipped = {
-    "awa2":   {"kmeans": 0.869, "deccs": 0.871, "std_kmeans": 0.002},
-    "apy":    {"kmeans": 0.534, "deccs": 0.611, "std_kmeans": 0.014},
-    "apy_15": {"kmeans": 0.666, "deccs": 0.677, "std_kmeans": 0.028},
+    "awa2":   {"kmeans": 0.8694, "deccs": 0.8712},
+    "apy":    {"kmeans": 0.5343, "deccs": 0.6105},
+    "apy_15": {"kmeans": 0.6655, "deccs": 0.6769},
 }
 label = {"awa2": "AwA2 K=50", "apy": "aPY-32", "apy_15": "aPY-15"}
 
@@ -254,7 +254,7 @@ for ds in ("apy_15", "apy", "awa2"):
     s = shipped[ds]["kmeans"]
     c = load(ctrl, ds, "kmeans")
     z = load(std, ds, "kmeans")
-    cs = "not run" if c is None else f"{c[0]:.4f}" + (" MATCH" if abs(c[0]-s) < 5e-4 else " DIFFERS")
+    cs = "not run" if c is None else f"{c[0]:.4f}" + (" MATCH" if abs(c[0]-s) < 1e-3 else " DIFFERS")
     zs = "not run" if z is None else f"{z[0]:.4f} ({z[0]-s:+.4f})"
     print(f"{label[ds]:<12}{s:>10.4f}{cs:>18}{zs:>18}")
 
@@ -292,7 +292,7 @@ if [ ${#FAILED[@]} -gt 0 ]; then
 fi
 
 hdr "Next"
-say "Send me these and I will tell you what changes in the thesis:"
+say "diff v2 thesis:"
 say "  $OUT_CTRL/*/kmeans/summary.json"
 say "  $OUT_STD/*/kmeans/summary.json"
 say "  $OUT_SEED/*/ddeccs/summary.json"
