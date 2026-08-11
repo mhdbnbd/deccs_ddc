@@ -77,24 +77,23 @@ Algorithm~\ref{alg:ddeccs} summarizes the complete DDECCS pipeline.
     \EndFor
     \State Cache $F$ to disk for subsequent runs
 
-    \State
+    \Statex
     \State \textbf{Step 2: Clustering}
-    \State Standardize $F$ to zero mean, unit variance
-    \If{mode $\in \{\texttt{kmeans}, \texttt{ddc}\}$}
-        \State $\mathbf{y} \gets \text{KMeans}(F, K, \text{n\_init}=10)$
-    \ElsIf{mode $\in \{\texttt{deccs}, \texttt{ddeccs}\}$}
-    \State $\pi_1 \gets \text{KMeans}(F, K)$
-    \State $\pi_2 \gets \text{SpectralClustering}(F, K, k\text{-NN affinity}, k=15)$
-    \State $F_{\text{pca}} \gets \text{PCA}(F, d=\min(256, \dim, \max(64, N/2K)))$ \Comment{For GMM numerical stability}
+    \If{mode $\in$ \{kmeans, ddc\}}
+        \State $\mathbf{y} \gets \text{KMeans}(F, K, n\_init = 10)$ \Comment{raw features; see Sec.~\ref{subsec:standardization_ablation}}
+    \ElsIf{mode $\in$ \{deccs, ddeccs\}}
+    \State $F_{\text{std}} \gets \text{Standardize}(F)$ \Comment{zero mean, unit variance}
+    \State $\pi_1 \gets \text{KMeans}(F_{\text{std}}, K)$
+    \State $\pi_2 \gets \text{SpectralClustering}(F_{\text{std}}, K, k\text{-NN affinity}, k=15)$
+    \State $F_{\text{pca}} \gets \text{PCA}(F_{\text{std}}, d=\min(256, \dim, \max(64, N/2K)))$ \Comment{For GMM numerical stability}
     \State $\pi_3 \gets \text{GMM}(F_{\text{pca}}, K, \text{full covariance})$
-    \State $\pi_4 \gets \text{Agglomerative}(F, K, \text{Ward linkage})$
-    \State Build sparse co-association matrix over $k$-NN pairs ($k = 20$):
+    \State $\pi_4 \gets \text{Agglomerative}(F_{\text{std}}, K, \text{Ward linkage})$
+    \State Build sparse co-association matrix over $k$-NN pairs of $F_{\text{std}}$ ($k = 20$):
     \State \quad $B_{ij} \gets \sum_{m=1}^{4} \mathbb{1}[\pi_m(i) = \pi_m(j)]$ for $j \in \mathcal{N}_k(i)$, \quad $A \gets \frac{1}{4}(B + B^{\top})$
-    \State Sparsify $A$ using $k$-nearest neighbors ($k=20$)
     \State $\mathbf{y} \gets \text{SpectralClustering}(A, K)$
     \EndIf
 
-    \State
+    \Statex
     \State \textbf{Step 3: ILP Description Generation} (only if mode $\in \{\texttt{ddc}, \texttt{ddeccs}\}$)
     \State Compute adaptive $\alpha \gets \text{clip}(\text{round}(16 \cdot \bar{d}), 2, 8)$ where $\bar{d}$ is mean attribute density
     \For{each cluster $i = 1, \ldots, K$}
@@ -108,7 +107,7 @@ Algorithm~\ref{alg:ddeccs} summarizes the complete DDECCS pipeline.
     \State \quad $W_{ij} \in \{0, 1\}$
     \State $\mathbf{D} \gets \{(i, \{j : W_{ij} = 1\}) \mid \forall i\}$
 
-    \State
+    \Statex
     \State \textbf{Step 4: Evaluation}
     \State Compute NMI, ACC (Hungarian), ARI, Silhouette against ground-truth labels
     \State Compute TC, ITF for each cluster description in $\mathbf{D}$
@@ -122,7 +121,7 @@ We use ResNet-101~\citep{He2016} pretrained on ImageNet~\citep{Deng2009} as our 
 
 Images are preprocessed with standard ImageNet normalization: resized to $224 \times 224$ pixels, converted to tensors, and normalized with mean $[0.485, 0.456, 0.406]$ and standard deviation $[0.229, 0.224, 0.225]$. Features are extracted once and cached to disk for reuse across experiments.
 
-This approach follows DDC~\citep{Zhang2021}, which uses the same frozen, pre-trained ResNet-101 features---DDC additionally trains a small encoder on top of them, whereas we cluster the features directly. The use of pretrained features is well-established in the clustering literature; K-means on these frozen ResNet-101 features already achieves NMI = 0.869 on AwA2, demonstrating that the backbone captures sufficient class-discriminative information without task-specific training.
+This approach follows DDC~\citep{Zhang2021}, which uses the same frozen, pretrained ResNet-101 features---DDC additionally trains a small encoder on top of them, whereas we cluster the features directly. The use of pretrained features is well-established in the clustering literature; K-means on these frozen ResNet-101 features already achieves NMI = 0.869 on AwA2, demonstrating that the backbone captures sufficient class-discriminative information without task-specific training.
 
 % Source: extract_resnet_features() in main_experiments.py
 
@@ -167,7 +166,7 @@ DECCS~\citep{Miklautz2022} improves clustering robustness through ensemble conse
     \item \textbf{Agglomerative Clustering} starts with each point as its own cluster and repeatedly merges the pair whose merger least increases within-cluster variance (Ward linkage). It is hierarchical and makes no centroid or distributional assumption, capturing nested structure.
 \end{enumerate}
 
-The ensemble results are combined via a sparse co-association matrix $A$, where $A_{ij}$ counts how often instances $i$ and $j$ are assigned to the same cluster across the base clusterers, restricted to each instance's $k = 20$ nearest neighbours for efficiency~\citep{Fred2005}. The matrix is symmetrized as $B + B^{\top}$ before normalization, so a pair that is mutually within each other's neighbourhood carries twice the weight of a one-directional pair and entries range over $[0, 2]$ rather than $[0, 1]$. Because the final step treats $A$ as an affinity graph, only the relative edge weights matter. The final clustering applies Spectral Clustering to this consensus matrix.
+The ensemble results are combined via a sparse co-association matrix $A$, where $A_{ij}$ counts how often instances $i$ and $j$ are assigned to the same cluster across the base clusterers, restricted to each instance's $k = 20$ nearest neighbours for efficiency~\citep{Fred2005}. Writing $B_{ij}$ for the number of ensemble members that place $i$ and $j$ together, restricted to neighbour pairs, the matrix is symmetrized as $A \gets \frac{1}{4}(B + B^{\top})$, so a pair that is mutually within each other's neighbourhood carries twice the weight of a one-directional pair and entries range over $[0, 2]$ rather than $[0, 1]$. Because the final step treats $A$ as an affinity graph, only the relative edge weights matter. The final clustering applies Spectral Clustering to this consensus matrix.
 
 We apply Spectral Clustering rather than K-means to this matrix because the co-association values define a graph---instances are nodes and co-association frequencies are edge weights---and Spectral Clustering is designed to partition exactly this kind of graph structure; running K-means on the matrix would instead treat the co-association values as raw features and discard the graph interpretation~\citep{Fred2005}.
 
@@ -184,7 +183,7 @@ Following DDC~\citep{Zhang2021}, we generate interpretable cluster descriptions 
 
 Given cluster assignments $\{C_1, \ldots, C_K\}$ and a set of $M$ semantic attributes, we define the attribute coverage matrix $Q \in \mathbb{R}^{K \times M}$ where $Q_{ij}$ is the mean value of attribute $j$ across all instances in cluster $C_i$. The ILP solves for a binary allocation matrix $W \in \{0,1\}^{K \times M}$ where $W_{ij} = 1$ indicates that cluster $C_i$ is described by attribute $j$.
 
-\textbf{Objective} (DDC Eq.\ 2): Minimize the total number of attributes used:
+\textbf{Objective} (DDC Eq.\ 2): Minimize the total description length summed over clusters:
 \begin{equation}
     \arg\min_W \sum_{i,j} W_{ij}
     \label{eq:ilp_obj}
@@ -202,7 +201,7 @@ Given cluster assignments $\{C_1, \ldots, C_K\}$ and a set of $M$ semantic attri
     \label{eq:ilp_orthogonal}
 \end{equation}
 
-The solver searches for the smallest feasible $\beta$ starting from $\beta = 1$, ensuring the tightest possible orthogonality. We use the PuLP library~\citep{Mitchell2011} with the CBC solver and a 30-second timeout per $\beta$ value.
+The solver searches for the smallest feasible $\beta$ starting from $\beta = 1$, ensuring the tightest possible orthogonality. We use the PuLP library~\citep{Mitchell2011} with the CBC solver and a 30-second timeout per $\beta$ value, after which that $\beta$ is treated as infeasible and the search continues.
 
 \subsection{Adaptive \texorpdfstring{$\alpha$}{alpha} Parameter}
 \label{sec:adaptive_alpha}

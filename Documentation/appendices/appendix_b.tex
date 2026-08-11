@@ -1,9 +1,14 @@
-\section{Complete ILP Cluster Descriptions}
+\chapter{Cluster Descriptions and Dataset Details}
 \label{app:descriptions}
 
-This appendix lists the full per-cluster ILP descriptions for every dataset, complementing the selected examples in Chapter~\ref{chap:experiments}. All descriptions are from the \texttt{ddc} mode (ILP applied to the K-means clustering) at the representative seed.
+This appendix lists the complete per-cluster ILP descriptions for both description modes on all three datasets, followed by the dataset statistics, the ensemble configuration, and the source-code layout.
 
-\subsection{AwA2 Cluster Descriptions (DDC mode, K = 50)}
+\section{Complete ILP Cluster Descriptions}
+
+This section gives the full per-cluster descriptions summarized in Chapter~\ref{chap:experiments}. Sections~\ref{subsec:awa2_ddc}--\ref{subsec:apy_ddc} give the \texttt{ddc} mode (ILP applied to the K-means clustering) and Sections~\ref{subsec:awa2_ddeccs}--\ref{subsec:apy_ddeccs} the \texttt{ddeccs} mode (ILP applied to the consensus clustering), both at the representative seed.
+
+\subsection{AwA2 Cluster Descriptions (ddc mode, K = 50)}
+\label{subsec:awa2_ddc}
 
 Table~\ref{tab:awa2_ilp_all} presents the complete ILP-generated descriptions for all 50 AwA2 clusters. The ILP solved with $\alpha = 3$, $\beta = 3$, selecting 73 of 85 attributes.
 
@@ -12,7 +17,7 @@ The descriptions below are from a representative run (seed = 42). Because both t
 \begin{table}[H]
     \centering
     \scriptsize
-    \caption{Complete ILP cluster descriptions for all 50 AwA2 clusters (DDC mode, seed=42).}
+    \caption{Complete ILP cluster descriptions for all 50 AwA2 clusters (ddc mode, seed=42).}
     \label{tab:awa2_ilp_all}
     \begin{tabular}{clccc}
         \toprule
@@ -75,7 +80,7 @@ The descriptions below are from a representative run (seed = 42). Because both t
 
 % Source: results/awa2/ddc/ilp_descriptions.json (all 50 clusters)
 
-\subsection{aPY 15-Class Cluster Descriptions (DDC mode, K = 15)}
+\subsection{aPY 15-Class Cluster Descriptions (ddc mode, K = 15)}
 
 Table~\ref{tab:apy15_ilp_all} presents the complete ILP descriptions for the 15-class aPY subset. The ILP solved with $\alpha = 2$, $\beta = 1$, selecting 43 of 64 attributes.
 
@@ -110,14 +115,15 @@ Table~\ref{tab:apy15_ilp_all} presents the complete ILP descriptions for the 15-
 
 % Source: results/apy_15/ddc/ilp_descriptions.json
 
-\subsection{aPY Full Cluster Descriptions (DDC mode, K = 32)}
+\subsection{aPY Full Cluster Descriptions (ddc mode, K = 32)}
+\label{subsec:apy_ddc}
 
 Table~\ref{tab:apy32_ilp_all} presents the complete ILP descriptions for all 32 clusters of the full aPY dataset. The ILP solved with $\alpha = 2$, $\beta = 2$, selecting 52 of 64 attributes.
 
 \begin{table}[H]
     \centering
     \scriptsize
-    \caption{Complete ILP cluster descriptions for aPY full dataset (DDC mode, 32 clusters, seed=42).}
+    \caption{Complete ILP cluster descriptions for aPY full dataset (ddc mode, 32 clusters, seed=42).}
     \label{tab:apy32_ilp_all}
     \resizebox{\textwidth}{!}{
         \begin{tabular}{clccc}
@@ -163,7 +169,8 @@ Table~\ref{tab:apy32_ilp_all} presents the complete ILP descriptions for all 32 
 
 % Source: results/apy/ddc/ilp_descriptions.json
 
-\subsection{AwA2 Cluster Descriptions (DDECCS mode, K = 50)}
+\subsection{AwA2 Cluster Descriptions (ddeccs mode, K = 50)}
+\label{subsec:awa2_ddeccs}
 
 Table~\ref{tab:awa2_ilp_all_ddeccs} gives the \texttt{ddeccs}-mode descriptions for all 50 AwA2 clusters, the consensus-clustering counterpart to Table~\ref{tab:awa2_ilp_all}.
 
@@ -230,7 +237,7 @@ Table~\ref{tab:awa2_ilp_all_ddeccs} gives the \texttt{ddeccs}-mode descriptions 
     \end{tabular}
 \end{table}
 
-\subsection{aPY 15-Class Cluster Descriptions (DDECCS mode, K = 15)}
+\subsection{aPY 15-Class Cluster Descriptions (ddeccs mode, K = 15)}
 
 Table~\ref{tab:apy15_ilp_all_ddeccs} gives the \texttt{ddeccs}-mode descriptions for the 15-class aPY subset, the consensus-clustering counterpart to Table~\ref{tab:apy15_ilp_all}.
 
@@ -263,7 +270,8 @@ Table~\ref{tab:apy15_ilp_all_ddeccs} gives the \texttt{ddeccs}-mode descriptions
     }
 \end{table}
 
-\subsection{aPY Full Cluster Descriptions (DDECCS mode, K = 32)}
+\subsection{aPY Full Cluster Descriptions (ddeccs mode, K = 32)}
+\label{subsec:apy_ddeccs}
 
 Table~\ref{tab:apy32_ilp_all_ddeccs} gives the \texttt{ddeccs}-mode descriptions for all 32 clusters of the full aPY dataset, the consensus-clustering counterpart to Table~\ref{tab:apy32_ilp_all}.
 
@@ -353,11 +361,11 @@ Table~\ref{tab:apy_stats} summarizes the aPY dataset and its 15-class subset.
 \toprule
 \textbf{Property} & \textbf{Value} \\
 \midrule
-Total object instances & 15339 \\
-Training split (80\%) & 12271 \\
+Total object instances & 15,339 \\
+Training split (80\%) & 12,271 \\
 Number of classes (full) & 32 \\
 Number of classes (DDC subset) & 15 \\
-DDC subset training instances & 5189 \\
+DDC subset training instances & 5,189 \\
 Number of attributes & 64 \\
 Attribute type & Binary, per-instance \\
 Attribute density & $\approx 0.111$ \\
@@ -380,7 +388,7 @@ The DECCS consensus step combines four base clustering algorithms; Table~\ref{ta
 \toprule
 \textbf{Algorithm} & \textbf{Library} & \textbf{Configuration} \\
 \midrule
-K-means & scikit-learn & Elkan algorithm, $n\_init = \text{auto}$, $max\_iter = 300$ \\
+K-means (ensemble member) & scikit-learn & Elkan algorithm, $n\_init = \text{auto}$, $max\_iter = 300$ \\
 Spectral & scikit-learn & Nearest-neighbor affinity ($k = 15$, scikit default), arpack solver \\
 GMM & scikit-learn & Full covariance, $reg\_covar = 10^{-3}$, PCA to $\min(256, \dim, \max(64, N/2K))$ dims \\
 Agglomerative & scikit-learn & Ward linkage \\

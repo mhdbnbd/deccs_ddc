@@ -1,74 +1,98 @@
-This appendix collects the full experimental tables, the early-experiment results that motivated the final design, and the ILP solver configuration.
+\chapter{Complete Results, Early Experiments, and Solver Configuration}
+\label{app:early_experiments}
 
-\section{Complete Results Tables}
+This appendix reports the individual per-seed results underlying the aggregated tables in Chapter~\ref{chap:experiments}, then documents the early experiments that motivated the final design and the ILP solver configuration. Recall that \texttt{ddc} reuses the \texttt{kmeans} clustering and \texttt{ddeccs} the \texttt{deccs} clustering, so each seed yields two distinct partitions; TC and ITF are reported for the two description modes.
 
-This appendix provides the complete experimental results across all configurations, including per-run metrics where available.
+\section{Per-Seed Results}
+\label{sec:perseed_results}
 
-\subsection{AwA2 Full Results (K = 50, 10 runs)}
-
-Table~\ref{tab:awa2_full} reports all four modes on AwA2 over ten seeds.
-
-\begin{table}[H]
-    \centering
-    \caption{Complete AwA2 results (29857 training samples, 50 classes, 85 attributes). Mean $\pm$ std over 10 runs with different random seeds.}
-    \label{tab:awa2_full}
-    \begin{tabular}{lcccccc}
-        \toprule
-        \textbf{Mode} & \textbf{NMI} & \textbf{ACC} & \textbf{ARI} & \textbf{Sil} & \textbf{TC} & \textbf{ITF} \\
-        \midrule
-        \texttt{kmeans} & $0.869 \pm 0.002$ & $0.785 \pm 0.008$ & $0.744 \pm 0.008$ & $0.189$ & --- & --- \\
-        \texttt{deccs} & $0.871 \pm 0.001$ & $0.807 \pm 0.002$ & $0.738 \pm 0.001$ & $0.160$ & --- & --- \\
-        \texttt{ddc} & $0.869 \pm 0.002$ & $0.785 \pm 0.008$ & $0.744 \pm 0.008$ & $0.189$ & $0.681$ & $2.652$ \\
-        \texttt{ddeccs} & $0.871 \pm 0.001$ & $0.807 \pm 0.002$ & $0.738 \pm 0.001$ & $0.160$ & $0.698$ & $2.656$ \\
-        \bottomrule
-    \end{tabular}
-\end{table}
-
-% Source: results/awa2/*/summary.json
-
-\subsection{aPY Full Results (K = 32, 10 runs)}
-
-Table~\ref{tab:apy32_full} reports all four modes on the full 32-class aPY dataset over ten seeds.
+Tables~\ref{tab:awa2_perseed}--\ref{tab:apy15_perseed} give the individual results for all ten seeds on each dataset, with the mean and standard deviation that appear in the aggregated tables of Chapter~\ref{chap:experiments}.
 
 \begin{table}[H]
     \centering
-    \caption{Complete aPY results (12,271 training samples, 32 classes, 64 attributes).}
-    \label{tab:apy32_full}
-    \begin{tabular}{lcccccc}
-        \toprule
-        \textbf{Mode} & \textbf{NMI} & \textbf{ACC} & \textbf{ARI} & \textbf{Sil} & \textbf{TC} & \textbf{ITF} \\
-        \midrule
-        \texttt{kmeans} & $0.534 \pm 0.014$ & $0.390 \pm 0.016$ & $0.138 \pm 0.012$ & $0.013$ & --- & --- \\
-        \texttt{deccs} & $0.618 \pm 0.006$ & $0.578 \pm 0.034$ & $0.297 \pm 0.046$ & $-0.018$ & --- & --- \\
-        \texttt{ddc} & $0.534 \pm 0.014$ & $0.390 \pm 0.016$ & $0.138 \pm 0.012$ & $0.013$ & $0.497$ & $2.156$ \\
-        \texttt{ddeccs} & $0.618 \pm 0.006$ & $0.578 \pm 0.034$ & $0.297 \pm 0.046$ & $-0.018$ & $0.574$ & $2.440$ \\
-        \bottomrule
+    \footnotesize
+    \setlength{\tabcolsep}{4pt}
+    \caption[Per-seed AwA2 results]{Per-seed AwA2 results ($K = 50$, 29{,}857 samples). The TC/ITF columns belong to the \texttt{ddc} and \texttt{ddeccs} description modes respectively.}
+    \label{tab:awa2_perseed}
+    \begin{tabular}{lccccc|ccccc}
+        \hline
+        & \multicolumn{5}{c|}{\textbf{kmeans / ddc}} & \multicolumn{5}{c}{\textbf{deccs / ddeccs}} \\
+        \textbf{Seed} & NMI & ACC & ARI & TC & ITF & NMI & ACC & ARI & TC & ITF \\
+        \hline
+        42 & 0.8725 & 0.8038 & 0.7617 & 0.669 & 2.652 & 0.8712 & 0.8069 & 0.7362 & 0.698 & 2.656 \\
+        43 & 0.8666 & 0.7748 & 0.7336 & 0.691 & 2.636 & 0.8710 & 0.8070 & 0.7365 & 0.695 & 2.656 \\
+        44 & 0.8702 & 0.7826 & 0.7494 & 0.673 & 2.665 & 0.8721 & 0.8076 & 0.7404 & 0.698 & 2.671 \\
+        45 & 0.8716 & 0.7895 & 0.7508 & 0.697 & 2.649 & 0.8714 & 0.8076 & 0.7393 & 0.699 & 2.643 \\
+        46 & 0.8686 & 0.7816 & 0.7387 & 0.693 & 2.658 & 0.8708 & 0.8066 & 0.7370 & 0.699 & 2.661 \\
+        47 & 0.8681 & 0.7743 & 0.7328 & 0.681 & 2.662 & 0.8723 & 0.8073 & 0.7385 & 0.699 & 2.658 \\
+        48 & 0.8686 & 0.7831 & 0.7393 & 0.689 & 2.648 & 0.8715 & 0.8073 & 0.7376 & 0.694 & 2.653 \\
+        49 & 0.8702 & 0.7865 & 0.7501 & 0.664 & 2.655 & 0.8715 & 0.8075 & 0.7376 & 0.698 & 2.647 \\
+        50 & 0.8694 & 0.7871 & 0.7431 & 0.673 & 2.658 & 0.8719 & 0.8116 & 0.7385 & 0.695 & 2.654 \\
+        51 & 0.8677 & 0.7892 & 0.7430 & 0.676 & 2.635 & 0.8706 & 0.8042 & 0.7372 & 0.702 & 2.656 \\
+        \hline
+        \textbf{Mean} & 0.869 & 0.785 & 0.744 & 0.681 & 2.652 & 0.871 & 0.807 & 0.738 & 0.698 & 2.656 \\
+        \textbf{Std} & 0.002 & 0.008 & 0.008 & --- & --- & 0.001 & 0.002 & 0.001 & --- & --- \\
+        \hline
     \end{tabular}
 \end{table}
-
-% Source: results/apy/*/summary.json
-
-\subsection{aPY DDC 15-Class Subset (K = 15, 10 runs)}
-
-Table~\ref{tab:apy15_full} reports all four modes on the 15-class aPY subset over ten seeds.
 
 \begin{table}[H]
     \centering
-    \caption{aPY 15-class subset results (5,189 training samples, 15 classes, 64 attributes). The 15 classes match DDC's evaluation setup.}
-    \label{tab:apy15_full}
-    \begin{tabular}{lcccccc}
-        \toprule
-        \textbf{Mode} & \textbf{NMI} & \textbf{ACC} & \textbf{ARI} & \textbf{Sil} & \textbf{TC} & \textbf{ITF} \\
-        \midrule
-        \texttt{kmeans} & $0.666 \pm 0.028$ & $0.615 \pm 0.046$ & $0.458 \pm 0.048$ & $0.027$ & --- & --- \\
-        \texttt{deccs} & $0.684 \pm 0.005$ & $0.658 \pm 0.012$ & $0.477 \pm 0.014$ & $0.032$ & --- & --- \\
-        \texttt{ddc} & $0.666 \pm 0.028$ & $0.615 \pm 0.046$ & $0.458 \pm 0.048$ & $0.027$ & $0.447$ & $2.050$ \\
-        \texttt{ddeccs} & $0.684 \pm 0.005$ & $0.658 \pm 0.012$ & $0.477 \pm 0.014$ & $0.032$ & $0.493$ & $2.228$ \\
-        \bottomrule
+    \footnotesize
+    \setlength{\tabcolsep}{4pt}
+    \caption[Per-seed aPY 32-class results]{Per-seed aPY results ($K = 32$, 12{,}271 samples).}
+    \label{tab:apy_perseed}
+    \begin{tabular}{lccccc|ccccc}
+        \hline
+        & \multicolumn{5}{c|}{\textbf{kmeans / ddc}} & \multicolumn{5}{c}{\textbf{deccs / ddeccs}} \\
+        \textbf{Seed} & NMI & ACC & ARI & TC & ITF & NMI & ACC & ARI & TC & ITF \\
+        \hline
+        42 & 0.5360 & 0.3964 & 0.1459 & 0.471 & 2.223 & 0.6102 & 0.5470 & 0.2528 & 0.564 & 2.430 \\
+        43 & 0.5162 & 0.3687 & 0.1225 & 0.555 & 2.094 & 0.6194 & 0.6081 & 0.3436 & 0.571 & 2.461 \\
+        44 & 0.5514 & 0.4080 & 0.1488 & 0.587 & 2.197 & 0.6239 & 0.6081 & 0.3362 & 0.593 & 2.459 \\
+        45 & 0.5082 & 0.3600 & 0.1141 & 0.574 & 2.139 & 0.6138 & 0.5444 & 0.2509 & 0.578 & 2.418 \\
+        46 & 0.5340 & 0.3877 & 0.1418 & 0.434 & 2.147 & 0.6257 & 0.6135 & 0.3441 & 0.566 & 2.449 \\
+        47 & 0.5267 & 0.3754 & 0.1336 & 0.421 & 2.067 & 0.6128 & 0.5489 & 0.2551 & 0.565 & 2.400 \\
+        48 & 0.5426 & 0.4027 & 0.1443 & 0.475 & 2.244 & 0.6128 & 0.5305 & 0.2354 & 0.584 & 2.475 \\
+        49 & 0.5308 & 0.4014 & 0.1342 & 0.410 & 2.051 & 0.6120 & 0.5493 & 0.2621 & 0.578 & 2.444 \\
+        50 & 0.5420 & 0.3939 & 0.1439 & 0.588 & 2.157 & 0.6250 & 0.6162 & 0.3479 & 0.577 & 2.411 \\
+        51 & 0.5553 & 0.4081 & 0.1539 & 0.455 & 2.242 & 0.6190 & 0.6097 & 0.3428 & 0.560 & 2.450 \\
+        \hline
+        \textbf{Mean} & 0.534 & 0.390 & 0.138 & 0.497 & 2.156 & 0.618 & 0.578 & 0.297 & 0.574 & 2.440 \\
+        \textbf{Std} & 0.014 & 0.016 & 0.012 & --- & --- & 0.006 & 0.034 & 0.046 & --- & --- \\
+        \hline
     \end{tabular}
 \end{table}
 
-% Source: results/apy_15/*/summary.json
+\begin{table}[H]
+    \centering
+    \footnotesize
+    \setlength{\tabcolsep}{4pt}
+    \caption[Per-seed aPY 15-class results]{Per-seed aPY 15-class subset results ($K = 15$, 5{,}189 samples).}
+    \label{tab:apy15_perseed}
+    \begin{tabular}{lccccc|ccccc}
+        \hline
+        & \multicolumn{5}{c|}{\textbf{kmeans / ddc}} & \multicolumn{5}{c}{\textbf{deccs / ddeccs}} \\
+        \textbf{Seed} & NMI & ACC & ARI & TC & ITF & NMI & ACC & ARI & TC & ITF \\
+        \hline
+        42 & 0.6238 & 0.6057 & 0.4202 & 0.405 & 1.934 & 0.6769 & 0.6442 & 0.4588 & 0.492 & 2.245 \\
+        43 & 0.6516 & 0.6633 & 0.4607 & 0.450 & 2.087 & 0.6870 & 0.6660 & 0.4852 & 0.494 & 2.220 \\
+        44 & 0.6643 & 0.5741 & 0.4288 & 0.447 & 2.020 & 0.6800 & 0.6458 & 0.4670 & 0.492 & 2.235 \\
+        45 & 0.6689 & 0.5620 & 0.4326 & 0.446 & 2.014 & 0.6867 & 0.6643 & 0.4813 & 0.493 & 2.228 \\
+        46 & 0.6228 & 0.6007 & 0.4068 & 0.451 & 2.042 & 0.6879 & 0.6656 & 0.4857 & 0.482 & 2.219 \\
+        47 & 0.7044 & 0.6514 & 0.5138 & 0.477 & 2.196 & 0.6779 & 0.6431 & 0.4634 & 0.495 & 2.231 \\
+        48 & 0.6888 & 0.6855 & 0.5370 & 0.457 & 2.088 & 0.6855 & 0.6651 & 0.4849 & 0.495 & 2.232 \\
+        49 & 0.6474 & 0.5373 & 0.3895 & 0.412 & 1.892 & 0.6909 & 0.6720 & 0.4954 & 0.500 & 2.219 \\
+        50 & 0.7047 & 0.6535 & 0.5168 & 0.475 & 2.144 & 0.6781 & 0.6400 & 0.4585 & 0.494 & 2.212 \\
+        51 & 0.6785 & 0.6200 & 0.4719 & 0.446 & 2.082 & 0.6898 & 0.6706 & 0.4940 & 0.494 & 2.235 \\
+        \hline
+        \textbf{Mean} & 0.666 & 0.615 & 0.458 & 0.447 & 2.050 & 0.684 & 0.658 & 0.477 & 0.493 & 2.228 \\
+        \textbf{Std} & 0.028 & 0.046 & 0.048 & --- & --- & 0.005 & 0.012 & 0.014 & --- & --- \\
+        \hline
+    \end{tabular}
+\end{table}
+
+The per-seed values make the variance pattern concrete. On aPY-15 the K-means NMI spans 0.623 to 0.705 across seeds while the consensus spans 0.677 to 0.691. On the full aPY set, however, the consensus ACC and ARI are visibly bimodal---seeds 43, 44, 46, 50 and 51 land near 0.61 ACC and seeds 42, 45, 47, 48 and 49 near 0.55---which is the source of the elevated ACC and ARI standard deviations discussed in Section~\ref{subsec:apy_results}.
 
 \section{Early Experiment Results}
 \label{sec:early_results}
@@ -77,11 +101,12 @@ This section documents the results from approaches attempted before the final DD
 
 \subsection{Autoencoder-Based Approach}
 
-The initial approach used convolutional autoencoders with tag-prediction branches, trained with reconstruction + tag BCE + consensus losses. These variants---with and without the tag-prediction branch, at $128\times128$ and $224\times224$ resolution, and with a frozen ResNet-101 backbone---all produced low-quality clusterings far below the frozen-features K-means baseline (NMI = 0.869 on AwA2). This is what motivated abandoning the autoencoder design in favour of pretrained features.
+The initial approach used convolutional autoencoders with tag-prediction branches, trained with reconstruction + tag BCE + consensus losses. These variants---with and without the tag-prediction branch, at $128\times128$ and $224\times224$ resolution, and with a frozen ResNet-101 backbone---all produced low-quality clusterings far below the frozen-features K-means baseline (NMI = 0.869 on AwA2). This is what motivated abandoning the autoencoder design in favor of pretrained features.
 
 A later line-by-line review of the archived training code found that these runs were compromised beyond the design issues discussed in Chapter~\ref{chap:discussion}. Most importantly, the consensus term contributed no gradient at all: the embeddings it compared were computed inside a \texttt{torch.no\_grad()} block, so the consensus loss was recorded in the logs but could not influence the weights, and the models were in effect trained on reconstruction and tag prediction alone. Secondary defects compounded this---the consensus target was rebuilt only once every five epochs, the optimizer state was re-initialized each epoch, and the co-association target mixed value ranges---so the reported autoencoder results measure a partially specified objective rather than the intended one. They therefore show that \emph{these} training runs failed; they do not establish that consensus-guided representation learning fails on this data.
 
 \subsection{DDC-Style MLP Training}
+\label{subsec:mlp_training}
 
 The second approach used DDC's actual loss functions (MI + pairwise) with a trainable 3-layer MLP on frozen ResNet features.
 
@@ -107,7 +132,7 @@ The second approach used DDC's actual loss functions (MI + pairwise) with a trai
 
 As the final row shows, K-means on raw features outperformed every MLP attempt, which led to the frozen-features pipeline.
 
-The same review identified two implementation gaps in this variant. First, DDC's defining mechanism was never active: the ILP that selects informative tags was fully implemented but never invoked during training, so the pairwise constraints were always generated from the raw tag space rather than from the ILP-filtered one, leaving the model permanently in what DDC treats as a pre-training phase. Second, the constraint generation itself deviated from DDC: the class-level continuous predicates make the tag-distance term dominate DDC's pair-selection score by several orders of magnitude,disabling the intended preference for tag-similar but cluster-different pairs, and the per-batch random tag masking (re-drawn each step) replaces DDC's one-time missing-tag simulation with mean imputation, making partner selection between same-class instances depend on mask sampling rather than semantics. The early cluster collapse described in Section~\ref{sec:why_failed}---the MI objective committing the model to roughly 24 coarse clusters within one epoch---is confirmed and remains the proximate optimization failure; the gaps above explain why the pairwise term had no corrective signal to offer.
+The same review identified two implementation gaps in this variant. First, DDC's defining mechanism was never active: the ILP that selects informative tags was fully implemented but never invoked during training, so the pairwise constraints were always generated from the raw tag space rather than from the ILP-filtered one, leaving the model permanently in what DDC treats as a pre-training phase. Second, the constraint generation itself deviated from DDC: the class-level continuous predicates make the tag-distance term dominate DDC's pair-selection score by several orders of magnitude, disabling the intended preference for tag-similar but cluster-different pairs, and the per-batch random tag masking (re-drawn each step) replaces DDC's one-time missing-tag simulation with mean imputation, making partner selection between same-class instances depend on mask sampling rather than semantics. The early cluster collapse described in Section~\ref{sec:why_failed}---the MI objective committing the model to roughly 24 coarse clusters within one epoch---is confirmed and remains the proximate optimization failure; the gaps above explain why the pairwise term had no corrective signal to offer.
 
 \section{ILP Solver Configuration}
 

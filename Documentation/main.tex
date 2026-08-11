@@ -89,7 +89,6 @@
   {\cleardoublepage}
 
 % Prevent duplicate destination identifiers
-\pagenumbering{roman}
 \hypersetup{pageanchor=false}
 
 % Schema environment definition
@@ -136,6 +135,7 @@
     \end{center}
 \end{titlepage}
 
+\pagenumbering{roman}
 % Abstract
 \begin{abstract}
     \addcontentsline{toc}{chapter}{Abstract}
@@ -171,8 +171,8 @@
     wiederherstellt. Wir evaluieren das Verfahren auf den attributannotierten
     Bilddatensätzen AwA2 und aPY. Auf AwA2 erreicht das Konsens-Clustering eine
     vergleichbare Clustering-Güte wie K-Means (NMI = 0{,}871) bei deutlich höherer
-    Stabilität, während es auf dem aPY-Datensatz eine relative Verbesserung der NMI um
-    15{,}6\,\% gegenüber K-Means erzielt. Das ursprüngliche, end-to-end trainierte DDC
+    Stabilität, während es auf dem 32-Klassen-aPY-Datensatz eine relative Verbesserung der
+    NMI um 15,6 \% gegenüber K-Means erzielt. Das ursprüngliche, end-to-end trainierte DDC
     bleibt auf aPY stärker (publizierte NMI = 0{,}863), da es seine Merkmale gezielt für
     die Clustering-Aufgabe verfeinert.
 
@@ -200,7 +200,7 @@
 
 % Table of Contents
 \tableofcontents
-
+\cleardoublepage
 \pagenumbering{arabic}
 % Chapters
 \chapter{Introduction}
@@ -229,10 +229,8 @@
 
 % Appendices
 \appendix
-\chapter{Hyperparameter Analysis and Early Experiments}
 \input{appendices/appendix_a}
 
-\chapter{Cluster Descriptions and Dataset Details}
 \input{appendices/appendix_b}
 
 \end{document}
