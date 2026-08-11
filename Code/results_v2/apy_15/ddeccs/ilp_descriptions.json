@@ -1,0 +1,298 @@
+[
+  {
+    "cluster_id": 0,
+    "n_members": 1159,
+    "tags": [
+      "Ear",
+      "Eye",
+      "Leg",
+      "Foot/Shoe"
+    ],
+    "tag_indices": [
+      9,
+      15,
+      19,
+      20
+    ],
+    "tc": 0.5339,
+    "itf": 2.5348
+  },
+  {
+    "cluster_id": 1,
+    "n_members": 352,
+    "tags": [
+      "Vert Cyl",
+      "Label",
+      "Clear",
+      "Shiny"
+    ],
+    "tag_indices": [
+      3,
+      38,
+      60,
+      61
+    ],
+    "tc": 0.5151,
+    "itf": 2.0149
+  },
+  {
+    "cluster_id": 2,
+    "n_members": 249,
+    "tags": [
+      "2D Boxy",
+      "Horiz Cyl",
+      "Row Wind",
+      "Sail",
+      "Mast",
+      "Plastic",
+      "Wood"
+    ],
+    "tag_indices": [
+      0,
+      4,
+      25,
+      35,
+      36,
+      53,
+      54
+    ],
+    "tc": 0.2949,
+    "itf": 2.056
+  },
+  {
+    "cluster_id": 3,
+    "n_members": 928,
+    "tags": [
+      "Furn. Leg",
+      "Furn. Back",
+      "Furn. Seat",
+      "Cloth"
+    ],
+    "tag_indices": [
+      39,
+      40,
+      41,
+      55
+    ],
+    "tc": 0.5081,
+    "itf": 2.5348
+  },
+  {
+    "cluster_id": 4,
+    "n_members": 507,
+    "tags": [
+      "3D Boxy",
+      "Occluded",
+      "Wheel",
+      "Door",
+      "Headlight",
+      "Taillight",
+      "Side mirror",
+      "Label"
+    ],
+    "tag_indices": [
+      1,
+      5,
+      26,
+      27,
+      28,
+      29,
+      30,
+      38
+    ],
+    "tc": 0.2565,
+    "itf": 2.1015
+  },
+  {
+    "cluster_id": 5,
+    "n_members": 229,
+    "tags": [
+      "Pedal",
+      "Handlebars",
+      "Text",
+      "Plastic"
+    ],
+    "tag_indices": [
+      32,
+      33,
+      37,
+      53
+    ],
+    "tc": 0.5222,
+    "itf": 2.0149
+  },
+  {
+    "cluster_id": 6,
+    "n_members": 578,
+    "tags": [
+      "Wheel",
+      "Door",
+      "Headlight",
+      "Side mirror",
+      "Exhaust"
+    ],
+    "tag_indices": [
+      26,
+      27,
+      28,
+      30,
+      31
+    ],
+    "tc": 0.4109,
+    "itf": 2.1535
+  },
+  {
+    "cluster_id": 7,
+    "n_members": 258,
+    "tags": [
+      "Tail",
+      "Snout",
+      "Furry"
+    ],
+    "tag_indices": [
+      6,
+      10,
+      56
+    ],
+    "tc": 0.696,
+    "itf": 2.7081
+  },
+  {
+    "cluster_id": 8,
+    "n_members": 149,
+    "tags": [
+      "3D Boxy",
+      "Horiz Cyl",
+      "Window",
+      "Row Wind",
+      "Text"
+    ],
+    "tag_indices": [
+      1,
+      4,
+      24,
+      25,
+      37
+    ],
+    "tc": 0.4029,
+    "itf": 1.8763
+  },
+  {
+    "cluster_id": 9,
+    "n_members": 85,
+    "tags": [
+      "Occluded",
+      "Window",
+      "Text",
+      "Metal",
+      "Wood"
+    ],
+    "tag_indices": [
+      5,
+      24,
+      37,
+      52,
+      54
+    ],
+    "tc": 0.4217,
+    "itf": 1.8763
+  },
+  {
+    "cluster_id": 10,
+    "n_members": 33,
+    "tags": [
+      "Head",
+      "Torso",
+      "Wing"
+    ],
+    "tag_indices": [
+      8,
+      16,
+      21
+    ],
+    "tc": 0.6789,
+    "itf": 2.7081
+  },
+  {
+    "cluster_id": 11,
+    "n_members": 247,
+    "tags": [
+      "2D Boxy",
+      "Round",
+      "Vert Cyl",
+      "Text",
+      "Rein",
+      "Metal",
+      "Plastic",
+      "Cloth",
+      "Leather"
+    ],
+    "tag_indices": [
+      0,
+      2,
+      3,
+      37,
+      44,
+      52,
+      53,
+      55,
+      63
+    ],
+    "tc": 0.2226,
+    "itf": 1.9699
+  },
+  {
+    "cluster_id": 12,
+    "n_members": 166,
+    "tags": [
+      "2D Boxy",
+      "Round",
+      "Plastic",
+      "Glass",
+      "Clear",
+      "Shiny"
+    ],
+    "tag_indices": [
+      0,
+      2,
+      53,
+      57,
+      60,
+      61
+    ],
+    "tc": 0.3351,
+    "itf": 1.9473
+  },
+  {
+    "cluster_id": 13,
+    "n_members": 125,
+    "tags": [
+      "Hair",
+      "Face",
+      "Arm"
+    ],
+    "tag_indices": [
+      13,
+      14,
+      18
+    ],
+    "tc": 0.8656,
+    "itf": 2.7081
+  },
+  {
+    "cluster_id": 14,
+    "n_members": 124,
+    "tags": [
+      "Beak",
+      "Foot/Shoe",
+      "Feather"
+    ],
+    "tag_indices": [
+      7,
+      20,
+      58
+    ],
+    "tc": 0.7098,
+    "itf": 2.477
+  }
+]

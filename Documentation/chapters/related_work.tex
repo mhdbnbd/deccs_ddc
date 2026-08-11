@@ -1,4 +1,4 @@
-This chapter surveys the research areas on which this thesis builds. We first review deep clustering and its dominant single-algorithm paradigm (Section~\ref{sec:rw_deep}), then consensus clustering and the DECCS framework that motivates our robustness goal (Section~\ref{sec:rw_consensus}). We then turn to explainable and descriptive clustering, including the DDC framework that motivates our interpretability goal (Section~\ref{sec:rw_explainable}). Finally, we position our work against the gap that none of these methods fill, including the one prior approach that, like ours, targets interpretable consensus clustering (Section~\ref{sec:rw_gap}).
+This chapter surveys the research areas on which this thesis builds. We first review deep clustering and its dominant single-algorithm paradigm (Section~\ref{sec:rw_deep}), then consensus clustering and the DECCS framework that motivates our robustness goal (Section~\ref{sec:rw_consensus}). We then turn to explainable and descriptive clustering, including the DDC framework that motivates our interpretability goal (Section~\ref{sec:rw_explainable}). Finally, we summarize the capabilities of these methods and position our work against the gap none of them fills (Section~\ref{sec:rw_gap}).
 
 \section{Deep Clustering}
 \label{sec:rw_deep}
@@ -18,7 +18,7 @@ Deep Clustering with Consensus Representations (DECCS)~\citep{Miklautz2022} remo
 \[
     f_{\Theta} = c \sum_{i=1}^{|\mathcal{E}|} \sum_{j>i}^{|\mathcal{E}|} \mathrm{NMI}\!\left(e_i(\mathrm{enc}_{\Theta}(X)),\, e_j(\mathrm{enc}_{\Theta}(X))\right),
 \]
-where $X$ is the input data, $\mathrm{enc}_{\Theta}$ is the encoder, $\mathcal{E} = \{e_1, \ldots\}$ is the set of clustering algorithms, $\mathrm{NMI}$ is the normalized mutual information between two clusterings, and $c = 2 / (|\mathcal{E}|^2 - |\mathcal{E}|)$ normalizes the sum to one. One round of DECCS, illustrated in Figure~\ref{fig:deccs}, embeds the data, applies the ensemble, trains classifiers to predict each member's assignments, and updates the encoder to increase agreement.
+where $X$ is the input data, $\mathrm{enc}_{\Theta}$ is the encoder, $\mathcal{E} = \{e_1, \ldots\}$ is the set of clustering algorithms, $\mathrm{NMI}$ is the normalized mutual information between two clusterings, and $c = 2 / (|\mathcal{E}|^2 - |\mathcal{E}|)$ turns the sum into an average over the $|\mathcal{E}|(|\mathcal{E}|-1)/2$ pairs. One round of DECCS, illustrated in Figure~\ref{fig:deccs}, embeds the data, applies the ensemble, trains classifiers to predict each member's assignments, and updates the encoder to increase agreement.
 
 \begin{figure}[H]
     \centering
@@ -63,8 +63,6 @@ Table~\ref{tab:qualitative_comparison} summarizes the capabilities of the method
         Ensemble / consensus clustering & \xmark & \cmark & \xmark & \cmark \\
         Uses semantic attributes        & \xmark & \xmark & \cmark & \cmark \\
         Cluster-level descriptions       & \xmark & \xmark & \cmark & \cmark \\
-        Handles complex (image) data     & \cmark & \cmark & \cmark & \cmark \\
-        Interpretable input required     & \xmark & \xmark & \xmark & \xmark \\
         \hline
     \end{tabular}
 \end{table}

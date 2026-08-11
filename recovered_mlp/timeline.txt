@@ -1,0 +1,198 @@
+f611fb7 2026-04-09 refactor checkpoint
+
+M	Code/archive/model.py
+M	Code/archive/train.py
+16b1bf2 2026-03-21 refactor : support apy dataset and global cleanup
+
+R100	Code/awa2/model.py	Code/archive/model.py
+R100	Code/awa2/train.py	Code/archive/train.py
+D	Code/awa2/main_experiments.py
+f11df5d 2026-03-21 refactor : update experiments
+
+M	Code/awa2/main_experiments.py
+M	Code/awa2/train.py
+e25b668 2026-03-20 DDC implementation with tag masking
+
+M	Code/awa2/main_experiments.py
+M	Code/awa2/model.py
+M	Code/awa2/train.py
+c65301e 2026-03-12 feat : update models and reporting
+
+M	Code/awa2/main_experiments.py
+M	Code/awa2/model.py
+8a76f6f 2026-03-09 fix : update loss plotting
+
+M	Code/awa2/main_experiments.py
+M	Code/awa2/train.py
+22a7b21 2026-03-08 cleanup
+
+M	Code/awa2/main_experiments.py
+D	Code/model/ddc_autoencoder.py
+D	Code/run_ddc.py
+e0b9819 2026-03-08 fix : remove DBSCAN (consensus corruption), fix: visualization mismatch, cluster first then same clusters used for metric computation and tsne
+
+M	Code/awa2/main_experiments.py
+ae55f2a 2025-11-06 refactor : deccs setup
+
+M	Code/awa2/main_experiments.py
+M	Code/awa2/train.py
+49e8520 2025-11-05 fix : debug and experiment with gpu
+
+M	Code/awa2/main_experiments.py
+7d06427 2025-11-05 feat : post run checkpoint
+
+M	Code/awa2/main_experiments.py
+32c718b 2025-11-04 feat : optimizations for gpu
+
+M	Code/awa2/train.py
+ab638ba 2025-11-04 feat : improve GPU utilizations
+
+M	Code/awa2/main_experiments.py
+M	Code/awa2/train.py
+3150349 2025-11-03 fix : minor fixes and GPU fine tuning
+
+M	Code/awa2/main_experiments.py
+69f6cdb 2025-11-03 update luke state
+
+M	Code/awa2/main_experiments.py
+e6c579c 2025-11-02 feat : clustering consensus, hyperparam tuning, tsne
+
+M	Code/awa2/main_experiments.py
+M	Code/awa2/model.py
+M	Code/awa2/train.py
+a8afa0a 2025-10-30 feat : clustering consensus with clustPy
+
+M	Code/awa2/main_experiments.py
+M	Code/awa2/model.py
+M	Code/awa2/train.py
+35583e1 2025-10-27 feat : init clustPy consensus clustering
+
+M	Code/awa2/main_experiments.py
+M	Code/awa2/train.py
+19871e8 2025-10-27 feat : improve logging and reporting
+
+M	Code/awa2/main_experiments.py
+M	Code/awa2/model.py
+M	Code/awa2/train.py
+b4b2788 2025-10-20 refactor/mergePipelines
+
+A	Code/awa2/main_experiments.py
+M	Code/awa2/model.py
+21d97e2 2025-10-20 refactor/mergePipelines
+
+A	Code/awa2/main_experiments.py
+M	Code/awa2/model.py
+8522c6f 2025-10-19 fix : general fixes and improvements
+
+M	Code/awa2/train.py
+f6d10dd 2025-10-19 fix : general fixes and improvements
+
+M	Code/awa2/train.py
+f0e1dbc 2025-10-19 fix : shape agnostic tag encoder
+
+M	Code/awa2/model.py
+56a1c6b 2025-10-19 fix : shape agnostic tag encoder
+
+M	Code/awa2/model.py
+eefccbe 2025-10-19 fix : switch to label/index agnostic clustering accuracy util calculator
+
+M	Code/awa2/train.py
+4165543 2025-10-19 fix : switch to label/index agnostic clustering accuracy util calculator
+
+M	Code/awa2/train.py
+99bf9a4 2025-02-13 fix : fix for labels and tags mismatch in sampled data
+
+M	Code/awa2/train.py
+716d7a8 2025-02-13 fix : fix for labels and tags mismatch in sampled data
+
+M	Code/awa2/train.py
+6c3cd78 2024-11-12 fix: remove biasing labels
+
+M	Code/awa2/train.py
+d332e28 2024-11-12 fix: remove biasing labels
+
+M	Code/awa2/train.py
+92a9b63 2024-11-12 fix : ValueError
+
+M	Code/awa2/train.py
+af63492 2024-11-12 fix : ValueError
+
+M	Code/awa2/train.py
+8a93e64 2024-11-06 fix : recursive train fix error
+
+M	Code/awa2/train.py
+6fa0dc9 2024-11-06 fix : recursive train fix error
+
+M	Code/awa2/train.py
+a964b1a 2024-11-06 feat : add a fully connected layer for tags in the model
+
+M	Code/awa2/model.py
+bb3fbbb 2024-11-06 feat : add a fully connected layer for tags in the model
+
+M	Code/awa2/model.py
+ed5219d 2024-11-06 fix : remove recursive training
+
+M	Code/awa2/train.py
+aa680bc 2024-11-06 fix : remove recursive training
+
+M	Code/awa2/train.py
+7f51050 2024-10-22 fix : define additional constrained autoencoder loss
+
+M	Code/awa2/train.py
+d7f495d 2024-10-22 fix : define additional constrained autoencoder loss
+
+M	Code/awa2/train.py
+b497640 2024-10-18 feat: generate noteboooks with results
+
+M	Code/awa2/train.py
+1e494dc 2024-10-18 feat: generate noteboooks with results
+
+M	Code/awa2/train.py
+968ca62 2024-10-18 feat: save trained model
+
+M	Code/awa2/train.py
+19bfc82 2024-10-18 feat: save trained model
+
+M	Code/awa2/train.py
+21b1e92 2024-10-18 feat: more logging
+
+M	Code/awa2/model.py
+M	Code/awa2/train.py
+1222083 2024-10-18 feat: more logging
+
+M	Code/awa2/model.py
+M	Code/awa2/train.py
+e02c9c1 2024-10-07 changes
+
+M	Code/awa2/train.py
+fd74006 2024-10-07 changes
+
+M	Code/awa2/train.py
+e746f46 2024-09-02 fix: minor fixes
+
+M	Code/awa2/train.py
+6546f44 2024-09-02 fix: minor fixes
+
+M	Code/awa2/train.py
+37f66e6 2024-08-14 fix minor fixes
+
+M	Code/awa2/train.py
+2a92d48 2024-08-14 fix minor fixes
+
+M	Code/awa2/train.py
+5e929b0 2024-08-12 feat: major refactor
+
+M	Code/awa2/model.py
+M	Code/awa2/train.py
+2f3a08a 2024-07-20 feat: return symbolig tags, jointly learn symbolic attributes
+
+M	Code/awa2/model.py
+M	Code/awa2/train.py
+1a3329c 2024-07-10 feat:deccs application on AWA and preprocessing --improvements, init training autoencoder and kmeans clustering
+
+A	Code/awa2/model.py
+A	Code/awa2/train.py
+f58d151 2024-06-20 feat: init DDC integration template
+
+A	Code/model/ddc_autoencoder.py
+A	Code/run_ddc.py

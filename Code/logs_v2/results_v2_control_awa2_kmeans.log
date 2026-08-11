@@ -1,0 +1,85 @@
+2026-07-19 02:14:44,609 - INFO - GPU: NVIDIA GeForce RTX 4090
+2026-07-19 02:14:44,699 - INFO - Predicate matrix: 50 classes × 85 attributes
+2026-07-19 02:14:44,744 - INFO - Train split: 29857 samples, 50 classes, 85 attributes
+2026-07-19 02:14:44,745 - INFO - === Animals with Attributes 2 | Mode: KMEANS | K=50 | N=29857 | Runs=10 ===
+2026-07-19 02:14:44,757 - INFO - Loaded cached features from cache/resnet101_awa2_full.npz
+2026-07-19 02:14:45,786 - INFO - Features: (29857, 2048) (1.0s)
+2026-07-19 02:14:45,786 - INFO - --- Run 1/10 (seed=42) ---
+2026-07-19 02:16:01,601 - INFO -   NMI=0.8725  ACC=0.8038  ARI=0.7617  Sil=0.1864
+2026-07-19 02:16:01,601 - INFO - --- Run 2/10 (seed=43) ---
+2026-07-19 02:17:16,997 - INFO -   NMI=0.8666  ACC=0.7748  ARI=0.7336  Sil=0.1908
+2026-07-19 02:17:16,998 - INFO - --- Run 3/10 (seed=44) ---
+2026-07-19 02:18:34,906 - INFO -   NMI=0.8702  ACC=0.7826  ARI=0.7494  Sil=0.1904
+2026-07-19 02:18:34,907 - INFO - --- Run 4/10 (seed=45) ---
+2026-07-19 02:19:52,682 - INFO -   NMI=0.8716  ACC=0.7895  ARI=0.7508  Sil=0.1884
+2026-07-19 02:19:52,682 - INFO - --- Run 5/10 (seed=46) ---
+2026-07-19 02:21:13,491 - INFO -   NMI=0.8686  ACC=0.7816  ARI=0.7387  Sil=0.1913
+2026-07-19 02:21:13,492 - INFO - --- Run 6/10 (seed=47) ---
+2026-07-19 02:22:30,726 - INFO -   NMI=0.8681  ACC=0.7743  ARI=0.7328  Sil=0.1910
+2026-07-19 02:22:30,726 - INFO - --- Run 7/10 (seed=48) ---
+2026-07-19 02:23:48,161 - INFO -   NMI=0.8686  ACC=0.7831  ARI=0.7393  Sil=0.1800
+2026-07-19 02:23:48,161 - INFO - --- Run 8/10 (seed=49) ---
+2026-07-19 02:25:07,148 - INFO -   NMI=0.8702  ACC=0.7865  ARI=0.7501  Sil=0.1844
+2026-07-19 02:25:07,148 - INFO - --- Run 9/10 (seed=50) ---
+2026-07-19 02:26:25,243 - INFO -   NMI=0.8694  ACC=0.7871  ARI=0.7431  Sil=0.1938
+2026-07-19 02:26:25,243 - INFO - --- Run 10/10 (seed=51) ---
+2026-07-19 02:27:45,823 - INFO -   NMI=0.8677  ACC=0.7892  ARI=0.7430  Sil=0.1894
+2026-07-19 02:27:45,823 - INFO - === Aggregated (10 runs) ===
+2026-07-19 02:27:45,823 - INFO -   NMI: 0.8694 ± 0.0017
+2026-07-19 02:27:45,823 - INFO -   ACC: 0.7852 ± 0.0080
+2026-07-19 02:27:45,824 - INFO -   ARI: 0.7443 ± 0.0084
+2026-07-19 02:27:45,836 - INFO - Cluster 00: top attributes -> arctic, white, big, furry, strong
+2026-07-19 02:27:45,836 - INFO - Cluster 01: top attributes -> big, quadrapedal, grazer, hooves, brown
+2026-07-19 02:27:45,836 - INFO - Cluster 02: top attributes -> furry, jungle, oldworld, strong, big
+2026-07-19 02:27:45,836 - INFO - Cluster 03: top attributes -> stripes, oldworld, quadrapedal, white, black
+2026-07-19 02:27:45,836 - INFO - Cluster 04: top attributes -> horns, fast, quadrapedal, hooves, grazer
+2026-07-19 02:27:45,837 - INFO - Cluster 05: top attributes -> big, ocean, swims, water, plankton
+2026-07-19 02:27:45,837 - INFO - Cluster 06: top attributes -> big, toughskin, oldworld, horns, gray
+2026-07-19 02:27:45,837 - INFO - Cluster 07: top attributes -> big, plains, quadrapedal, brown, walks
+2026-07-19 02:27:45,837 - INFO - Cluster 08: top attributes -> hooves, fast, grazer, big, tail
+2026-07-19 02:27:45,837 - INFO - Cluster 09: top attributes -> swims, ocean, water, flippers, arctic
+2026-07-19 02:27:45,837 - INFO - Cluster 10: top attributes -> strong, big, quadrapedal, walks, ground
+2026-07-19 02:27:45,838 - INFO - Cluster 11: top attributes -> quadrapedal, walks, tail, ground, furry
+2026-07-19 02:27:45,838 - INFO - Cluster 12: top attributes -> quadrapedal, walks, meatteeth, ground, tail
+2026-07-19 02:27:45,838 - INFO - Cluster 13: top attributes -> stripes, stalker, meat, meatteeth, hunter
+2026-07-19 02:27:45,838 - INFO - Cluster 14: top attributes -> hunter, quadrapedal, fast, meatteeth, agility
+2026-07-19 02:27:45,838 - INFO - Cluster 15: top attributes -> hops, furry, vegetation, ground, white
+2026-07-19 02:27:45,838 - INFO - Cluster 16: top attributes -> furry, tail, fast, quadrapedal, active
+2026-07-19 02:27:45,839 - INFO - Cluster 17: top attributes -> jungle, smart, furry, tree, hands
+2026-07-19 02:27:45,839 - INFO - Cluster 18: top attributes -> brown, big, quadrapedal, newworld, horns
+2026-07-19 02:27:45,839 - INFO - Cluster 19: top attributes -> big, quadrapedal, domestic, walks, grazer
+2026-07-19 02:27:45,839 - INFO - Cluster 20: top attributes -> big, oldworld, gray, toughskin, quadrapedal
+2026-07-19 02:27:45,839 - INFO - Cluster 21: top attributes -> white, quadrapedal, walks, group, vegetation
+2026-07-19 02:27:45,839 - INFO - Cluster 22: top attributes -> domestic, quadrapedal, furry, walks, paws
+2026-07-19 02:27:45,840 - INFO - Cluster 23: top attributes -> tail, furry, forager, small, gray
+2026-07-19 02:27:45,840 - INFO - Cluster 24: top attributes -> furry, quadrapedal, domestic, walks, paws
+2026-07-19 02:27:45,840 - INFO - Cluster 25: top attributes -> small, nocturnal, black, newworld, fast
+2026-07-19 02:27:45,840 - INFO - Cluster 26: top attributes -> quadrapedal, meat, active, fierce, stalker
+2026-07-19 02:27:45,840 - INFO - Cluster 27: top attributes -> swims, fish, water, newworld, small
+2026-07-19 02:27:45,840 - INFO - Cluster 28: top attributes -> spots, quadrapedal, white, domestic, black
+2026-07-19 02:27:45,840 - INFO - Cluster 29: top attributes -> horns, brown, quadrapedal, grazer, vegetation
+2026-07-19 02:27:45,841 - INFO - Cluster 30: top attributes -> white, quadrapedal, walks, group, vegetation
+2026-07-19 02:27:45,841 - INFO - Cluster 31: top attributes -> smart, meat, fast, quadrapedal, tail
+2026-07-19 02:27:45,841 - INFO - Cluster 32: top attributes -> patches, oldworld, furry, black, big
+2026-07-19 02:27:45,841 - INFO - Cluster 33: top attributes -> quadrapedal, bulbous, newworld, walks, ground
+2026-07-19 02:27:45,841 - INFO - Cluster 34: top attributes -> big, oldworld, gray, toughskin, tusks
+2026-07-19 02:27:45,841 - INFO - Cluster 35: top attributes -> longneck, longleg, big, quadrapedal, spots
+2026-07-19 02:27:45,841 - INFO - Cluster 36: top attributes -> meat, stalker, strong, hunter, meatteeth
+2026-07-19 02:27:45,842 - INFO - Cluster 37: top attributes -> white, quadrapedal, walks, group, vegetation
+2026-07-19 02:27:45,842 - INFO - Cluster 38: top attributes -> big, hibernate, furry, strong, forest
+2026-07-19 02:27:45,842 - INFO - Cluster 39: top attributes -> gray, big, slow, oldworld, toughskin
+2026-07-19 02:27:45,842 - INFO - Cluster 40: top attributes -> domestic, furry, paws, quadrapedal, tail
+2026-07-19 02:27:45,842 - INFO - Cluster 41: top attributes -> tail, active, furry, quadrapedal, nocturnal
+2026-07-19 02:27:45,842 - INFO - Cluster 42: top attributes -> furry, small, ground, quadrapedal, walks
+2026-07-19 02:27:45,842 - INFO - Cluster 43: top attributes -> flippers, ocean, water, hairless, swims
+2026-07-19 02:27:45,843 - INFO - Cluster 44: top attributes -> furry, domestic, paws, tail, quadrapedal
+2026-07-19 02:27:45,843 - INFO - Cluster 45: top attributes -> tail, brown, buckteeth, swims, active
+2026-07-19 02:27:45,843 - INFO - Cluster 46: top attributes -> fast, meat, stalker, quadrapedal, meatteeth
+2026-07-19 02:27:45,843 - INFO - Cluster 47: top attributes -> flippers, ocean, water, hairless, swims
+2026-07-19 02:27:45,843 - INFO - Cluster 48: top attributes -> small, quadrapedal, domestic, paws, ground
+2026-07-19 02:27:45,843 - INFO - Cluster 49: top attributes -> domestic, furry, paws, quadrapedal, tail
+2026-07-19 02:28:04,753 - INFO - t-SNE plot saved to results_v2_control/awa2/kmeans/tsne.png
+2026-07-19 02:28:06,541 - INFO - PCA plot saved to results_v2_control/awa2/kmeans/pca.png
+2026-07-19 02:28:08,740 - INFO - Cluster examples saved to results_v2_control/awa2/kmeans/cluster_samples
+2026-07-19 02:28:08,763 - INFO - Results saved to results_v2_control/awa2/kmeans/
+2026-07-19 02:28:08,763 - INFO - Total time: 804.0s

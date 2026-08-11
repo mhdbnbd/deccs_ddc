@@ -1,0 +1,320 @@
+[
+  {
+    "cluster_id": 0,
+    "n_members": 107,
+    "tags": [
+      "2D Boxy",
+      "Horiz Cyl",
+      "Occluded",
+      "Window",
+      "Text",
+      "Glass"
+    ],
+    "tag_indices": [
+      0,
+      4,
+      5,
+      24,
+      37,
+      57
+    ],
+    "tc": 0.3338,
+    "itf": 1.6311
+  },
+  {
+    "cluster_id": 1,
+    "n_members": 227,
+    "tags": [
+      "Furn. Leg",
+      "Furn. Back",
+      "Furn. Seat",
+      "Furn. Arm"
+    ],
+    "tag_indices": [
+      39,
+      40,
+      41,
+      42
+    ],
+    "tc": 0.5046,
+    "itf": 1.9135
+  },
+  {
+    "cluster_id": 2,
+    "n_members": 272,
+    "tags": [
+      "Wheel",
+      "Door",
+      "Headlight",
+      "Side mirror",
+      "Exhaust"
+    ],
+    "tag_indices": [
+      26,
+      27,
+      28,
+      30,
+      31
+    ],
+    "tc": 0.4179,
+    "itf": 1.9913
+  },
+  {
+    "cluster_id": 3,
+    "n_members": 282,
+    "tags": [
+      "2D Boxy",
+      "Horiz Cyl",
+      "Row Wind",
+      "Sail",
+      "Mast",
+      "Plastic",
+      "Wood"
+    ],
+    "tag_indices": [
+      0,
+      4,
+      25,
+      35,
+      36,
+      53,
+      54
+    ],
+    "tc": 0.2858,
+    "itf": 1.9251
+  },
+  {
+    "cluster_id": 4,
+    "n_members": 264,
+    "tags": [
+      "2D Boxy",
+      "Round",
+      "Vert Cyl",
+      "Horiz Cyl",
+      "Text",
+      "Rein",
+      "Cloth",
+      "Furry",
+      "Wool",
+      "Shiny",
+      "Leather"
+    ],
+    "tag_indices": [
+      0,
+      2,
+      3,
+      4,
+      37,
+      44,
+      55,
+      56,
+      59,
+      61,
+      63
+    ],
+    "tc": 0.1828,
+    "itf": 1.884
+  },
+  {
+    "cluster_id": 5,
+    "n_members": 283,
+    "tags": [
+      "Headlight",
+      "Taillight",
+      "Side mirror",
+      "Metal"
+    ],
+    "tag_indices": [
+      28,
+      29,
+      30,
+      52
+    ],
+    "tc": 0.5201,
+    "itf": 2.0868
+  },
+  {
+    "cluster_id": 6,
+    "n_members": 190,
+    "tags": [
+      "Tail",
+      "Snout",
+      "Leg"
+    ],
+    "tag_indices": [
+      6,
+      10,
+      19
+    ],
+    "tc": 0.7964,
+    "itf": 2.7081
+  },
+  {
+    "cluster_id": 7,
+    "n_members": 285,
+    "tags": [
+      "Eye",
+      "Foot/Shoe",
+      "Furry"
+    ],
+    "tag_indices": [
+      15,
+      20,
+      56
+    ],
+    "tc": 0.7337,
+    "itf": 2.477
+  },
+  {
+    "cluster_id": 8,
+    "n_members": 234,
+    "tags": [
+      "Pedal",
+      "Handlebars",
+      "Text",
+      "Plastic"
+    ],
+    "tag_indices": [
+      32,
+      33,
+      37,
+      53
+    ],
+    "tc": 0.526,
+    "itf": 2.0868
+  },
+  {
+    "cluster_id": 9,
+    "n_members": 362,
+    "tags": [
+      "2D Boxy",
+      "Round",
+      "Vert Cyl",
+      "Label",
+      "Clear",
+      "Shiny"
+    ],
+    "tag_indices": [
+      0,
+      2,
+      3,
+      38,
+      60,
+      61
+    ],
+    "tc": 0.3359,
+    "itf": 1.6595
+  },
+  {
+    "cluster_id": 10,
+    "n_members": 490,
+    "tags": [
+      "Door",
+      "Label",
+      "Furn. Leg",
+      "Furn. Back",
+      "Furn. Seat",
+      "Plastic",
+      "Cloth",
+      "Glass",
+      "Clear",
+      "Shiny"
+    ],
+    "tag_indices": [
+      27,
+      38,
+      39,
+      40,
+      41,
+      53,
+      55,
+      57,
+      60,
+      61
+    ],
+    "tc": 0.2017,
+    "itf": 1.7716
+  },
+  {
+    "cluster_id": 11,
+    "n_members": 641,
+    "tags": [
+      "Head",
+      "Ear",
+      "Torso"
+    ],
+    "tag_indices": [
+      8,
+      9,
+      16
+    ],
+    "tc": 0.8278,
+    "itf": 2.7081
+  },
+  {
+    "cluster_id": 12,
+    "n_members": 124,
+    "tags": [
+      "3D Boxy",
+      "Horiz Cyl",
+      "Window",
+      "Row Wind",
+      "Text"
+    ],
+    "tag_indices": [
+      1,
+      4,
+      24,
+      25,
+      37
+    ],
+    "tc": 0.4028,
+    "itf": 1.7376
+  },
+  {
+    "cluster_id": 13,
+    "n_members": 640,
+    "tags": [
+      "2D Boxy",
+      "Round",
+      "Furn. Leg",
+      "Furn. Arm",
+      "Wood",
+      "Cloth"
+    ],
+    "tag_indices": [
+      0,
+      2,
+      39,
+      42,
+      54,
+      55
+    ],
+    "tc": 0.3341,
+    "itf": 1.6595
+  },
+  {
+    "cluster_id": 14,
+    "n_members": 390,
+    "tags": [
+      "3D Boxy",
+      "Occluded",
+      "Wheel",
+      "Door",
+      "Headlight",
+      "Taillight",
+      "Label"
+    ],
+    "tag_indices": [
+      1,
+      5,
+      26,
+      27,
+      28,
+      29,
+      38
+    ],
+    "tc": 0.2892,
+    "itf": 1.8411
+  }
+]

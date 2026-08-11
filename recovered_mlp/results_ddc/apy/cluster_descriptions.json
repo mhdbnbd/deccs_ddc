@@ -1,0 +1,802 @@
+[
+  {
+    "cluster_id": 0,
+    "num_samples": 228,
+    "top_attributes": [
+      "Row Wind",
+      "Glass",
+      "3D Boxy",
+      "Metal",
+      "Occluded"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/building/building_255_obj14585.jpg",
+        "label": 30
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/building/building_791_obj14814.jpg",
+        "label": 30
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/building/building_334_obj14625.jpg",
+        "label": 30
+      }
+    ]
+  },
+  {
+    "cluster_id": 1,
+    "num_samples": 336,
+    "top_attributes": [
+      "Head",
+      "Furry",
+      "Torso",
+      "Ear",
+      "Leg"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/horse/2008_005365_obj03791.jpg",
+        "label": 13
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/horse/2008_003020_obj08521.jpg",
+        "label": 13
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/horse/2008_006991_obj11367.jpg",
+        "label": 13
+      }
+    ]
+  },
+  {
+    "cluster_id": 2,
+    "num_samples": 508,
+    "top_attributes": [
+      "Cloth",
+      "Head",
+      "Skin",
+      "Torso",
+      "Arm"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/person/2008_003891_obj02744.jpg",
+        "label": 15
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/person/2008_002750_obj01905.jpg",
+        "label": 15
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/person/2008_002578_obj01817.jpg",
+        "label": 15
+      }
+    ]
+  },
+  {
+    "cluster_id": 3,
+    "num_samples": 551,
+    "top_attributes": [
+      "Furn. Back",
+      "Occluded",
+      "Furn. Seat",
+      "Wood",
+      "Cloth"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/chair/2008_004985_obj03509.jpg",
+        "label": 9
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/chair/2008_008365_obj12415.jpg",
+        "label": 9
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/chair/2008_000760_obj00472.jpg",
+        "label": 9
+      }
+    ]
+  },
+  {
+    "cluster_id": 4,
+    "num_samples": 359,
+    "top_attributes": [
+      "Head",
+      "Torso",
+      "Occluded",
+      "Leg",
+      "Eye"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/cow/2008_002732_obj08303.jpg",
+        "label": 10
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/person/2008_006185_obj10805.jpg",
+        "label": 15
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/motorbike/2008_006600_obj11103.jpg",
+        "label": 14
+      }
+    ]
+  },
+  {
+    "cluster_id": 5,
+    "num_samples": 290,
+    "top_attributes": [
+      "Feather",
+      "Head",
+      "Torso",
+      "Beak",
+      "Tail"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/bird/2008_005687_obj10439.jpg",
+        "label": 3
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/bird/2008_002647_obj01846.jpg",
+        "label": 3
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/bird/2008_000095_obj00048.jpg",
+        "label": 3
+      }
+    ]
+  },
+  {
+    "cluster_id": 6,
+    "num_samples": 383,
+    "top_attributes": [
+      "Metal",
+      "Occluded",
+      "3D Boxy",
+      "Window",
+      "Shiny"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/chair/2008_001888_obj01307.jpg",
+        "label": 9
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/car/2008_006526_obj11072.jpg",
+        "label": 7
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/train/2008_002452_obj08116.jpg",
+        "label": 19
+      }
+    ]
+  },
+  {
+    "cluster_id": 7,
+    "num_samples": 300,
+    "top_attributes": [
+      "Metal",
+      "Window",
+      "3D Boxy",
+      "Wheel",
+      "Occluded"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/car/2008_001717_obj07512.jpg",
+        "label": 7
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/car/2008_006522_obj04605.jpg",
+        "label": 7
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/motorbike/2008_000803_obj06819.jpg",
+        "label": 14
+      }
+    ]
+  },
+  {
+    "cluster_id": 8,
+    "num_samples": 160,
+    "top_attributes": [
+      "Head",
+      "Face",
+      "Torso",
+      "Arm",
+      "Eye"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/centaur/centaur_210_obj14042.jpg",
+        "label": 27
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/statue/statue_280_obj14366.jpg",
+        "label": 29
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/statue/statue_118_obj14319.jpg",
+        "label": 29
+      }
+    ]
+  },
+  {
+    "cluster_id": 9,
+    "num_samples": 233,
+    "top_attributes": [
+      "Cloth",
+      "Head",
+      "Skin",
+      "Torso",
+      "Occluded"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/person/2008_002674_obj01862.jpg",
+        "label": 15
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/person/2008_002305_obj08001.jpg",
+        "label": 15
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/person/2008_004834_obj03378.jpg",
+        "label": 15
+      }
+    ]
+  },
+  {
+    "cluster_id": 10,
+    "num_samples": 391,
+    "top_attributes": [
+      "Cloth",
+      "Head",
+      "Skin",
+      "Torso",
+      "Occluded"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/person/2008_008757_obj06320.jpg",
+        "label": 15
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/person/2008_007643_obj11856.jpg",
+        "label": 15
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/person/2008_007525_obj11748.jpg",
+        "label": 15
+      }
+    ]
+  },
+  {
+    "cluster_id": 11,
+    "num_samples": 674,
+    "top_attributes": [
+      "Cloth",
+      "Head",
+      "Skin",
+      "Occluded",
+      "Torso"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/person/2008_006425_obj10974.jpg",
+        "label": 15
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/person/2008_002735_obj08311.jpg",
+        "label": 15
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/person/2008_003779_obj02640.jpg",
+        "label": 15
+      }
+    ]
+  },
+  {
+    "cluster_id": 12,
+    "num_samples": 586,
+    "top_attributes": [
+      "Occluded",
+      "Vert Cyl",
+      "Glass",
+      "Label",
+      "Shiny"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/bottle/2008_003289_obj08709.jpg",
+        "label": 5
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/tvmonitor/2008_007282_obj11572.jpg",
+        "label": 20
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/person/2008_005794_obj04070.jpg",
+        "label": 15
+      }
+    ]
+  },
+  {
+    "cluster_id": 13,
+    "num_samples": 219,
+    "top_attributes": [
+      "Metal",
+      "Wing",
+      "Horiz Cyl",
+      "Window",
+      "Wheel"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/aeroplane/2008_000021_obj06347.jpg",
+        "label": 1
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/aeroplane/2008_008191_obj12271.jpg",
+        "label": 1
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/aeroplane/2008_007161_obj05089.jpg",
+        "label": 1
+      }
+    ]
+  },
+  {
+    "cluster_id": 14,
+    "num_samples": 397,
+    "top_attributes": [
+      "Occluded",
+      "Head",
+      "Metal",
+      "Cloth",
+      "Torso"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/person/2008_001801_obj01229.jpg",
+        "label": 15
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/person/2008_006265_obj04432.jpg",
+        "label": 15
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/aeroplane/2008_006140_obj04327.jpg",
+        "label": 1
+      }
+    ]
+  },
+  {
+    "cluster_id": 15,
+    "num_samples": 536,
+    "top_attributes": [
+      "Metal",
+      "Window",
+      "3D Boxy",
+      "Wheel",
+      "Shiny"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/bus/2008_007375_obj05261.jpg",
+        "label": 6
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/car/2008_007558_obj11777.jpg",
+        "label": 7
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/car/2008_002199_obj07932.jpg",
+        "label": 7
+      }
+    ]
+  },
+  {
+    "cluster_id": 16,
+    "num_samples": 346,
+    "top_attributes": [
+      "Cloth",
+      "Head",
+      "Skin",
+      "Torso",
+      "Arm"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/person/2008_001491_obj07343.jpg",
+        "label": 15
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/person/2008_004105_obj09291.jpg",
+        "label": 15
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/person/2008_008388_obj12428.jpg",
+        "label": 15
+      }
+    ]
+  },
+  {
+    "cluster_id": 17,
+    "num_samples": 285,
+    "top_attributes": [
+      "Metal",
+      "Wheel",
+      "Handlebars",
+      "Occluded",
+      "Shiny"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/motorbike/2008_007325_obj05228.jpg",
+        "label": 14
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/motorbike/2008_001727_obj07521.jpg",
+        "label": 14
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/motorbike/2008_005893_obj04143.jpg",
+        "label": 14
+      }
+    ]
+  },
+  {
+    "cluster_id": 18,
+    "num_samples": 342,
+    "top_attributes": [
+      "Cloth",
+      "Head",
+      "Skin",
+      "Torso",
+      "Arm"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/person/2008_006816_obj11241.jpg",
+        "label": 15
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/person/2008_002510_obj08175.jpg",
+        "label": 15
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/person/2008_000979_obj00628.jpg",
+        "label": 15
+      }
+    ]
+  },
+  {
+    "cluster_id": 19,
+    "num_samples": 230,
+    "top_attributes": [
+      "Cloth",
+      "Head",
+      "Skin",
+      "Occluded",
+      "Torso"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/diningtable/2008_003796_obj02663.jpg",
+        "label": 11
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/person/2008_002144_obj07879.jpg",
+        "label": 15
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/person/2008_005271_obj03716.jpg",
+        "label": 15
+      }
+    ]
+  },
+  {
+    "cluster_id": 20,
+    "num_samples": 153,
+    "top_attributes": [
+      "Head",
+      "Ear",
+      "Furry",
+      "Snout",
+      "Eye"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/wolf/wolf_677_obj13328.jpg",
+        "label": 24
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/wolf/wolf_475_obj13292.jpg",
+        "label": 24
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/wolf/wolf_318_obj13241.jpg",
+        "label": 24
+      }
+    ]
+  },
+  {
+    "cluster_id": 21,
+    "num_samples": 748,
+    "top_attributes": [
+      "Head",
+      "Torso",
+      "Eye",
+      "Furry",
+      "Ear"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/zebra/zebra_526_obj13973.jpg",
+        "label": 26
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/dog/2008_000956_obj06954.jpg",
+        "label": 12
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/boat/2008_007653_obj05457.jpg",
+        "label": 4
+      }
+    ]
+  },
+  {
+    "cluster_id": 22,
+    "num_samples": 306,
+    "top_attributes": [
+      "Head",
+      "Ear",
+      "Furry",
+      "Snout",
+      "Eye"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/cat/2008_002766_obj08337.jpg",
+        "label": 8
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/cat/2008_005376_obj03800.jpg",
+        "label": 8
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/cat/2008_006280_obj04447.jpg",
+        "label": 8
+      }
+    ]
+  },
+  {
+    "cluster_id": 23,
+    "num_samples": 786,
+    "top_attributes": [
+      "Glass",
+      "Vert Cyl",
+      "Shiny",
+      "3D Boxy",
+      "Plastic"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/mug/mug_187_obj14160.jpg",
+        "label": 28
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/mug/mug_31_obj14222.jpg",
+        "label": 28
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/mug/mug_599_obj14276.jpg",
+        "label": 28
+      }
+    ]
+  },
+  {
+    "cluster_id": 24,
+    "num_samples": 411,
+    "top_attributes": [
+      "Plastic",
+      "Handlebars",
+      "Metal",
+      "3D Boxy",
+      "Text"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/jetski/jetski_205_obj13458.jpg",
+        "label": 25
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/boat/2008_001167_obj07122.jpg",
+        "label": 4
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/person/2008_001475_obj07332.jpg",
+        "label": 15
+      }
+    ]
+  },
+  {
+    "cluster_id": 25,
+    "num_samples": 266,
+    "top_attributes": [
+      "Cloth",
+      "Head",
+      "Skin",
+      "Torso",
+      "Arm"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/person/2008_005677_obj10422.jpg",
+        "label": 15
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/person/2008_002340_obj01662.jpg",
+        "label": 15
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/person/2008_001419_obj00906.jpg",
+        "label": 15
+      }
+    ]
+  },
+  {
+    "cluster_id": 26,
+    "num_samples": 222,
+    "top_attributes": [
+      "Vegetation",
+      "Leaf",
+      "Pot",
+      "Vert Cyl",
+      "Stem/Trunk"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/pottedplant/2008_006828_obj11255.jpg",
+        "label": 16
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/pottedplant/2008_003466_obj08818.jpg",
+        "label": 16
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/pottedplant/2008_005001_obj09927.jpg",
+        "label": 16
+      }
+    ]
+  },
+  {
+    "cluster_id": 27,
+    "num_samples": 375,
+    "top_attributes": [
+      "Cloth",
+      "Head",
+      "Skin",
+      "Torso",
+      "Arm"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/person/2008_007966_obj12119.jpg",
+        "label": 15
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/person/2008_002114_obj07856.jpg",
+        "label": 15
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/person/2008_002236_obj01559.jpg",
+        "label": 15
+      }
+    ]
+  },
+  {
+    "cluster_id": 28,
+    "num_samples": 282,
+    "top_attributes": [
+      "Occluded",
+      "Head",
+      "Torso",
+      "Cloth",
+      "Skin"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/bottle/2008_002086_obj07829.jpg",
+        "label": 5
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/person/2008_007409_obj11673.jpg",
+        "label": 15
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/person/2008_006500_obj04590.jpg",
+        "label": 15
+      }
+    ]
+  },
+  {
+    "cluster_id": 29,
+    "num_samples": 216,
+    "top_attributes": [
+      "Cloth",
+      "Occluded",
+      "Head",
+      "Skin",
+      "Torso"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/person/2008_001481_obj07334.jpg",
+        "label": 15
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/chair/2008_004778_obj09769.jpg",
+        "label": 9
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/person/2008_006684_obj11160.jpg",
+        "label": 15
+      }
+    ]
+  },
+  {
+    "cluster_id": 30,
+    "num_samples": 750,
+    "top_attributes": [
+      "Head",
+      "Ear",
+      "Torso",
+      "Snout",
+      "Furry"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/cow/2008_008115_obj12227.jpg",
+        "label": 10
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/dog/2008_001478_obj07333.jpg",
+        "label": 12
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/sheep/2008_002430_obj08088.jpg",
+        "label": 17
+      }
+    ]
+  },
+  {
+    "cluster_id": 31,
+    "num_samples": 402,
+    "top_attributes": [
+      "Occluded",
+      "Metal",
+      "Wheel",
+      "Handlebars",
+      "Pedal"
+    ],
+    "sample_images": [
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/bicycle/2008_005055_obj03546.jpg",
+        "label": 2
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/bicycle/2008_008579_obj06195.jpg",
+        "label": 2
+      },
+      {
+        "image_path": "data/aPY-data/aPY/JPEGImages/bicycle/2008_002701_obj08278.jpg",
+        "label": 2
+      }
+    ]
+  }
+]
