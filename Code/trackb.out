@@ -1,0 +1,98 @@
+nohup: ignoring input
+
+[1m=== Preflight ===[0m
+[32mOK[0m   output roots safe: results_v2_control, results_v2_std, results_v2
+[32mOK[0m   main_experiments.py and utils.py compile
+[32mOK[0m   edit A  argparse flags present
+[32mOK[0m   edit B  output_dir uses args.output_root
+[32mOK[0m   edit C  run_single standardize branch present
+[32mOK[0m   edit D  seed propagated to get_base_clusterings
+[32mOK[0m   edit E  run_single call passes standardize
+[32mOK[0m   edit F  get_base_clusterings accepts seed
+[32mOK[0m   edit G  4 seeded estimators inside get_base_clusterings
+[32mOK[0m   environment OK (pipeline imports and parses arguments)
+[32mOK[0m   results/ checksum recorded (f665734823152717...)
+
+runs per config : 10
+force rerun     : 0
+stages          : 0 1
+
+[1m=== Stage 0 — CONTROL: kmeans on raw features (~20 min) ===[0m
+Must reproduce the shipped baseline exactly: 0.6660 / 0.5340 / 0.8690.
+
+[1m-> control apy_15 kmeans[0m   expect ~1 min   log: logs_v2/results_v2_control_apy_15_kmeans.log
+[32mOK[0m   control apy_15 kmeans done in 1m27s   NMI 0.6655 +/- 0.028
+[33mWARN[0m skip control apy    kmeans (summary.json exists; FORCE=1 to redo)
+[33mWARN[0m skip control awa2   kmeans (summary.json exists; FORCE=1 to redo)
+
+[1m=== Stage 1 — ABLATION: kmeans on standardized features (~20 min) ===[0m
+Tests whether standardization alone closes the aPY +14.4% consensus gain.
+
+[1m-> std apy_15 kmeans[0m   expect ~1 min   log: logs_v2/results_v2_std_apy_15_kmeans.log
+[32mOK[0m   std apy_15 kmeans done in 1m25s   NMI 0.5729 +/- 0.0237
+[33mWARN[0m skip std apy    kmeans (summary.json exists; FORCE=1 to redo)
+[33mWARN[0m skip std awa2   kmeans (summary.json exists; FORCE=1 to redo)
+
+[1m=== Postflight ===[0m
+[32mOK[0m   results/ unchanged — shipped results intact
+
+[1m=== Summary ===[0m
+
+dataset        shipped           control      standardized
+----------------------------------------------------------
+aPY-15          0.6660    0.6655 DIFFERS  0.5729 (-0.0931)
+aPY-32          0.5340      0.5343 MATCH  0.5204 (-0.0136)
+AwA2 K=50       0.8690      0.8694 MATCH  0.7765 (-0.0925)
+
+Control must read MATCH. If it differs, an edit changed the baseline —
+stop and diff before using stages 1 or 2.
+
+dataset        shipped deccs             seeded ddeccs
+------------------------------------------------------
+aPY-15                0.6770                   not run
+aPY-32                0.6110                   not run
+AwA2 K=50             0.8710                   not run
+
+logs: logs_v2/
+completed: 2   skipped: 4   failed: 0
+
+[1m=== Next ===[0m
+Send me these and I will tell you what changes in the thesis:
+  results_v2_control/*/kmeans/summary.json
+  results_v2_std/*/kmeans/summary.json
+  results_v2/*/ddeccs/summary.json
+[32mOK[0m   seeded apy    ddeccs done in 37m32s   NMI 0.6175 +/- 0.0056
+
+[1m-> seeded awa2   ddeccs[0m   expect ~224 min   log: logs_v2/results_v2_awa2_ddeccs.log
+[32mOK[0m   seeded awa2   ddeccs done in 234m22s   NMI 0.8714 +/- 0.0005
+
+[1m=== Postflight ===[0m
+[32mOK[0m   results/ unchanged — shipped results intact
+
+[1m=== Summary ===[0m
+
+dataset        shipped           control      standardized
+----------------------------------------------------------
+aPY-15          0.6655      0.6655 MATCH  0.5729 (-0.0926)
+aPY-32          0.5343      0.5343 MATCH  0.5204 (-0.0139)
+AwA2 K=50       0.8694      0.8694 MATCH  0.7765 (-0.0929)
+
+Control must read MATCH. If it differs, an edit changed the baseline —
+stop and diff before using stages 1 or 2.
+
+dataset        shipped deccs             seeded ddeccs
+------------------------------------------------------
+aPY-15                0.6769   0.6841 +/- 0.0050  VARIANCE APPEARED
+aPY-32                0.6105   0.6175 +/- 0.0056  VARIANCE APPEARED
+AwA2 K=50             0.8712   0.8714 +/- 0.0005  VARIANCE APPEARED
+
+If variance stays ~0 the stability claim is now earned and the text stands.
+If variance appeared, six passages need rewording:
+  discussion.tex:14, 16, 54   experiments.tex:129, 153, 178
+  conclusion.tex:9   and the abstract in main.tex
+
+logs: logs_v2/
+completed: 6   skipped: 0   failed: 3
+  [31mfailed[0m: control apy_15 kmeans
+  [31mfailed[0m: std apy_15 kmeans
+  [31mfailed[0m: seeded apy_15 ddeccs

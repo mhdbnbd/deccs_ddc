@@ -1,0 +1,35 @@
+2026-07-19 19:20:02,021 - INFO - GPU: NVIDIA GeForce RTX 4090
+2026-07-19 19:20:02,043 - INFO - Predicate matrix: 32 classes × 64 attributes
+2026-07-19 19:20:02,045 - INFO - Class filter: 15 classes, 6487 instances retained
+2026-07-19 19:20:02,054 - INFO - Train split: 5189 samples, 15 classes, 64 attributes
+2026-07-19 19:20:02,054 - INFO - === Attribute Pascal & Yahoo | Mode: KMEANS | K=15 | N=5189 | Runs=2 ===
+2026-07-19 19:20:02,056 - INFO - Loaded cached features from cache/resnet101_apy_15_full.npz
+2026-07-19 19:20:02,253 - INFO - Features: (5189, 2048) (0.2s)
+2026-07-19 19:20:02,253 - INFO - --- Run 1/2 (seed=42) ---
+2026-07-19 19:20:09,230 - INFO -   NMI=0.6238  ACC=0.6057  ARI=0.4202  Sil=0.0512
+2026-07-19 19:20:09,230 - INFO - --- Run 2/2 (seed=43) ---
+2026-07-19 19:20:15,570 - INFO -   NMI=0.6516  ACC=0.6633  ARI=0.4607  Sil=0.0134
+2026-07-19 19:20:15,571 - INFO - === Aggregated (2 runs) ===
+2026-07-19 19:20:15,571 - INFO -   NMI: 0.6377 ± 0.0139
+2026-07-19 19:20:15,571 - INFO -   ACC: 0.6345 ± 0.0288
+2026-07-19 19:20:15,571 - INFO -   ARI: 0.4404 ± 0.0203
+2026-07-19 19:20:15,574 - INFO - Cluster 00: top attributes -> Vert Cyl, Label, Glass, Occluded, Shiny
+2026-07-19 19:20:15,574 - INFO - Cluster 01: top attributes -> Metal, Window, 3D Boxy, Wheel, Occluded
+2026-07-19 19:20:15,574 - INFO - Cluster 02: top attributes -> Vert Cyl, Shiny, Glass, 3D Boxy, Round
+2026-07-19 19:20:15,574 - INFO - Cluster 03: top attributes -> Head, Torso, Eye, Leg, Tail
+2026-07-19 19:20:15,574 - INFO - Cluster 04: top attributes -> Furn. Back, Furn. Seat, Cloth, Occluded, Furn. Arm
+2026-07-19 19:20:15,575 - INFO - Cluster 05: top attributes -> Occluded, Vert Cyl, Label, Glass, Shiny
+2026-07-19 19:20:15,575 - INFO - Cluster 06: top attributes -> Furn. Back, Occluded, Furn. Seat, Wood, Cloth
+2026-07-19 19:20:15,575 - INFO - Cluster 07: top attributes -> Rein, Cloth, 3D Boxy, Leather, Metal
+2026-07-19 19:20:15,575 - INFO - Cluster 08: top attributes -> Row Wind, Glass, 3D Boxy, Metal, Occluded
+2026-07-19 19:20:15,575 - INFO - Cluster 09: top attributes -> Head, Furry, Ear, Snout, Torso
+2026-07-19 19:20:15,575 - INFO - Cluster 10: top attributes -> Occluded, Furn. Back, 3D Boxy, Wood, Metal
+2026-07-19 19:20:15,575 - INFO - Cluster 11: top attributes -> Metal, 3D Boxy, Occluded, Wood, Window
+2026-07-19 19:20:15,575 - INFO - Cluster 12: top attributes -> Head, Furry, Ear, Snout, Eye
+2026-07-19 19:20:15,576 - INFO - Cluster 13: top attributes -> Metal, Occluded, Window, Shiny, 3D Boxy
+2026-07-19 19:20:15,576 - INFO - Cluster 14: top attributes -> Metal, Wheel, Handlebars, Pedal, Occluded
+2026-07-19 19:20:27,903 - INFO - t-SNE plot saved to results_v2_hygiene/apy_15/kmeans/tsne.png
+2026-07-19 19:20:28,520 - INFO - PCA plot saved to results_v2_hygiene/apy_15/kmeans/pca.png
+2026-07-19 19:20:28,525 - INFO - Cluster examples saved to results_v2_hygiene/apy_15/kmeans/cluster_samples
+2026-07-19 19:20:28,528 - INFO - Results saved to results_v2_hygiene/apy_15/kmeans/
+2026-07-19 19:20:28,528 - INFO - Total time: 26.5s
