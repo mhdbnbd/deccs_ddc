@@ -168,14 +168,19 @@ class DDCTrainer:
         best = {"nmi": -1.0}
         for rnd in range(1, self.args.rounds + 1):
             assign = self.assignments()
-            g_np, W, info = solve_description_ilp(
-                assign, self.T.numpy(), self.K, alpha=self.args.alpha,
-                time_limit=self.args.ilp_time_limit,
-                beta_start=max(1, self._beta_hint - 1),
-            )
-            if info["beta"]:
-                self._beta_hint = info["beta"]
-            self.g_mask = torch.from_numpy(g_np).float().to(self.device)
+            if self.args.skip_ilp:
+                W, info = None, {"beta": None, "n_tags": int(self.T.shape[1]),
+                                 "status": "skipped", "active_clusters": []}
+                self.g_mask = torch.ones(self.T.shape[1], device=self.device)
+            else:
+                g_np, W, info = solve_description_ilp(
+                    assign, self.T.numpy(), self.K, alpha=self.args.alpha,
+                    time_limit=self.args.ilp_time_limit,
+                    beta_start=max(1, self._beta_hint - 1),
+                )
+                if info["beta"]:
+                    self._beta_hint = info["beta"]
+                self.g_mask = torch.from_numpy(g_np).float().to(self.device)
             self.last_ilp = {"beta": info["beta"], "n_tags": info["n_tags"]}
             self.last_W, self.last_info = W, info
 

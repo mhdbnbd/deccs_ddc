@@ -49,6 +49,9 @@ def build_args():
                    help="weight on H(Y); 1.0 = Eq (1) as written, >1 = ablation")
     p.add_argument("--temperature", type=float, default=1.0)
     p.add_argument("--symmetric_kl", action="store_true")
+    p.add_argument("--skip_ilp", action="store_true",
+                   help="ablation: never solve the ILP, keep g = identity "
+                        "(the paper's Fig 4b ablation); also makes runs fast)")
 
     # optimisation
     p.add_argument("--lr", type=float, default=1e-3)
