@@ -67,6 +67,9 @@ def build_args():
     p.add_argument("--run_tag", type=str, default=None)
     p.add_argument("--baseline_nmi", type=float, default=0.869,
                    help="horizontal reference line on the NMI plot")
+    p.add_argument("--log_file", type=str, default=None,
+                   help="log filename; defaults to ddc_phase1_<run_tag>.log so "
+                        "concurrent runs do not interleave into one file")
     return p.parse_args()
 
 
@@ -82,7 +85,8 @@ def guard_output_root(root):
 def main():
     args = build_args()
     guard_output_root(args.output_root)
-    setup_logging(log_filename="ddc_phase1.log")
+    setup_logging(log_filename=args.log_file
+                  or f"ddc_phase1_{args.run_tag or 'default'}.log")
 
     device = "cuda" if (args.use_gpu and torch.cuda.is_available()) else "cpu"
     if device == "cuda":
