@@ -1,0 +1,1438 @@
+[
+  {
+    "cluster_id": 0,
+    "n_members": 51,
+    "tags": [
+      "black",
+      "brown",
+      "muscle",
+      "active",
+      "agility",
+      "vegetation",
+      "newworld",
+      "smart",
+      "group"
+    ],
+    "tag_indices": [
+      0,
+      3,
+      43,
+      46,
+      50,
+      54,
+      62,
+      80,
+      81
+    ],
+    "tc": 0.891,
+    "itf": 1.0111
+  },
+  {
+    "cluster_id": 1,
+    "n_members": 25,
+    "tags": [
+      "brown",
+      "tail",
+      "chewteeth",
+      "fast",
+      "strong",
+      "quadrapedal",
+      "agility",
+      "newworld",
+      "oldworld",
+      "ground"
+    ],
+    "tag_indices": [
+      3,
+      25,
+      26,
+      39,
+      41,
+      45,
+      50,
+      62,
+      63,
+      74
+    ],
+    "tc": 0.8015,
+    "itf": 0.84
+  },
+  {
+    "cluster_id": 2,
+    "n_members": 35,
+    "tags": [
+      "black",
+      "brown",
+      "furry",
+      "big",
+      "chewteeth",
+      "fast",
+      "strong",
+      "muscle",
+      "group"
+    ],
+    "tag_indices": [
+      0,
+      3,
+      11,
+      14,
+      26,
+      39,
+      41,
+      43,
+      81
+    ],
+    "tc": 0.8626,
+    "itf": 0.9218
+  },
+  {
+    "cluster_id": 3,
+    "n_members": 36,
+    "tags": [
+      "furry",
+      "big",
+      "tail",
+      "chewteeth",
+      "strong",
+      "forager",
+      "newworld",
+      "ground",
+      "timid",
+      "group"
+    ],
+    "tag_indices": [
+      11,
+      14,
+      25,
+      26,
+      41,
+      56,
+      62,
+      74,
+      79,
+      81
+    ],
+    "tc": 0.8077,
+    "itf": 1.0012
+  },
+  {
+    "cluster_id": 4,
+    "n_members": 6,
+    "tags": [
+      "furry",
+      "tail",
+      "chewteeth",
+      "fast",
+      "quadrapedal",
+      "active",
+      "newworld",
+      "oldworld",
+      "timid",
+      "smart"
+    ],
+    "tag_indices": [
+      11,
+      25,
+      26,
+      39,
+      45,
+      46,
+      62,
+      63,
+      79,
+      80
+    ],
+    "tc": 0.8016,
+    "itf": 0.8354
+  },
+  {
+    "cluster_id": 5,
+    "n_members": 27,
+    "tags": [
+      "black",
+      "brown",
+      "big",
+      "walks",
+      "strong",
+      "vegetation",
+      "timid",
+      "smart",
+      "group"
+    ],
+    "tag_indices": [
+      0,
+      3,
+      14,
+      38,
+      41,
+      54,
+      79,
+      80,
+      81
+    ],
+    "tc": 0.895,
+    "itf": 0.9737
+  },
+  {
+    "cluster_id": 6,
+    "n_members": 39,
+    "tags": [
+      "brown",
+      "chewteeth",
+      "smelly",
+      "fast",
+      "strong",
+      "muscle",
+      "active",
+      "timid",
+      "group"
+    ],
+    "tag_indices": [
+      3,
+      26,
+      33,
+      39,
+      41,
+      43,
+      46,
+      79,
+      81
+    ],
+    "tc": 0.8899,
+    "itf": 1.1408
+  },
+  {
+    "cluster_id": 7,
+    "n_members": 21,
+    "tags": [
+      "brown",
+      "big",
+      "fast",
+      "strong",
+      "muscle",
+      "vegetation",
+      "forager",
+      "timid",
+      "group"
+    ],
+    "tag_indices": [
+      3,
+      14,
+      39,
+      41,
+      43,
+      54,
+      56,
+      79,
+      81
+    ],
+    "tc": 0.8891,
+    "itf": 1.1631
+  },
+  {
+    "cluster_id": 8,
+    "n_members": 28,
+    "tags": [
+      "toughskin",
+      "big",
+      "bulbous",
+      "walks",
+      "strong",
+      "muscle",
+      "vegetation",
+      "ground",
+      "timid",
+      "solitary"
+    ],
+    "tag_indices": [
+      13,
+      14,
+      16,
+      38,
+      41,
+      43,
+      54,
+      74,
+      79,
+      82
+    ],
+    "tc": 0.7965,
+    "itf": 1.4203
+  },
+  {
+    "cluster_id": 9,
+    "n_members": 50,
+    "tags": [
+      "furry",
+      "fast",
+      "strong",
+      "quadrapedal",
+      "active",
+      "agility",
+      "oldworld",
+      "ground",
+      "group"
+    ],
+    "tag_indices": [
+      11,
+      39,
+      41,
+      45,
+      46,
+      50,
+      63,
+      74,
+      81
+    ],
+    "tc": 0.8895,
+    "itf": 0.8527
+  },
+  {
+    "cluster_id": 10,
+    "n_members": 23,
+    "tags": [
+      "black",
+      "big",
+      "strong",
+      "muscle",
+      "active",
+      "agility",
+      "timid",
+      "smart",
+      "group"
+    ],
+    "tag_indices": [
+      0,
+      14,
+      41,
+      43,
+      46,
+      50,
+      79,
+      80,
+      81
+    ],
+    "tc": 0.8914,
+    "itf": 0.9068
+  },
+  {
+    "cluster_id": 11,
+    "n_members": 9,
+    "tags": [
+      "tail",
+      "chewteeth",
+      "fast",
+      "strong",
+      "quadrapedal",
+      "newworld",
+      "oldworld",
+      "ground",
+      "timid",
+      "smart"
+    ],
+    "tag_indices": [
+      25,
+      26,
+      39,
+      41,
+      45,
+      62,
+      63,
+      74,
+      79,
+      80
+    ],
+    "tc": 0.8042,
+    "itf": 0.84
+  },
+  {
+    "cluster_id": 12,
+    "n_members": 30,
+    "tags": [
+      "brown",
+      "bulbous",
+      "paws",
+      "claws",
+      "agility",
+      "timid",
+      "smart",
+      "solitary",
+      "nestspot"
+    ],
+    "tag_indices": [
+      3,
+      16,
+      22,
+      31,
+      50,
+      79,
+      80,
+      82,
+      83
+    ],
+    "tc": 0.8928,
+    "itf": 1.9396
+  },
+  {
+    "cluster_id": 13,
+    "n_members": 49,
+    "tags": [
+      "white",
+      "brown",
+      "gray",
+      "paws",
+      "inactive",
+      "vegetation",
+      "grazer",
+      "fields",
+      "domestic"
+    ],
+    "tag_indices": [
+      1,
+      3,
+      4,
+      22,
+      47,
+      54,
+      57,
+      70,
+      84
+    ],
+    "tc": 0.8893,
+    "itf": 2.4961
+  },
+  {
+    "cluster_id": 14,
+    "n_members": 20,
+    "tags": [
+      "black",
+      "toughskin",
+      "big",
+      "lean",
+      "tail",
+      "strong",
+      "active",
+      "agility",
+      "smart",
+      "group"
+    ],
+    "tag_indices": [
+      0,
+      13,
+      14,
+      17,
+      25,
+      41,
+      46,
+      50,
+      80,
+      81
+    ],
+    "tc": 0.8036,
+    "itf": 1.2746
+  },
+  {
+    "cluster_id": 15,
+    "n_members": 27,
+    "tags": [
+      "furry",
+      "big",
+      "tail",
+      "chewteeth",
+      "walks",
+      "strong",
+      "quadrapedal",
+      "active",
+      "newworld",
+      "ground"
+    ],
+    "tag_indices": [
+      11,
+      14,
+      25,
+      26,
+      38,
+      41,
+      45,
+      46,
+      62,
+      74
+    ],
+    "tc": 0.8049,
+    "itf": 0.8349
+  },
+  {
+    "cluster_id": 16,
+    "n_members": 23,
+    "tags": [
+      "black",
+      "gray",
+      "small",
+      "paws",
+      "meatteeth",
+      "meat",
+      "fierce",
+      "solitary"
+    ],
+    "tag_indices": [
+      0,
+      4,
+      15,
+      22,
+      27,
+      52,
+      78,
+      82
+    ],
+    "tc": 0.9891,
+    "itf": 2.8884
+  },
+  {
+    "cluster_id": 17,
+    "n_members": 27,
+    "tags": [
+      "brown",
+      "furry",
+      "big",
+      "walks",
+      "muscle",
+      "active",
+      "oldworld",
+      "ground",
+      "smart"
+    ],
+    "tag_indices": [
+      3,
+      11,
+      14,
+      38,
+      43,
+      46,
+      63,
+      74,
+      80
+    ],
+    "tc": 0.8937,
+    "itf": 0.8845
+  },
+  {
+    "cluster_id": 18,
+    "n_members": 25,
+    "tags": [
+      "black",
+      "brown",
+      "furry",
+      "muscle",
+      "active",
+      "agility",
+      "vegetation",
+      "forager",
+      "smart",
+      "group"
+    ],
+    "tag_indices": [
+      0,
+      3,
+      11,
+      43,
+      46,
+      50,
+      54,
+      56,
+      80,
+      81
+    ],
+    "tc": 0.7934,
+    "itf": 1.1625
+  },
+  {
+    "cluster_id": 19,
+    "n_members": 31,
+    "tags": [
+      "brown",
+      "furry",
+      "big",
+      "tail",
+      "chewteeth",
+      "walks",
+      "strong",
+      "ground",
+      "timid"
+    ],
+    "tag_indices": [
+      3,
+      11,
+      14,
+      25,
+      26,
+      38,
+      41,
+      74,
+      79
+    ],
+    "tc": 0.8892,
+    "itf": 0.8264
+  },
+  {
+    "cluster_id": 20,
+    "n_members": 14,
+    "tags": [
+      "brown",
+      "tail",
+      "chewteeth",
+      "walks",
+      "fast",
+      "quadrapedal",
+      "active",
+      "agility",
+      "newworld",
+      "oldworld"
+    ],
+    "tag_indices": [
+      3,
+      25,
+      26,
+      38,
+      39,
+      45,
+      46,
+      50,
+      62,
+      63
+    ],
+    "tc": 0.8033,
+    "itf": 0.84
+  },
+  {
+    "cluster_id": 21,
+    "n_members": 13,
+    "tags": [
+      "big",
+      "chewteeth",
+      "fast",
+      "strong",
+      "quadrapedal",
+      "active",
+      "agility",
+      "newworld",
+      "oldworld",
+      "ground"
+    ],
+    "tag_indices": [
+      14,
+      26,
+      39,
+      41,
+      45,
+      46,
+      50,
+      62,
+      63,
+      74
+    ],
+    "tc": 0.8032,
+    "itf": 0.84
+  },
+  {
+    "cluster_id": 22,
+    "n_members": 31,
+    "tags": [
+      "black",
+      "brown",
+      "furry",
+      "walks",
+      "fast",
+      "muscle",
+      "agility",
+      "oldworld",
+      "group"
+    ],
+    "tag_indices": [
+      0,
+      3,
+      11,
+      38,
+      39,
+      43,
+      50,
+      63,
+      81
+    ],
+    "tc": 0.8956,
+    "itf": 0.9327
+  },
+  {
+    "cluster_id": 23,
+    "n_members": 14,
+    "tags": [
+      "furry",
+      "tail",
+      "chewteeth",
+      "fast",
+      "quadrapedal",
+      "active",
+      "agility",
+      "newworld",
+      "oldworld",
+      "timid"
+    ],
+    "tag_indices": [
+      11,
+      25,
+      26,
+      39,
+      45,
+      46,
+      50,
+      62,
+      63,
+      79
+    ],
+    "tc": 0.801,
+    "itf": 0.8309
+  },
+  {
+    "cluster_id": 24,
+    "n_members": 28,
+    "tags": [
+      "brown",
+      "furry",
+      "big",
+      "tail",
+      "fast",
+      "quadrapedal",
+      "agility",
+      "ground",
+      "smart"
+    ],
+    "tag_indices": [
+      3,
+      11,
+      14,
+      25,
+      39,
+      45,
+      50,
+      74,
+      80
+    ],
+    "tc": 0.9096,
+    "itf": 0.8315
+  },
+  {
+    "cluster_id": 25,
+    "n_members": 22,
+    "tags": [
+      "big",
+      "chewteeth",
+      "walks",
+      "muscle",
+      "active",
+      "agility",
+      "ground",
+      "timid",
+      "group"
+    ],
+    "tag_indices": [
+      14,
+      26,
+      38,
+      43,
+      46,
+      50,
+      74,
+      79,
+      81
+    ],
+    "tc": 0.8441,
+    "itf": 0.8746
+  },
+  {
+    "cluster_id": 26,
+    "n_members": 46,
+    "tags": [
+      "paws",
+      "tail",
+      "walks",
+      "fast",
+      "active",
+      "vegetation",
+      "forager",
+      "ground",
+      "timid"
+    ],
+    "tag_indices": [
+      22,
+      25,
+      38,
+      39,
+      46,
+      54,
+      56,
+      74,
+      79
+    ],
+    "tc": 0.8902,
+    "itf": 1.3097
+  },
+  {
+    "cluster_id": 27,
+    "n_members": 27,
+    "tags": [
+      "brown",
+      "furry",
+      "tail",
+      "chewteeth",
+      "walks",
+      "fast",
+      "quadrapedal",
+      "active",
+      "newworld",
+      "oldworld"
+    ],
+    "tag_indices": [
+      3,
+      11,
+      25,
+      26,
+      38,
+      39,
+      45,
+      46,
+      62,
+      63
+    ],
+    "tc": 0.8648,
+    "itf": 0.8445
+  },
+  {
+    "cluster_id": 28,
+    "n_members": 1,
+    "tags": [
+      "black",
+      "yellow",
+      "patches",
+      "spots",
+      "meatteeth",
+      "nocturnal",
+      "meat",
+      "solitary",
+      "nestspot"
+    ],
+    "tag_indices": [
+      0,
+      7,
+      8,
+      9,
+      27,
+      48,
+      52,
+      82,
+      83
+    ],
+    "tc": 0.3534,
+    "itf": 3.1242
+  },
+  {
+    "cluster_id": 29,
+    "n_members": 59,
+    "tags": [
+      "furry",
+      "tail",
+      "chewteeth",
+      "walks",
+      "fast",
+      "quadrapedal",
+      "newworld",
+      "oldworld",
+      "ground"
+    ],
+    "tag_indices": [
+      11,
+      25,
+      26,
+      38,
+      39,
+      45,
+      62,
+      63,
+      74
+    ],
+    "tc": 0.8891,
+    "itf": 0.8522
+  },
+  {
+    "cluster_id": 30,
+    "n_members": 35,
+    "tags": [
+      "black",
+      "tail",
+      "chewteeth",
+      "walks",
+      "fast",
+      "quadrapedal",
+      "active",
+      "newworld",
+      "smart"
+    ],
+    "tag_indices": [
+      0,
+      25,
+      26,
+      38,
+      39,
+      45,
+      46,
+      62,
+      80
+    ],
+    "tc": 0.8992,
+    "itf": 0.879
+  },
+  {
+    "cluster_id": 31,
+    "n_members": 43,
+    "tags": [
+      "furry",
+      "tail",
+      "fast",
+      "quadrapedal",
+      "agility",
+      "oldworld",
+      "ground",
+      "smart",
+      "group"
+    ],
+    "tag_indices": [
+      11,
+      25,
+      39,
+      45,
+      50,
+      63,
+      74,
+      80,
+      81
+    ],
+    "tc": 0.8904,
+    "itf": 0.8527
+  },
+  {
+    "cluster_id": 32,
+    "n_members": 52,
+    "tags": [
+      "gray",
+      "toughskin",
+      "big",
+      "bulbous",
+      "smelly",
+      "strong",
+      "inactive",
+      "vegetation",
+      "grazer",
+      "group"
+    ],
+    "tag_indices": [
+      4,
+      13,
+      14,
+      16,
+      33,
+      41,
+      47,
+      54,
+      57,
+      81
+    ],
+    "tc": 0.8021,
+    "itf": 2.0067
+  },
+  {
+    "cluster_id": 33,
+    "n_members": 34,
+    "tags": [
+      "black",
+      "brown",
+      "furry",
+      "walks",
+      "muscle",
+      "active",
+      "inactive",
+      "ground",
+      "smart"
+    ],
+    "tag_indices": [
+      0,
+      3,
+      11,
+      38,
+      43,
+      46,
+      47,
+      74,
+      80
+    ],
+    "tc": 0.8673,
+    "itf": 1.0608
+  },
+  {
+    "cluster_id": 34,
+    "n_members": 41,
+    "tags": [
+      "toughskin",
+      "bulbous",
+      "slow",
+      "strong",
+      "muscle",
+      "inactive",
+      "oldworld",
+      "timid",
+      "smart",
+      "group"
+    ],
+    "tag_indices": [
+      13,
+      16,
+      40,
+      41,
+      43,
+      47,
+      63,
+      79,
+      80,
+      81
+    ],
+    "tc": 0.8001,
+    "itf": 1.5622
+  },
+  {
+    "cluster_id": 35,
+    "n_members": 53,
+    "tags": [
+      "brown",
+      "tail",
+      "walks",
+      "fast",
+      "strong",
+      "active",
+      "agility",
+      "ground",
+      "smart"
+    ],
+    "tag_indices": [
+      3,
+      25,
+      38,
+      39,
+      41,
+      46,
+      50,
+      74,
+      80
+    ],
+    "tc": 0.8939,
+    "itf": 0.8315
+  },
+  {
+    "cluster_id": 36,
+    "n_members": 57,
+    "tags": [
+      "black",
+      "furry",
+      "chewteeth",
+      "walks",
+      "quadrapedal",
+      "inactive",
+      "vegetation",
+      "oldworld",
+      "timid",
+      "group"
+    ],
+    "tag_indices": [
+      0,
+      11,
+      26,
+      38,
+      45,
+      47,
+      54,
+      63,
+      79,
+      81
+    ],
+    "tc": 0.8027,
+    "itf": 1.1025
+  },
+  {
+    "cluster_id": 37,
+    "n_members": 31,
+    "tags": [
+      "black",
+      "spots",
+      "bulbous",
+      "slow",
+      "inactive",
+      "grazer",
+      "plains",
+      "fields",
+      "domestic"
+    ],
+    "tag_indices": [
+      0,
+      9,
+      16,
+      40,
+      47,
+      57,
+      68,
+      70,
+      84
+    ],
+    "tc": 0.9265,
+    "itf": 2.8031
+  },
+  {
+    "cluster_id": 38,
+    "n_members": 14,
+    "tags": [
+      "furry",
+      "tail",
+      "chewteeth",
+      "walks",
+      "strong",
+      "quadrapedal",
+      "active",
+      "newworld",
+      "ground",
+      "timid"
+    ],
+    "tag_indices": [
+      11,
+      25,
+      26,
+      38,
+      41,
+      45,
+      46,
+      62,
+      74,
+      79
+    ],
+    "tc": 0.8007,
+    "itf": 0.8305
+  },
+  {
+    "cluster_id": 39,
+    "n_members": 30,
+    "tags": [
+      "chewteeth",
+      "walks",
+      "fast",
+      "muscle",
+      "quadrapedal",
+      "oldworld",
+      "ground",
+      "smart",
+      "solitary"
+    ],
+    "tag_indices": [
+      26,
+      38,
+      39,
+      43,
+      45,
+      63,
+      74,
+      80,
+      82
+    ],
+    "tc": 0.8907,
+    "itf": 1.0594
+  },
+  {
+    "cluster_id": 40,
+    "n_members": 50,
+    "tags": [
+      "big",
+      "fast",
+      "strong",
+      "agility",
+      "newworld",
+      "oldworld",
+      "timid",
+      "smart",
+      "group"
+    ],
+    "tag_indices": [
+      14,
+      39,
+      41,
+      50,
+      62,
+      63,
+      79,
+      80,
+      81
+    ],
+    "tc": 0.889,
+    "itf": 0.8375
+  },
+  {
+    "cluster_id": 41,
+    "n_members": 52,
+    "tags": [
+      "brown",
+      "big",
+      "tail",
+      "strong",
+      "muscle",
+      "agility",
+      "timid",
+      "smart",
+      "group"
+    ],
+    "tag_indices": [
+      3,
+      14,
+      25,
+      41,
+      43,
+      50,
+      79,
+      80,
+      81
+    ],
+    "tc": 0.8899,
+    "itf": 0.8642
+  },
+  {
+    "cluster_id": 42,
+    "n_members": 36,
+    "tags": [
+      "big",
+      "tail",
+      "walks",
+      "muscle",
+      "quadrapedal",
+      "active",
+      "agility",
+      "newworld",
+      "oldworld"
+    ],
+    "tag_indices": [
+      14,
+      25,
+      38,
+      43,
+      45,
+      46,
+      50,
+      62,
+      63
+    ],
+    "tc": 0.8864,
+    "itf": 0.8795
+  },
+  {
+    "cluster_id": 43,
+    "n_members": 53,
+    "tags": [
+      "black",
+      "brown",
+      "big",
+      "tail",
+      "agility",
+      "newworld",
+      "timid",
+      "smart",
+      "group"
+    ],
+    "tag_indices": [
+      0,
+      3,
+      14,
+      25,
+      50,
+      62,
+      79,
+      80,
+      81
+    ],
+    "tc": 0.889,
+    "itf": 0.8642
+  },
+  {
+    "cluster_id": 44,
+    "n_members": 63,
+    "tags": [
+      "brown",
+      "furry",
+      "walks",
+      "quadrapedal",
+      "agility",
+      "newworld",
+      "oldworld",
+      "ground",
+      "smart"
+    ],
+    "tag_indices": [
+      3,
+      11,
+      38,
+      45,
+      50,
+      62,
+      63,
+      74,
+      80
+    ],
+    "tc": 0.8891,
+    "itf": 0.8421
+  },
+  {
+    "cluster_id": 45,
+    "n_members": 15,
+    "tags": [
+      "furry",
+      "tail",
+      "chewteeth",
+      "quadrapedal",
+      "active",
+      "agility",
+      "newworld",
+      "oldworld",
+      "ground",
+      "timid"
+    ],
+    "tag_indices": [
+      11,
+      25,
+      26,
+      45,
+      46,
+      50,
+      62,
+      63,
+      74,
+      79
+    ],
+    "tc": 0.8021,
+    "itf": 0.8309
+  },
+  {
+    "cluster_id": 46,
+    "n_members": 35,
+    "tags": [
+      "white",
+      "furry",
+      "big",
+      "chewteeth",
+      "walks",
+      "strong",
+      "active",
+      "agility",
+      "newworld"
+    ],
+    "tag_indices": [
+      1,
+      11,
+      14,
+      26,
+      38,
+      41,
+      46,
+      50,
+      62
+    ],
+    "tc": 0.8672,
+    "itf": 1.0876
+  },
+  {
+    "cluster_id": 47,
+    "n_members": 45,
+    "tags": [
+      "brown",
+      "furry",
+      "big",
+      "lean",
+      "walks",
+      "agility",
+      "newworld",
+      "timid",
+      "smart"
+    ],
+    "tag_indices": [
+      3,
+      11,
+      14,
+      17,
+      38,
+      50,
+      62,
+      79,
+      80
+    ],
+    "tc": 0.8916,
+    "itf": 1.0827
+  },
+  {
+    "cluster_id": 48,
+    "n_members": 10,
+    "tags": [
+      "big",
+      "tail",
+      "chewteeth",
+      "fast",
+      "quadrapedal",
+      "newworld",
+      "oldworld",
+      "ground",
+      "timid",
+      "smart"
+    ],
+    "tag_indices": [
+      14,
+      25,
+      26,
+      39,
+      45,
+      62,
+      63,
+      74,
+      79,
+      80
+    ],
+    "tc": 0.8025,
+    "itf": 0.84
+  },
+  {
+    "cluster_id": 49,
+    "n_members": 14,
+    "tags": [
+      "black",
+      "brown",
+      "furry",
+      "big",
+      "chewteeth",
+      "strong",
+      "quadrapedal",
+      "newworld",
+      "timid",
+      "group"
+    ],
+    "tag_indices": [
+      0,
+      3,
+      11,
+      14,
+      26,
+      41,
+      45,
+      62,
+      79,
+      81
+    ],
+    "tc": 0.7949,
+    "itf": 0.869
+  }
+]
