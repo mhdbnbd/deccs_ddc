@@ -189,12 +189,14 @@ def apply_annotation_ratio(tags, r=0.5, mode="instance", seed=42):
 # Preprocessing and subsetting
 # ---------------------------------------------------------------------------
 
-def preprocess_features(features, mode="zscore"):
+def preprocess_features(features, mode="none"):
     """
     The paper does not state any preprocessing of the ResNet-101 features.
-    JUDGMENT CALL — default zscore. See the Phase 1 notes: with raw non-negative
-    ResNet activations the MI objective collapses to a single cluster inside one
-    epoch; z-scoring removes the shared non-negative offset and it does not.
+    JUDGMENT CALL — default none (raw activations), which is what every reported
+    Phase 1 result uses. An earlier note here claimed raw non-negative ResNet
+    activations collapse the MI objective to a single cluster within one epoch;
+    the seeded raw runs do not reproduce that (19 active clusters at mu=1,
+    48-50 at mu=1.5), so the claim is withdrawn.
     """
     x = features.astype(np.float32)
     if mode == "none":

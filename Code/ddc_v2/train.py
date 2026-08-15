@@ -33,7 +33,8 @@ from ddc_v2.objectives import (mi_terms, generate_pairs, pairwise_loss,
 HISTORY_FIELDS = [
     "step", "phase", "round", "epoch", "loss_total", "loss_mi", "loss_pairwise",
     "h_y_given_x", "h_y", "active_argmax", "active_mass", "mean_max_prob",
-    "n_pairs", "nmi", "acc", "ari", "ilp_beta", "ilp_n_tags", "seconds",
+    "n_pairs", "same_class_pair_frac", "nmi", "acc", "ari", "ilp_beta",
+    "ilp_n_tags", "seconds",
 ]
 
 
@@ -73,7 +74,7 @@ class DDCTrainer:
         n = self.X.shape[0]
         perm = torch.randperm(n)
         acc = {"total": 0.0, "mi": 0.0, "pw": 0.0, "hyx": 0.0, "hy": 0.0,
-               "pairs": 0, "batches": 0}
+               "pairs": 0, "same_class_pairs": 0, "batches": 0}
 
         for start in range(0, n, self.args.batch_size):
             idx = perm[start:start + self.args.batch_size]
@@ -113,6 +114,16 @@ class DDCTrainer:
             acc["hyx"] += h_yx.item()
             acc["hy"] += h_y.item()
             acc["pairs"] += int(anchors.numel())
+            if anchors.numel():
+                # Fraction of self-generated constraints joining two instances of
+                # the same ground-truth class. AwA2 tags are per-class, so a
+                # same-class partner has tag distance exactly 0 and Eq (5), with
+                # gamma=100, should select one whenever the batch contains one.
+                # Labels are read for measurement only and never enter the loss.
+                yb = self.y[idx.numpy()]
+                acc["same_class_pairs"] += int(
+                    (yb[anchors.cpu().numpy()] == yb[partners.cpu().numpy()]).sum()
+                )
             acc["batches"] += 1
 
         nb = max(acc["batches"], 1)
@@ -125,6 +136,8 @@ class DDCTrainer:
             "h_y_given_x": round(acc["hyx"] / nb, 6),
             "h_y": round(acc["hy"] / nb, 6),
             "n_pairs": acc["pairs"],
+            "same_class_pair_frac": (round(acc["same_class_pairs"] / acc["pairs"], 4)
+                                     if acc["pairs"] else None),
             "ilp_beta": self.last_ilp["beta"],
             "ilp_n_tags": self.last_ilp["n_tags"],
             "seconds": round(time.time() - self.t0, 1),
@@ -135,6 +148,7 @@ class DDCTrainer:
             f"MI={row['loss_mi']:+.4f} PW={row['loss_pairwise']:.4f} "
             f"H(Y|X)={row['h_y_given_x']:.3f} H(Y)={row['h_y']:.3f} "
             f"active={row['active_argmax']}/{self.K} pairs={row['n_pairs']} "
+            f"sameclass={row['same_class_pair_frac']} "
             f"NMI={row['nmi']:.4f} ACC={row['acc']:.4f}"
         )
         return row
@@ -223,6 +237,8 @@ class DDCTrainer:
             "n_clusters": self.K,
             "n_attributes": int(self.T.shape[1]),
             "final": final,
+            "final_same_class_pair_frac": (self.history[-1].get("same_class_pair_frac")
+                                           if self.history else None),
             "best_nmi_epoch": getattr(self, "best", {}),
             "description_metrics": desc_metrics,
             "ilp_last": {k: v for k, v in info.items() if k != "active_clusters"},

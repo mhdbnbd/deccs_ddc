@@ -32,8 +32,9 @@ def build_args():
     p.add_argument("--sanity", action="store_true",
                    help="1600-sample subset of the training split")
     p.add_argument("--n_sanity", type=int, default=1600)
-    p.add_argument("--preproc", choices=["zscore", "l2", "none"], default="zscore",
-                   help="JUDGMENT CALL — paper is silent on feature preprocessing")
+    p.add_argument("--preproc", choices=["zscore", "l2", "none"], default="none",
+                   help="JUDGMENT CALL — paper is silent on feature preprocessing; "
+                        "'none' matches every reported Phase 1 result")
 
     # tags
     p.add_argument("--tag_ratio", type=float, default=0.5, help="paper's r")

@@ -36,7 +36,7 @@ def main():
                    help="use the same subset run_ddc_v2.py --sanity uses")
     p.add_argument("--n_sanity", type=int, default=1600)
     p.add_argument("--n_clusters", type=int, default=None)
-    p.add_argument("--preproc", choices=["zscore", "l2", "none"], default="zscore")
+    p.add_argument("--preproc", choices=["zscore", "l2", "none"], default="none")
     p.add_argument("--tag_ratio", type=float, default=0.5)
     p.add_argument("--mask_mode", choices=["instance", "entry"], default="instance")
     p.add_argument("--seed", type=int, default=42)
@@ -48,6 +48,11 @@ def main():
     ds, paths = ddc_data.build_dataset(args.dataset)
     features = ddc_data.load_cached_features(args.dataset)
     labels = np.asarray(ds.labels)
+    if features.shape[0] != labels.shape[0]:
+        raise SystemExit(
+            f"Feature/label length mismatch ({features.shape[0]} vs {labels.shape[0]}). "
+            f"The cache was built from a different split — delete it and re-extract."
+        )
     tags = ddc_data.load_binary_tags(args.dataset, ds, paths)
 
     keep = ddc_data.subsample(features.shape[0],
@@ -61,14 +66,20 @@ def main():
         tags, r=args.tag_ratio, mode=args.mask_mode, seed=args.seed)
 
     # DDC's Table 3 k-means row concatenates the image features with the tags.
-    # Standardise the tag block so it is not swamped by 2048 feature dimensions.
+    # The paper says only "naively concatenates" and does not state whether the
+    # tag block is rescaled, so report both readings:
+    #   X_cat      standardised tag block (our judgment call)
+    #   X_cat_raw  literal concatenation of the observed 0/1 tag matrix
     T = StandardScaler().fit_transform(tags_obs)
     X_cat = np.hstack([X, T]).astype(np.float32)
+    X_cat_raw = np.hstack([X, tags_obs]).astype(np.float32)
 
     print(f"N={X.shape[0]} K={K} D={X.shape[1]} M={tags.shape[1]} "
           f"preproc={args.preproc} r={args.tag_ratio}")
 
-    for name, data in (("features only", X), ("features + tags", X_cat)):
+    for name, data in (("features only", X),
+                       ("feats + tags (std)", X_cat),
+                       ("feats + tags (raw)", X_cat_raw)):
         rows = []
         for i in range(args.n_runs):
             seed = args.seed + i
