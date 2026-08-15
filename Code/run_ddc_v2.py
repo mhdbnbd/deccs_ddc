@@ -91,6 +91,15 @@ def main():
     setup_logging(log_filename=args.log_file
                   or f"ddc_phase1_{args.run_tag or 'default'}.log")
 
+    if not args.skip_ilp:
+        try:
+            import pulp
+        except ImportError:
+            raise SystemExit(
+                "pulp is not installed in this environment, so the ILP cannot be "
+                "solved. Install it (pip install pulp) or pass --skip_ilp."
+            )
+
     device = "cuda" if (args.use_gpu and torch.cuda.is_available()) else "cpu"
     if device == "cuda":
         logging.info(f"GPU: {torch.cuda.get_device_name(0)}")
