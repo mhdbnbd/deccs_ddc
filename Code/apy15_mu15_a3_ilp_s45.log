@@ -1,0 +1,85 @@
+2026-08-17 00:43:23,012 - INFO - GPU: NVIDIA GeForce RTX 4090
+2026-08-17 00:43:23,032 - INFO - Predicate matrix: 32 classes × 64 attributes
+2026-08-17 00:43:23,034 - INFO - Class filter: 15 classes, 6487 instances retained
+2026-08-17 00:43:23,043 - INFO - Train split: 5189 samples, 15 classes, 64 attributes
+2026-08-17 00:43:23,262 - INFO - Loaded cached features (5189, 2048) from cache/resnet101_apy_15_full.npz
+2026-08-17 00:43:23,450 - INFO - Per-instance binary tags (5189, 64) from data/aPY-data/aPY/per-instance-attributes.tsv (density=0.0869, 1703 distinct rows)
+2026-08-17 00:43:23,490 - INFO - Annotation r=0.5 (instance-level): 2620/5189 annotated, 2569 mean-imputed
+2026-08-17 00:43:23,490 - INFO - === DDC rebuild | apy | N=5189 | K=15 | M=64 | preproc=none | r=0.5 ===
+2026-08-17 00:43:26,345 - INFO - Pre-training 10 epochs (g = identity, Algorithm 1 lines 1-2)
+2026-08-17 00:43:27,799 - INFO - [pretrain r0 e1] L=-1.3532 MI=-1.3536 PW=0.0004 H(Y|X)=2.707 H(Y)=2.707 active=11/15 pairs=2620 sameclass=0.6256 NMI=0.3418 ACC=0.3559
+2026-08-17 00:43:27,951 - INFO - [pretrain r0 e2] L=-1.3541 MI=-1.3543 PW=0.0002 H(Y|X)=2.708 H(Y)=2.708 active=12/15 pairs=2620 sameclass=0.6198 NMI=0.4275 ACC=0.3542
+2026-08-17 00:43:28,149 - INFO - [pretrain r0 e3] L=-1.4004 MI=-1.5106 PW=0.1103 H(Y|X)=2.542 H(Y)=2.702 active=15/15 pairs=2620 sameclass=0.6179 NMI=0.4716 ACC=0.3920
+2026-08-17 00:43:28,349 - INFO - [pretrain r0 e4] L=-1.5538 MI=-1.8834 PW=0.3295 H(Y|X)=2.163 H(Y)=2.698 active=15/15 pairs=2620 sameclass=0.6214 NMI=0.5477 ACC=0.4579
+2026-08-17 00:43:28,596 - INFO - [pretrain r0 e5] L=-1.7230 MI=-1.9739 PW=0.2509 H(Y|X)=2.071 H(Y)=2.697 active=15/15 pairs=2620 sameclass=0.6248 NMI=0.6132 ACC=0.5573
+2026-08-17 00:43:28,846 - INFO - [pretrain r0 e6] L=-1.8938 MI=-2.2688 PW=0.3750 H(Y|X)=1.769 H(Y)=2.692 active=14/15 pairs=2620 sameclass=0.616 NMI=0.6274 ACC=0.5556
+2026-08-17 00:43:29,073 - INFO - [pretrain r0 e7] L=-2.0111 MI=-2.4264 PW=0.4153 H(Y|X)=1.609 H(Y)=2.691 active=14/15 pairs=2620 sameclass=0.626 NMI=0.6605 ACC=0.5870
+2026-08-17 00:43:29,297 - INFO - [pretrain r0 e8] L=-2.1495 MI=-2.5711 PW=0.4216 H(Y|X)=1.459 H(Y)=2.687 active=14/15 pairs=2620 sameclass=0.6252 NMI=0.6784 ACC=0.6130
+2026-08-17 00:43:29,516 - INFO - [pretrain r0 e9] L=-2.2161 MI=-2.6806 PW=0.4645 H(Y|X)=1.331 H(Y)=2.675 active=15/15 pairs=2620 sameclass=0.6237 NMI=0.6740 ACC=0.5807
+2026-08-17 00:43:29,725 - INFO - [pretrain r0 e10] L=-2.3151 MI=-2.7408 PW=0.4257 H(Y|X)=1.264 H(Y)=2.670 active=15/15 pairs=2620 sameclass=0.626 NMI=0.6877 ACC=0.6171
+2026-08-17 00:43:29,740 - WARNING - [ILP] infeasible by Eq (3) alone: cluster 4 reaches at most 2.59 < alpha=3 (coverage min/mean/max 2.59/5.37/9.03); largest feasible alpha here is 2. g left as identity
+2026-08-17 00:43:29,946 - INFO - [round r1 e1] L=-2.3999 MI=-2.7675 PW=0.3676 H(Y|X)=1.232 H(Y)=2.667 active=15/15 pairs=2620 sameclass=0.6279 NMI=0.6816 ACC=0.6404
+2026-08-17 00:43:30,162 - INFO - [round r1 e2] L=-2.4289 MI=-2.8260 PW=0.3971 H(Y|X)=1.165 H(Y)=2.660 active=15/15 pairs=2620 sameclass=0.6233 NMI=0.6822 ACC=0.5936
+2026-08-17 00:43:30,176 - WARNING - [ILP] infeasible by Eq (3) alone: cluster 4 reaches at most 2.12 < alpha=3 (coverage min/mean/max 2.12/5.18/9.01); largest feasible alpha here is 2. g left as identity
+2026-08-17 00:43:30,374 - INFO - [round r2 e1] L=-2.5012 MI=-2.8772 PW=0.3760 H(Y|X)=1.107 H(Y)=2.656 active=15/15 pairs=2620 sameclass=0.6156 NMI=0.6909 ACC=0.6146
+2026-08-17 00:43:30,575 - INFO - [round r2 e2] L=-2.5579 MI=-2.9200 PW=0.3621 H(Y|X)=1.060 H(Y)=2.653 active=15/15 pairs=2620 sameclass=0.6126 NMI=0.6960 ACC=0.6558
+2026-08-17 00:43:30,639 - INFO - [ILP] beta=1 rejected: proven_infeasible (0.0s of 120s)
+2026-08-17 00:43:33,456 - INFO - [ILP] beta=2 [proven_optimal, 2.8s], 15 active clusters, 48/64 tags kept, 14.9 tags/cluster
+2026-08-17 00:43:33,682 - INFO - [round r3 e1] L=-2.5432 MI=-2.9724 PW=0.4292 H(Y|X)=0.990 H(Y)=2.642 active=15/15 pairs=2620 sameclass=0.6347 NMI=0.6775 ACC=0.6527
+2026-08-17 00:43:33,890 - INFO - [round r3 e2] L=-2.6176 MI=-2.9815 PW=0.3638 H(Y|X)=0.960 H(Y)=2.628 active=15/15 pairs=2620 sameclass=0.6282 NMI=0.7039 ACC=0.6550
+2026-08-17 00:43:33,903 - WARNING - [ILP] infeasible by Eq (3) alone: cluster 14 reaches at most 2.63 < alpha=3 (coverage min/mean/max 2.63/5.39/9.02); largest feasible alpha here is 2. g left as identity
+2026-08-17 00:43:34,094 - INFO - [round r4 e1] L=-2.6144 MI=-3.0037 PW=0.3893 H(Y|X)=0.938 H(Y)=2.628 active=15/15 pairs=2620 sameclass=0.6191 NMI=0.6892 ACC=0.6315
+2026-08-17 00:43:34,295 - INFO - [round r4 e2] L=-2.6793 MI=-3.0363 PW=0.3570 H(Y|X)=0.900 H(Y)=2.624 active=15/15 pairs=2620 sameclass=0.6088 NMI=0.6780 ACC=0.6250
+2026-08-17 00:43:34,308 - WARNING - [ILP] infeasible by Eq (3) alone: cluster 14 reaches at most 2.68 < alpha=3 (coverage min/mean/max 2.68/5.45/8.97); largest feasible alpha here is 2. g left as identity
+2026-08-17 00:43:34,508 - INFO - [round r5 e1] L=-2.6975 MI=-3.0714 PW=0.3739 H(Y|X)=0.870 H(Y)=2.628 active=15/15 pairs=2620 sameclass=0.621 NMI=0.6859 ACC=0.6354
+2026-08-17 00:43:34,718 - INFO - [round r5 e2] L=-2.6821 MI=-3.0802 PW=0.3981 H(Y|X)=0.848 H(Y)=2.619 active=15/15 pairs=2620 sameclass=0.6313 NMI=0.6853 ACC=0.6452
+2026-08-17 00:43:34,732 - WARNING - [ILP] infeasible by Eq (3) alone: cluster 14 reaches at most 2.51 < alpha=3 (coverage min/mean/max 2.51/5.33/8.97); largest feasible alpha here is 2. g left as identity
+2026-08-17 00:43:34,945 - INFO - [round r6 e1] L=-2.7150 MI=-3.0940 PW=0.3790 H(Y|X)=0.837 H(Y)=2.620 active=15/15 pairs=2620 sameclass=0.6336 NMI=0.6923 ACC=0.6601
+2026-08-17 00:43:35,135 - INFO - [round r6 e2] L=-2.7272 MI=-3.1136 PW=0.3864 H(Y|X)=0.811 H(Y)=2.616 active=15/15 pairs=2620 sameclass=0.6252 NMI=0.6931 ACC=0.6687
+2026-08-17 00:43:35,147 - WARNING - [ILP] infeasible by Eq (3) alone: cluster 14 reaches at most 2.60 < alpha=3 (coverage min/mean/max 2.60/5.57/9.00); largest feasible alpha here is 2. g left as identity
+2026-08-17 00:43:35,355 - INFO - [round r7 e1] L=-2.7179 MI=-3.1021 PW=0.3842 H(Y|X)=0.844 H(Y)=2.631 active=15/15 pairs=2620 sameclass=0.6302 NMI=0.6953 ACC=0.6730
+2026-08-17 00:43:35,572 - INFO - [round r7 e2] L=-2.7075 MI=-3.1242 PW=0.4167 H(Y|X)=0.796 H(Y)=2.614 active=15/15 pairs=2620 sameclass=0.6256 NMI=0.7053 ACC=0.6805
+2026-08-17 00:43:35,586 - WARNING - [ILP] infeasible by Eq (3) alone: cluster 14 reaches at most 2.72 < alpha=3 (coverage min/mean/max 2.72/5.51/8.97); largest feasible alpha here is 2. g left as identity
+2026-08-17 00:43:35,793 - INFO - [round r8 e1] L=-2.7198 MI=-3.0869 PW=0.3671 H(Y|X)=0.836 H(Y)=2.616 active=15/15 pairs=2620 sameclass=0.6202 NMI=0.6965 ACC=0.6608
+2026-08-17 00:43:35,995 - INFO - [round r8 e2] L=-2.7584 MI=-3.1434 PW=0.3850 H(Y|X)=0.786 H(Y)=2.619 active=15/15 pairs=2620 sameclass=0.642 NMI=0.6797 ACC=0.6323
+2026-08-17 00:43:36,008 - WARNING - [ILP] infeasible by Eq (3) alone: cluster 14 reaches at most 2.30 < alpha=3 (coverage min/mean/max 2.30/5.59/9.03); largest feasible alpha here is 2. g left as identity
+2026-08-17 00:43:36,204 - INFO - [round r9 e1] L=-2.7786 MI=-3.1597 PW=0.3811 H(Y|X)=0.764 H(Y)=2.616 active=15/15 pairs=2620 sameclass=0.6271 NMI=0.6909 ACC=0.6302
+2026-08-17 00:43:36,407 - INFO - [round r9 e2] L=-2.8123 MI=-3.1790 PW=0.3667 H(Y|X)=0.749 H(Y)=2.619 active=15/15 pairs=2620 sameclass=0.6336 NMI=0.6900 ACC=0.6242
+2026-08-17 00:43:36,421 - WARNING - [ILP] infeasible by Eq (3) alone: cluster 14 reaches at most 2.21 < alpha=3 (coverage min/mean/max 2.21/5.62/9.07); largest feasible alpha here is 2. g left as identity
+2026-08-17 00:43:36,613 - INFO - [round r10 e1] L=-2.8179 MI=-3.1769 PW=0.3590 H(Y|X)=0.748 H(Y)=2.616 active=15/15 pairs=2620 sameclass=0.6256 NMI=0.6894 ACC=0.6431
+2026-08-17 00:43:36,817 - INFO - [round r10 e2] L=-2.8378 MI=-3.2083 PW=0.3705 H(Y|X)=0.718 H(Y)=2.618 active=15/15 pairs=2620 sameclass=0.6401 NMI=0.6896 ACC=0.6446
+2026-08-17 00:43:36,830 - WARNING - [ILP] infeasible by Eq (3) alone: cluster 14 reaches at most 2.25 < alpha=3 (coverage min/mean/max 2.25/5.64/9.07); largest feasible alpha here is 2. g left as identity
+2026-08-17 00:43:37,023 - INFO - [round r11 e1] L=-2.7852 MI=-3.2076 PW=0.4224 H(Y|X)=0.720 H(Y)=2.618 active=15/15 pairs=2620 sameclass=0.6187 NMI=0.6809 ACC=0.6277
+2026-08-17 00:43:37,225 - INFO - [round r11 e2] L=-2.7631 MI=-3.2110 PW=0.4479 H(Y|X)=0.716 H(Y)=2.618 active=15/15 pairs=2620 sameclass=0.6328 NMI=0.6862 ACC=0.6190
+2026-08-17 00:43:37,240 - WARNING - [ILP] infeasible by Eq (3) alone: cluster 14 reaches at most 2.28 < alpha=3 (coverage min/mean/max 2.28/5.59/9.07); largest feasible alpha here is 2. g left as identity
+2026-08-17 00:43:37,448 - INFO - [round r12 e1] L=-2.8118 MI=-3.2073 PW=0.3955 H(Y|X)=0.705 H(Y)=2.608 active=15/15 pairs=2620 sameclass=0.6366 NMI=0.7004 ACC=0.6500
+2026-08-17 00:43:37,654 - INFO - [round r12 e2] L=-2.8645 MI=-3.2505 PW=0.3860 H(Y|X)=0.663 H(Y)=2.609 active=15/15 pairs=2620 sameclass=0.6198 NMI=0.6848 ACC=0.6161
+2026-08-17 00:43:37,668 - WARNING - [ILP] infeasible by Eq (3) alone: cluster 14 reaches at most 2.45 < alpha=3 (coverage min/mean/max 2.45/5.67/9.03); largest feasible alpha here is 2. g left as identity
+2026-08-17 00:43:37,869 - INFO - [round r13 e1] L=-2.8588 MI=-3.2291 PW=0.3703 H(Y|X)=0.682 H(Y)=2.607 active=15/15 pairs=2620 sameclass=0.6218 NMI=0.6791 ACC=0.6150
+2026-08-17 00:43:38,077 - INFO - [round r13 e2] L=-2.8743 MI=-3.2366 PW=0.3624 H(Y|X)=0.668 H(Y)=2.603 active=15/15 pairs=2620 sameclass=0.6183 NMI=0.6860 ACC=0.6520
+2026-08-17 00:43:38,091 - WARNING - [ILP] infeasible by Eq (3) alone: cluster 14 reaches at most 2.58 < alpha=3 (coverage min/mean/max 2.58/5.62/8.99); largest feasible alpha here is 2. g left as identity
+2026-08-17 00:43:38,246 - INFO - [round r14 e1] L=-2.9242 MI=-3.2694 PW=0.3451 H(Y|X)=0.636 H(Y)=2.603 active=15/15 pairs=2620 sameclass=0.626 NMI=0.6813 ACC=0.6348
+2026-08-17 00:43:38,410 - INFO - [round r14 e2] L=-2.9130 MI=-3.2815 PW=0.3684 H(Y|X)=0.621 H(Y)=2.601 active=15/15 pairs=2620 sameclass=0.6305 NMI=0.6712 ACC=0.6109
+2026-08-17 00:43:38,424 - WARNING - [ILP] infeasible by Eq (3) alone: cluster 14 reaches at most 2.73 < alpha=3 (coverage min/mean/max 2.73/5.66/9.04); largest feasible alpha here is 2. g left as identity
+2026-08-17 00:43:38,611 - INFO - [round r15 e1] L=-2.8848 MI=-3.2543 PW=0.3695 H(Y|X)=0.647 H(Y)=2.601 active=15/15 pairs=2620 sameclass=0.6355 NMI=0.6840 ACC=0.6336
+2026-08-17 00:43:38,812 - INFO - [round r15 e2] L=-2.8806 MI=-3.2549 PW=0.3743 H(Y|X)=0.657 H(Y)=2.608 active=15/15 pairs=2620 sameclass=0.6248 NMI=0.6846 ACC=0.6390
+2026-08-17 00:43:38,828 - WARNING - [ILP] infeasible by Eq (3) alone: cluster 14 reaches at most 2.42 < alpha=3 (coverage min/mean/max 2.42/5.60/9.04); largest feasible alpha here is 2. g left as identity
+2026-08-17 00:43:39,031 - INFO - [round r16 e1] L=-2.8906 MI=-3.2803 PW=0.3897 H(Y|X)=0.620 H(Y)=2.601 active=15/15 pairs=2620 sameclass=0.6286 NMI=0.6854 ACC=0.6344
+2026-08-17 00:43:39,231 - INFO - [round r16 e2] L=-2.9203 MI=-3.2714 PW=0.3510 H(Y|X)=0.648 H(Y)=2.613 active=15/15 pairs=2620 sameclass=0.637 NMI=0.6796 ACC=0.6340
+2026-08-17 00:43:39,245 - WARNING - [ILP] infeasible by Eq (3) alone: cluster 14 reaches at most 2.50 < alpha=3 (coverage min/mean/max 2.50/5.66/9.04); largest feasible alpha here is 2. g left as identity
+2026-08-17 00:43:39,447 - INFO - [round r17 e1] L=-2.9366 MI=-3.2707 PW=0.3341 H(Y|X)=0.633 H(Y)=2.603 active=15/15 pairs=2620 sameclass=0.6492 NMI=0.6781 ACC=0.6319
+2026-08-17 00:43:39,650 - INFO - [round r17 e2] L=-2.9253 MI=-3.2903 PW=0.3650 H(Y|X)=0.612 H(Y)=2.601 active=15/15 pairs=2620 sameclass=0.6359 NMI=0.6816 ACC=0.6325
+2026-08-17 00:43:39,664 - WARNING - [ILP] infeasible by Eq (3) alone: cluster 14 reaches at most 2.47 < alpha=3 (coverage min/mean/max 2.47/5.63/9.07); largest feasible alpha here is 2. g left as identity
+2026-08-17 00:43:39,865 - INFO - [round r18 e1] L=-2.9147 MI=-3.2692 PW=0.3545 H(Y|X)=0.634 H(Y)=2.602 active=15/15 pairs=2620 sameclass=0.6397 NMI=0.6878 ACC=0.6292
+2026-08-17 00:43:40,058 - INFO - [round r18 e2] L=-2.9386 MI=-3.2856 PW=0.3470 H(Y|X)=0.619 H(Y)=2.603 active=15/15 pairs=2620 sameclass=0.634 NMI=0.6806 ACC=0.6348
+2026-08-17 00:43:40,072 - WARNING - [ILP] infeasible by Eq (3) alone: cluster 14 reaches at most 2.53 < alpha=3 (coverage min/mean/max 2.53/5.62/9.05); largest feasible alpha here is 2. g left as identity
+2026-08-17 00:43:40,264 - INFO - [round r19 e1] L=-2.9421 MI=-3.2889 PW=0.3468 H(Y|X)=0.611 H(Y)=2.600 active=15/15 pairs=2620 sameclass=0.6107 NMI=0.6815 ACC=0.6311
+2026-08-17 00:43:40,467 - INFO - [round r19 e2] L=-2.9579 MI=-3.2874 PW=0.3295 H(Y|X)=0.621 H(Y)=2.605 active=15/15 pairs=2620 sameclass=0.6286 NMI=0.6808 ACC=0.6292
+2026-08-17 00:43:40,483 - WARNING - [ILP] infeasible by Eq (3) alone: cluster 14 reaches at most 2.95 < alpha=3 (coverage min/mean/max 2.95/5.72/9.07); largest feasible alpha here is 2. g left as identity
+2026-08-17 00:43:40,688 - INFO - [round r20 e1] L=-2.9354 MI=-3.2878 PW=0.3524 H(Y|X)=0.615 H(Y)=2.602 active=15/15 pairs=2620 sameclass=0.6359 NMI=0.6831 ACC=0.6257
+2026-08-17 00:43:40,892 - INFO - [round r20 e2] L=-2.9430 MI=-3.2818 PW=0.3388 H(Y|X)=0.620 H(Y)=2.601 active=15/15 pairs=2620 sameclass=0.6336 NMI=0.6739 ACC=0.6126
+2026-08-17 00:43:41,962 - INFO - Artefacts written to results_v2/ddc_phase1/apy/apy15_mu15_a3_ilp_s45/
+2026-08-17 00:43:41,963 - INFO - === RESULT ===
+2026-08-17 00:43:41,963 - INFO - final  NMI=0.6739 ACC=0.6126 ARI=0.5625 active=15/15
+2026-08-17 00:43:41,963 - INFO - best   NMI=0.7053 at step 504 (round round 7)
+2026-08-17 00:43:41,963 - INFO - TC=0.0 ITF=0.0 (nats)

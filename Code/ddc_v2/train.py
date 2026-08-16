@@ -228,8 +228,23 @@ class DDCTrainer:
         assign = self.assignments()
         np.save(os.path.join(output_dir, "assignments.npy"), assign)
 
+        # The ILP of the final round was solved on the assignment as it stood
+        # BEFORE that round's epochs, so pairing its W with the final membership
+        # mixes two training states. Re-solve on the assignment actually being
+        # described. Costs one extra solve per run.
         W = getattr(self, "last_W", None)
         info = getattr(self, "last_info", {})
+        if not self.args.skip_ilp:
+            from ddc_v2.objectives import solve_description_ilp
+            _, W_final, info_final = solve_description_ilp(
+                assign, self.T.numpy(), self.K, alpha=self.args.alpha,
+                time_limit=self.args.ilp_time_limit, beta_start=1,
+            )
+            if W_final is not None:
+                W, info = W_final, info_final
+            else:
+                logging.warning("[ILP] final re-solve found no accepted solution; "
+                                "falling back to the last round's W")
         rows, desc_metrics = description_metrics(
             assign, self.T.numpy(), W, info.get("active_clusters", []),
             predicate_names=self.predicate_names,
