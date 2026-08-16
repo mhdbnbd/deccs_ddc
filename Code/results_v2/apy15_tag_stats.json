@@ -1,0 +1,88 @@
+{
+  "n_instances": 5189,
+  "n_classes": 15,
+  "n_attributes": 64,
+  "feature_cache": {
+    "path": "cache/resnet101_apy_15_full.npz",
+    "arrays": {
+      "features": [
+        5189,
+        2048
+      ]
+    },
+    "matches_split": true
+  },
+  "density_per_instance": 0.0869,
+  "active_attrs_per_instance": {
+    "mean": 5.56,
+    "min": 0,
+    "max": 16
+  },
+  "density_per_class_mean_matrix": 0.1022,
+  "distinct_rows_raw": 1703,
+  "within_class_zero_distance_fraction_raw": 0.0332,
+  "within_class_pairs": 1171356,
+  "per_seed": [
+    {
+      "seed": 42,
+      "annotated": 2643,
+      "distinct_rows_masked": 1106,
+      "zero_distance_fraction_masked": 0.2523,
+      "zero_distance_fraction_annotated_only": 0.0347,
+      "max_coverage_min_class": 4.28,
+      "max_coverage_mean_class": 5.68
+    },
+    {
+      "seed": 43,
+      "annotated": 2579,
+      "distinct_rows_masked": 1091,
+      "zero_distance_fraction_masked": 0.2598,
+      "zero_distance_fraction_annotated_only": 0.0308,
+      "max_coverage_min_class": 4.19,
+      "max_coverage_mean_class": 5.65
+    },
+    {
+      "seed": 44,
+      "annotated": 2561,
+      "distinct_rows_masked": 1080,
+      "zero_distance_fraction_masked": 0.2713,
+      "zero_distance_fraction_annotated_only": 0.0372,
+      "max_coverage_min_class": 4.21,
+      "max_coverage_mean_class": 5.61
+    },
+    {
+      "seed": 45,
+      "annotated": 2620,
+      "distinct_rows_masked": 1107,
+      "zero_distance_fraction_masked": 0.2526,
+      "zero_distance_fraction_annotated_only": 0.0323,
+      "max_coverage_min_class": 4.18,
+      "max_coverage_mean_class": 5.69
+    },
+    {
+      "seed": 46,
+      "annotated": 2615,
+      "distinct_rows_masked": 1087,
+      "zero_distance_fraction_masked": 0.2527,
+      "zero_distance_fraction_annotated_only": 0.0323,
+      "max_coverage_min_class": 4.41,
+      "max_coverage_mean_class": 5.7
+    }
+  ],
+  "alpha": {
+    "requested": 8,
+    "min_class_max_coverage": 4.18,
+    "feasible_on_true_partition": false,
+    "largest_feasible_alpha": 4,
+    "note": "necessary condition evaluated on the ground-truth partition; learned clusters are less pure so this is an upper bound"
+  },
+  "beta_lower_bound_arithmetic": 2,
+  "verification_max_abs_diff": 4.983164983429766e-07,
+  "sidecar": "data/aPY-data/aPY/per-instance-attributes.tsv",
+  "n_annotation_entries": 15339,
+  "n_processed_instances": 15339,
+  "order_dependent_assignments": {
+    "groups": 2695,
+    "instances": 9121
+  }
+}

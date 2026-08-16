@@ -1,0 +1,29 @@
+2026-08-16 21:25:21,563 - INFO - === aPY per-instance tag reconstruction | data/aPY-data/attribute_data -> data/aPY-data/aPY/per-instance-attributes.tsv ===
+2026-08-16 21:25:21,630 - INFO - apascal_train.txt: 6340 objects
+2026-08-16 21:25:21,696 - INFO - apascal_test.txt: 6355 objects
+2026-08-16 21:25:21,723 - INFO - ayahoo_test.txt: 2644 objects
+2026-08-16 21:25:21,723 - INFO - Total annotation entries: 15339
+2026-08-16 21:25:21,743 - INFO - labels.txt: 15339 instances
+2026-08-16 21:25:21,758 - INFO - Matched 15339/15339 instances; 0 annotation entries had no processed image
+2026-08-16 21:25:21,852 - INFO - Order-dependent assignments: 2695 source images hold two or more objects of the same class, covering 9121 instances (59.5%)
+2026-08-16 21:25:21,868 - INFO - VERIFIED: per-class means reproduce predicate-matrix-continuous.txt (max abs diff 4.98e-07)
+2026-08-16 21:25:22,078 - INFO - Wrote data/aPY-data/aPY/per-instance-attributes.tsv (15339 rows)
+2026-08-16 21:25:22,094 - INFO - Predicate matrix: 32 classes × 64 attributes
+2026-08-16 21:25:22,096 - INFO - Class filter: 15 classes, 6487 instances retained
+2026-08-16 21:25:22,104 - INFO - Train split: 5189 samples, 15 classes, 64 attributes
+2026-08-16 21:25:22,111 - INFO - 15-class train split: N=5189, K=15, M=64
+2026-08-16 21:25:22,533 - INFO - Feature cache cache/resnet101_apy_15_full.npz: {'features': [5189, 2048]} - length matches the split (5189)
+2026-08-16 21:25:22,536 - INFO - per-instance binary density 0.0869 (5.56 of 64 attrs per instance); per-class-mean matrix density 0.1022
+2026-08-16 21:25:22,615 - INFO - distinct tag rows (raw): 1703 of 5189; within-class exact-zero distance fraction 0.0332 over 1171356 pairs
+2026-08-16 21:25:22,618 - INFO - Annotation r=0.5 (instance-level): 2643/5189 annotated, 2546 mean-imputed
+2026-08-16 21:25:22,728 - INFO - [seed 42] annotated 2643/5189, distinct rows 1106, zero-distance 0.2523 (all) / 0.0347 (annotated only), min class coverage 4.28
+2026-08-16 21:25:22,730 - INFO - Annotation r=0.5 (instance-level): 2579/5189 annotated, 2610 mean-imputed
+2026-08-16 21:25:22,837 - INFO - [seed 43] annotated 2579/5189, distinct rows 1091, zero-distance 0.2598 (all) / 0.0308 (annotated only), min class coverage 4.19
+2026-08-16 21:25:22,838 - INFO - Annotation r=0.5 (instance-level): 2561/5189 annotated, 2628 mean-imputed
+2026-08-16 21:25:22,951 - INFO - [seed 44] annotated 2561/5189, distinct rows 1080, zero-distance 0.2713 (all) / 0.0372 (annotated only), min class coverage 4.21
+2026-08-16 21:25:22,953 - INFO - Annotation r=0.5 (instance-level): 2620/5189 annotated, 2569 mean-imputed
+2026-08-16 21:25:23,062 - INFO - [seed 45] annotated 2620/5189, distinct rows 1107, zero-distance 0.2526 (all) / 0.0323 (annotated only), min class coverage 4.18
+2026-08-16 21:25:23,063 - INFO - Annotation r=0.5 (instance-level): 2615/5189 annotated, 2574 mean-imputed
+2026-08-16 21:25:23,170 - INFO - [seed 46] annotated 2615/5189, distinct rows 1087, zero-distance 0.2527 (all) / 0.0323 (annotated only), min class coverage 4.41
+2026-08-16 21:25:23,170 - INFO - alpha=8 feasible on the true partition: False (worst class reaches 4.18; largest feasible alpha 4); beta >= 2 by arithmetic
+2026-08-16 21:25:23,172 - INFO - Wrote results_v2/apy15_tag_stats.json
