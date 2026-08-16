@@ -85,14 +85,14 @@
     "n_tags": 25,
     "status": "proven_optimal",
     "optimality_proven": true,
-    "solve_seconds": 0.3,
+    "solve_seconds": 0.4,
     "trace": [
       {
         "beta": 1,
         "outcome": "proven_optimal",
         "lp_status": "Optimal",
         "sol_status": "Optimal Solution Found",
-        "seconds": 0.3,
+        "seconds": 0.4,
         "time_limit": 120,
         "objective": 44.0,
         "constraints_verified": true
@@ -165,14 +165,14 @@
     "n_tags": 25,
     "status": "proven_optimal",
     "optimality_proven": true,
-    "solve_seconds": 0.2,
+    "solve_seconds": 0.1,
     "trace": [
       {
         "beta": 1,
         "outcome": "proven_optimal",
         "lp_status": "Optimal",
         "sol_status": "Optimal Solution Found",
-        "seconds": 0.2,
+        "seconds": 0.1,
         "time_limit": 120,
         "objective": 41.0,
         "constraints_verified": true
@@ -225,26 +225,6 @@
     "n_tags": 27,
     "status": "proven_optimal",
     "optimality_proven": true,
-    "solve_seconds": 0.5,
-    "trace": [
-      {
-        "beta": 1,
-        "outcome": "proven_optimal",
-        "lp_status": "Optimal",
-        "sol_status": "Optimal Solution Found",
-        "seconds": 0.5,
-        "time_limit": 120,
-        "objective": 45.0,
-        "constraints_verified": true
-      }
-    ]
-  },
-  {
-    "round": 13,
-    "beta": 1,
-    "n_tags": 24,
-    "status": "proven_optimal",
-    "optimality_proven": true,
     "solve_seconds": 0.6,
     "trace": [
       {
@@ -260,19 +240,39 @@
     ]
   },
   {
-    "round": 14,
+    "round": 13,
     "beta": 1,
     "n_tags": 24,
     "status": "proven_optimal",
     "optimality_proven": true,
-    "solve_seconds": 0.8,
+    "solve_seconds": 0.7,
     "trace": [
       {
         "beta": 1,
         "outcome": "proven_optimal",
         "lp_status": "Optimal",
         "sol_status": "Optimal Solution Found",
-        "seconds": 0.8,
+        "seconds": 0.7,
+        "time_limit": 120,
+        "objective": 45.0,
+        "constraints_verified": true
+      }
+    ]
+  },
+  {
+    "round": 14,
+    "beta": 1,
+    "n_tags": 24,
+    "status": "proven_optimal",
+    "optimality_proven": true,
+    "solve_seconds": 0.9,
+    "trace": [
+      {
+        "beta": 1,
+        "outcome": "proven_optimal",
+        "lp_status": "Optimal",
+        "sol_status": "Optimal Solution Found",
+        "seconds": 0.9,
         "time_limit": 120,
         "objective": 46.0,
         "constraints_verified": true
@@ -305,14 +305,14 @@
     "n_tags": 26,
     "status": "proven_optimal",
     "optimality_proven": true,
-    "solve_seconds": 0.6,
+    "solve_seconds": 0.5,
     "trace": [
       {
         "beta": 1,
         "outcome": "proven_optimal",
         "lp_status": "Optimal",
         "sol_status": "Optimal Solution Found",
-        "seconds": 0.6,
+        "seconds": 0.5,
         "time_limit": 120,
         "objective": 45.0,
         "constraints_verified": true
@@ -325,14 +325,14 @@
     "n_tags": 25,
     "status": "proven_optimal",
     "optimality_proven": true,
-    "solve_seconds": 0.7,
+    "solve_seconds": 0.8,
     "trace": [
       {
         "beta": 1,
         "outcome": "proven_optimal",
         "lp_status": "Optimal",
         "sol_status": "Optimal Solution Found",
-        "seconds": 0.7,
+        "seconds": 0.8,
         "time_limit": 120,
         "objective": 47.0,
         "constraints_verified": true

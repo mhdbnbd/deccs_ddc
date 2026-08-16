@@ -85,14 +85,14 @@
     "n_tags": 24,
     "status": "proven_optimal",
     "optimality_proven": true,
-    "solve_seconds": 0.3,
+    "solve_seconds": 0.2,
     "trace": [
       {
         "beta": 1,
         "outcome": "proven_optimal",
         "lp_status": "Optimal",
         "sol_status": "Optimal Solution Found",
-        "seconds": 0.3,
+        "seconds": 0.2,
         "time_limit": 120,
         "objective": 39.0,
         "constraints_verified": true
@@ -325,14 +325,14 @@
     "n_tags": 25,
     "status": "proven_optimal",
     "optimality_proven": true,
-    "solve_seconds": 0.1,
+    "solve_seconds": 0.2,
     "trace": [
       {
         "beta": 1,
         "outcome": "proven_optimal",
         "lp_status": "Optimal",
         "sol_status": "Optimal Solution Found",
-        "seconds": 0.1,
+        "seconds": 0.2,
         "time_limit": 120,
         "objective": 44.0,
         "constraints_verified": true

@@ -66,17 +66,17 @@
     "same_class_pair_frac": 0.5836,
     "ilp_beta": 1,
     "ilp_n_tags": 31,
-    "seconds": 4.5
+    "seconds": 4.7
   },
   "description_metrics": {
-    "avg_tc": 0.3481,
-    "avg_itf": 2.083
+    "avg_tc": 0.3668,
+    "avg_itf": 2.0848
   },
   "ilp_last": {
     "beta": 1,
-    "n_tags": 26,
+    "n_tags": 27,
     "k_active": 15,
-    "tags_per_cluster": 3.066666603088379,
+    "tags_per_cluster": 3.133333444595337,
     "status": "proven_optimal",
     "optimality_proven": true,
     "time_limit": 120,
@@ -89,13 +89,13 @@
         "sol_status": "Optimal Solution Found",
         "seconds": 0.2,
         "time_limit": 120,
-        "objective": 46.0,
+        "objective": 47.0,
         "constraints_verified": true
       }
     ]
   },
   "ilp_rounds_optimality_proven": 20,
   "ilp_rounds_total": 20,
-  "total_seconds": 17.1,
-  "timestamp": "2026-08-17 00:05:23"
+  "total_seconds": 17.0,
+  "timestamp": "2026-08-17 01:14:47"
 }

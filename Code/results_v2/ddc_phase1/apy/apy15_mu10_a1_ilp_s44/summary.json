@@ -66,11 +66,11 @@
     "same_class_pair_frac": 0.5213,
     "ilp_beta": 1,
     "ilp_n_tags": 23,
-    "seconds": 3.6
+    "seconds": 3.5
   },
   "description_metrics": {
-    "avg_tc": 0.3786,
-    "avg_itf": 1.5051
+    "avg_tc": 0.3824,
+    "avg_itf": 1.504
   },
   "ilp_last": {
     "beta": 1,
@@ -96,6 +96,6 @@
   },
   "ilp_rounds_optimality_proven": 20,
   "ilp_rounds_total": 20,
-  "total_seconds": 12.6,
-  "timestamp": "2026-08-17 00:04:52"
+  "total_seconds": 13.6,
+  "timestamp": "2026-08-17 01:14:17"
 }

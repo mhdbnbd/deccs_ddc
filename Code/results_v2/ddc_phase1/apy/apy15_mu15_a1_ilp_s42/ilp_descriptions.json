@@ -17,17 +17,17 @@
     "cluster_id": 1,
     "n_members": 48,
     "tags": [
+      "Head",
       "Eye",
-      "Leg",
       "Furry"
     ],
     "tag_indices": [
+      8,
       15,
-      19,
       56
     ],
-    "tc": 0.3084,
-    "itf": 2.246
+    "tc": 0.3682,
+    "itf": 2.0149
   },
   {
     "cluster_id": 2,
@@ -35,14 +35,14 @@
     "tags": [
       "Furn. Leg",
       "Furn. Seat",
-      "Cloth"
+      "Furn. Arm"
     ],
     "tag_indices": [
       39,
       41,
-      55
+      42
     ],
-    "tc": 0.3771,
+    "tc": 0.3494,
     "itf": 2.477
   },
   {
@@ -50,114 +50,112 @@
     "n_members": 685,
     "tags": [
       "2D Boxy",
-      "Occluded",
+      "3D Boxy",
       "Metal",
       "Plastic",
-      "Wood"
-    ],
-    "tag_indices": [
-      0,
-      5,
-      52,
-      53,
-      54
-    ],
-    "tc": 0.1989,
-    "itf": 1.9103
-  },
-  {
-    "cluster_id": 4,
-    "n_members": 173,
-    "tags": [
-      "2D Boxy",
-      "Furn. Back",
       "Wood",
       "Cloth"
     ],
     "tag_indices": [
       0,
-      40,
+      1,
+      52,
+      53,
       54,
       55
     ],
-    "tc": 0.2614,
-    "itf": 1.8122
+    "tc": 0.1738,
+    "itf": 1.9277
+  },
+  {
+    "cluster_id": 4,
+    "n_members": 173,
+    "tags": [
+      "Furn. Back",
+      "Furn. Seat",
+      "Wood",
+      "Cloth"
+    ],
+    "tag_indices": [
+      40,
+      41,
+      54,
+      55
+    ],
+    "tc": 0.2848,
+    "itf": 1.9135
   },
   {
     "cluster_id": 5,
     "n_members": 775,
     "tags": [
-      "Ear",
-      "Leg"
+      "Leg",
+      "Furry"
     ],
     "tag_indices": [
-      9,
-      19
+      19,
+      56
     ],
-    "tc": 0.5403,
+    "tc": 0.561,
     "itf": 2.3615
   },
   {
     "cluster_id": 6,
     "n_members": 255,
     "tags": [
-      "3D Boxy",
-      "Wheel",
-      "Shiny"
+      "Occluded",
+      "Wheel"
     ],
     "tag_indices": [
-      1,
-      26,
-      61
+      5,
+      26
     ],
-    "tc": 0.3399,
-    "itf": 1.7446
+    "tc": 0.531,
+    "itf": 2.0149
   },
   {
     "cluster_id": 7,
     "n_members": 465,
     "tags": [
-      "Wheel",
-      "Door",
+      "Window",
       "Shiny"
     ],
     "tag_indices": [
-      26,
-      27,
+      24,
       61
     ],
-    "tc": 0.3751,
-    "itf": 2.1108
+    "tc": 0.503,
+    "itf": 2.3615
   },
   {
     "cluster_id": 8,
     "n_members": 203,
     "tags": [
-      "Head",
+      "Ear",
       "Eye"
     ],
     "tag_indices": [
-      8,
+      9,
       15
     ],
-    "tc": 0.5741,
-    "itf": 2.0149
+    "tc": 0.5447,
+    "itf": 2.3615
   },
   {
     "cluster_id": 9,
     "n_members": 316,
     "tags": [
-      "Window",
+      "3D Boxy",
       "Row Wind",
       "Glass"
     ],
     "tag_indices": [
-      24,
+      1,
       25,
       57
     ],
-    "tc": 0.3683,
-    "itf": 2.246
+    "tc": 0.3873,
+    "itf": 2.1108
   },
   {
     "cluster_id": 10,
@@ -173,25 +171,23 @@
       54
     ],
     "tc": 0.3831,
-    "itf": 1.7446
+    "itf": 1.8797
   },
   {
     "cluster_id": 11,
     "n_members": 123,
     "tags": [
-      "3D Boxy",
-      "Torso",
-      "Metal",
-      "Shiny"
+      "Occluded",
+      "Head",
+      "Metal"
     ],
     "tag_indices": [
-      1,
-      16,
-      52,
-      61
+      5,
+      8,
+      52
     ],
-    "tc": 0.2568,
-    "itf": 1.7108
+    "tc": 0.3404,
+    "itf": 1.8797
   },
   {
     "cluster_id": 12,
@@ -211,30 +207,34 @@
     "cluster_id": 13,
     "n_members": 314,
     "tags": [
-      "3D Boxy",
-      "Window"
+      "Wheel",
+      "Door",
+      "Side mirror"
     ],
     "tag_indices": [
-      1,
-      24
+      26,
+      27,
+      30
     ],
-    "tc": 0.4953,
-    "itf": 1.8122
+    "tc": 0.3758,
+    "itf": 2.477
   },
   {
     "cluster_id": 14,
     "n_members": 97,
     "tags": [
-      "Occluded",
-      "Head",
-      "Metal"
+      "3D Boxy",
+      "Torso",
+      "Metal",
+      "Shiny"
     ],
     "tag_indices": [
-      5,
-      8,
-      52
+      1,
+      16,
+      52,
+      61
     ],
-    "tc": 0.3404,
-    "itf": 1.8797
+    "tc": 0.2568,
+    "itf": 1.8122
   }
 ]

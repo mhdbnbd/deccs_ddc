@@ -4,108 +4,110 @@
     "n_members": 251,
     "tags": [
       "3D Boxy",
-      "Wood",
-      "Glass"
+      "Window",
+      "Wood"
     ],
     "tag_indices": [
       1,
-      54,
-      57
+      24,
+      54
     ],
-    "tc": 0.323,
+    "tc": 0.3372,
     "itf": 1.7446
   },
   {
     "cluster_id": 1,
     "n_members": 551,
     "tags": [
-      "Furn. Leg",
       "Furn. Back",
-      "Furn. Seat"
+      "Wood",
+      "Cloth"
     ],
     "tag_indices": [
-      39,
       40,
-      41
+      54,
+      55
     ],
-    "tc": 0.3635,
-    "itf": 2.477
+    "tc": 0.339,
+    "itf": 1.8797
   },
   {
     "cluster_id": 2,
     "n_members": 829,
     "tags": [
       "Snout",
-      "Furry"
+      "Leg"
     ],
     "tag_indices": [
       10,
-      56
+      19
     ],
-    "tc": 0.571,
+    "tc": 0.5211,
     "itf": 2.3615
   },
   {
     "cluster_id": 3,
     "n_members": 101,
     "tags": [
+      "3D Boxy",
       "Occluded",
-      "Head",
-      "Metal"
+      "Eye",
+      "Torso"
     ],
     "tag_indices": [
+      1,
       5,
-      8,
-      52
+      15,
+      16
     ],
-    "tc": 0.3428,
-    "itf": 1.7446
+    "tc": 0.2946,
+    "itf": 1.9855
   },
   {
     "cluster_id": 4,
     "n_members": 111,
     "tags": [
-      "3D Boxy",
       "Head",
       "Torso",
+      "Metal",
       "Shiny"
     ],
     "tag_indices": [
-      1,
       8,
       16,
+      52,
       61
     ],
-    "tc": 0.2455,
+    "tc": 0.2545,
     "itf": 1.7108
   },
   {
     "cluster_id": 5,
     "n_members": 27,
     "tags": [
-      "Snout",
-      "Eye"
+      "Ear",
+      "Torso"
     ],
     "tag_indices": [
-      10,
-      15
+      9,
+      16
     ],
-    "tc": 0.3256,
-    "itf": 2.3615
+    "tc": 0.503,
+    "itf": 2.1587
   },
   {
     "cluster_id": 6,
     "n_members": 664,
     "tags": [
       "Window",
-      "Door"
+      "Wheel"
     ],
     "tag_indices": [
       24,
-      27
+      26
     ],
-    "tc": 0.5083,
-    "itf": 2.7081
+    "tc": 0.5259,
+    "itf": 2.0149
   },
   {
     "cluster_id": 7,
@@ -121,70 +123,68 @@
       57
     ],
     "tc": 0.4454,
-    "itf": 2.246
+    "itf": 2.477
   },
   {
     "cluster_id": 8,
     "n_members": 433,
     "tags": [
-      "Torso",
+      "Head",
       "Feather"
     ],
     "tag_indices": [
-      16,
+      8,
       58
     ],
-    "tc": 0.5082,
+    "tc": 0.5249,
     "itf": 2.3615
   },
   {
     "cluster_id": 9,
     "n_members": 267,
     "tags": [
-      "Tail",
       "Wheel",
+      "Side mirror",
       "Handlebars"
     ],
     "tag_indices": [
-      6,
       26,
+      30,
       33
     ],
-    "tc": 0.3472,
-    "itf": 2.7081
+    "tc": 0.3383,
+    "itf": 2.477
   },
   {
     "cluster_id": 10,
     "n_members": 144,
     "tags": [
-      "3D Boxy",
-      "Head",
+      "Occluded",
       "Metal",
       "Shiny"
     ],
     "tag_indices": [
-      1,
-      8,
+      5,
       52,
       61
     ],
-    "tc": 0.2709,
-    "itf": 1.6094
+    "tc": 0.335,
+    "itf": 1.7446
   },
   {
     "cluster_id": 11,
     "n_members": 199,
     "tags": [
       "Round",
-      "Vert Cyl",
+      "Glass",
       "Shiny"
     ],
     "tag_indices": [
       2,
-      3,
+      57,
       61
     ],
-    "tc": 0.4246,
+    "tc": 0.335,
     "itf": 2.1108
   },
   {
@@ -192,47 +192,49 @@
     "n_members": 410,
     "tags": [
       "2D Boxy",
-      "Furn. Seat",
-      "Wood"
+      "Furn. Back",
+      "Cloth"
     ],
     "tag_indices": [
       0,
-      41,
-      54
+      40,
+      55
     ],
-    "tc": 0.3633,
-    "itf": 1.8797
+    "tc": 0.4081,
+    "itf": 2.0149
   },
   {
     "cluster_id": 13,
     "n_members": 685,
     "tags": [
       "2D Boxy",
-      "Occluded",
+      "3D Boxy",
       "Metal",
+      "Plastic",
       "Wood"
     ],
     "tag_indices": [
       0,
-      5,
+      1,
       52,
+      53,
       54
     ],
-    "tc": 0.2406,
-    "itf": 1.8122
+    "tc": 0.2008,
+    "itf": 1.9103
   },
   {
     "cluster_id": 14,
     "n_members": 84,
     "tags": [
-      "Ear",
-      "Leg"
+      "Leg",
+      "Furry"
     ],
     "tag_indices": [
-      9,
-      19
+      19,
+      56
     ],
-    "tc": 0.4867,
-    "itf": 2.7081
+    "tc": 0.5316,
+    "itf": 2.3615
   }
 ]
