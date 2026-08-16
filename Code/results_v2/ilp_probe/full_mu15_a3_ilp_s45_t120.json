@@ -1,0 +1,73 @@
+{
+  "run_dir": "results_v2/ddc_phase1/awa2/full_mu15_a3_ilp_s45",
+  "time_limit": 120,
+  "threads": 1,
+  "alpha": 3,
+  "seed": 45,
+  "k_active": 49,
+  "beta_lower_bound_arithmetic": 2,
+  "trace": [
+    {
+      "beta": 1,
+      "outcome": "infeasible_by_arithmetic",
+      "seconds": 0.0
+    },
+    {
+      "beta": 2,
+      "lp_relaxation": {
+        "status": "Optimal",
+        "objective": 213.52,
+        "seconds": 0.06
+      },
+      "outcome": "time_limit_no_solution",
+      "seconds": 120.3,
+      "lp_status": "Not Solved",
+      "sol_status": "No Solution Found",
+      "objective": null
+    },
+    {
+      "beta": 3,
+      "lp_relaxation": {
+        "status": "Optimal",
+        "objective": 192.93,
+        "seconds": 0.05
+      },
+      "outcome": "time_limit_no_solution",
+      "seconds": 120.3,
+      "lp_status": "Not Solved",
+      "sol_status": "No Solution Found",
+      "objective": null
+    },
+    {
+      "beta": 4,
+      "lp_relaxation": {
+        "status": "Optimal",
+        "objective": 183.97,
+        "seconds": 0.06
+      },
+      "outcome": "proven_optimal",
+      "seconds": 2.1,
+      "lp_status": "Optimal",
+      "sol_status": "Optimal Solution Found",
+      "objective": 196.0,
+      "constraints_verified": true,
+      "n_tags": 49,
+      "tags_per_cluster": 4.0
+    }
+  ],
+  "reference": {
+    "beta": 4,
+    "n_tags": 53,
+    "avg_tc": 0.7423,
+    "avg_itf": 2.4425,
+    "original_time_limit": 20
+  },
+  "accepted": {
+    "beta": 4,
+    "n_tags": 49,
+    "tags_per_cluster": 4.0,
+    "outcome": "proven_optimal",
+    "avg_tc": 0.7711,
+    "avg_itf": 2.44
+  }
+}
