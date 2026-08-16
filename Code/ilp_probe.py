@@ -66,7 +66,7 @@ def rebuild_tags(cfg):
 
 
 def scan_beta(assignments, tags, n_clusters, alpha, time_limit, beta_max=None,
-              threads=1):
+              threads=1, beta_min=1):
     """Full beta scan with LP relaxation pre-check. Stops at the first beta that
     yields a solution verified against Eq (3) and Eq (4)."""
     import pulp
@@ -94,7 +94,7 @@ def scan_beta(assignments, tags, n_clusters, alpha, time_limit, beta_max=None,
         return p, W
 
     trace, accepted = [], None
-    for beta in range(1, (beta_max or K_act) + 1):
+    for beta in range(max(1, int(beta_min)), (beta_max or K_act) + 1):
         entry = {"beta": beta}
 
         if beta < lower_bound:
@@ -174,6 +174,9 @@ def main():
                     help="CBC threads; >1 can change which optimum is returned, "
                          "so keep 1 for reportable numbers")
     ap.add_argument("--beta_max", type=int, default=8)
+    ap.add_argument("--beta_min", type=int, default=1,
+                    help="start the scan here; use 4 on AwA2 to pin the smallest "
+                         "beta whose solve CBC certifies")
     ap.add_argument("--output_root", type=str, default="results_v2")
     ap.add_argument("--log_file", type=str, default=None)
     args = ap.parse_args()
@@ -210,6 +213,7 @@ def main():
         "run_dir": args.run_dir,
         "time_limit": args.time_limit,
         "threads": args.threads,
+        "beta_min": args.beta_min,
         "alpha": cfg["alpha"],
         "seed": cfg["seed"],
         "k_active": K_act,
@@ -245,7 +249,8 @@ def main():
     out_dir = os.path.join(args.output_root, "ilp_probe")
     guard_output_root(out_dir)
     os.makedirs(out_dir, exist_ok=True)
-    name = f"{os.path.basename(os.path.normpath(args.run_dir))}_t{args.time_limit}.json"
+    name = (f"{os.path.basename(os.path.normpath(args.run_dir))}"
+            f"_t{args.time_limit}_b{args.beta_min}.json")
     with open(os.path.join(out_dir, name), "w") as f:
         json.dump(out, f, indent=2)
     logging.info(f"Wrote {os.path.join(out_dir, name)}")
