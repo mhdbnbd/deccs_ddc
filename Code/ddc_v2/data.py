@@ -63,24 +63,72 @@ def build_dataset(dataset_name, apy_15=False, use_sample=False):
     )
     return ds, paths
 
+def load_per_instance_tags(ds, sidecar_path):
+    """
+    True per-instance binary tags (N, M), aligned to ds.image_paths by filename.
+
+    The sidecar is written by build_apy_instance_tags.py, which recovers aPY's
+    per-object annotations and verifies them against the shipped per-class mean
+    matrix. Alignment here is by processed filename, which carries a globally
+    unique object index, so it depends on no ordering assumption and survives
+    the class filter and the train/test split.
+    """
+    if not os.path.exists(sidecar_path):
+        raise FileNotFoundError(
+            f"No per-instance tag sidecar at {sidecar_path}. Build it once with "
+            f"`python build_apy_instance_tags.py`.")
+
+    table = {}
+    with open(sidecar_path) as f:
+        for line in f:
+            if not line.strip() or line.startswith("#"):
+                continue
+            name, vals = line.rstrip("\n").split("\t", 1)
+            table[name] = np.array(vals.split(), dtype=np.float32)
+
+    widths = {v.shape[0] for v in table.values()}
+    if len(widths) != 1:
+        raise ValueError(f"Ragged sidecar {sidecar_path}: widths {sorted(widths)}")
+
+    names = [os.path.basename(p) for p in ds.image_paths]
+    missing = [n for n in names if n not in table]
+    if missing:
+        raise ValueError(
+            f"{len(missing)} of {len(names)} split instances have no per-instance "
+            f"tag row (first: {missing[:3]}). The sidecar and the split disagree — "
+            f"rebuild the sidecar rather than running against this.")
+
+    tags = np.stack([table[n] for n in names]).astype(np.float32)
+    if not np.isin(tags, (0.0, 1.0)).all():
+        raise ValueError(f"Per-instance tags in {sidecar_path} are not binary")
+    logging.info(f"Per-instance binary tags {tags.shape} from {sidecar_path} "
+                 f"(density={tags.mean():.4f}, "
+                 f"{int(np.unique(tags, axis=0).shape[0])} distinct rows)")
+    return tags
 
 # ---------------------------------------------------------------------------
 # Binary tags
 # ---------------------------------------------------------------------------
 
-def load_binary_tags(dataset_name, ds, paths, class_filter_used=False):
+def load_binary_tags(dataset_name, ds, paths, class_filter_used=False,
+                     per_instance_path=None):
     """
     Per-instance binary tag matrix (N, M).
 
-    Preference order:
+    With per_instance_path set, returns TRUE per-instance tags from the sidecar
+    (aPY only; see build_apy_instance_tags.py). This is off by default so the
+    shipped path is unchanged.
+
+    Otherwise, preference order:
       1. predicate-matrix-binary.txt in the dataset source dir (AwA2 ships this)
       2. threshold of the continuous predicate matrix at its midpoint
 
-    Note this is still a *per-class* tag vector broadcast to instances, because
-    that is what the shipped AwA2/aPY data path provides. The paper's aPY setting
-    uses true per-instance tags; that gap is Phase-1-out-of-scope and is recorded
-    in the handoff.
+    In that default case the vector is *per-class*, broadcast to instances,
+    because that is what the shipped AwA2/aPY data path provides.
     """
+    if per_instance_path:
+        return load_per_instance_tags(ds, per_instance_path)
+
     src = DATASET_CONFIGS[dataset_name]["source_dir"]
     binary_path = os.path.join(src, "predicate-matrix-binary.txt")
     labels = np.asarray(ds.labels)

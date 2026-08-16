@@ -40,6 +40,11 @@ def build_args():
     p.add_argument("--tag_ratio", type=float, default=0.5, help="paper's r")
     p.add_argument("--mask_mode", choices=["instance", "entry"], default="instance")
     p.add_argument("--pairs_from", choices=["annotated", "all"], default="annotated")
+    p.add_argument("--per_instance_tags", action="store_true",
+                   help="aPY only: use true per-instance binary tags instead of "
+                        "the per-class mean vectors the shipped path provides")
+    p.add_argument("--per_instance_tags_path", type=str,
+                   default="data/aPY-data/aPY/per-instance-attributes.tsv")
 
     # objectives
     p.add_argument("--lam", type=float, default=1.0, help="paper's lambda")
@@ -115,8 +120,10 @@ def main():
             f"The cache was built from a different split — delete it and re-extract."
         )
 
-    tags = ddc_data.load_binary_tags(args.dataset, ds, paths,
-                                     class_filter_used=bool(args.apy_15))
+    tags = ddc_data.load_binary_tags(
+        args.dataset, ds, paths, class_filter_used=bool(args.apy_15),
+        per_instance_path=(args.per_instance_tags_path
+                           if args.per_instance_tags else None))
 
     keep = ddc_data.subsample(features.shape[0],
                               args.n_sanity if args.sanity else None,
