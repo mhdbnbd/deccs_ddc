@@ -53,7 +53,10 @@ def rebuild_tags(cfg):
     dataset = cfg.get("dataset", "awa2")
     apy_15 = bool(cfg.get("apy_15", False))
     ds, paths = ddc_data.build_dataset(dataset, apy_15=apy_15)
-    tags = ddc_data.load_binary_tags(dataset, ds, paths, class_filter_used=apy_15)
+    tags = ddc_data.load_binary_tags(
+        dataset, ds, paths, class_filter_used=apy_15,
+        per_instance_path=(cfg.get("per_instance_tags_path")
+                           if cfg.get("per_instance_tags") else None))
 
     keep = ddc_data.subsample(tags.shape[0],
                               cfg.get("n_sanity") if cfg.get("sanity") else None,
@@ -76,6 +79,12 @@ def scan_beta(assignments, tags, n_clusters, alpha, time_limit, beta_max=None,
     active = [k for k in range(n_clusters) if (assignments == k).sum() > 0]
     K_act = len(active)
     Q = np.stack([tags[assignments == k].mean(axis=0) for k in active]).astype(np.float64)
+
+    coverage = Q.sum(axis=1)
+    logging.info(f"Eq (3) headroom: cluster coverage min {coverage.min():.2f}, mean "
+                 f"{coverage.mean():.2f}, max {coverage.max():.2f} -> largest alpha "
+                 f"any beta could satisfy is {int(np.floor(coverage.min()))} "
+                 f"(requested {alpha})")
 
     lower_bound = int(np.ceil(K_act * alpha / M))
     logging.info(f"K_act={K_act}, M={M}, alpha={alpha}: summing Eq (3) over clusters "
@@ -174,6 +183,9 @@ def main():
                     help="CBC threads; >1 can change which optimum is returned, "
                          "so keep 1 for reportable numbers")
     ap.add_argument("--beta_max", type=int, default=8)
+    ap.add_argument("--alpha", type=int, default=None,
+                    help="override the run's alpha; scan this to find the largest "
+                         "alpha for which the ILP is feasible at all")
     ap.add_argument("--beta_min", type=int, default=1,
                     help="start the scan here; use 4 on AwA2 to pin the smallest "
                          "beta whose solve CBC certifies")
@@ -190,7 +202,8 @@ def main():
     assignments = np.load(os.path.join(args.run_dir, "assignments.npy"))
 
     logging.info(f"=== ILP probe | {args.run_dir} | limit {args.time_limit}s ===")
-    logging.info(f"run config: alpha={cfg['alpha']} seed={cfg['seed']} "
+    alpha = args.alpha if args.alpha is not None else cfg["alpha"]
+    logging.info(f"run config: alpha={cfg['alpha']} (using {alpha}) seed={cfg['seed']} "
                  f"r={cfg['tag_ratio']} mask={cfg['mask_mode']} "
                  f"original ilp_time_limit={cfg.get('ilp_time_limit')}")
 
@@ -206,7 +219,7 @@ def main():
 
     K = summary["n_clusters"]
     trace, accepted, K_act, lower_bound = scan_beta(
-        assignments, tags, K, alpha=cfg["alpha"], time_limit=args.time_limit,
+        assignments, tags, K, alpha=alpha, time_limit=args.time_limit,
         beta_max=args.beta_max, threads=args.threads, beta_min=args.beta_min)
 
     out = {
@@ -214,7 +227,7 @@ def main():
         "time_limit": args.time_limit,
         "threads": args.threads,
         "beta_min": args.beta_min,
-        "alpha": cfg["alpha"],
+        "alpha": alpha,
         "seed": cfg["seed"],
         "k_active": K_act,
         "beta_lower_bound_arithmetic": lower_bound,
@@ -250,7 +263,7 @@ def main():
     guard_output_root(out_dir)
     os.makedirs(out_dir, exist_ok=True)
     name = (f"{os.path.basename(os.path.normpath(args.run_dir))}"
-            f"_t{args.time_limit}_b{args.beta_min}.json")
+            f"_t{args.time_limit}_b{args.beta_min}_a{alpha}.json")
     with open(os.path.join(out_dir, name), "w") as f:
         json.dump(out, f, indent=2)
     logging.info(f"Wrote {os.path.join(out_dir, name)}")

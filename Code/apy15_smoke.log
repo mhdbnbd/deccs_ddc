@@ -1,0 +1,47 @@
+2026-08-16 21:35:46,826 - INFO - GPU: NVIDIA GeForce RTX 4090
+2026-08-16 21:35:46,848 - INFO - Predicate matrix: 32 classes × 64 attributes
+2026-08-16 21:35:46,850 - INFO - Class filter: 15 classes, 6487 instances retained
+2026-08-16 21:35:46,859 - INFO - Train split: 5189 samples, 15 classes, 64 attributes
+2026-08-16 21:35:47,064 - INFO - Loaded cached features (5189, 2048) from cache/resnet101_apy_15_full.npz
+2026-08-16 21:35:47,236 - INFO - Per-instance binary tags (5189, 64) from data/aPY-data/aPY/per-instance-attributes.tsv (density=0.0869, 1703 distinct rows)
+2026-08-16 21:35:47,273 - INFO - Annotation r=0.5 (instance-level): 2643/5189 annotated, 2546 mean-imputed
+2026-08-16 21:35:47,273 - INFO - === DDC rebuild | apy | N=5189 | K=15 | M=64 | preproc=none | r=0.5 ===
+2026-08-16 21:35:49,695 - INFO - Pre-training 2 epochs (g = identity, Algorithm 1 lines 1-2)
+2026-08-16 21:35:51,081 - INFO - [pretrain r0 e1] L=-1.3532 MI=-1.3536 PW=0.0005 H(Y|X)=2.707 H(Y)=2.707 active=14/15 pairs=2643 sameclass=0.6114 NMI=0.3236 ACC=0.3519
+2026-08-16 21:35:51,249 - INFO - [pretrain r0 e2] L=-1.3541 MI=-1.3542 PW=0.0001 H(Y|X)=2.708 H(Y)=2.708 active=12/15 pairs=2643 sameclass=0.6247 NMI=0.4479 ACC=0.3465
+2026-08-16 21:35:51,292 - INFO - [ILP] beta=1 rejected: proven_infeasible (0.0s of 60s)
+2026-08-16 21:35:51,315 - INFO - [ILP] beta=2 rejected: proven_infeasible (0.0s of 60s)
+2026-08-16 21:35:51,339 - INFO - [ILP] beta=3 rejected: proven_infeasible (0.0s of 60s)
+2026-08-16 21:35:51,363 - INFO - [ILP] beta=4 rejected: proven_infeasible (0.0s of 60s)
+2026-08-16 21:35:51,389 - INFO - [ILP] beta=5 rejected: proven_infeasible (0.0s of 60s)
+2026-08-16 21:35:51,412 - INFO - [ILP] beta=6 rejected: proven_infeasible (0.0s of 60s)
+2026-08-16 21:35:51,435 - INFO - [ILP] beta=7 rejected: proven_infeasible (0.0s of 60s)
+2026-08-16 21:35:51,457 - INFO - [ILP] beta=8 rejected: proven_infeasible (0.0s of 60s)
+2026-08-16 21:35:51,483 - INFO - [ILP] beta=9 rejected: proven_infeasible (0.0s of 60s)
+2026-08-16 21:35:51,508 - INFO - [ILP] beta=10 rejected: proven_infeasible (0.0s of 60s)
+2026-08-16 21:35:51,532 - INFO - [ILP] beta=11 rejected: proven_infeasible (0.0s of 60s)
+2026-08-16 21:35:51,556 - INFO - [ILP] beta=12 rejected: proven_infeasible (0.0s of 60s)
+2026-08-16 21:35:51,556 - WARNING - [ILP] no accepted solution for beta <= 12; g left as identity
+2026-08-16 21:35:51,693 - INFO - [round r1 e1] L=-1.3789 MI=-1.4685 PW=0.0896 H(Y|X)=2.589 H(Y)=2.705 active=13/15 pairs=2643 sameclass=0.6209 NMI=0.5185 ACC=0.4407
+2026-08-16 21:35:51,864 - INFO - [round r1 e2] L=-1.5393 MI=-1.8017 PW=0.2624 H(Y|X)=2.242 H(Y)=2.696 active=13/15 pairs=2643 sameclass=0.6069 NMI=0.5584 ACC=0.5070
+2026-08-16 21:35:51,909 - INFO - [ILP] beta=1 rejected: proven_infeasible (0.0s of 60s)
+2026-08-16 21:35:51,935 - INFO - [ILP] beta=2 rejected: proven_infeasible (0.0s of 60s)
+2026-08-16 21:35:51,961 - INFO - [ILP] beta=3 rejected: proven_infeasible (0.0s of 60s)
+2026-08-16 21:35:51,986 - INFO - [ILP] beta=4 rejected: proven_infeasible (0.0s of 60s)
+2026-08-16 21:35:52,012 - INFO - [ILP] beta=5 rejected: proven_infeasible (0.0s of 60s)
+2026-08-16 21:35:52,037 - INFO - [ILP] beta=6 rejected: proven_infeasible (0.0s of 60s)
+2026-08-16 21:35:52,062 - INFO - [ILP] beta=7 rejected: proven_infeasible (0.0s of 60s)
+2026-08-16 21:35:52,086 - INFO - [ILP] beta=8 rejected: proven_infeasible (0.0s of 60s)
+2026-08-16 21:35:52,112 - INFO - [ILP] beta=9 rejected: proven_infeasible (0.0s of 60s)
+2026-08-16 21:35:52,136 - INFO - [ILP] beta=10 rejected: proven_infeasible (0.0s of 60s)
+2026-08-16 21:35:52,161 - INFO - [ILP] beta=11 rejected: proven_infeasible (0.0s of 60s)
+2026-08-16 21:35:52,185 - INFO - [ILP] beta=12 rejected: proven_infeasible (0.0s of 60s)
+2026-08-16 21:35:52,209 - INFO - [ILP] beta=13 rejected: proven_infeasible (0.0s of 60s)
+2026-08-16 21:35:52,209 - WARNING - [ILP] no accepted solution for beta <= 13; g left as identity
+2026-08-16 21:35:52,331 - INFO - [round r2 e1] L=-1.6629 MI=-1.9900 PW=0.3271 H(Y|X)=2.059 H(Y)=2.699 active=14/15 pairs=2643 sameclass=0.6296 NMI=0.5662 ACC=0.4881
+2026-08-16 21:35:52,495 - INFO - [round r2 e2] L=-1.7577 MI=-2.1062 PW=0.3485 H(Y|X)=1.936 H(Y)=2.695 active=15/15 pairs=2643 sameclass=0.6137 NMI=0.5980 ACC=0.5425
+2026-08-16 21:35:53,119 - INFO - Artefacts written to results_v2/ddc_phase1/apy/apy15_smoke/
+2026-08-16 21:35:53,119 - INFO - === RESULT ===
+2026-08-16 21:35:53,119 - INFO - final  NMI=0.5980 ACC=0.5425 ARI=0.4281 active=15/15
+2026-08-16 21:35:53,120 - INFO - best   NMI=0.598 at step 126 (round round 2)
+2026-08-16 21:35:53,120 - INFO - TC=0.0 ITF=0.0 (nats)

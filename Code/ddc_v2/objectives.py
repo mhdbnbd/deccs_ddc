@@ -154,6 +154,27 @@ def solve_description_ilp(assignments, tags, n_clusters, alpha=8,
     for row, k in enumerate(active):
         Q[row] = tags[assignments == k].mean(axis=0)
 
+    # Eq (3) needs sum_j W_ij Q_ij >= alpha with W binary, so the most any cluster
+    # can reach is its full row sum of Q. If one cluster falls short the ILP is
+    # infeasible for EVERY beta, and the beta search is wasted work that also
+    # hides the real cause behind a string of "infeasible" lines.
+    coverage = Q.sum(axis=1)
+    if coverage.min() < alpha:
+        worst = active[int(coverage.argmin())]
+        logging.warning(
+            f"[ILP] infeasible by Eq (3) alone: cluster {worst} reaches at most "
+            f"{coverage.min():.2f} < alpha={alpha} (coverage min/mean/max "
+            f"{coverage.min():.2f}/{coverage.mean():.2f}/{coverage.max():.2f}); "
+            f"largest feasible alpha here is {int(np.floor(coverage.min()))}. "
+            f"g left as identity")
+        return np.ones(M, dtype=np.float32), None, {
+            "beta": None, "n_tags": M, "k_active": K_act,
+            "status": "infeasible_alpha", "optimality_proven": False,
+            "alpha": alpha, "max_alpha_feasible": int(np.floor(coverage.min())),
+            "coverage_min": round(float(coverage.min()), 3),
+            "coverage_mean": round(float(coverage.mean()), 3),
+            "worst_cluster": int(worst), "time_limit": time_limit, "trace": []}
+
     beta_max = beta_max or K_act
     beta_start = max(1, min(int(beta_start), beta_max))
     trace = []
