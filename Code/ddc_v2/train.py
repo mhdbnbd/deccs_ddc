@@ -67,6 +67,7 @@ class DDCTrainer:
         self.t0 = time.time()
         self.last_ilp = {"beta": None, "n_tags": int(self.T.shape[1])}
         self._beta_hint = 1
+        self.ilp_log = []
 
     # -- one pass over the data ------------------------------------------------
 
@@ -197,6 +198,13 @@ class DDCTrainer:
                 self.g_mask = torch.from_numpy(g_np).float().to(self.device)
             self.last_ilp = {"beta": info["beta"], "n_tags": info["n_tags"]}
             self.last_W, self.last_info = W, info
+            self.ilp_log.append({
+                "round": rnd, "beta": info["beta"], "n_tags": info["n_tags"],
+                "status": info.get("status"),
+                "optimality_proven": info.get("optimality_proven"),
+                "solve_seconds": info.get("solve_seconds"),
+                "trace": info.get("trace", []),
+            })
 
             for e in range(1, self.args.epochs_per_round + 1):
                 row = self.run_epoch("round", rnd, e)
@@ -229,6 +237,9 @@ class DDCTrainer:
         with open(os.path.join(output_dir, "ilp_descriptions.json"), "w") as f:
             json.dump(rows, f, indent=2)
 
+        with open(os.path.join(output_dir, "ilp_solver_trace.json"), "w") as f:
+            json.dump(getattr(self, "ilp_log", []), f, indent=2)
+
         final = self.evaluate()
         summary = {
             "config": {k: (v if isinstance(v, (int, float, str, bool, type(None)))
@@ -242,6 +253,9 @@ class DDCTrainer:
             "best_nmi_epoch": getattr(self, "best", {}),
             "description_metrics": desc_metrics,
             "ilp_last": {k: v for k, v in info.items() if k != "active_clusters"},
+            "ilp_rounds_optimality_proven": sum(
+                1 for r in getattr(self, "ilp_log", []) if r.get("optimality_proven")),
+            "ilp_rounds_total": len(getattr(self, "ilp_log", [])),
             "total_seconds": round(time.time() - self.t0, 1),
             "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
         }

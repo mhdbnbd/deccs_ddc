@@ -5,6 +5,7 @@ IJCAI 2021 (proceedings PDF, pp. 3342-3348).
 """
 
 import logging
+import time
 
 import numpy as np
 import torch
@@ -155,6 +156,7 @@ def solve_description_ilp(assignments, tags, n_clusters, alpha=8,
 
     beta_max = beta_max or K_act
     beta_start = max(1, min(int(beta_start), beta_max))
+    trace = []
     for beta in range(beta_start, beta_max + 1):
         prob = pulp.LpProblem("DDC_description", pulp.LpMinimize)
         W = {(i, j): pulp.LpVariable(f"W_{i}_{j}", cat="Binary")
@@ -164,30 +166,80 @@ def solve_description_ilp(assignments, tags, n_clusters, alpha=8,
             prob += pulp.lpSum(W[i, j] * Q[i, j] for j in range(M)) >= alpha
         for j in range(M):
             prob += pulp.lpSum(W[i, j] * Q[i, j] for i in range(K_act)) <= beta
+        t_solve = time.time()
         prob.solve(pulp.PULP_CBC_CMD(msg=0, timeLimit=time_limit))
+        t_solve = time.time() - t_solve
 
-        if prob.status == 1:
-            W_np = np.zeros((K_act, M), dtype=np.float32)
-            for i in range(K_act):
-                for j in range(M):
-                    W_np[i, j] = W[i, j].varValue or 0.0
-            g_mask = (W_np.sum(axis=0) > 0.5).astype(np.float32)
-            info = {"beta": beta, "n_tags": int(g_mask.sum()), "k_active": K_act,
-                    "tags_per_cluster": float(W_np.sum(axis=1).mean()),
-                    "status": "optimal", "active_clusters": active}
-            logging.info(f"[ILP] beta={beta}, {K_act} active clusters, "
-                         f"{info['n_tags']}/{M} tags kept, "
-                         f"{info['tags_per_cluster']:.1f} tags/cluster")
-            return g_mask, W_np, info
+        # CBC termination is NOT readable from prob.status alone: PuLP maps
+        # "Stopped on time - objective value X" onto LpStatusOptimal and records
+        # the difference only in sol_status, so a time-limited incumbent would
+        # otherwise be logged as a proven optimum. Checked against pulp 3.3.2,
+        # pulp/apis/coin_api.py (cbcStatus / cbcSolStatus).
+        sol_code = getattr(prob, "sol_status", None)
+        if prob.status == pulp.LpStatusOptimal:
+            outcome = ("proven_optimal" if sol_code == pulp.LpSolutionOptimal
+                       else "time_limit_incumbent")
+        elif prob.status == pulp.LpStatusInfeasible:
+            outcome = "proven_infeasible"
+        else:
+            outcome = "time_limit_no_solution"   # unproven; treated as infeasible
+
+        entry = {"beta": beta, "outcome": outcome,
+                 "lp_status": pulp.LpStatus.get(prob.status, "unknown"),
+                 "sol_status": pulp.LpSolution.get(sol_code, "unknown"),
+                 "seconds": round(t_solve, 1), "time_limit": time_limit,
+                 "objective": (round(float(pulp.value(prob.objective)), 2)
+                               if prob.status == pulp.LpStatusOptimal else None)}
+        trace.append(entry)
+
+        if prob.status != pulp.LpStatusOptimal:
+            logging.info(f"[ILP] beta={beta} rejected: {outcome} "
+                         f"({t_solve:.1f}s of {time_limit}s)")
+            continue
+
+        W_np = np.zeros((K_act, M), dtype=np.float32)
+        for i in range(K_act):
+            for j in range(M):
+                W_np[i, j] = W[i, j].varValue or 0.0
+        W_np = (W_np > 0.5).astype(np.float32)
+
+        cover = (W_np * Q).sum(axis=1)
+        load = (W_np * Q).sum(axis=0)
+        ok = bool((cover >= alpha - 1e-6).all() and (load <= beta + 1e-6).all())
+        entry["constraints_verified"] = ok
+        if not ok:
+            logging.warning(f"[ILP] beta={beta} returned W violating Eq (3)/(4) "
+                            f"(min coverage {cover.min():.3f} vs alpha={alpha}, "
+                            f"max load {load.max():.3f} vs beta={beta}) - rejected")
+            continue
+
+        info = {"beta": beta, "n_tags": int((W_np.sum(axis=0) > 0.5).sum()),
+                "k_active": K_act,
+                "tags_per_cluster": float(W_np.sum(axis=1).mean()),
+                "status": outcome, "optimality_proven": outcome == "proven_optimal",
+                "time_limit": time_limit, "solve_seconds": round(t_solve, 1),
+                "trace": trace, "active_clusters": active}
+        g_mask = (W_np.sum(axis=0) > 0.5).astype(np.float32)
+        logging.info(f"[ILP] beta={beta} [{outcome}, {t_solve:.1f}s], {K_act} active "
+                     f"clusters, {info['n_tags']}/{M} tags kept, "
+                     f"{info['tags_per_cluster']:.1f} tags/cluster")
+        return g_mask, W_np, info
 
     if beta_start > 1:
         # warm start overshot; fall back to the full search
-        return solve_description_ilp(assignments, tags, n_clusters, alpha=alpha,
-                                     beta_max=beta_max, time_limit=time_limit,
-                                     beta_start=1)
-    logging.warning(f"[ILP] infeasible for all beta <= {beta_max}; g left as identity")
+        g_mask, W_np, info = solve_description_ilp(
+            assignments, tags, n_clusters, alpha=alpha, beta_max=beta_max,
+            time_limit=time_limit, beta_start=1)
+        info["trace"] = trace + info.get("trace", [])
+        return g_mask, W_np, info
+    logging.warning(f"[ILP] no accepted solution for beta <= {beta_max}; "
+                    f"g left as identity")
     return np.ones(M, dtype=np.float32), None, {"beta": None, "n_tags": M,
-                                                "k_active": K_act, "status": "infeasible"}
+                                                "k_active": K_act,
+                                                "status": "infeasible",
+                                                "optimality_proven": False,
+                                                "time_limit": time_limit,
+                                                "trace": trace}
 
 
 def description_metrics(assignments, tags, W, active_clusters, predicate_names=None):
