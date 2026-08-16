@@ -1,0 +1,17 @@
+Predicate matrix: 50 classes × 85 attributes
+Train split: 29857 samples, 50 classes, 85 attributes
+Loaded cached features (29857, 2048) from cache/resnet101_awa2_full.npz
+Binary tags (29857, 85) from data/AwA2-data/Animals_with_Attributes2/predicate-matrix-binary.txt (density=0.365)
+Annotation r=0.5 (instance-level): 14855/29857 annotated, 15002 mean-imputed
+N=29857 K=50 D=2048 M=85 preproc=none r=0.5
+   features only: NMI=0.8699+-0.0021  ACC=0.7864+-0.0099  ARI=0.7469+-0.0098  active=50/50
+feats + tags (std): NMI=0.7665+-0.0079  ACC=0.5194+-0.0148  ARI=0.3767+-0.0318  active=50/50
+feats + tags (raw): NMI=0.8804+-0.0028  ACC=0.8033+-0.0081  ARI=0.7693+-0.0101  active=50/50
+
+ACC ceiling if only k_act clusters are populated (sum of the k_act largest class shares):
+  k_act=15 -> 0.4687
+  k_act=19 -> 0.5625
+  k_act=24 -> 0.6704
+  k_act=30 -> 0.7859
+  k_act=40 -> 0.9409
+  k_act=50 -> 1.0000

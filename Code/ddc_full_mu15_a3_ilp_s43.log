@@ -1,0 +1,18 @@
+2026-08-16 02:01:29,801 - INFO - GPU: NVIDIA GeForce RTX 4090
+2026-08-16 02:01:29,846 - INFO - Predicate matrix: 50 classes × 85 attributes
+2026-08-16 02:01:29,890 - INFO - Train split: 29857 samples, 50 classes, 85 attributes
+2026-08-16 02:01:30,940 - INFO - Loaded cached features (29857, 2048) from cache/resnet101_awa2_full.npz
+2026-08-16 02:01:30,952 - INFO - Binary tags (29857, 85) from data/AwA2-data/Animals_with_Attributes2/predicate-matrix-binary.txt (density=0.365)
+2026-08-16 02:01:31,154 - INFO - Annotation r=0.5 (instance-level): 14892/29857 annotated, 14965 mean-imputed
+2026-08-16 02:01:31,154 - INFO - === DDC rebuild | awa2 | N=29857 | K=50 | M=85 | preproc=none | r=0.5 ===
+2026-08-16 02:01:33,724 - INFO - Pre-training 10 epochs (g = identity, Algorithm 1 lines 1-2)
+2026-08-16 02:01:35,967 - INFO - [pretrain r0 e1] L=-2.8712 MI=-3.2472 PW=0.3760 H(Y|X)=2.523 H(Y)=3.847 active=50/50 pairs=14892 sameclass=0.9215 NMI=0.8243 ACC=0.6856
+2026-08-16 02:01:37,122 - INFO - [pretrain r0 e2] L=-4.1259 MI=-4.6951 PW=0.5691 H(Y|X)=1.005 H(Y)=3.800 active=50/50 pairs=14892 sameclass=0.9169 NMI=0.8734 ACC=0.7475
+2026-08-16 02:01:38,281 - INFO - [pretrain r0 e3] L=-4.4879 MI=-4.9782 PW=0.4903 H(Y|X)=0.699 H(Y)=3.785 active=49/50 pairs=14892 sameclass=0.9188 NMI=0.8923 ACC=0.7794
+2026-08-16 02:01:39,443 - INFO - [pretrain r0 e4] L=-4.6549 MI=-5.0659 PW=0.4110 H(Y|X)=0.606 H(Y)=3.781 active=50/50 pairs=14892 sameclass=0.9237 NMI=0.8966 ACC=0.7896
+2026-08-16 02:01:40,608 - INFO - [pretrain r0 e5] L=-4.7652 MI=-5.1289 PW=0.3637 H(Y|X)=0.555 H(Y)=3.790 active=50/50 pairs=14892 sameclass=0.921 NMI=0.8989 ACC=0.7692
+2026-08-16 02:01:41,794 - INFO - [pretrain r0 e6] L=-4.8291 MI=-5.1540 PW=0.3249 H(Y|X)=0.527 H(Y)=3.787 active=50/50 pairs=14892 sameclass=0.9181 NMI=0.9117 ACC=0.8079
+2026-08-16 02:01:42,954 - INFO - [pretrain r0 e7] L=-4.8545 MI=-5.1804 PW=0.3259 H(Y|X)=0.490 H(Y)=3.780 active=50/50 pairs=14892 sameclass=0.9198 NMI=0.9133 ACC=0.8146
+2026-08-16 02:01:44,118 - INFO - [pretrain r0 e8] L=-4.8776 MI=-5.1983 PW=0.3207 H(Y|X)=0.481 H(Y)=3.786 active=50/50 pairs=14892 sameclass=0.9192 NMI=0.9147 ACC=0.8225
+2026-08-16 02:01:45,279 - INFO - [pretrain r0 e9] L=-4.9259 MI=-5.2275 PW=0.3016 H(Y|X)=0.450 H(Y)=3.785 active=50/50 pairs=14892 sameclass=0.9221 NMI=0.9143 ACC=0.8054
+2026-08-16 02:01:46,443 - INFO - [pretrain r0 e10] L=-4.9570 MI=-5.2448 PW=0.2878 H(Y|X)=0.440 H(Y)=3.790 active=50/50 pairs=14892 sameclass=0.9171 NMI=0.9147 ACC=0.8240
