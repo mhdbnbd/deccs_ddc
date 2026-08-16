@@ -12,3 +12,15 @@
 2026-08-16 20:56:45,392 - INFO - ACCEPTED beta=3 (time_limit_incumbent): tags=71 TC=0.7078 ITF=2.7145 nats
 2026-08-16 20:56:45,392 - INFO - RUN REPORTED beta=3 tags=70 TC=0.6922 ITF=2.6812 (limit 120s)
 2026-08-16 20:56:45,393 - INFO - Wrote results_v2/ilp_probe/full_mu15_a3_ilp_t120_s45_t120_b4.json
+2026-08-16 21:08:05,627 - INFO - === ILP probe | results_v2/ddc_phase1/awa2/full_mu15_a3_ilp_t120_s45 | limit 120s ===
+2026-08-16 21:08:05,627 - INFO - run config: alpha=3 seed=45 r=0.5 mask=instance original ilp_time_limit=120
+2026-08-16 21:08:05,673 - INFO - Predicate matrix: 50 classes × 85 attributes
+2026-08-16 21:08:05,721 - INFO - Train split: 29857 samples, 50 classes, 85 attributes
+2026-08-16 21:08:05,733 - INFO - Binary tags (29857, 85) from data/AwA2-data/Animals_with_Attributes2/predicate-matrix-binary.txt (density=0.365)
+2026-08-16 21:08:05,746 - INFO - Annotation r=0.5 (instance-level): 14858/29857 annotated, 14999 mean-imputed
+2026-08-16 21:08:05,749 - INFO - Rebuilt tags (29857, 85), mean 0.3647; assignments (29857,), 50 non-empty clusters
+2026-08-16 21:08:05,777 - INFO - K_act=50, M=85, alpha=3: summing Eq (3) over clusters and Eq (4) over tags gives K_act*alpha <= beta*M, so beta >= 2 is a necessary condition
+2026-08-16 21:08:08,689 - INFO - [beta=4] proven_optimal after 2.7s, 49/85 tags kept, verified=True
+2026-08-16 21:08:08,712 - INFO - ACCEPTED beta=4 (proven_optimal): tags=49 TC=0.7707 ITF=2.4368 nats
+2026-08-16 21:08:08,712 - INFO - RUN REPORTED beta=3 tags=70 TC=0.6922 ITF=2.6812 (limit 120s)
+2026-08-16 21:08:08,713 - INFO - Wrote results_v2/ilp_probe/full_mu15_a3_ilp_t120_s45_t120_b4.json

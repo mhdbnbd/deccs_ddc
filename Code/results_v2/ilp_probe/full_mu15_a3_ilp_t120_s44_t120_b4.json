@@ -9,45 +9,14 @@
   "beta_lower_bound_arithmetic": 2,
   "trace": [
     {
-      "beta": 1,
-      "outcome": "infeasible_by_arithmetic",
-      "seconds": 0.0
-    },
-    {
-      "beta": 2,
-      "lp_relaxation": {
-        "status": "Optimal",
-        "objective": 217.84,
-        "seconds": 0.06
-      },
-      "outcome": "time_limit_no_solution",
-      "seconds": 120.3,
-      "lp_status": "Not Solved",
-      "sol_status": "No Solution Found",
-      "objective": null
-    },
-    {
-      "beta": 3,
-      "lp_relaxation": {
-        "status": "Optimal",
-        "objective": 196.86,
-        "seconds": 0.06
-      },
-      "outcome": "time_limit_no_solution",
-      "seconds": 120.4,
-      "lp_status": "Not Solved",
-      "sol_status": "No Solution Found",
-      "objective": null
-    },
-    {
       "beta": 4,
       "lp_relaxation": {
         "status": "Optimal",
         "objective": 187.76,
-        "seconds": 0.08
+        "seconds": 0.07
       },
       "outcome": "proven_optimal",
-      "seconds": 2.1,
+      "seconds": 2.2,
       "lp_status": "Optimal",
       "sol_status": "Optimal Solution Found",
       "objective": 200.0,

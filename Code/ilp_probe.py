@@ -207,7 +207,7 @@ def main():
     K = summary["n_clusters"]
     trace, accepted, K_act, lower_bound = scan_beta(
         assignments, tags, K, alpha=cfg["alpha"], time_limit=args.time_limit,
-        beta_max=args.beta_max, threads=args.threads)
+        beta_max=args.beta_max, threads=args.threads, beta_min=args.beta_min)
 
     out = {
         "run_dir": args.run_dir,

@@ -9,38 +9,20 @@
   "beta_lower_bound_arithmetic": 2,
   "trace": [
     {
-      "beta": 1,
-      "outcome": "infeasible_by_arithmetic",
-      "seconds": 0.0
-    },
-    {
-      "beta": 2,
+      "beta": 4,
       "lp_relaxation": {
         "status": "Optimal",
-        "objective": 219.35,
+        "objective": 187.98,
         "seconds": 0.06
       },
-      "outcome": "time_limit_no_solution",
-      "seconds": 120.3,
-      "lp_status": "Not Solved",
-      "sol_status": "No Solution Found",
-      "objective": null
-    },
-    {
-      "beta": 3,
-      "lp_relaxation": {
-        "status": "Optimal",
-        "objective": 197.22,
-        "seconds": 0.06
-      },
-      "outcome": "time_limit_incumbent",
-      "seconds": 120.4,
+      "outcome": "proven_optimal",
+      "seconds": 2.7,
       "lp_status": "Optimal",
-      "sol_status": "Solution Found",
-      "objective": 218.0,
+      "sol_status": "Optimal Solution Found",
+      "objective": 200.0,
       "constraints_verified": true,
-      "n_tags": 71,
-      "tags_per_cluster": 4.36
+      "n_tags": 49,
+      "tags_per_cluster": 4.0
     }
   ],
   "reference": {
@@ -51,11 +33,11 @@
     "original_time_limit": 120
   },
   "accepted": {
-    "beta": 3,
-    "n_tags": 71,
-    "tags_per_cluster": 4.36,
-    "outcome": "time_limit_incumbent",
-    "avg_tc": 0.7078,
-    "avg_itf": 2.7145
+    "beta": 4,
+    "n_tags": 49,
+    "tags_per_cluster": 4.0,
+    "outcome": "proven_optimal",
+    "avg_tc": 0.7707,
+    "avg_itf": 2.4368
   }
 }
