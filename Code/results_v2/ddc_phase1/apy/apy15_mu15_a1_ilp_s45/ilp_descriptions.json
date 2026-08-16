@@ -1,0 +1,244 @@
+[
+  {
+    "cluster_id": 0,
+    "n_members": 823,
+    "tags": [
+      "Eye",
+      "Furry"
+    ],
+    "tag_indices": [
+      15,
+      56
+    ],
+    "tc": 0.5843,
+    "itf": 2.7081
+  },
+  {
+    "cluster_id": 1,
+    "n_members": 83,
+    "tags": [
+      "Head",
+      "Torso",
+      "Metal",
+      "Shiny"
+    ],
+    "tag_indices": [
+      8,
+      16,
+      52,
+      61
+    ],
+    "tc": 0.2531,
+    "itf": 1.5375
+  },
+  {
+    "cluster_id": 2,
+    "n_members": 158,
+    "tags": [
+      "3D Boxy",
+      "Occluded",
+      "Head"
+    ],
+    "tag_indices": [
+      1,
+      5,
+      8
+    ],
+    "tc": 0.329,
+    "itf": 1.6094
+  },
+  {
+    "cluster_id": 3,
+    "n_members": 712,
+    "tags": [
+      "3D Boxy",
+      "Window"
+    ],
+    "tag_indices": [
+      1,
+      24
+    ],
+    "tc": 0.5298,
+    "itf": 2.1587
+  },
+  {
+    "cluster_id": 4,
+    "n_members": 263,
+    "tags": [
+      "Row Wind",
+      "Text",
+      "Wood"
+    ],
+    "tag_indices": [
+      25,
+      37,
+      54
+    ],
+    "tc": 0.3609,
+    "itf": 2.7081
+  },
+  {
+    "cluster_id": 5,
+    "n_members": 427,
+    "tags": [
+      "Torso",
+      "Feather"
+    ],
+    "tag_indices": [
+      16,
+      58
+    ],
+    "tc": 0.5073,
+    "itf": 2.1587
+  },
+  {
+    "cluster_id": 6,
+    "n_members": 121,
+    "tags": [
+      "Ear",
+      "Snout"
+    ],
+    "tag_indices": [
+      9,
+      10
+    ],
+    "tc": 0.3637,
+    "itf": 2.7081
+  },
+  {
+    "cluster_id": 7,
+    "n_members": 274,
+    "tags": [
+      "Wheel",
+      "Pedal",
+      "Shiny"
+    ],
+    "tag_indices": [
+      26,
+      32,
+      61
+    ],
+    "tc": 0.3848,
+    "itf": 2.246
+  },
+  {
+    "cluster_id": 8,
+    "n_members": 478,
+    "tags": [
+      "2D Boxy",
+      "Furn. Arm",
+      "Cloth"
+    ],
+    "tag_indices": [
+      0,
+      42,
+      55
+    ],
+    "tc": 0.2716,
+    "itf": 2.477
+  },
+  {
+    "cluster_id": 9,
+    "n_members": 532,
+    "tags": [
+      "Vert Cyl",
+      "Furn. Back",
+      "Glass"
+    ],
+    "tag_indices": [
+      3,
+      40,
+      57
+    ],
+    "tc": 0.3373,
+    "itf": 2.1108
+  },
+  {
+    "cluster_id": 10,
+    "n_members": 391,
+    "tags": [
+      "2D Boxy",
+      "Occluded",
+      "Metal",
+      "Plastic"
+    ],
+    "tag_indices": [
+      0,
+      5,
+      52,
+      53
+    ],
+    "tc": 0.2506,
+    "itf": 1.8122
+  },
+  {
+    "cluster_id": 11,
+    "n_members": 410,
+    "tags": [
+      "Furn. Leg",
+      "Furn. Back",
+      "Furn. Seat"
+    ],
+    "tag_indices": [
+      39,
+      40,
+      41
+    ],
+    "tc": 0.3323,
+    "itf": 1.8797
+  },
+  {
+    "cluster_id": 12,
+    "n_members": 91,
+    "tags": [
+      "Furn. Leg",
+      "Furn. Back",
+      "Furn. Seat"
+    ],
+    "tag_indices": [
+      39,
+      40,
+      41
+    ],
+    "tc": 0.2355,
+    "itf": 1.8797
+  },
+  {
+    "cluster_id": 13,
+    "n_members": 100,
+    "tags": [
+      "Head",
+      "Torso",
+      "Metal",
+      "Shiny"
+    ],
+    "tag_indices": [
+      8,
+      16,
+      52,
+      61
+    ],
+    "tc": 0.2531,
+    "itf": 1.5375
+  },
+  {
+    "cluster_id": 14,
+    "n_members": 326,
+    "tags": [
+      "3D Boxy",
+      "Vert Cyl",
+      "Occluded",
+      "Plastic",
+      "Shiny"
+    ],
+    "tag_indices": [
+      1,
+      3,
+      5,
+      53,
+      61
+    ],
+    "tc": 0.228,
+    "itf": 1.7141
+  }
+]

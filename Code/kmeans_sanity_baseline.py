@@ -32,6 +32,11 @@ from ddc_v2 import data as ddc_data
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--dataset", choices=["awa2", "apy"], default="awa2")
+    p.add_argument("--apy_15", action="store_true")
+    p.add_argument("--per_instance_tags", action="store_true",
+                   help="aPY only: true per-instance binary tags")
+    p.add_argument("--per_instance_tags_path", type=str,
+                   default="data/aPY-data/aPY/per-instance-attributes.tsv")
     p.add_argument("--use_subset", action="store_true",
                    help="use the same subset run_ddc_v2.py --sanity uses")
     p.add_argument("--n_sanity", type=int, default=1600)
@@ -45,15 +50,18 @@ def main():
 
     logging.basicConfig(level=logging.INFO, format="%(message)s")
 
-    ds, paths = ddc_data.build_dataset(args.dataset)
-    features = ddc_data.load_cached_features(args.dataset)
+    ds, paths = ddc_data.build_dataset(args.dataset, apy_15=args.apy_15)
+    features = ddc_data.load_cached_features(args.dataset, apy_15=args.apy_15)
     labels = np.asarray(ds.labels)
     if features.shape[0] != labels.shape[0]:
         raise SystemExit(
             f"Feature/label length mismatch ({features.shape[0]} vs {labels.shape[0]}). "
             f"The cache was built from a different split — delete it and re-extract."
         )
-    tags = ddc_data.load_binary_tags(args.dataset, ds, paths)
+    tags = ddc_data.load_binary_tags(
+        args.dataset, ds, paths, class_filter_used=bool(args.apy_15),
+        per_instance_path=(args.per_instance_tags_path
+                           if args.per_instance_tags else None))
 
     keep = ddc_data.subsample(features.shape[0],
                               args.n_sanity if args.use_subset else None,
@@ -79,7 +87,8 @@ def main():
 
     for name, data in (("features only", X),
                        ("feats + tags (std)", X_cat),
-                       ("feats + tags (raw)", X_cat_raw)):
+                       ("feats + tags (raw)", X_cat_raw),
+                       ("tags only (raw)", tags_obs.astype(np.float32))):
         rows = []
         for i in range(args.n_runs):
             seed = args.seed + i

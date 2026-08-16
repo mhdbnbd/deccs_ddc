@@ -1,0 +1,202 @@
+[
+  {
+    "round": 1,
+    "beta": 2,
+    "n_tags": 53,
+    "status": "time_limit_incumbent",
+    "optimality_proven": false,
+    "solve_seconds": 60.2,
+    "trace": [
+      {
+        "beta": 1,
+        "outcome": "proven_infeasible",
+        "lp_status": "Infeasible",
+        "sol_status": "No Solution Exists",
+        "seconds": 0.0,
+        "time_limit": 60,
+        "objective": null
+      },
+      {
+        "beta": 2,
+        "outcome": "time_limit_incumbent",
+        "lp_status": "Optimal",
+        "sol_status": "Solution Found",
+        "seconds": 60.2,
+        "time_limit": 60,
+        "objective": 391.0,
+        "constraints_verified": true
+      }
+    ]
+  },
+  {
+    "round": 2,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  },
+  {
+    "round": 3,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  },
+  {
+    "round": 4,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  },
+  {
+    "round": 5,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  },
+  {
+    "round": 6,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  },
+  {
+    "round": 7,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  },
+  {
+    "round": 8,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  },
+  {
+    "round": 9,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  },
+  {
+    "round": 10,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  },
+  {
+    "round": 11,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  },
+  {
+    "round": 12,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  },
+  {
+    "round": 13,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  },
+  {
+    "round": 14,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  },
+  {
+    "round": 15,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  },
+  {
+    "round": 16,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  },
+  {
+    "round": 17,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  },
+  {
+    "round": 18,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  },
+  {
+    "round": 19,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  },
+  {
+    "round": 20,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  }
+]

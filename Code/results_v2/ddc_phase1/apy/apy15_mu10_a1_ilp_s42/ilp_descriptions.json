@@ -1,0 +1,187 @@
+[
+  {
+    "cluster_id": 0,
+    "n_members": 59,
+    "tags": [
+      "Head",
+      "Torso",
+      "Metal",
+      "Shiny"
+    ],
+    "tag_indices": [
+      8,
+      16,
+      52,
+      61
+    ],
+    "tc": 0.2544,
+    "itf": 1.589
+  },
+  {
+    "cluster_id": 1,
+    "n_members": 57,
+    "tags": [
+      "3D Boxy",
+      "Tail",
+      "Eye",
+      "Furry",
+      "Shiny"
+    ],
+    "tag_indices": [
+      1,
+      6,
+      15,
+      56,
+      61
+    ],
+    "tc": 0.2135,
+    "itf": 1.6296
+  },
+  {
+    "cluster_id": 2,
+    "n_members": 345,
+    "tags": [
+      "Beak",
+      "Head"
+    ],
+    "tag_indices": [
+      7,
+      8
+    ],
+    "tc": 0.596,
+    "itf": 2.1383
+  },
+  {
+    "cluster_id": 3,
+    "n_members": 0,
+    "tags": [],
+    "tc": 0.0,
+    "itf": 0.0
+  },
+  {
+    "cluster_id": 5,
+    "n_members": 3,
+    "tags": [
+      "Snout",
+      "Torso",
+      "Leg"
+    ],
+    "tag_indices": [
+      10,
+      16,
+      19
+    ],
+    "tc": 0.1916,
+    "itf": 1.8877
+  },
+  {
+    "cluster_id": 6,
+    "n_members": 952,
+    "tags": [
+      "Occluded",
+      "Furn. Back"
+    ],
+    "tag_indices": [
+      5,
+      40
+    ],
+    "tc": 0.5145,
+    "itf": 2.1383
+  },
+  {
+    "cluster_id": 8,
+    "n_members": 1020,
+    "tags": [
+      "Ear",
+      "Eye",
+      "Torso",
+      "Furry"
+    ],
+    "tag_indices": [
+      9,
+      15,
+      16,
+      56
+    ],
+    "tc": 0.5572,
+    "itf": 1.589
+  },
+  {
+    "cluster_id": 9,
+    "n_members": 630,
+    "tags": [
+      "Vert Cyl",
+      "Eye",
+      "Glass"
+    ],
+    "tag_indices": [
+      3,
+      15,
+      57
+    ],
+    "tc": 0.3347,
+    "itf": 2.1187
+  },
+  {
+    "cluster_id": 10,
+    "n_members": 814,
+    "tags": [
+      "Metal",
+      "Shiny"
+    ],
+    "tag_indices": [
+      52,
+      61
+    ],
+    "tc": 0.5165,
+    "itf": 1.589
+  },
+  {
+    "cluster_id": 11,
+    "n_members": 241,
+    "tags": [
+      "Wheel",
+      "Handlebars",
+      "Text"
+    ],
+    "tag_indices": [
+      26,
+      33,
+      37
+    ],
+    "tc": 0.3416,
+    "itf": 2.4849
+  },
+  {
+    "cluster_id": 12,
+    "n_members": 3,
+    "tags": [
+      "Ear",
+      "Snout"
+    ],
+    "tag_indices": [
+      9,
+      10
+    ],
+    "tc": 0.1657,
+    "itf": 1.7918
+  },
+  {
+    "cluster_id": 13,
+    "n_members": 1064,
+    "tags": [
+      "3D Boxy",
+      "Occluded",
+      "Window",
+      "Wood"
+    ],
+    "tag_indices": [
+      1,
+      5,
+      24,
+      54
+    ],
+    "tc": 0.2582,
+    "itf": 2.1383
+  }
+]

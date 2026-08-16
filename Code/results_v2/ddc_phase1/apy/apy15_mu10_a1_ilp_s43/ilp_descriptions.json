@@ -1,0 +1,183 @@
+[
+  {
+    "cluster_id": 0,
+    "n_members": 102,
+    "tags": [
+      "Occluded",
+      "Torso",
+      "Leg",
+      "Shiny"
+    ],
+    "tag_indices": [
+      5,
+      16,
+      19,
+      61
+    ],
+    "tc": 0.2739,
+    "itf": 1.502
+  },
+  {
+    "cluster_id": 1,
+    "n_members": 150,
+    "tags": [
+      "3D Boxy",
+      "Eye",
+      "Torso",
+      "Metal"
+    ],
+    "tag_indices": [
+      1,
+      15,
+      16,
+      52
+    ],
+    "tc": 0.2551,
+    "itf": 1.5739
+  },
+  {
+    "cluster_id": 2,
+    "n_members": 622,
+    "tags": [
+      "2D Boxy",
+      "3D Boxy",
+      "Occluded",
+      "Rein",
+      "Metal",
+      "Plastic",
+      "Cloth",
+      "Furry",
+      "Shiny"
+    ],
+    "tag_indices": [
+      0,
+      1,
+      5,
+      44,
+      52,
+      53,
+      55,
+      56,
+      61
+    ],
+    "tc": 0.1578,
+    "itf": 1.7236
+  },
+  {
+    "cluster_id": 4,
+    "n_members": 601,
+    "tags": [
+      "Vert Cyl",
+      "Glass",
+      "Shiny"
+    ],
+    "tag_indices": [
+      3,
+      57,
+      61
+    ],
+    "tc": 0.4057,
+    "itf": 1.7047
+  },
+  {
+    "cluster_id": 5,
+    "n_members": 956,
+    "tags": [
+      "Furn. Back",
+      "Furn. Seat",
+      "Wood"
+    ],
+    "tag_indices": [
+      40,
+      41,
+      54
+    ],
+    "tc": 0.3816,
+    "itf": 2.1668
+  },
+  {
+    "cluster_id": 9,
+    "n_members": 0,
+    "tags": [],
+    "tc": 0.0,
+    "itf": 0.0
+  },
+  {
+    "cluster_id": 10,
+    "n_members": 414,
+    "tags": [
+      "Head",
+      "Feather"
+    ],
+    "tag_indices": [
+      8,
+      58
+    ],
+    "tc": 0.5209,
+    "itf": 2.0513
+  },
+  {
+    "cluster_id": 11,
+    "n_members": 1030,
+    "tags": [
+      "Ear",
+      "Furry"
+    ],
+    "tag_indices": [
+      9,
+      56
+    ],
+    "tc": 0.5698,
+    "itf": 2.0513
+  },
+  {
+    "cluster_id": 12,
+    "n_members": 246,
+    "tags": [
+      "Window",
+      "Row Wind",
+      "Wood"
+    ],
+    "tag_indices": [
+      24,
+      25,
+      54
+    ],
+    "tc": 0.4119,
+    "itf": 1.9358
+  },
+  {
+    "cluster_id": 13,
+    "n_members": 1052,
+    "tags": [
+      "Window",
+      "Wheel",
+      "Taillight"
+    ],
+    "tag_indices": [
+      24,
+      26,
+      29
+    ],
+    "tc": 0.3348,
+    "itf": 2.1668
+  },
+  {
+    "cluster_id": 14,
+    "n_members": 16,
+    "tags": [
+      "Head",
+      "Torso",
+      "Metal",
+      "Shiny"
+    ],
+    "tag_indices": [
+      8,
+      16,
+      52,
+      61
+    ],
+    "tc": 0.2524,
+    "itf": 1.3287
+  }
+]

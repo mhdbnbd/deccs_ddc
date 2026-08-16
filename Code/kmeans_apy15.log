@@ -1,0 +1,15 @@
+Predicate matrix: 32 classes × 64 attributes
+Class filter: 15 classes, 6487 instances retained
+Train split: 5189 samples, 15 classes, 64 attributes
+Loaded cached features (5189, 2048) from cache/resnet101_apy_15_full.npz
+Per-instance binary tags (5189, 64) from data/aPY-data/aPY/per-instance-attributes.tsv (density=0.0869, 1703 distinct rows)
+Annotation r=0.5 (instance-level): 2643/5189 annotated, 2546 mean-imputed
+N=5189 K=15 D=2048 M=64 preproc=none r=0.5
+   features only: NMI=0.6463+-0.0196  ACC=0.6012+-0.0351  ARI=0.4298+-0.0178  active=15/15
+feats + tags (std): NMI=0.6298+-0.0164  ACC=0.5680+-0.0268  ARI=0.3886+-0.0342  active=15/15
+feats + tags (raw): NMI=0.6767+-0.0182  ACC=0.6166+-0.0441  ARI=0.4700+-0.0428  active=15/15
+ tags only (raw): NMI=0.3778+-0.0026  ACC=0.3239+-0.0023  ARI=0.0544+-0.0008  active=15/15
+
+ACC ceiling if only k_act clusters are populated (sum of the k_act largest class shares):
+  k_act=15 -> 1.0000
+  k_act=15 -> 1.0000
