@@ -1,0 +1,18 @@
+2026-08-23 21:18:02,590 - INFO - === v1 reconstruction | apy_ddc_s42 ===
+2026-08-23 21:18:02,608 - INFO - Predicate matrix: 32 classes × 64 attributes
+2026-08-23 21:18:02,624 - INFO - Train split: 12271 samples, 32 classes, 64 attributes
+2026-08-23 21:18:03,121 - INFO - features (12271, 2048) from cache/resnet101_apy_full.npz; tags (12271, 64) (mean 0.1111); K=32
+2026-08-23 21:18:30,342 - INFO - VERIFIED: all 32 cluster sizes match ilp_descriptions.json cluster-for-cluster
+2026-08-23 21:18:30,343 - INFO - cluster_sizes shipped {'min': 153, 'max': 786, 'mean': 383.5} vs ours {'min': 153, 'max': 786, 'mean': 383.5} -> match
+2026-08-23 21:18:30,361 - INFO - seed-42 metrics shipped {'nmi': 0.536, 'acc': 0.3964, 'ari': 0.1459} vs ours {'nmi': 0.536, 'acc': 0.3964, 'ari': 0.1459} -> match
+2026-08-23 21:18:30,363 - INFO - v1 alpha rule: density 0.111 -> alpha=2
+2026-08-23 21:18:30,368 - INFO - Wrote results_v2/v1_certify/apy_ddc_s42/ (assignments.npy, tags.npy, summary.json)
+2026-08-23 21:34:19,895 - INFO - === v1 reconstruction | apy_ddc_s42 ===
+2026-08-23 21:34:19,912 - INFO - Predicate matrix: 32 classes × 64 attributes
+2026-08-23 21:34:19,928 - INFO - Train split: 12271 samples, 32 classes, 64 attributes
+2026-08-23 21:34:20,420 - INFO - features (12271, 2048) from cache/resnet101_apy_full.npz; tags (12271, 64) (mean 0.1111); K=32
+2026-08-23 21:34:45,879 - INFO - VERIFIED: all 32 cluster sizes match ilp_descriptions.json cluster-for-cluster
+2026-08-23 21:34:45,880 - INFO - cluster_sizes shipped {'min': 153, 'max': 786, 'mean': 383.5} vs ours {'min': 153, 'max': 786, 'mean': 383.5} -> match
+2026-08-23 21:34:45,898 - INFO - seed-42 metrics shipped {'nmi': 0.536, 'acc': 0.3964, 'ari': 0.1459} vs ours {'nmi': 0.536, 'acc': 0.3964, 'ari': 0.1459} -> match
+2026-08-23 21:34:45,899 - INFO - v1 alpha rule: density 0.111 -> alpha=2
+2026-08-23 21:34:45,921 - INFO - Wrote results_v2/v1_certify/apy_ddc_s42/ (assignments.npy, tags.npy, summary.json)

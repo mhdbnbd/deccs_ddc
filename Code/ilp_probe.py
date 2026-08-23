@@ -48,8 +48,19 @@ def guard_output_root(root):
         )
 
 
-def rebuild_tags(cfg):
-    """Reproduce the exact masked tag matrix the run trained on."""
+def rebuild_tags(cfg, tags_npy=None):
+    """Reproduce the exact masked tag matrix the run trained on.
+
+    With tags_npy set, use that matrix verbatim instead. Needed for v1
+    certification: v1 feeds dataset.symbolic_tags, the continuous per-class
+    matrix, whereas the rebuild path returns thresholded binary tags — a
+    different Q, and certifying against it would be meaningless.
+    """
+    if tags_npy:
+        tags = np.load(tags_npy).astype(np.float32)
+        logging.info(f"Tag matrix {tags.shape} loaded verbatim from {tags_npy} "
+                     f"(mean {tags.mean():.4f}); no masking applied")
+        return tags, None
     dataset = cfg.get("dataset", "awa2")
     apy_15 = bool(cfg.get("apy_15", False))
     ds, paths = ddc_data.build_dataset(dataset, apy_15=apy_15)
@@ -183,6 +194,9 @@ def main():
                     help="CBC threads; >1 can change which optimum is returned, "
                          "so keep 1 for reportable numbers")
     ap.add_argument("--beta_max", type=int, default=8)
+    ap.add_argument("--tags_npy", type=str, default=None,
+                    help="use this tag matrix verbatim instead of rebuilding it; "
+                         "for certifying v1, whose tags are continuous per-class")
     ap.add_argument("--alpha", type=int, default=None,
                     help="override the run's alpha; scan this to find the largest "
                          "alpha for which the ILP is feasible at all")
@@ -207,7 +221,7 @@ def main():
                  f"r={cfg['tag_ratio']} mask={cfg['mask_mode']} "
                  f"original ilp_time_limit={cfg.get('ilp_time_limit')}")
 
-    tags, names = rebuild_tags(cfg)
+    tags, names = rebuild_tags(cfg, tags_npy=args.tags_npy)
     if tags.shape[0] != assignments.shape[0]:
         raise SystemExit(
             f"Tag/assignment length mismatch ({tags.shape[0]} vs "

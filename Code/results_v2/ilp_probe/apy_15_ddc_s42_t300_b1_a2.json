@@ -1,0 +1,43 @@
+{
+  "run_dir": "results_v2/v1_certify/apy_15_ddc_s42",
+  "time_limit": 300,
+  "threads": 1,
+  "beta_min": 1,
+  "alpha": 2,
+  "seed": 42,
+  "k_active": 15,
+  "beta_lower_bound_arithmetic": 1,
+  "trace": [
+    {
+      "beta": 1,
+      "lp_relaxation": {
+        "status": "Optimal",
+        "objective": 72.05,
+        "seconds": 0.01
+      },
+      "outcome": "proven_optimal",
+      "seconds": 4.7,
+      "lp_status": "Optimal",
+      "sol_status": "Optimal Solution Found",
+      "objective": 90.0,
+      "constraints_verified": true,
+      "n_tags": 43,
+      "tags_per_cluster": 6.0
+    }
+  ],
+  "reference": {
+    "beta": null,
+    "n_tags": 64,
+    "avg_tc": null,
+    "avg_itf": null,
+    "original_time_limit": 30
+  },
+  "accepted": {
+    "beta": 1,
+    "n_tags": 43,
+    "tags_per_cluster": 6.0,
+    "outcome": "proven_optimal",
+    "avg_tc": 0.4061,
+    "avg_itf": 1.9374
+  }
+}

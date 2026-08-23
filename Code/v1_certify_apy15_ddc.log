@@ -1,0 +1,20 @@
+2026-08-23 21:18:32,965 - INFO - === v1 reconstruction | apy_15_ddc_s42 ===
+2026-08-23 21:18:32,981 - INFO - Predicate matrix: 32 classes × 64 attributes
+2026-08-23 21:18:32,983 - INFO - Class filter: 15 classes, 6487 instances retained
+2026-08-23 21:18:32,992 - INFO - Train split: 5189 samples, 15 classes, 64 attributes
+2026-08-23 21:18:33,196 - INFO - features (5189, 2048) from cache/resnet101_apy_15_full.npz; tags (5189, 64) (mean 0.0872); K=15
+2026-08-23 21:18:39,640 - INFO - VERIFIED: all 15 cluster sizes match ilp_descriptions.json cluster-for-cluster
+2026-08-23 21:18:39,641 - INFO - cluster_sizes shipped {'min': 123, 'max': 860, 'mean': 345.9} vs ours {'min': 123, 'max': 860, 'mean': 345.9} -> match
+2026-08-23 21:18:39,653 - INFO - seed-42 metrics shipped {'nmi': 0.6238, 'acc': 0.6057, 'ari': 0.4202} vs ours {'nmi': 0.6238, 'acc': 0.6057, 'ari': 0.4202} -> match
+2026-08-23 21:18:39,655 - INFO - v1 alpha rule: density 0.087 -> alpha=2
+2026-08-23 21:18:39,658 - INFO - Wrote results_v2/v1_certify/apy_15_ddc_s42/ (assignments.npy, tags.npy, summary.json)
+2026-08-23 21:33:53,984 - INFO - === v1 reconstruction | apy_15_ddc_s42 ===
+2026-08-23 21:33:54,001 - INFO - Predicate matrix: 32 classes × 64 attributes
+2026-08-23 21:33:54,003 - INFO - Class filter: 15 classes, 6487 instances retained
+2026-08-23 21:33:54,011 - INFO - Train split: 5189 samples, 15 classes, 64 attributes
+2026-08-23 21:33:54,215 - INFO - features (5189, 2048) from cache/resnet101_apy_15_full.npz; tags (5189, 64) (mean 0.0872); K=15
+2026-08-23 21:34:00,611 - INFO - VERIFIED: all 15 cluster sizes match ilp_descriptions.json cluster-for-cluster
+2026-08-23 21:34:00,612 - INFO - cluster_sizes shipped {'min': 123, 'max': 860, 'mean': 345.9} vs ours {'min': 123, 'max': 860, 'mean': 345.9} -> match
+2026-08-23 21:34:00,624 - INFO - seed-42 metrics shipped {'nmi': 0.6238, 'acc': 0.6057, 'ari': 0.4202} vs ours {'nmi': 0.6238, 'acc': 0.6057, 'ari': 0.4202} -> match
+2026-08-23 21:34:00,626 - INFO - v1 alpha rule: density 0.087 -> alpha=2
+2026-08-23 21:34:00,630 - INFO - Wrote results_v2/v1_certify/apy_15_ddc_s42/ (assignments.npy, tags.npy, summary.json)

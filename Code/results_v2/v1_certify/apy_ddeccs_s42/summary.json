@@ -1,0 +1,50 @@
+{
+  "n_clusters": 32,
+  "config": {
+    "dataset": "apy",
+    "apy_15": false,
+    "mode": "ddeccs",
+    "seed": 42,
+    "alpha": 2,
+    "tag_ratio": 1.0,
+    "mask_mode": "none",
+    "sanity": false,
+    "ilp_time_limit": 30,
+    "source": "v1 reconstruction"
+  },
+  "ilp_last": {
+    "beta": null,
+    "n_tags": 64
+  },
+  "description_metrics": {
+    "avg_tc": null,
+    "avg_itf": null
+  },
+  "verification": {
+    "clusters_checked": 32,
+    "per_cluster_exact": true,
+    "cluster_sizes_shipped": {
+      "min": 26,
+      "max": 2174,
+      "mean": 383.5
+    },
+    "cluster_sizes_ours": {
+      "min": 26,
+      "max": 2174,
+      "mean": 383.5
+    },
+    "cluster_sizes_match": true,
+    "metrics_ours": {
+      "nmi": 0.6102,
+      "acc": 0.547,
+      "ari": 0.2528
+    },
+    "metrics_shipped_seed42": {
+      "nmi": 0.6102,
+      "acc": 0.547,
+      "ari": 0.2528
+    },
+    "metrics_match": true
+  },
+  "shipped_dir": "results/apy/ddeccs"
+}

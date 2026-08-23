@@ -1,0 +1,10 @@
+2026-08-23 21:24:07,730 - INFO - === ILP probe | results_v2/v1_certify/apy_15_ddc_s42 | limit 300s ===
+2026-08-23 21:24:07,730 - INFO - run config: alpha=2 (using 2) seed=42 r=1.0 mask=none original ilp_time_limit=30
+2026-08-23 21:24:07,733 - INFO - Tag matrix (5189, 64) loaded verbatim from results_v2/v1_certify/apy_15_ddc_s42/tags.npy (mean 0.0872); no masking applied
+2026-08-23 21:24:07,734 - INFO - Rebuilt tags (5189, 64), mean 0.0872; assignments (5189,), 15 non-empty clusters
+2026-08-23 21:24:07,747 - INFO - Eq (3) headroom: cluster coverage min 2.80, mean 5.16, max 7.81 -> largest alpha any beta could satisfy is 2 (requested 2)
+2026-08-23 21:24:07,747 - INFO - K_act=15, M=64, alpha=2: summing Eq (3) over clusters and Eq (4) over tags gives K_act*alpha <= beta*M, so beta >= 1 is a necessary condition
+2026-08-23 21:24:12,529 - INFO - [beta=1] proven_optimal after 4.7s, 43/64 tags kept, verified=True
+2026-08-23 21:24:12,532 - INFO - ACCEPTED beta=1 (proven_optimal): tags=43 TC=0.4061 ITF=1.9374 nats
+2026-08-23 21:24:12,532 - INFO - RUN REPORTED beta=None tags=64 TC=None ITF=None (limit 30s)
+2026-08-23 21:24:12,532 - INFO - Wrote results_v2/ilp_probe/apy_15_ddc_s42_t300_b1_a2.json
