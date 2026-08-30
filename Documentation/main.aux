@@ -193,49 +193,96 @@
 \newlabel{fig:tsne_apy15}{{4.3}{24}{t-SNE projections of aPY 15-class subset. Left: K-means (NMI = 0.665). Right: DECCS consensus (NMI = 0.677). The values in the panel titles are for the plotted seed; the 10-run means are 0.666 and 0.684 (Table~\ref {tab:apy15_results}). Distinct groups are visible for animals (top), vehicles (left), and furniture/objects (bottom). (The projection shows a single representative seed; the tables report 10-run means.) Source: \texttt {results/apy\_15/kmeans/tsne.png} and \texttt {results/apy\_15/deccs/tsne.png}}{figure.caption.22}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {4.7}The Path to the Current Approach: Early Experiments}{25}{section.4.7}\protected@file@percent }
 \newlabel{sec:early_experiments}{{4.7}{25}{The Path to the Current Approach: Early Experiments}{section.4.7}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}Discussion}{26}{chapter.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}A Controlled Comparison with the Original DDC}{26}{chapter.5}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{chap:discussion}{{5}{26}{Discussion}{chapter.5}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.1}Interpretation of Results}{26}{section.5.1}\protected@file@percent }
-\newlabel{sec:interpretation}{{5.1}{26}{Interpretation of Results}{section.5.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.1}When Does Consensus Clustering Help?}{26}{subsection.5.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.2}Quality of ILP-Generated Descriptions}{27}{subsection.5.1.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.3}Why Our Approach Trails DDC}{28}{subsection.5.1.3}\protected@file@percent }
-\newlabel{subsec:trails_ddc}{{5.1.3}{28}{Why Our Approach Trails DDC}{subsection.5.1.3}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.2}Why the Trained Approaches Failed}{28}{section.5.2}\protected@file@percent }
-\newlabel{sec:why_failed}{{5.2}{28}{Why the Trained Approaches Failed}{section.5.2}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.3}Trade-offs of the Frozen-Features Design}{29}{section.5.3}\protected@file@percent }
-\newlabel{sec:tradeoffs}{{5.3}{29}{Trade-offs of the Frozen-Features Design}{section.5.3}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.4}Research Questions Revisited}{30}{section.5.4}\protected@file@percent }
-\newlabel{sec:rq_revisited}{{5.4}{30}{Research Questions Revisited}{section.5.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.1}RQ1: How can DDC's interpretability be integrated into DECCS?}{30}{subsection.5.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.2}RQ2: What impact does the integration have on clustering performance?}{30}{subsection.5.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.3}RQ3: How does the approach perform on AwA2 and aPY?}{30}{subsection.5.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {6}Conclusion}{31}{chapter.6}\protected@file@percent }
+\newlabel{chap:ddc_repro}{{5}{26}{A Controlled Comparison with the Original DDC}{chapter.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}Motivation and Scope}{26}{section.5.1}\protected@file@percent }
+\newlabel{sec:repro_motivation}{{5.1}{26}{Motivation and Scope}{section.5.1}{}}
+\citation{KingmaBa2015}
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}The Reproduction}{27}{section.5.2}\protected@file@percent }
+\newlabel{sec:repro_implementation}{{5.2}{27}{The Reproduction}{section.5.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.1}The Specification as Implemented}{27}{subsection.5.2.1}\protected@file@percent }
+\newlabel{subsec:repro_spec}{{5.2.1}{27}{The Specification as Implemented}{subsection.5.2.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.2}Judgment Calls and One Deviation}{27}{subsection.5.2.2}\protected@file@percent }
+\newlabel{subsec:repro_judgment}{{5.2.2}{27}{Judgment Calls and One Deviation}{subsection.5.2.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.3}Matched-Baseline Results}{28}{section.5.3}\protected@file@percent }
+\newlabel{sec:repro_matched}{{5.3}{28}{Matched-Baseline Results}{section.5.3}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5.1}{\ignorespaces Matched comparison of the reproduced original DDC against k-means baselines}}{29}{table.caption.23}\protected@file@percent }
+\newlabel{tab:repro_matched}{{5.1}{29}{Matched comparison of the reproduced original DDC against k-means baselines}{table.caption.23}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.4}What Carries the Method}{30}{section.5.4}\protected@file@percent }
+\newlabel{sec:repro_mechanism}{{5.4}{30}{What Carries the Method}{section.5.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.1}The Pairwise Objective}{30}{subsection.5.4.1}\protected@file@percent }
+\newlabel{subsec:repro_pairwise}{{5.4.1}{30}{The Pairwise Objective}{subsection.5.4.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.2}On AwA2 the Constraints Are Effectively Class Labels}{30}{subsection.5.4.2}\protected@file@percent }
+\newlabel{subsec:repro_classlabels}{{5.4.2}{30}{On AwA2 the Constraints Are Effectively Class Labels}{subsection.5.4.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.3}The Finding Is Dataset-Specific}{31}{subsection.5.4.3}\protected@file@percent }
+\newlabel{subsec:repro_scope}{{5.4.3}{31}{The Finding Is Dataset-Specific}{subsection.5.4.3}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5.2}{\ignorespaces Dataset characterisation underlying the constraint finding}}{31}{table.caption.24}\protected@file@percent }
+\newlabel{tab:repro_datasets}{{5.2}{31}{Dataset characterisation underlying the constraint finding}{table.caption.24}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.5}The Description Channel}{31}{section.5.5}\protected@file@percent }
+\newlabel{sec:repro_channel}{{5.5}{31}{The Description Channel}{section.5.5}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5.3}{\ignorespaces Paired ILP on/off differences in NMI}}{32}{table.caption.25}\protected@file@percent }
+\newlabel{tab:repro_ilp_deltas}{{5.3}{32}{Paired ILP on/off differences in NMI}{table.caption.25}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.1}Inert on AwA2, and Structurally So}{32}{subsection.5.5.1}\protected@file@percent }
+\newlabel{subsec:repro_channel_awa2}{{5.5.1}{32}{Inert on AwA2, and Structurally So}{subsection.5.5.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.2}Live but Harmful on aPY-15}{32}{subsection.5.5.2}\protected@file@percent }
+\newlabel{subsec:repro_channel_apy}{{5.5.2}{32}{Live but Harmful on aPY-15}{subsection.5.5.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.3}Descriptions Are Best Where Clustering Is Worst}{32}{subsection.5.5.3}\protected@file@percent }
+\newlabel{subsec:repro_tradeoff}{{5.5.3}{32}{Descriptions Are Best Where Clustering Is Worst}{subsection.5.5.3}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5.4}{\ignorespaces Dose-response of the description channel on aPY-15}}{33}{table.caption.26}\protected@file@percent }
+\newlabel{tab:repro_doseresponse}{{5.4}{33}{Dose-response of the description channel on aPY-15}{table.caption.26}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.6}Feasibility of the Published Configuration}{33}{section.5.6}\protected@file@percent }
+\newlabel{sec:repro_feasibility}{{5.6}{33}{Feasibility of the Published Configuration}{section.5.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.6.1}The Published Coverage Parameter on aPY}{33}{subsection.5.6.1}\protected@file@percent }
+\newlabel{subsec:repro_alpha8}{{5.6.1}{33}{The Published Coverage Parameter on aPY}{subsection.5.6.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.6.2}Two Further Discrepancies}{34}{subsection.5.6.2}\protected@file@percent }
+\newlabel{subsec:repro_discrepancies}{{5.6.2}{34}{Two Further Discrepancies}{subsection.5.6.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.7}Implications for DDECCS}{34}{section.5.7}\protected@file@percent }
+\newlabel{sec:repro_implications}{{5.7}{34}{Implications for DDECCS}{section.5.7}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Discussion}{36}{chapter.6}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{chap:conclusion}{{6}{31}{Conclusion}{chapter.6}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6.1}Summary of Contributions}{31}{section.6.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6.2}Notable Insights}{31}{section.6.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.1}Pretrained Features Can Be Sufficient}{31}{subsection.6.2.1}\protected@file@percent }
+\newlabel{chap:discussion}{{6}{36}{Discussion}{chapter.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.1}Interpretation of Results}{36}{section.6.1}\protected@file@percent }
+\newlabel{sec:interpretation}{{6.1}{36}{Interpretation of Results}{section.6.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.1}When Does Consensus Clustering Help?}{36}{subsection.6.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.2}Quality of ILP-Generated Descriptions}{37}{subsection.6.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.3}Why Our Approach Trails DDC}{38}{subsection.6.1.3}\protected@file@percent }
+\newlabel{subsec:trails_ddc}{{6.1.3}{38}{Why Our Approach Trails DDC}{subsection.6.1.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.2}Why the Trained Approaches Failed}{39}{section.6.2}\protected@file@percent }
+\newlabel{sec:why_failed}{{6.2}{39}{Why the Trained Approaches Failed}{section.6.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.3}Trade-offs of the Frozen-Features Design}{39}{section.6.3}\protected@file@percent }
+\newlabel{sec:tradeoffs}{{6.3}{39}{Trade-offs of the Frozen-Features Design}{section.6.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.4}Research Questions Revisited}{40}{section.6.4}\protected@file@percent }
+\newlabel{sec:rq_revisited}{{6.4}{40}{Research Questions Revisited}{section.6.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4.1}RQ1: How can DDC's interpretability be integrated into DECCS?}{40}{subsection.6.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4.2}RQ2: What impact does the integration have on clustering performance?}{40}{subsection.6.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4.3}RQ3: How does the approach perform on AwA2 and aPY?}{40}{subsection.6.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {7}Conclusion}{41}{chapter.7}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{chap:conclusion}{{7}{41}{Conclusion}{chapter.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7.1}Summary of Contributions}{41}{section.7.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7.2}Notable Insights}{41}{section.7.2}\protected@file@percent }
 \citation{Crawshaw2020}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.2}Loss Balancing in Deep Clustering Is Fragile}{32}{subsection.6.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.3}Implementation Details Matter}{32}{subsection.6.2.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6.3}Limitations}{32}{section.6.3}\protected@file@percent }
-\newlabel{sec:limitations}{{6.3}{32}{Limitations}{section.6.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2.1}Pretrained Features Can Be Sufficient}{42}{subsection.7.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2.2}Loss Balancing in Deep Clustering Is Fragile}{42}{subsection.7.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2.3}Implementation Details Matter}{42}{subsection.7.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7.3}Limitations}{42}{section.7.3}\protected@file@percent }
+\newlabel{sec:limitations}{{7.3}{42}{Limitations}{section.7.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7.4}Scope and Delimitations}{43}{section.7.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.4.1}In Scope}{43}{subsection.7.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.4.2}Out of Scope}{43}{subsection.7.4.2}\protected@file@percent }
 \citation{Chen2018GradNorm}
 \citation{Crawshaw2020}
-\@writefile{toc}{\contentsline {section}{\numberline {6.4}Scope and Delimitations}{33}{section.6.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.4.1}In Scope}{33}{subsection.6.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.4.2}Out of Scope}{33}{subsection.6.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6.5}Future Work}{33}{section.6.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.5.1}Resolving the MLP Training Challenge}{33}{subsection.6.5.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.5.2}End-to-End Consensus with Descriptions}{33}{subsection.6.5.2}\protected@file@percent }
 \bibstyle{plainnat}
 \bibdata{bibliography}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.5.3}Extension to Other Domains}{34}{subsection.6.5.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6.6}Final Remarks}{34}{section.6.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7.5}Future Work}{44}{section.7.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.5.1}Resolving the MLP Training Challenge}{44}{subsection.7.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.5.2}End-to-End Consensus with Descriptions}{44}{subsection.7.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.5.3}Extension to Other Domains}{44}{subsection.7.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7.6}Final Remarks}{44}{section.7.6}\protected@file@percent }
 \bibcite{Bertsimas2020}{{1}{2021}{{Bertsimas et~al.}}{{Bertsimas, Orfanoudaki, and Wiberg}}}
 \bibcite{Caron2018}{{2}{2018}{{Caron et~al.}}{{Caron, Bojanowski, Joulin, and Douze}}}
 \bibcite{Chang2017}{{3}{2017}{{Chang et~al.}}{{Chang, Wang, Meng, Xiang, and Pan}}}
@@ -248,101 +295,131 @@
 \bibcite{Guidotti2018}{{10}{2018}{{Guidotti et~al.}}{{Guidotti, Monreale, Ruggieri, Turini, Giannotti, and Pedreschi}}}
 \bibcite{Guo2017}{{11}{2017}{{Guo et~al.}}{{Guo, Gao, Liu, and Yin}}}
 \bibcite{He2016}{{12}{2016}{{He et~al.}}{{He, Zhang, Ren, and Sun}}}
-\@writefile{toc}{\contentsline {chapter}{Bibliography}{35}{chapter*.23}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{Bibliography}{45}{chapter*.27}\protected@file@percent }
 \bibcite{Hubert1985}{{13}{1985}{{Hubert and Arabie}}{{}}}
-\bibcite{Kuhn1955}{{14}{1955}{{Kuhn}}{{}}}
-\bibcite{Lampert2013}{{15}{2014}{{Lampert et~al.}}{{Lampert, Nickisch, and Harmeling}}}
-\bibcite{LeCun2015}{{16}{2015}{{LeCun et~al.}}{{LeCun, Bengio, and Hinton}}}
-\bibcite{Lloyd1982}{{17}{1982}{{Lloyd}}{{}}}
-\bibcite{Mautz2020}{{18}{2020}{{Mautz et~al.}}{{Mautz, Plant, and B{\"o}hm}}}
-\bibcite{Miklautz2022}{{19}{2022}{{Miklautz et~al.}}{{Miklautz, Teuffenbach, Weber, Perjuci, Durani, B{\"o}hm, and Plant}}}
-\bibcite{Min2018}{{20}{2018}{{Min et~al.}}{{Min, Guo, Liu, Zhang, Cui, and Long}}}
-\bibcite{Mitchell2011}{{21}{2011}{{Mitchell et~al.}}{{Mitchell, O'Sullivan, and Dunning}}}
-\bibcite{Moshkovitz2020}{{22}{2020}{{Moshkovitz et~al.}}{{Moshkovitz, Dasgupta, Rashtchian, and Frost}}}
-\bibcite{Ren2024}{{23}{2024}{{Ren et~al.}}{{Ren, Pu, Yang, Xu, Li, Pu, Yu, and He}}}
-\bibcite{Ribeiro2016}{{24}{2016}{{Ribeiro et~al.}}{{Ribeiro, Singh, and Guestrin}}}
-\bibcite{Rousseeuw1987}{{25}{1987}{{Rousseeuw}}{{}}}
-\bibcite{Sambaturu2020}{{26}{2020}{{Sambaturu et~al.}}{{Sambaturu, Gupta, Davidson, Ravi, Vullikanti, and Warren}}}
-\bibcite{Strehl2002}{{27}{2002}{{Strehl and Ghosh}}{{}}}
-\bibcite{Vega-Pons2011}{{28}{2011}{{Vega-Pons and Ruiz-Shulcloper}}{{}}}
-\bibcite{Xian2018}{{29}{2019}{{Xian et~al.}}{{Xian, Lampert, Schiele, and Akata}}}
-\bibcite{Xie2016}{{30}{2016}{{Xie et~al.}}{{Xie, Girshick, and Farhadi}}}
-\bibcite{Yang2016}{{31}{2016}{{Yang et~al.}}{{Yang, Parikh, and Batra}}}
-\bibcite{Zhang2021}{{32}{2021}{{Zhang and Davidson}}{{}}}
-\bibcite{Zhou2024}{{33}{2025}{{Zhou et~al.}}{{Zhou, Xu, Zheng, Chen, Li, Bu, Wu, Wang, Zhu, and Ester}}}
+\bibcite{KingmaBa2015}{{14}{2015}{{Kingma and Ba}}{{}}}
+\bibcite{Kuhn1955}{{15}{1955}{{Kuhn}}{{}}}
+\bibcite{Lampert2013}{{16}{2014}{{Lampert et~al.}}{{Lampert, Nickisch, and Harmeling}}}
+\bibcite{LeCun2015}{{17}{2015}{{LeCun et~al.}}{{LeCun, Bengio, and Hinton}}}
+\bibcite{Lloyd1982}{{18}{1982}{{Lloyd}}{{}}}
+\bibcite{Mautz2020}{{19}{2020}{{Mautz et~al.}}{{Mautz, Plant, and B{\"o}hm}}}
+\bibcite{Miklautz2022}{{20}{2022}{{Miklautz et~al.}}{{Miklautz, Teuffenbach, Weber, Perjuci, Durani, B{\"o}hm, and Plant}}}
+\bibcite{Min2018}{{21}{2018}{{Min et~al.}}{{Min, Guo, Liu, Zhang, Cui, and Long}}}
+\bibcite{Mitchell2011}{{22}{2011}{{Mitchell et~al.}}{{Mitchell, O'Sullivan, and Dunning}}}
+\bibcite{Moshkovitz2020}{{23}{2020}{{Moshkovitz et~al.}}{{Moshkovitz, Dasgupta, Rashtchian, and Frost}}}
+\bibcite{Ren2024}{{24}{2024}{{Ren et~al.}}{{Ren, Pu, Yang, Xu, Li, Pu, Yu, and He}}}
+\bibcite{Ribeiro2016}{{25}{2016}{{Ribeiro et~al.}}{{Ribeiro, Singh, and Guestrin}}}
+\bibcite{Rousseeuw1987}{{26}{1987}{{Rousseeuw}}{{}}}
+\bibcite{Sambaturu2020}{{27}{2020}{{Sambaturu et~al.}}{{Sambaturu, Gupta, Davidson, Ravi, Vullikanti, and Warren}}}
+\bibcite{Strehl2002}{{28}{2002}{{Strehl and Ghosh}}{{}}}
+\bibcite{Vega-Pons2011}{{29}{2011}{{Vega-Pons and Ruiz-Shulcloper}}{{}}}
+\bibcite{Xian2018}{{30}{2019}{{Xian et~al.}}{{Xian, Lampert, Schiele, and Akata}}}
+\bibcite{Xie2016}{{31}{2016}{{Xie et~al.}}{{Xie, Girshick, and Farhadi}}}
+\bibcite{Yang2016}{{32}{2016}{{Yang et~al.}}{{Yang, Parikh, and Batra}}}
+\bibcite{Zhang2021}{{33}{2021}{{Zhang and Davidson}}{{}}}
+\bibcite{Zhou2024}{{34}{2025}{{Zhou et~al.}}{{Zhou, Xu, Zheng, Chen, Li, Bu, Wu, Wang, Zhu, and Ester}}}
 \citation{Miklautz2022}
 \citation{Zhang2021}
-\@writefile{toc}{\contentsline {chapter}{List of Figures}{38}{chapter*.24}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{List of Tables}{39}{chapter*.25}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{List of Figures}{48}{chapter*.28}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{List of Tables}{49}{chapter*.29}\protected@file@percent }
 \citation{Xian2018}
 \citation{Lampert2013}
 \citation{Farhadi2009}
-\@writefile{toc}{\contentsline {chapter}{\numberline {A}Complete Results, Early Experiments, and Solver Configuration}{41}{appendix.A}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {A}Complete Results, Early Experiments, and Solver Configuration}{51}{appendix.A}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{app:early_experiments}{{A}{41}{Complete Results, Early Experiments, and Solver Configuration}{appendix.A}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {A.1}Per-Seed Results}{41}{section.A.1}\protected@file@percent }
-\newlabel{sec:perseed_results}{{A.1}{41}{Per-Seed Results}{section.A.1}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {A.1}{\ignorespaces Per-seed AwA2 results}}{41}{table.caption.26}\protected@file@percent }
-\newlabel{tab:awa2_perseed}{{A.1}{41}{Per-seed AwA2 results}{table.caption.26}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {A.2}{\ignorespaces Per-seed aPY 32-class results}}{42}{table.caption.27}\protected@file@percent }
-\newlabel{tab:apy_perseed}{{A.2}{42}{Per-seed aPY 32-class results}{table.caption.27}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {A.3}{\ignorespaces Per-seed aPY 15-class results}}{42}{table.caption.28}\protected@file@percent }
-\newlabel{tab:apy15_perseed}{{A.3}{42}{Per-seed aPY 15-class results}{table.caption.28}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {A.2}Early Experiment Results}{42}{section.A.2}\protected@file@percent }
-\newlabel{sec:early_results}{{A.2}{42}{Early Experiment Results}{section.A.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.2.1}Autoencoder-Based Approach}{42}{subsection.A.2.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.2.2}DDC-Style MLP Training}{43}{subsection.A.2.2}\protected@file@percent }
-\newlabel{subsec:mlp_training}{{A.2.2}{43}{DDC-Style MLP Training}{subsection.A.2.2}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {A.4}{\ignorespaces MLP training results on AwA2. Per-instance tag masking ($r = 0.5$) was needed for the self-generated pairwise constraints to be meaningful; even so, results did not scale from the 1,600-sample subset to the full dataset.}}{43}{table.caption.29}\protected@file@percent }
-\newlabel{tab:mlp_results}{{A.4}{43}{MLP training results on AwA2. Per-instance tag masking ($r = 0.5$) was needed for the self-generated pairwise constraints to be meaningful; even so, results did not scale from the 1,600-sample subset to the full dataset}{table.caption.29}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {A.3}ILP Solver Configuration}{44}{section.A.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {A.5}{\ignorespaces ILP solver parameters and behavior across datasets. Tag counts and tags-per-cluster are for the representative run (seed = 42) shown in Appendix~\ref {app:descriptions}; average TC/ITF in Chapter~\ref {chap:experiments} are over all 10 runs.}}{44}{table.caption.30}\protected@file@percent }
-\newlabel{tab:ilp_config}{{A.5}{44}{ILP solver parameters and behavior across datasets. Tag counts and tags-per-cluster are for the representative run (seed = 42) shown in Appendix~\ref {app:descriptions}; average TC/ITF in Chapter~\ref {chap:experiments} are over all 10 runs}{table.caption.30}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {B}Cluster Descriptions and Dataset Details}{45}{appendix.B}\protected@file@percent }
+\newlabel{app:early_experiments}{{A}{51}{Complete Results, Early Experiments, and Solver Configuration}{appendix.A}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {A.1}Per-Seed Results}{51}{section.A.1}\protected@file@percent }
+\newlabel{sec:perseed_results}{{A.1}{51}{Per-Seed Results}{section.A.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {A.1}{\ignorespaces Per-seed AwA2 results}}{51}{table.caption.30}\protected@file@percent }
+\newlabel{tab:awa2_perseed}{{A.1}{51}{Per-seed AwA2 results}{table.caption.30}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {A.2}{\ignorespaces Per-seed aPY 32-class results}}{52}{table.caption.31}\protected@file@percent }
+\newlabel{tab:apy_perseed}{{A.2}{52}{Per-seed aPY 32-class results}{table.caption.31}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {A.3}{\ignorespaces Per-seed aPY 15-class results}}{52}{table.caption.32}\protected@file@percent }
+\newlabel{tab:apy15_perseed}{{A.3}{52}{Per-seed aPY 15-class results}{table.caption.32}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {A.2}Early Experiment Results}{52}{section.A.2}\protected@file@percent }
+\newlabel{sec:early_results}{{A.2}{52}{Early Experiment Results}{section.A.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.2.1}Autoencoder-Based Approach}{52}{subsection.A.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.2.2}DDC-Style MLP Training}{53}{subsection.A.2.2}\protected@file@percent }
+\newlabel{subsec:mlp_training}{{A.2.2}{53}{DDC-Style MLP Training}{subsection.A.2.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {A.4}{\ignorespaces MLP training results on AwA2. Per-instance tag masking ($r = 0.5$) was needed for the self-generated pairwise constraints to be meaningful; even so, results did not scale from the 1,600-sample subset to the full dataset.}}{53}{table.caption.33}\protected@file@percent }
+\newlabel{tab:mlp_results}{{A.4}{53}{MLP training results on AwA2. Per-instance tag masking ($r = 0.5$) was needed for the self-generated pairwise constraints to be meaningful; even so, results did not scale from the 1,600-sample subset to the full dataset}{table.caption.33}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {A.3}ILP Solver Configuration}{54}{section.A.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {A.5}{\ignorespaces ILP solver parameters and behavior across datasets. Tag counts and tags-per-cluster are for the representative run (seed = 42) shown in Appendix~\ref {app:descriptions}; average TC/ITF in Chapter~\ref {chap:experiments} are over all 10 runs.}}{54}{table.caption.34}\protected@file@percent }
+\newlabel{tab:ilp_config}{{A.5}{54}{ILP solver parameters and behavior across datasets. Tag counts and tags-per-cluster are for the representative run (seed = 42) shown in Appendix~\ref {app:descriptions}; average TC/ITF in Chapter~\ref {chap:experiments} are over all 10 runs}{table.caption.34}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {B}Cluster Descriptions and Dataset Details}{55}{appendix.B}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{app:descriptions}{{B}{45}{Cluster Descriptions and Dataset Details}{appendix.B}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {B.1}Complete ILP Cluster Descriptions}{45}{section.B.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {B.1.1}AwA2 Cluster Descriptions (ddc mode, K = 50)}{45}{subsection.B.1.1}\protected@file@percent }
-\newlabel{subsec:awa2_ddc}{{B.1.1}{45}{AwA2 Cluster Descriptions (ddc mode, K = 50)}{subsection.B.1.1}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {B.1}{\ignorespaces Complete ILP cluster descriptions for all 50 AwA2 clusters (ddc mode, seed=42).}}{46}{table.caption.31}\protected@file@percent }
-\newlabel{tab:awa2_ilp_all}{{B.1}{46}{Complete ILP cluster descriptions for all 50 AwA2 clusters (ddc mode, seed=42)}{table.caption.31}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {B.1.2}aPY 15-Class Cluster Descriptions (ddc mode, K = 15)}{46}{subsection.B.1.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {B.2}{\ignorespaces Complete ILP cluster descriptions for aPY 15-class subset.}}{47}{table.caption.32}\protected@file@percent }
-\newlabel{tab:apy15_ilp_all}{{B.2}{47}{Complete ILP cluster descriptions for aPY 15-class subset}{table.caption.32}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {B.1.3}aPY Full Cluster Descriptions (ddc mode, K = 32)}{47}{subsection.B.1.3}\protected@file@percent }
-\newlabel{subsec:apy_ddc}{{B.1.3}{47}{aPY Full Cluster Descriptions (ddc mode, K = 32)}{subsection.B.1.3}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {B.3}{\ignorespaces Complete ILP cluster descriptions for aPY full dataset (ddc mode, 32 clusters, seed=42).}}{47}{table.caption.33}\protected@file@percent }
-\newlabel{tab:apy32_ilp_all}{{B.3}{47}{Complete ILP cluster descriptions for aPY full dataset (ddc mode, 32 clusters, seed=42)}{table.caption.33}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {B.1.4}AwA2 Cluster Descriptions (ddeccs mode, K = 50)}{48}{subsection.B.1.4}\protected@file@percent }
-\newlabel{subsec:awa2_ddeccs}{{B.1.4}{48}{AwA2 Cluster Descriptions (ddeccs mode, K = 50)}{subsection.B.1.4}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {B.4}{\ignorespaces Complete ILP cluster descriptions for all 50 AwA2 clusters (\texttt  {ddeccs} mode).}}{48}{table.caption.34}\protected@file@percent }
-\newlabel{tab:awa2_ilp_all_ddeccs}{{B.4}{48}{Complete ILP cluster descriptions for all 50 AwA2 clusters (\texttt {ddeccs} mode)}{table.caption.34}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {B.1.5}aPY 15-Class Cluster Descriptions (ddeccs mode, K = 15)}{48}{subsection.B.1.5}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {B.5}{\ignorespaces Complete ILP cluster descriptions for aPY 15-class subset (\texttt  {ddeccs} mode).}}{49}{table.caption.35}\protected@file@percent }
-\newlabel{tab:apy15_ilp_all_ddeccs}{{B.5}{49}{Complete ILP cluster descriptions for aPY 15-class subset (\texttt {ddeccs} mode)}{table.caption.35}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {B.1.6}aPY Full Cluster Descriptions (ddeccs mode, K = 32)}{49}{subsection.B.1.6}\protected@file@percent }
-\newlabel{subsec:apy_ddeccs}{{B.1.6}{49}{aPY Full Cluster Descriptions (ddeccs mode, K = 32)}{subsection.B.1.6}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {B.6}{\ignorespaces Complete ILP cluster descriptions for aPY full dataset (\texttt  {ddeccs} mode, 32 clusters).}}{49}{table.caption.36}\protected@file@percent }
-\newlabel{tab:apy32_ilp_all_ddeccs}{{B.6}{49}{Complete ILP cluster descriptions for aPY full dataset (\texttt {ddeccs} mode, 32 clusters)}{table.caption.36}{}}
+\newlabel{app:descriptions}{{B}{55}{Cluster Descriptions and Dataset Details}{appendix.B}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {B.1}Complete ILP Cluster Descriptions}{55}{section.B.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.1.1}AwA2 Cluster Descriptions (ddc mode, K = 50)}{55}{subsection.B.1.1}\protected@file@percent }
+\newlabel{subsec:awa2_ddc}{{B.1.1}{55}{AwA2 Cluster Descriptions (ddc mode, K = 50)}{subsection.B.1.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {B.1}{\ignorespaces Complete ILP cluster descriptions for all 50 AwA2 clusters (ddc mode, seed=42).}}{56}{table.caption.35}\protected@file@percent }
+\newlabel{tab:awa2_ilp_all}{{B.1}{56}{Complete ILP cluster descriptions for all 50 AwA2 clusters (ddc mode, seed=42)}{table.caption.35}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.1.2}aPY 15-Class Cluster Descriptions (ddc mode, K = 15)}{56}{subsection.B.1.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {B.2}{\ignorespaces Complete ILP cluster descriptions for aPY 15-class subset.}}{57}{table.caption.36}\protected@file@percent }
+\newlabel{tab:apy15_ilp_all}{{B.2}{57}{Complete ILP cluster descriptions for aPY 15-class subset}{table.caption.36}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.1.3}aPY Full Cluster Descriptions (ddc mode, K = 32)}{57}{subsection.B.1.3}\protected@file@percent }
+\newlabel{subsec:apy_ddc}{{B.1.3}{57}{aPY Full Cluster Descriptions (ddc mode, K = 32)}{subsection.B.1.3}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {B.3}{\ignorespaces Complete ILP cluster descriptions for aPY full dataset (ddc mode, 32 clusters, seed=42).}}{57}{table.caption.37}\protected@file@percent }
+\newlabel{tab:apy32_ilp_all}{{B.3}{57}{Complete ILP cluster descriptions for aPY full dataset (ddc mode, 32 clusters, seed=42)}{table.caption.37}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.1.4}AwA2 Cluster Descriptions (ddeccs mode, K = 50)}{58}{subsection.B.1.4}\protected@file@percent }
+\newlabel{subsec:awa2_ddeccs}{{B.1.4}{58}{AwA2 Cluster Descriptions (ddeccs mode, K = 50)}{subsection.B.1.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {B.4}{\ignorespaces Complete ILP cluster descriptions for all 50 AwA2 clusters (\texttt  {ddeccs} mode).}}{58}{table.caption.38}\protected@file@percent }
+\newlabel{tab:awa2_ilp_all_ddeccs}{{B.4}{58}{Complete ILP cluster descriptions for all 50 AwA2 clusters (\texttt {ddeccs} mode)}{table.caption.38}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.1.5}aPY 15-Class Cluster Descriptions (ddeccs mode, K = 15)}{58}{subsection.B.1.5}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {B.5}{\ignorespaces Complete ILP cluster descriptions for aPY 15-class subset (\texttt  {ddeccs} mode).}}{59}{table.caption.39}\protected@file@percent }
+\newlabel{tab:apy15_ilp_all_ddeccs}{{B.5}{59}{Complete ILP cluster descriptions for aPY 15-class subset (\texttt {ddeccs} mode)}{table.caption.39}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.1.6}aPY Full Cluster Descriptions (ddeccs mode, K = 32)}{59}{subsection.B.1.6}\protected@file@percent }
+\newlabel{subsec:apy_ddeccs}{{B.1.6}{59}{aPY Full Cluster Descriptions (ddeccs mode, K = 32)}{subsection.B.1.6}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {B.6}{\ignorespaces Complete ILP cluster descriptions for aPY full dataset (\texttt  {ddeccs} mode, 32 clusters).}}{59}{table.caption.40}\protected@file@percent }
+\newlabel{tab:apy32_ilp_all_ddeccs}{{B.6}{59}{Complete ILP cluster descriptions for aPY full dataset (\texttt {ddeccs} mode, 32 clusters)}{table.caption.40}{}}
 \citation{Xian2018}
 \citation{Lampert2013}
 \citation{Xian2018}
 \citation{Lampert2013}
 \citation{Farhadi2009}
 \citation{Farhadi2009}
-\@writefile{toc}{\contentsline {section}{\numberline {B.2}Dataset Statistics}{50}{section.B.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {B.2.1}AwA2 Dataset}{50}{subsection.B.2.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {B.7}{\ignorespaces AwA2 dataset statistics. AwA2~\citep  {Xian2018} replaces the original AwA dataset~\citep  {Lampert2013}, which was withdrawn due to copyright restrictions. Both datasets share the same 50 classes and 85 attributes.}}{50}{table.caption.37}\protected@file@percent }
-\newlabel{tab:awa2_stats}{{B.7}{50}{AwA2 dataset statistics. AwA2~\citep {Xian2018} replaces the original AwA dataset~\citep {Lampert2013}, which was withdrawn due to copyright restrictions. Both datasets share the same 50 classes and 85 attributes}{table.caption.37}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {B.2.2}aPY Dataset}{50}{subsection.B.2.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {B.8}{\ignorespaces aPY dataset statistics. The dataset combines Pascal VOC~2008 and Yahoo images~\citep  {Farhadi2009}.}}{50}{table.caption.38}\protected@file@percent }
-\newlabel{tab:apy_stats}{{B.8}{50}{aPY dataset statistics. The dataset combines Pascal VOC~2008 and Yahoo images~\citep {Farhadi2009}}{table.caption.38}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {B.3}DECCS Ensemble Details}{50}{section.B.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {B.9}{\ignorespaces DECCS base clustering algorithms and their configurations.}}{51}{table.caption.39}\protected@file@percent }
-\newlabel{tab:ensemble_details}{{B.9}{51}{DECCS base clustering algorithms and their configurations}{table.caption.39}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {B.4}Implementation Details}{51}{section.B.4}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {B.10}{\ignorespaces Source code files and their roles in the DDECCS pipeline.}}{51}{table.caption.40}\protected@file@percent }
-\newlabel{tab:code_files}{{B.10}{51}{Source code files and their roles in the DDECCS pipeline}{table.caption.40}{}}
-\gdef \@abspage@last{57}
+\@writefile{toc}{\contentsline {section}{\numberline {B.2}Dataset Statistics}{60}{section.B.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.2.1}AwA2 Dataset}{60}{subsection.B.2.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {B.7}{\ignorespaces AwA2 dataset statistics. AwA2~\citep  {Xian2018} replaces the original AwA dataset~\citep  {Lampert2013}, which was withdrawn due to copyright restrictions. Both datasets share the same 50 classes and 85 attributes.}}{60}{table.caption.41}\protected@file@percent }
+\newlabel{tab:awa2_stats}{{B.7}{60}{AwA2 dataset statistics. AwA2~\citep {Xian2018} replaces the original AwA dataset~\citep {Lampert2013}, which was withdrawn due to copyright restrictions. Both datasets share the same 50 classes and 85 attributes}{table.caption.41}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.2.2}aPY Dataset}{60}{subsection.B.2.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {B.8}{\ignorespaces aPY dataset statistics. The dataset combines Pascal VOC~2008 and Yahoo images~\citep  {Farhadi2009}.}}{60}{table.caption.42}\protected@file@percent }
+\newlabel{tab:apy_stats}{{B.8}{60}{aPY dataset statistics. The dataset combines Pascal VOC~2008 and Yahoo images~\citep {Farhadi2009}}{table.caption.42}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {B.3}DECCS Ensemble Details}{60}{section.B.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {B.9}{\ignorespaces DECCS base clustering algorithms and their configurations.}}{61}{table.caption.43}\protected@file@percent }
+\newlabel{tab:ensemble_details}{{B.9}{61}{DECCS base clustering algorithms and their configurations}{table.caption.43}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {B.4}Implementation Details}{61}{section.B.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {B.10}{\ignorespaces Source code files and their roles in the DDECCS pipeline.}}{61}{table.caption.44}\protected@file@percent }
+\newlabel{tab:code_files}{{B.10}{61}{Source code files and their roles in the DDECCS pipeline}{table.caption.44}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {C}Reproduction Details}{62}{appendix.C}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{app:reproduction}{{C}{62}{Reproduction Details}{appendix.C}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {C.1}Per-Configuration Results}{62}{section.C.1}\protected@file@percent }
+\newlabel{sec:c_perseed}{{C.1}{62}{Per-Configuration Results}{section.C.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {C.1}{\ignorespaces Per-configuration AwA2 reproduction results}}{62}{table.caption.45}\protected@file@percent }
+\newlabel{tab:c_awa2_runs}{{C.1}{62}{Per-configuration AwA2 reproduction results}{table.caption.45}{}}
+\citation{Zhang2021}
+\citation{Zhang2021}
+\@writefile{lot}{\contentsline {table}{\numberline {C.2}{\ignorespaces Per-configuration aPY-15 reproduction results}}{63}{table.caption.46}\protected@file@percent }
+\newlabel{tab:c_apy_runs}{{C.2}{63}{Per-configuration aPY-15 reproduction results}{table.caption.46}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {C.2}The Specification as Extracted from the Paper}{63}{section.C.2}\protected@file@percent }
+\newlabel{sec:c_spec}{{C.2}{63}{The Specification as Extracted from the Paper}{section.C.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {C.3}{\ignorespaces Extracted specification of the original DDC}}{63}{table.caption.47}\protected@file@percent }
+\newlabel{tab:c_spec}{{C.3}{63}{Extracted specification of the original DDC}{table.caption.47}{}}
+\citation{KingmaBa2015}
+\@writefile{toc}{\contentsline {section}{\numberline {C.3}Judgment Calls}{64}{section.C.3}\protected@file@percent }
+\newlabel{sec:c_judgment}{{C.3}{64}{Judgment Calls}{section.C.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {C.4}Recovery of the aPY Per-Instance Annotations}{65}{section.C.4}\protected@file@percent }
+\newlabel{sec:c_apy_tags}{{C.4}{65}{Recovery of the aPY Per-Instance Annotations}{section.C.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {C.5}Solver Certification Audit}{65}{section.C.5}\protected@file@percent }
+\newlabel{sec:c_certification}{{C.5}{65}{Solver Certification Audit}{section.C.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {C.6}Defect Inventory}{66}{section.C.6}\protected@file@percent }
+\newlabel{sec:c_defects}{{C.6}{66}{Defect Inventory}{section.C.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {C.7}Runtimes}{66}{section.C.7}\protected@file@percent }
+\newlabel{sec:c_runtimes}{{C.7}{66}{Runtimes}{section.C.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {C.8}Code Inventory}{67}{section.C.8}\protected@file@percent }
+\newlabel{sec:c_code}{{C.8}{67}{Code Inventory}{section.C.8}{}}
+\gdef \@abspage@last{74}

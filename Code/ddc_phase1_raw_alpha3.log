@@ -1,0 +1,83 @@
+2026-08-12 13:39:20,337 - INFO - GPU: NVIDIA GeForce RTX 4090
+2026-08-12 13:39:20,392 - INFO - Predicate matrix: 50 classes × 85 attributes
+2026-08-12 13:39:20,439 - INFO - Train split: 29857 samples, 50 classes, 85 attributes
+2026-08-12 13:39:21,533 - INFO - Loaded cached features (29857, 2048) from cache/resnet101_awa2_full.npz
+2026-08-12 13:39:21,544 - INFO - Binary tags (29857, 85) from data/AwA2-data/Animals_with_Attributes2/predicate-matrix-binary.txt (density=0.365)
+2026-08-12 13:39:21,553 - INFO - Annotation r=0.5 (instance-level): 813/1600 annotated, 787 mean-imputed
+2026-08-12 13:39:21,553 - INFO - === DDC rebuild | awa2 (sanity) | N=1600 | K=50 | M=85 | preproc=none | r=0.5 ===
+2026-08-12 13:39:24,188 - INFO - Pre-training 10 epochs (g = identity, Algorithm 1 lines 1-2)
+2026-08-12 13:39:25,323 - INFO - [pretrain r0 e1] L=-1.9557 MI=-1.9559 PW=0.0002 H(Y|X)=3.911 H(Y)=3.912 active=21/50 pairs=813 NMI=0.3981 ACC=0.2288
+2026-08-12 13:39:25,365 - INFO - [pretrain r0 e2] L=-1.9563 MI=-1.9565 PW=0.0002 H(Y|X)=3.911 H(Y)=3.912 active=37/50 pairs=813 NMI=0.5459 ACC=0.2744
+2026-08-12 13:39:25,412 - INFO - [pretrain r0 e3] L=-1.9886 MI=-2.0060 PW=0.0175 H(Y|X)=3.859 H(Y)=3.910 active=20/50 pairs=813 NMI=0.4478 ACC=0.1806
+2026-08-12 13:39:25,465 - INFO - [pretrain r0 e4] L=-2.2519 MI=-2.4342 PW=0.1823 H(Y|X)=3.357 H(Y)=3.861 active=25/50 pairs=813 NMI=0.5428 ACC=0.2619
+2026-08-12 13:39:25,521 - INFO - [pretrain r0 e5] L=-2.5144 MI=-2.8552 PW=0.3408 H(Y|X)=2.861 H(Y)=3.811 active=33/50 pairs=813 NMI=0.6450 ACC=0.3969
+2026-08-12 13:39:25,580 - INFO - [pretrain r0 e6] L=-2.7979 MI=-3.1065 PW=0.3085 H(Y|X)=2.609 H(Y)=3.810 active=25/50 pairs=813 NMI=0.6509 ACC=0.3419
+2026-08-12 13:39:25,641 - INFO - [pretrain r0 e7] L=-2.8331 MI=-3.2981 PW=0.4650 H(Y|X)=2.334 H(Y)=3.755 active=32/50 pairs=813 NMI=0.7117 ACC=0.4306
+2026-08-12 13:39:25,704 - INFO - [pretrain r0 e8] L=-3.1866 MI=-3.4258 PW=0.2391 H(Y|X)=2.182 H(Y)=3.738 active=29/50 pairs=813 NMI=0.7404 ACC=0.5062
+2026-08-12 13:39:25,767 - INFO - [pretrain r0 e9] L=-3.3634 MI=-3.5787 PW=0.2154 H(Y|X)=1.985 H(Y)=3.709 active=36/50 pairs=813 NMI=0.7810 ACC=0.5869
+2026-08-12 13:39:25,832 - INFO - [pretrain r0 e10] L=-3.4642 MI=-3.8048 PW=0.3405 H(Y|X)=1.810 H(Y)=3.743 active=32/50 pairs=813 NMI=0.7838 ACC=0.5719
+2026-08-12 13:39:46,177 - INFO - [ILP] beta=2, 32 active clusters, 69/85 tags kept, 4.5 tags/cluster
+2026-08-12 13:39:46,243 - INFO - [round r1 e1] L=-3.5204 MI=-4.0396 PW=0.5191 H(Y|X)=1.558 H(Y)=3.731 active=39/50 pairs=813 NMI=0.7846 ACC=0.5781
+2026-08-12 13:39:46,306 - INFO - [round r1 e2] L=-3.5768 MI=-4.2314 PW=0.6545 H(Y|X)=1.326 H(Y)=3.705 active=34/50 pairs=813 NMI=0.8253 ACC=0.6088
+2026-08-12 13:40:07,645 - INFO - [ILP] beta=3, 34 active clusters, 50/85 tags kept, 4.0 tags/cluster
+2026-08-12 13:40:07,716 - INFO - [round r2 e1] L=-3.9482 MI=-4.3750 PW=0.4269 H(Y|X)=1.176 H(Y)=3.701 active=40/50 pairs=813 NMI=0.8323 ACC=0.6475
+2026-08-12 13:40:07,788 - INFO - [round r2 e2] L=-3.8766 MI=-4.4564 PW=0.5797 H(Y|X)=1.030 H(Y)=3.657 active=38/50 pairs=813 NMI=0.8452 ACC=0.6456
+2026-08-12 13:40:30,959 - INFO - [ILP] beta=3, 38 active clusters, 54/85 tags kept, 4.0 tags/cluster
+2026-08-12 13:40:31,024 - INFO - [round r3 e1] L=-3.9445 MI=-4.5118 PW=0.5672 H(Y|X)=0.991 H(Y)=3.668 active=40/50 pairs=813 NMI=0.8835 ACC=0.7438
+2026-08-12 13:40:31,087 - INFO - [round r3 e2] L=-4.0993 MI=-4.6055 PW=0.5062 H(Y|X)=0.937 H(Y)=3.695 active=44/50 pairs=813 NMI=0.8763 ACC=0.7488
+2026-08-12 13:40:55,366 - INFO - [ILP] beta=3, 44 active clusters, 59/85 tags kept, 4.0 tags/cluster
+2026-08-12 13:40:55,429 - INFO - [round r4 e1] L=-4.2423 MI=-4.7276 PW=0.4854 H(Y|X)=0.834 H(Y)=3.707 active=43/50 pairs=813 NMI=0.8808 ACC=0.7100
+2026-08-12 13:40:55,495 - INFO - [round r4 e2] L=-4.1323 MI=-4.8078 PW=0.6755 H(Y|X)=0.725 H(Y)=3.689 active=42/50 pairs=813 NMI=0.8987 ACC=0.7700
+2026-08-12 13:41:21,781 - INFO - [ILP] beta=3, 42 active clusters, 55/85 tags kept, 4.0 tags/cluster
+2026-08-12 13:41:21,842 - INFO - [round r5 e1] L=-3.9848 MI=-4.8481 PW=0.8633 H(Y|X)=0.644 H(Y)=3.661 active=43/50 pairs=813 NMI=0.9027 ACC=0.8031
+2026-08-12 13:41:21,905 - INFO - [round r5 e2] L=-4.2729 MI=-4.8272 PW=0.5542 H(Y|X)=0.646 H(Y)=3.649 active=41/50 pairs=813 NMI=0.9083 ACC=0.7887
+2026-08-12 13:41:44,612 - INFO - [ILP] beta=3, 41 active clusters, 52/85 tags kept, 4.0 tags/cluster
+2026-08-12 13:41:44,672 - INFO - [round r6 e1] L=-4.0845 MI=-4.8810 PW=0.7966 H(Y|X)=0.654 H(Y)=3.690 active=41/50 pairs=813 NMI=0.8965 ACC=0.7963
+2026-08-12 13:41:44,735 - INFO - [round r6 e2] L=-4.1904 MI=-4.9171 PW=0.7268 H(Y|X)=0.599 H(Y)=3.677 active=44/50 pairs=813 NMI=0.8918 ACC=0.7762
+2026-08-12 13:42:14,495 - INFO - [ILP] beta=3, 44 active clusters, 56/85 tags kept, 4.0 tags/cluster
+2026-08-12 13:42:14,564 - INFO - [round r7 e1] L=-4.1557 MI=-4.8980 PW=0.7423 H(Y|X)=0.603 H(Y)=3.667 active=44/50 pairs=813 NMI=0.8964 ACC=0.7694
+2026-08-12 13:42:14,632 - INFO - [round r7 e2] L=-4.3919 MI=-4.8926 PW=0.5007 H(Y|X)=0.617 H(Y)=3.673 active=45/50 pairs=813 NMI=0.8891 ACC=0.7619
+2026-08-12 13:42:57,187 - INFO - [ILP] beta=4, 45 active clusters, 52/85 tags kept, 4.0 tags/cluster
+2026-08-12 13:42:57,242 - INFO - [round r8 e1] L=-4.2415 MI=-4.9108 PW=0.6694 H(Y|X)=0.603 H(Y)=3.676 active=43/50 pairs=813 NMI=0.9091 ACC=0.8019
+2026-08-12 13:42:57,314 - INFO - [round r8 e2] L=-4.3194 MI=-4.9030 PW=0.5836 H(Y|X)=0.589 H(Y)=3.662 active=44/50 pairs=813 NMI=0.9086 ACC=0.8119
+2026-08-12 13:43:03,962 - INFO - [ILP] beta=3, 44 active clusters, 54/85 tags kept, 4.0 tags/cluster
+2026-08-12 13:43:04,018 - INFO - [round r9 e1] L=-4.2879 MI=-4.9573 PW=0.6694 H(Y|X)=0.532 H(Y)=3.659 active=42/50 pairs=813 NMI=0.9042 ACC=0.8119
+2026-08-12 13:43:04,080 - INFO - [round r9 e2] L=-4.1342 MI=-4.9572 PW=0.8231 H(Y|X)=0.566 H(Y)=3.682 active=43/50 pairs=813 NMI=0.9047 ACC=0.7969
+2026-08-12 13:43:31,410 - INFO - [ILP] beta=3, 43 active clusters, 54/85 tags kept, 4.0 tags/cluster
+2026-08-12 13:43:31,475 - INFO - [round r10 e1] L=-4.4590 MI=-4.9504 PW=0.4914 H(Y|X)=0.577 H(Y)=3.685 active=45/50 pairs=813 NMI=0.9081 ACC=0.8200
+2026-08-12 13:43:31,535 - INFO - [round r10 e2] L=-4.3979 MI=-4.9814 PW=0.5835 H(Y|X)=0.570 H(Y)=3.701 active=47/50 pairs=813 NMI=0.9047 ACC=0.8187
+2026-08-12 13:44:13,483 - INFO - [ILP] beta=4, 47 active clusters, 51/85 tags kept, 4.0 tags/cluster
+2026-08-12 13:44:13,545 - INFO - [round r11 e1] L=-4.4602 MI=-5.0037 PW=0.5435 H(Y|X)=0.526 H(Y)=3.686 active=48/50 pairs=813 NMI=0.9067 ACC=0.8163
+2026-08-12 13:44:13,613 - INFO - [round r11 e2] L=-4.5020 MI=-5.0647 PW=0.5628 H(Y|X)=0.484 H(Y)=3.699 active=48/50 pairs=813 NMI=0.9080 ACC=0.8325
+2026-08-12 13:44:21,858 - INFO - [ILP] beta=3, 48 active clusters, 58/85 tags kept, 4.0 tags/cluster
+2026-08-12 13:44:21,919 - INFO - [round r12 e1] L=-4.2874 MI=-5.0605 PW=0.7731 H(Y|X)=0.514 H(Y)=3.716 active=47/50 pairs=813 NMI=0.9049 ACC=0.8225
+2026-08-12 13:44:21,984 - INFO - [round r12 e2] L=-4.6285 MI=-5.0731 PW=0.4446 H(Y|X)=0.496 H(Y)=3.713 active=48/50 pairs=813 NMI=0.9022 ACC=0.8019
+2026-08-12 13:45:03,720 - INFO - [ILP] beta=4, 48 active clusters, 51/85 tags kept, 4.0 tags/cluster
+2026-08-12 13:45:03,771 - INFO - [round r13 e1] L=-4.2759 MI=-5.0611 PW=0.7852 H(Y|X)=0.498 H(Y)=3.706 active=49/50 pairs=813 NMI=0.9109 ACC=0.8306
+2026-08-12 13:45:03,830 - INFO - [round r13 e2] L=-4.3582 MI=-5.0689 PW=0.7107 H(Y|X)=0.533 H(Y)=3.735 active=48/50 pairs=813 NMI=0.9099 ACC=0.8294
+2026-08-12 13:45:24,040 - INFO - [ILP] beta=3, 48 active clusters, 63/85 tags kept, 4.1 tags/cluster
+2026-08-12 13:45:24,132 - INFO - [round r14 e1] L=-4.2841 MI=-5.0572 PW=0.7731 H(Y|X)=0.531 H(Y)=3.725 active=47/50 pairs=813 NMI=0.9137 ACC=0.8306
+2026-08-12 13:45:24,174 - INFO - [round r14 e2] L=-4.6171 MI=-5.0445 PW=0.4273 H(Y|X)=0.547 H(Y)=3.728 active=49/50 pairs=813 NMI=0.9117 ACC=0.8363
+2026-08-12 13:46:06,088 - INFO - [ILP] beta=4, 49 active clusters, 56/85 tags kept, 4.0 tags/cluster
+2026-08-12 13:46:06,147 - INFO - [round r15 e1] L=-4.5185 MI=-5.0622 PW=0.5437 H(Y|X)=0.519 H(Y)=3.721 active=49/50 pairs=813 NMI=0.9050 ACC=0.8044
+2026-08-12 13:46:06,209 - INFO - [round r15 e2] L=-4.5438 MI=-5.1100 PW=0.5662 H(Y|X)=0.476 H(Y)=3.724 active=48/50 pairs=813 NMI=0.9136 ACC=0.8425
+2026-08-12 13:46:14,735 - INFO - [ILP] beta=3, 48 active clusters, 61/85 tags kept, 4.0 tags/cluster
+2026-08-12 13:46:14,790 - INFO - [round r16 e1] L=-4.5570 MI=-5.1104 PW=0.5534 H(Y|X)=0.466 H(Y)=3.717 active=49/50 pairs=813 NMI=0.9176 ACC=0.8494
+2026-08-12 13:46:14,846 - INFO - [round r16 e2] L=-4.3620 MI=-5.1372 PW=0.7752 H(Y|X)=0.449 H(Y)=3.724 active=48/50 pairs=813 NMI=0.9149 ACC=0.8337
+2026-08-12 13:46:55,155 - INFO - [ILP] beta=3, 48 active clusters, 62/85 tags kept, 4.1 tags/cluster
+2026-08-12 13:46:55,218 - INFO - [round r17 e1] L=-4.5739 MI=-5.0845 PW=0.5106 H(Y|X)=0.489 H(Y)=3.715 active=48/50 pairs=813 NMI=0.9167 ACC=0.8369
+2026-08-12 13:46:55,283 - INFO - [round r17 e2] L=-4.5822 MI=-5.1061 PW=0.5239 H(Y|X)=0.492 H(Y)=3.732 active=49/50 pairs=813 NMI=0.9166 ACC=0.8419
+2026-08-12 13:47:37,806 - INFO - [ILP] beta=4, 49 active clusters, 57/85 tags kept, 4.0 tags/cluster
+2026-08-12 13:47:37,862 - INFO - [round r18 e1] L=-4.5886 MI=-5.1231 PW=0.5344 H(Y|X)=0.458 H(Y)=3.721 active=49/50 pairs=813 NMI=0.9165 ACC=0.8331
+2026-08-12 13:47:37,919 - INFO - [round r18 e2] L=-4.5297 MI=-5.1409 PW=0.6112 H(Y|X)=0.434 H(Y)=3.717 active=48/50 pairs=813 NMI=0.9121 ACC=0.8250
+2026-08-12 13:47:58,069 - INFO - [ILP] beta=3, 48 active clusters, 60/85 tags kept, 4.0 tags/cluster
+2026-08-12 13:47:58,134 - INFO - [round r19 e1] L=-4.5713 MI=-5.1089 PW=0.5376 H(Y|X)=0.463 H(Y)=3.715 active=49/50 pairs=813 NMI=0.9126 ACC=0.8363
+2026-08-12 13:47:58,198 - INFO - [round r19 e2] L=-4.6306 MI=-5.1165 PW=0.4860 H(Y|X)=0.456 H(Y)=3.715 active=49/50 pairs=813 NMI=0.9117 ACC=0.8244
+2026-08-12 13:48:38,648 - INFO - [ILP] beta=3, 49 active clusters, 61/85 tags kept, 4.0 tags/cluster
+2026-08-12 13:48:38,708 - INFO - [round r20 e1] L=-4.5972 MI=-5.1166 PW=0.5193 H(Y|X)=0.444 H(Y)=3.707 active=49/50 pairs=813 NMI=0.9146 ACC=0.8344
+2026-08-12 13:48:38,766 - INFO - [round r20 e2] L=-4.7816 MI=-5.0961 PW=0.3145 H(Y|X)=0.451 H(Y)=3.698 active=49/50 pairs=813 NMI=0.9165 ACC=0.8363
+2026-08-12 13:48:39,827 - INFO - Artefacts written to results_v2/ddc_phase1/awa2/raw_alpha3/
+2026-08-12 13:48:39,827 - INFO - === RESULT ===
+2026-08-12 13:48:39,828 - INFO - final  NMI=0.9165 ACC=0.8363 ARI=0.8229 active=49/50
+2026-08-12 13:48:39,828 - INFO - best   NMI=0.9176 at step 287 (round round 16)
+2026-08-12 13:48:39,828 - INFO - TC=0.7307 ITF=2.6689 (nats)

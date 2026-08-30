@@ -1,0 +1,43 @@
+{
+  "run_dir": "results_v2/ddc_phase1/awa2/full_mu15_a3_ilp_t120_s46",
+  "time_limit": 120,
+  "threads": 1,
+  "beta_min": 4,
+  "alpha": 3,
+  "seed": 46,
+  "k_active": 50,
+  "beta_lower_bound_arithmetic": 2,
+  "trace": [
+    {
+      "beta": 4,
+      "lp_relaxation": {
+        "status": "Optimal",
+        "objective": 185.95,
+        "seconds": 0.07
+      },
+      "outcome": "proven_optimal",
+      "seconds": 2.0,
+      "lp_status": "Optimal",
+      "sol_status": "Optimal Solution Found",
+      "objective": 200.0,
+      "constraints_verified": true,
+      "n_tags": 51,
+      "tags_per_cluster": 4.0
+    }
+  ],
+  "reference": {
+    "beta": 4,
+    "n_tags": 53,
+    "avg_tc": 0.7724,
+    "avg_itf": 2.4806,
+    "original_time_limit": 120
+  },
+  "accepted": {
+    "beta": 4,
+    "n_tags": 51,
+    "tags_per_cluster": 4.0,
+    "outcome": "proven_optimal",
+    "avg_tc": 0.7761,
+    "avg_itf": 2.4667
+  }
+}

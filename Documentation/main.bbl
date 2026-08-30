@@ -1,4 +1,4 @@
-\begin{thebibliography}{33}
+\begin{thebibliography}{34}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -86,6 +86,13 @@ L.~Hubert and P.~Arabie.
 \newblock Comparing partitions.
 \newblock \emph{Journal of Classification}, 2\penalty0 (1):\penalty0 193--218,
   1985.
+
+\bibitem[Kingma and Ba(2015)]{KingmaBa2015}
+D.~P. Kingma and J.~Ba.
+\newblock Adam: A method for stochastic optimization.
+\newblock In \emph{3rd International Conference on Learning Representations
+  (ICLR)}, 2015.
+\newblock arXiv:1412.6980.
 
 \bibitem[Kuhn(1955)]{Kuhn1955}
 H.~W. Kuhn.

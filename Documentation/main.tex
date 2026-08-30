@@ -145,6 +145,8 @@
 
     We evaluate on two established datasets: Animals with Attributes~2 (AwA2, 50 classes, 85 attributes) and Attribute Pascal and Yahoo (aPY, 15 and 32 classes, 64 attributes). On AwA2, frozen ResNet-101 features already cluster well (K-means NMI = 0.869), and DDECCS reaches NMI = 0.871---approaching DDC's published 0.896 without task-specific training; on this dataset the consensus step mainly improves accuracy and reduces variance rather than raising NMI. On aPY, DDC's trained model remains stronger (published NMI = 0.863), but our consensus step still improves substantially over a single-algorithm K-means baseline---by 15.6\% relative NMI on the 32-class task (0.534 $\to$ 0.618)---while reducing run-to-run NMI variance by a factor of two to six depending on the dataset. The post-hoc ILP descriptions are semantically coherent, producing explanations such as ``orange, stripes, claws, muscle'' for a tiger cluster and ``Pedal, Handlebars, Text, Plastic'' for a bicycle cluster.
 
+    Because no implementation of DDC is publicly available, we additionally rebuild it from its published specification and evaluate it against matched baselines on both datasets under identical features and splits. The controlled comparison shows that DDC's self-generated pairwise constraints reduce to class supervision on per-class-attribute data, and that its description-to-clustering channel does not improve clustering on either dataset---inert on AwA2 and consistently harmful on aPY.
+
     The thesis also documents extensive experiments with alternative approaches---including autoencoder-based training and DDC-style optimization on frozen features---together with a code-level diagnosis of why they failed, providing practical insights into the challenges of multi-objective deep clustering.
 \end{abstract}
 
@@ -215,6 +217,9 @@
 \chapter{Experiments}
 \input{chapters/experiments}
 
+\chapter{A Controlled Comparison with the Original DDC}
+\input{chapters/ddc_reproduction}
+
 \chapter{Discussion}
 \input{chapters/discussion}
 
@@ -232,5 +237,7 @@
 \input{appendices/appendix_a}
 
 \input{appendices/appendix_b}
+
+\input{appendices/appendix_c}
 
 \end{document}

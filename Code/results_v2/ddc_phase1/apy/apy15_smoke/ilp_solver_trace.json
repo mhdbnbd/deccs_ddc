@@ -1,0 +1,247 @@
+[
+  {
+    "round": 1,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": [
+      {
+        "beta": 1,
+        "outcome": "proven_infeasible",
+        "lp_status": "Infeasible",
+        "sol_status": "No Solution Exists",
+        "seconds": 0.0,
+        "time_limit": 60,
+        "objective": null
+      },
+      {
+        "beta": 2,
+        "outcome": "proven_infeasible",
+        "lp_status": "Infeasible",
+        "sol_status": "No Solution Exists",
+        "seconds": 0.0,
+        "time_limit": 60,
+        "objective": null
+      },
+      {
+        "beta": 3,
+        "outcome": "proven_infeasible",
+        "lp_status": "Infeasible",
+        "sol_status": "No Solution Exists",
+        "seconds": 0.0,
+        "time_limit": 60,
+        "objective": null
+      },
+      {
+        "beta": 4,
+        "outcome": "proven_infeasible",
+        "lp_status": "Infeasible",
+        "sol_status": "No Solution Exists",
+        "seconds": 0.0,
+        "time_limit": 60,
+        "objective": null
+      },
+      {
+        "beta": 5,
+        "outcome": "proven_infeasible",
+        "lp_status": "Infeasible",
+        "sol_status": "No Solution Exists",
+        "seconds": 0.0,
+        "time_limit": 60,
+        "objective": null
+      },
+      {
+        "beta": 6,
+        "outcome": "proven_infeasible",
+        "lp_status": "Infeasible",
+        "sol_status": "No Solution Exists",
+        "seconds": 0.0,
+        "time_limit": 60,
+        "objective": null
+      },
+      {
+        "beta": 7,
+        "outcome": "proven_infeasible",
+        "lp_status": "Infeasible",
+        "sol_status": "No Solution Exists",
+        "seconds": 0.0,
+        "time_limit": 60,
+        "objective": null
+      },
+      {
+        "beta": 8,
+        "outcome": "proven_infeasible",
+        "lp_status": "Infeasible",
+        "sol_status": "No Solution Exists",
+        "seconds": 0.0,
+        "time_limit": 60,
+        "objective": null
+      },
+      {
+        "beta": 9,
+        "outcome": "proven_infeasible",
+        "lp_status": "Infeasible",
+        "sol_status": "No Solution Exists",
+        "seconds": 0.0,
+        "time_limit": 60,
+        "objective": null
+      },
+      {
+        "beta": 10,
+        "outcome": "proven_infeasible",
+        "lp_status": "Infeasible",
+        "sol_status": "No Solution Exists",
+        "seconds": 0.0,
+        "time_limit": 60,
+        "objective": null
+      },
+      {
+        "beta": 11,
+        "outcome": "proven_infeasible",
+        "lp_status": "Infeasible",
+        "sol_status": "No Solution Exists",
+        "seconds": 0.0,
+        "time_limit": 60,
+        "objective": null
+      },
+      {
+        "beta": 12,
+        "outcome": "proven_infeasible",
+        "lp_status": "Infeasible",
+        "sol_status": "No Solution Exists",
+        "seconds": 0.0,
+        "time_limit": 60,
+        "objective": null
+      }
+    ]
+  },
+  {
+    "round": 2,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": [
+      {
+        "beta": 1,
+        "outcome": "proven_infeasible",
+        "lp_status": "Infeasible",
+        "sol_status": "No Solution Exists",
+        "seconds": 0.0,
+        "time_limit": 60,
+        "objective": null
+      },
+      {
+        "beta": 2,
+        "outcome": "proven_infeasible",
+        "lp_status": "Infeasible",
+        "sol_status": "No Solution Exists",
+        "seconds": 0.0,
+        "time_limit": 60,
+        "objective": null
+      },
+      {
+        "beta": 3,
+        "outcome": "proven_infeasible",
+        "lp_status": "Infeasible",
+        "sol_status": "No Solution Exists",
+        "seconds": 0.0,
+        "time_limit": 60,
+        "objective": null
+      },
+      {
+        "beta": 4,
+        "outcome": "proven_infeasible",
+        "lp_status": "Infeasible",
+        "sol_status": "No Solution Exists",
+        "seconds": 0.0,
+        "time_limit": 60,
+        "objective": null
+      },
+      {
+        "beta": 5,
+        "outcome": "proven_infeasible",
+        "lp_status": "Infeasible",
+        "sol_status": "No Solution Exists",
+        "seconds": 0.0,
+        "time_limit": 60,
+        "objective": null
+      },
+      {
+        "beta": 6,
+        "outcome": "proven_infeasible",
+        "lp_status": "Infeasible",
+        "sol_status": "No Solution Exists",
+        "seconds": 0.0,
+        "time_limit": 60,
+        "objective": null
+      },
+      {
+        "beta": 7,
+        "outcome": "proven_infeasible",
+        "lp_status": "Infeasible",
+        "sol_status": "No Solution Exists",
+        "seconds": 0.0,
+        "time_limit": 60,
+        "objective": null
+      },
+      {
+        "beta": 8,
+        "outcome": "proven_infeasible",
+        "lp_status": "Infeasible",
+        "sol_status": "No Solution Exists",
+        "seconds": 0.0,
+        "time_limit": 60,
+        "objective": null
+      },
+      {
+        "beta": 9,
+        "outcome": "proven_infeasible",
+        "lp_status": "Infeasible",
+        "sol_status": "No Solution Exists",
+        "seconds": 0.0,
+        "time_limit": 60,
+        "objective": null
+      },
+      {
+        "beta": 10,
+        "outcome": "proven_infeasible",
+        "lp_status": "Infeasible",
+        "sol_status": "No Solution Exists",
+        "seconds": 0.0,
+        "time_limit": 60,
+        "objective": null
+      },
+      {
+        "beta": 11,
+        "outcome": "proven_infeasible",
+        "lp_status": "Infeasible",
+        "sol_status": "No Solution Exists",
+        "seconds": 0.0,
+        "time_limit": 60,
+        "objective": null
+      },
+      {
+        "beta": 12,
+        "outcome": "proven_infeasible",
+        "lp_status": "Infeasible",
+        "sol_status": "No Solution Exists",
+        "seconds": 0.0,
+        "time_limit": 60,
+        "objective": null
+      },
+      {
+        "beta": 13,
+        "outcome": "proven_infeasible",
+        "lp_status": "Infeasible",
+        "sol_status": "No Solution Exists",
+        "seconds": 0.0,
+        "time_limit": 60,
+        "objective": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,202 @@
+[
+  {
+    "round": 1,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  },
+  {
+    "round": 2,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  },
+  {
+    "round": 3,
+    "beta": 2,
+    "n_tags": 48,
+    "status": "proven_optimal",
+    "optimality_proven": true,
+    "solve_seconds": 2.8,
+    "trace": [
+      {
+        "beta": 1,
+        "outcome": "proven_infeasible",
+        "lp_status": "Infeasible",
+        "sol_status": "No Solution Exists",
+        "seconds": 0.0,
+        "time_limit": 120,
+        "objective": null
+      },
+      {
+        "beta": 2,
+        "outcome": "proven_optimal",
+        "lp_status": "Optimal",
+        "sol_status": "Optimal Solution Found",
+        "seconds": 2.8,
+        "time_limit": 120,
+        "objective": 223.0,
+        "constraints_verified": true
+      }
+    ]
+  },
+  {
+    "round": 4,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  },
+  {
+    "round": 5,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  },
+  {
+    "round": 6,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  },
+  {
+    "round": 7,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  },
+  {
+    "round": 8,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  },
+  {
+    "round": 9,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  },
+  {
+    "round": 10,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  },
+  {
+    "round": 11,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  },
+  {
+    "round": 12,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  },
+  {
+    "round": 13,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  },
+  {
+    "round": 14,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  },
+  {
+    "round": 15,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  },
+  {
+    "round": 16,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  },
+  {
+    "round": 17,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  },
+  {
+    "round": 18,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  },
+  {
+    "round": 19,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  },
+  {
+    "round": 20,
+    "beta": null,
+    "n_tags": 64,
+    "status": "infeasible_alpha",
+    "optimality_proven": false,
+    "solve_seconds": null,
+    "trace": []
+  }
+]

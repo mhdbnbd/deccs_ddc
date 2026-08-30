@@ -1,0 +1,43 @@
+{
+  "run_dir": "results_v2/ddc_phase1/apy/apy15_smoke",
+  "time_limit": 60,
+  "threads": 1,
+  "beta_min": 1,
+  "alpha": 2,
+  "seed": 42,
+  "k_active": 15,
+  "beta_lower_bound_arithmetic": 1,
+  "trace": [
+    {
+      "beta": 1,
+      "lp_relaxation": {
+        "status": "Optimal",
+        "objective": 113.92,
+        "seconds": 0.02
+      },
+      "outcome": "time_limit_incumbent",
+      "seconds": 60.2,
+      "lp_status": "Optimal",
+      "sol_status": "Solution Found",
+      "objective": 127.0,
+      "constraints_verified": true,
+      "n_tags": 47,
+      "tags_per_cluster": 8.47
+    }
+  ],
+  "reference": {
+    "beta": null,
+    "n_tags": 64,
+    "avg_tc": 0.0,
+    "avg_itf": 0.0,
+    "original_time_limit": 60
+  },
+  "accepted": {
+    "beta": 1,
+    "n_tags": 47,
+    "tags_per_cluster": 8.47,
+    "outcome": "time_limit_incumbent",
+    "avg_tc": 0.2693,
+    "avg_itf": 1.6033
+  }
+}

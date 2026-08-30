@@ -1,0 +1,105 @@
+2026-08-16 19:31:39,978 - INFO - GPU: NVIDIA GeForce RTX 4090
+2026-08-16 19:31:40,024 - INFO - Predicate matrix: 50 classes × 85 attributes
+2026-08-16 19:31:40,070 - INFO - Train split: 29857 samples, 50 classes, 85 attributes
+2026-08-16 19:31:41,200 - INFO - Loaded cached features (29857, 2048) from cache/resnet101_awa2_full.npz
+2026-08-16 19:31:41,212 - INFO - Binary tags (29857, 85) from data/AwA2-data/Animals_with_Attributes2/predicate-matrix-binary.txt (density=0.365)
+2026-08-16 19:31:41,423 - INFO - Annotation r=0.5 (instance-level): 14892/29857 annotated, 14965 mean-imputed
+2026-08-16 19:31:41,423 - INFO - === DDC rebuild | awa2 | N=29857 | K=50 | M=85 | preproc=none | r=0.5 ===
+2026-08-16 19:31:44,315 - INFO - Pre-training 10 epochs (g = identity, Algorithm 1 lines 1-2)
+2026-08-16 19:31:46,497 - INFO - [pretrain r0 e1] L=-2.8712 MI=-3.2472 PW=0.3760 H(Y|X)=2.523 H(Y)=3.847 active=50/50 pairs=14892 sameclass=0.9215 NMI=0.8243 ACC=0.6856
+2026-08-16 19:31:47,407 - INFO - [pretrain r0 e2] L=-4.1259 MI=-4.6951 PW=0.5691 H(Y|X)=1.005 H(Y)=3.800 active=50/50 pairs=14892 sameclass=0.9169 NMI=0.8734 ACC=0.7475
+2026-08-16 19:31:48,426 - INFO - [pretrain r0 e3] L=-4.4879 MI=-4.9782 PW=0.4903 H(Y|X)=0.699 H(Y)=3.785 active=49/50 pairs=14892 sameclass=0.9188 NMI=0.8923 ACC=0.7794
+2026-08-16 19:31:49,515 - INFO - [pretrain r0 e4] L=-4.6549 MI=-5.0659 PW=0.4110 H(Y|X)=0.606 H(Y)=3.781 active=50/50 pairs=14892 sameclass=0.9237 NMI=0.8966 ACC=0.7896
+2026-08-16 19:31:50,667 - INFO - [pretrain r0 e5] L=-4.7652 MI=-5.1289 PW=0.3637 H(Y|X)=0.555 H(Y)=3.790 active=50/50 pairs=14892 sameclass=0.921 NMI=0.8989 ACC=0.7692
+2026-08-16 19:31:51,865 - INFO - [pretrain r0 e6] L=-4.8291 MI=-5.1540 PW=0.3249 H(Y|X)=0.527 H(Y)=3.787 active=50/50 pairs=14892 sameclass=0.9181 NMI=0.9117 ACC=0.8079
+2026-08-16 19:31:53,097 - INFO - [pretrain r0 e7] L=-4.8545 MI=-5.1804 PW=0.3259 H(Y|X)=0.490 H(Y)=3.780 active=50/50 pairs=14892 sameclass=0.9198 NMI=0.9133 ACC=0.8146
+2026-08-16 19:31:54,334 - INFO - [pretrain r0 e8] L=-4.8776 MI=-5.1983 PW=0.3207 H(Y|X)=0.481 H(Y)=3.786 active=50/50 pairs=14892 sameclass=0.9192 NMI=0.9147 ACC=0.8225
+2026-08-16 19:31:55,573 - INFO - [pretrain r0 e9] L=-4.9259 MI=-5.2275 PW=0.3016 H(Y|X)=0.450 H(Y)=3.785 active=50/50 pairs=14892 sameclass=0.9221 NMI=0.9143 ACC=0.8054
+2026-08-16 19:31:56,774 - INFO - [pretrain r0 e10] L=-4.9570 MI=-5.2448 PW=0.2878 H(Y|X)=0.440 H(Y)=3.790 active=50/50 pairs=14892 sameclass=0.9171 NMI=0.9147 ACC=0.8240
+2026-08-16 19:31:57,110 - INFO - [ILP] beta=1 rejected: proven_infeasible (0.1s of 120s)
+2026-08-16 19:33:57,421 - INFO - [ILP] beta=2 rejected: time_limit_no_solution (120.2s of 120s)
+2026-08-16 19:35:57,745 - INFO - [ILP] beta=3 [time_limit_incumbent, 120.2s], 50 active clusters, 63/85 tags kept, 4.2 tags/cluster
+2026-08-16 19:35:58,697 - INFO - [round r1 e1] L=-4.9377 MI=-5.2517 PW=0.3140 H(Y|X)=0.432 H(Y)=3.789 active=50/50 pairs=14892 sameclass=0.9239 NMI=0.9150 ACC=0.8158
+2026-08-16 19:35:59,875 - INFO - [round r1 e2] L=-4.9532 MI=-5.2527 PW=0.2995 H(Y|X)=0.429 H(Y)=3.788 active=50/50 pairs=14892 sameclass=0.9205 NMI=0.9166 ACC=0.8011
+2026-08-16 19:38:00,203 - INFO - [ILP] beta=2 rejected: time_limit_no_solution (120.1s of 120s)
+2026-08-16 19:40:00,437 - INFO - [ILP] beta=3 rejected: time_limit_no_solution (120.2s of 120s)
+2026-08-16 19:40:02,480 - INFO - [ILP] beta=4 [proven_optimal, 2.0s], 50 active clusters, 50/85 tags kept, 4.0 tags/cluster
+2026-08-16 19:40:03,670 - INFO - [round r2 e1] L=-4.8829 MI=-5.2416 PW=0.3586 H(Y|X)=0.440 H(Y)=3.788 active=50/50 pairs=14892 sameclass=0.9189 NMI=0.9162 ACC=0.7968
+2026-08-16 19:40:04,868 - INFO - [round r2 e2] L=-4.9729 MI=-5.2679 PW=0.2950 H(Y|X)=0.421 H(Y)=3.792 active=50/50 pairs=14892 sameclass=0.9201 NMI=0.9192 ACC=0.8285
+2026-08-16 19:42:05,231 - INFO - [ILP] beta=3 rejected: time_limit_no_solution (120.2s of 120s)
+2026-08-16 19:42:07,839 - INFO - [ILP] beta=4 [proven_optimal, 2.5s], 50 active clusters, 49/85 tags kept, 4.0 tags/cluster
+2026-08-16 19:42:08,775 - INFO - [round r3 e1] L=-4.9897 MI=-5.2681 PW=0.2784 H(Y|X)=0.411 H(Y)=3.786 active=50/50 pairs=14892 sameclass=0.9204 NMI=0.9158 ACC=0.8156
+2026-08-16 19:42:09,873 - INFO - [round r3 e2] L=-4.9829 MI=-5.2670 PW=0.2841 H(Y|X)=0.415 H(Y)=3.788 active=50/50 pairs=14892 sameclass=0.9171 NMI=0.9148 ACC=0.8098
+2026-08-16 19:44:10,235 - INFO - [ILP] beta=3 [time_limit_incumbent, 120.2s], 50 active clusters, 65/85 tags kept, 4.2 tags/cluster
+2026-08-16 19:44:11,402 - INFO - [round r4 e1] L=-4.9641 MI=-5.2718 PW=0.3077 H(Y|X)=0.410 H(Y)=3.788 active=50/50 pairs=14892 sameclass=0.919 NMI=0.9184 ACC=0.8333
+2026-08-16 19:44:12,599 - INFO - [round r4 e2] L=-5.0057 MI=-5.2744 PW=0.2687 H(Y|X)=0.404 H(Y)=3.785 active=50/50 pairs=14892 sameclass=0.92 NMI=0.9170 ACC=0.8261
+2026-08-16 19:46:12,886 - INFO - [ILP] beta=2 rejected: time_limit_no_solution (120.1s of 120s)
+2026-08-16 19:48:13,124 - INFO - [ILP] beta=3 rejected: time_limit_no_solution (120.2s of 120s)
+2026-08-16 19:48:15,031 - INFO - [ILP] beta=4 [proven_optimal, 1.8s], 50 active clusters, 50/85 tags kept, 4.0 tags/cluster
+2026-08-16 19:48:16,192 - INFO - [round r5 e1] L=-4.9927 MI=-5.2765 PW=0.2838 H(Y|X)=0.401 H(Y)=3.785 active=50/50 pairs=14892 sameclass=0.9219 NMI=0.9234 ACC=0.8396
+2026-08-16 19:48:17,281 - INFO - [round r5 e2] L=-5.0182 MI=-5.2825 PW=0.2643 H(Y|X)=0.401 H(Y)=3.789 active=50/50 pairs=14892 sameclass=0.9202 NMI=0.9211 ACC=0.8392
+2026-08-16 19:50:17,602 - INFO - [ILP] beta=3 rejected: time_limit_no_solution (120.2s of 120s)
+2026-08-16 19:50:19,858 - INFO - [ILP] beta=4 [proven_optimal, 2.2s], 50 active clusters, 51/85 tags kept, 4.0 tags/cluster
+2026-08-16 19:50:21,037 - INFO - [round r6 e1] L=-4.9934 MI=-5.2775 PW=0.2841 H(Y|X)=0.403 H(Y)=3.787 active=49/50 pairs=14892 sameclass=0.9203 NMI=0.9215 ACC=0.8336
+2026-08-16 19:50:22,115 - INFO - [round r6 e2] L=-4.9790 MI=-5.2705 PW=0.2915 H(Y|X)=0.405 H(Y)=3.784 active=50/50 pairs=14892 sameclass=0.9181 NMI=0.9174 ACC=0.8221
+2026-08-16 19:52:22,687 - INFO - [ILP] beta=3 [time_limit_incumbent, 120.2s], 50 active clusters, 65/85 tags kept, 4.2 tags/cluster
+2026-08-16 19:52:23,762 - INFO - [round r7 e1] L=-4.9368 MI=-5.2718 PW=0.3349 H(Y|X)=0.408 H(Y)=3.786 active=50/50 pairs=14892 sameclass=0.9198 NMI=0.9199 ACC=0.8273
+2026-08-16 19:52:24,898 - INFO - [round r7 e2] L=-4.9391 MI=-5.2699 PW=0.3308 H(Y|X)=0.407 H(Y)=3.785 active=50/50 pairs=14892 sameclass=0.9171 NMI=0.9255 ACC=0.8549
+2026-08-16 19:54:25,269 - INFO - [ILP] beta=2 rejected: time_limit_no_solution (120.2s of 120s)
+2026-08-16 19:56:25,520 - INFO - [ILP] beta=3 rejected: time_limit_no_solution (120.2s of 120s)
+2026-08-16 19:56:28,114 - INFO - [ILP] beta=4 [proven_optimal, 2.5s], 50 active clusters, 50/85 tags kept, 4.0 tags/cluster
+2026-08-16 19:56:29,242 - INFO - [round r8 e1] L=-4.9262 MI=-5.2671 PW=0.3409 H(Y|X)=0.411 H(Y)=3.786 active=50/50 pairs=14892 sameclass=0.9203 NMI=0.9202 ACC=0.8458
+2026-08-16 19:56:30,307 - INFO - [round r8 e2] L=-4.9755 MI=-5.2785 PW=0.3030 H(Y|X)=0.397 H(Y)=3.784 active=50/50 pairs=14892 sameclass=0.9231 NMI=0.9181 ACC=0.8181
+2026-08-16 19:58:30,662 - INFO - [ILP] beta=3 [time_limit_incumbent, 120.2s], 50 active clusters, 69/85 tags kept, 4.2 tags/cluster
+2026-08-16 19:58:31,755 - INFO - [round r9 e1] L=-5.0136 MI=-5.2916 PW=0.2780 H(Y|X)=0.391 H(Y)=3.788 active=50/50 pairs=14892 sameclass=0.9201 NMI=0.9169 ACC=0.8115
+2026-08-16 19:58:32,964 - INFO - [round r9 e2] L=-5.0134 MI=-5.2850 PW=0.2716 H(Y|X)=0.392 H(Y)=3.785 active=50/50 pairs=14892 sameclass=0.9173 NMI=0.9218 ACC=0.8342
+2026-08-16 20:00:33,387 - INFO - [ILP] beta=2 rejected: time_limit_no_solution (120.2s of 120s)
+2026-08-16 20:02:33,621 - INFO - [ILP] beta=3 [time_limit_incumbent, 120.2s], 50 active clusters, 65/85 tags kept, 4.2 tags/cluster
+2026-08-16 20:02:34,800 - INFO - [round r10 e1] L=-4.9947 MI=-5.2833 PW=0.2886 H(Y|X)=0.399 H(Y)=3.788 active=50/50 pairs=14892 sameclass=0.9194 NMI=0.9222 ACC=0.8428
+2026-08-16 20:02:35,973 - INFO - [round r10 e2] L=-5.0153 MI=-5.2866 PW=0.2713 H(Y|X)=0.394 H(Y)=3.787 active=50/50 pairs=14892 sameclass=0.9169 NMI=0.9237 ACC=0.8394
+2026-08-16 20:04:36,322 - INFO - [ILP] beta=2 rejected: time_limit_no_solution (120.2s of 120s)
+2026-08-16 20:06:36,538 - INFO - [ILP] beta=3 rejected: time_limit_no_solution (120.2s of 120s)
+2026-08-16 20:06:38,910 - INFO - [ILP] beta=4 [proven_optimal, 2.3s], 50 active clusters, 53/85 tags kept, 4.0 tags/cluster
+2026-08-16 20:06:40,084 - INFO - [round r11 e1] L=-5.0074 MI=-5.2862 PW=0.2787 H(Y|X)=0.394 H(Y)=3.787 active=50/50 pairs=14892 sameclass=0.9207 NMI=0.9189 ACC=0.8183
+2026-08-16 20:06:41,267 - INFO - [round r11 e2] L=-5.0166 MI=-5.2954 PW=0.2788 H(Y|X)=0.382 H(Y)=3.785 active=50/50 pairs=14892 sameclass=0.9204 NMI=0.9208 ACC=0.8126
+2026-08-16 20:08:41,642 - INFO - [ILP] beta=3 rejected: time_limit_no_solution (120.2s of 120s)
+2026-08-16 20:08:43,857 - INFO - [ILP] beta=4 [proven_optimal, 2.2s], 50 active clusters, 53/85 tags kept, 4.0 tags/cluster
+2026-08-16 20:08:45,009 - INFO - [round r12 e1] L=-5.0244 MI=-5.3047 PW=0.2803 H(Y|X)=0.367 H(Y)=3.781 active=50/50 pairs=14892 sameclass=0.9233 NMI=0.9232 ACC=0.8247
+2026-08-16 20:08:46,197 - INFO - [round r12 e2] L=-5.0296 MI=-5.3180 PW=0.2885 H(Y|X)=0.358 H(Y)=3.784 active=50/50 pairs=14892 sameclass=0.9199 NMI=0.9221 ACC=0.8261
+2026-08-16 20:10:46,516 - INFO - [ILP] beta=3 rejected: time_limit_no_solution (120.1s of 120s)
+2026-08-16 20:10:48,564 - INFO - [ILP] beta=4 [proven_optimal, 2.0s], 50 active clusters, 51/85 tags kept, 4.0 tags/cluster
+2026-08-16 20:10:49,750 - INFO - [round r13 e1] L=-5.0361 MI=-5.3116 PW=0.2755 H(Y|X)=0.367 H(Y)=3.786 active=50/50 pairs=14892 sameclass=0.9198 NMI=0.9213 ACC=0.8068
+2026-08-16 20:10:50,939 - INFO - [round r13 e2] L=-5.0431 MI=-5.3118 PW=0.2687 H(Y|X)=0.359 H(Y)=3.781 active=50/50 pairs=14892 sameclass=0.9202 NMI=0.9249 ACC=0.8437
+2026-08-16 20:12:51,306 - INFO - [ILP] beta=3 rejected: time_limit_no_solution (120.2s of 120s)
+2026-08-16 20:12:54,002 - INFO - [ILP] beta=4 [proven_optimal, 2.6s], 50 active clusters, 49/85 tags kept, 4.0 tags/cluster
+2026-08-16 20:12:55,156 - INFO - [round r14 e1] L=-5.0615 MI=-5.3202 PW=0.2587 H(Y|X)=0.353 H(Y)=3.782 active=49/50 pairs=14892 sameclass=0.9219 NMI=0.9269 ACC=0.8480
+2026-08-16 20:12:56,350 - INFO - [round r14 e2] L=-5.0712 MI=-5.3288 PW=0.2576 H(Y|X)=0.346 H(Y)=3.783 active=50/50 pairs=14892 sameclass=0.9202 NMI=0.9215 ACC=0.8365
+2026-08-16 20:14:56,698 - INFO - [ILP] beta=3 rejected: time_limit_no_solution (120.2s of 120s)
+2026-08-16 20:14:59,029 - INFO - [ILP] beta=4 [proven_optimal, 2.3s], 50 active clusters, 47/85 tags kept, 4.0 tags/cluster
+2026-08-16 20:15:00,187 - INFO - [round r15 e1] L=-5.0518 MI=-5.3259 PW=0.2740 H(Y|X)=0.350 H(Y)=3.784 active=50/50 pairs=14892 sameclass=0.9186 NMI=0.9306 ACC=0.8609
+2026-08-16 20:15:01,357 - INFO - [round r15 e2] L=-5.0672 MI=-5.3236 PW=0.2564 H(Y|X)=0.347 H(Y)=3.781 active=50/50 pairs=14892 sameclass=0.92 NMI=0.9267 ACC=0.8486
+2026-08-16 20:17:01,729 - INFO - [ILP] beta=3 rejected: time_limit_no_solution (120.2s of 120s)
+2026-08-16 20:17:04,221 - INFO - [ILP] beta=4 [proven_optimal, 2.4s], 50 active clusters, 50/85 tags kept, 4.0 tags/cluster
+2026-08-16 20:17:05,370 - INFO - [round r16 e1] L=-5.0338 MI=-5.3250 PW=0.2912 H(Y|X)=0.340 H(Y)=3.777 active=50/50 pairs=14892 sameclass=0.9172 NMI=0.9237 ACC=0.8211
+2026-08-16 20:17:06,540 - INFO - [round r16 e2] L=-4.9888 MI=-5.3234 PW=0.3346 H(Y|X)=0.343 H(Y)=3.778 active=50/50 pairs=14892 sameclass=0.9194 NMI=0.9280 ACC=0.8526
+2026-08-16 20:19:06,929 - INFO - [ILP] beta=3 rejected: time_limit_no_solution (120.2s of 120s)
+2026-08-16 20:19:08,987 - INFO - [ILP] beta=4 [proven_optimal, 2.0s], 50 active clusters, 53/85 tags kept, 4.0 tags/cluster
+2026-08-16 20:19:10,148 - INFO - [round r17 e1] L=-5.0046 MI=-5.3329 PW=0.3284 H(Y|X)=0.334 H(Y)=3.778 active=50/50 pairs=14892 sameclass=0.9204 NMI=0.9285 ACC=0.8580
+2026-08-16 20:19:11,321 - INFO - [round r17 e2] L=-5.0307 MI=-5.3332 PW=0.3025 H(Y|X)=0.332 H(Y)=3.777 active=50/50 pairs=14892 sameclass=0.9208 NMI=0.9273 ACC=0.8571
+2026-08-16 20:21:11,681 - INFO - [ILP] beta=3 rejected: time_limit_no_solution (120.2s of 120s)
+2026-08-16 20:21:14,059 - INFO - [ILP] beta=4 [proven_optimal, 2.3s], 50 active clusters, 52/85 tags kept, 4.0 tags/cluster
+2026-08-16 20:21:15,225 - INFO - [round r18 e1] L=-5.0374 MI=-5.3403 PW=0.3029 H(Y|X)=0.325 H(Y)=3.777 active=50/50 pairs=14892 sameclass=0.9236 NMI=0.9290 ACC=0.8632
+2026-08-16 20:21:16,397 - INFO - [round r18 e2] L=-5.0689 MI=-5.3476 PW=0.2786 H(Y|X)=0.322 H(Y)=3.780 active=49/50 pairs=14892 sameclass=0.9231 NMI=0.9323 ACC=0.8657
+2026-08-16 20:23:16,770 - INFO - [ILP] beta=3 [time_limit_incumbent, 120.2s], 49 active clusters, 70/85 tags kept, 4.4 tags/cluster
+2026-08-16 20:23:17,947 - INFO - [round r19 e1] L=-5.0664 MI=-5.3496 PW=0.2832 H(Y|X)=0.321 H(Y)=3.780 active=49/50 pairs=14892 sameclass=0.9222 NMI=0.9325 ACC=0.8693
+2026-08-16 20:23:19,118 - INFO - [round r19 e2] L=-5.0582 MI=-5.3458 PW=0.2876 H(Y|X)=0.318 H(Y)=3.776 active=50/50 pairs=14892 sameclass=0.919 NMI=0.9277 ACC=0.8460
+2026-08-16 20:25:19,437 - INFO - [ILP] beta=2 rejected: time_limit_no_solution (120.1s of 120s)
+2026-08-16 20:27:19,612 - INFO - [ILP] beta=3 rejected: time_limit_no_solution (120.1s of 120s)
+2026-08-16 20:27:22,174 - INFO - [ILP] beta=4 [proven_optimal, 2.5s], 50 active clusters, 49/85 tags kept, 4.0 tags/cluster
+2026-08-16 20:27:23,337 - INFO - [round r20 e1] L=-5.0378 MI=-5.3494 PW=0.3116 H(Y|X)=0.321 H(Y)=3.780 active=49/50 pairs=14892 sameclass=0.9191 NMI=0.9274 ACC=0.8395
+2026-08-16 20:27:24,506 - INFO - [round r20 e2] L=-5.0630 MI=-5.3525 PW=0.2895 H(Y|X)=0.319 H(Y)=3.781 active=50/50 pairs=14892 sameclass=0.918 NMI=0.9306 ACC=0.8534
+2026-08-16 20:27:25,568 - INFO - Artefacts written to results_v2/ddc_phase1/awa2/full_mu15_a3_ilp_t120_s43/
+2026-08-16 20:27:25,568 - INFO - === RESULT ===
+2026-08-16 20:27:25,568 - INFO - final  NMI=0.9306 ACC=0.8534 ARI=0.8609 active=50/50
+2026-08-16 20:27:25,568 - INFO - best   NMI=0.9325 at step 5499 (round round 19)
+2026-08-16 20:27:25,569 - INFO - TC=0.7722 ITF=2.4362 (nats)

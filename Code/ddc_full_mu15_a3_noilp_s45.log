@@ -1,0 +1,63 @@
+2026-08-16 03:32:44,207 - INFO - GPU: NVIDIA GeForce RTX 4090
+2026-08-16 03:32:44,250 - INFO - Predicate matrix: 50 classes × 85 attributes
+2026-08-16 03:32:44,294 - INFO - Train split: 29857 samples, 50 classes, 85 attributes
+2026-08-16 03:32:45,349 - INFO - Loaded cached features (29857, 2048) from cache/resnet101_awa2_full.npz
+2026-08-16 03:32:45,362 - INFO - Binary tags (29857, 85) from data/AwA2-data/Animals_with_Attributes2/predicate-matrix-binary.txt (density=0.365)
+2026-08-16 03:32:45,560 - INFO - Annotation r=0.5 (instance-level): 14858/29857 annotated, 14999 mean-imputed
+2026-08-16 03:32:45,561 - INFO - === DDC rebuild | awa2 | N=29857 | K=50 | M=85 | preproc=none | r=0.5 ===
+2026-08-16 03:32:48,092 - INFO - Pre-training 10 epochs (g = identity, Algorithm 1 lines 1-2)
+2026-08-16 03:32:49,997 - INFO - [pretrain r0 e1] L=-2.7845 MI=-3.1356 PW=0.3510 H(Y|X)=2.617 H(Y)=3.835 active=47/50 pairs=14858 sameclass=0.918 NMI=0.8258 ACC=0.6726
+2026-08-16 03:32:50,671 - INFO - [pretrain r0 e2] L=-4.1602 MI=-4.7525 PW=0.5924 H(Y|X)=0.913 H(Y)=3.777 active=50/50 pairs=14858 sameclass=0.92 NMI=0.8869 ACC=0.7601
+2026-08-16 03:32:51,348 - INFO - [pretrain r0 e3] L=-4.5124 MI=-5.0046 PW=0.4921 H(Y|X)=0.643 H(Y)=3.765 active=49/50 pairs=14858 sameclass=0.92 NMI=0.8975 ACC=0.7785
+2026-08-16 03:32:52,025 - INFO - [pretrain r0 e4] L=-4.6955 MI=-5.0847 PW=0.3892 H(Y|X)=0.564 H(Y)=3.766 active=50/50 pairs=14858 sameclass=0.9199 NMI=0.8970 ACC=0.7610
+2026-08-16 03:32:52,717 - INFO - [pretrain r0 e5] L=-4.7943 MI=-5.1294 PW=0.3351 H(Y|X)=0.517 H(Y)=3.764 active=50/50 pairs=14858 sameclass=0.9231 NMI=0.9070 ACC=0.8050
+2026-08-16 03:32:53,395 - INFO - [pretrain r0 e6] L=-4.8386 MI=-5.1510 PW=0.3124 H(Y|X)=0.493 H(Y)=3.763 active=50/50 pairs=14858 sameclass=0.9207 NMI=0.9167 ACC=0.8307
+2026-08-16 03:32:54,072 - INFO - [pretrain r0 e7] L=-4.8646 MI=-5.1669 PW=0.3023 H(Y|X)=0.472 H(Y)=3.759 active=50/50 pairs=14858 sameclass=0.9155 NMI=0.9072 ACC=0.7815
+2026-08-16 03:32:54,755 - INFO - [pretrain r0 e8] L=-4.9120 MI=-5.1882 PW=0.2762 H(Y|X)=0.454 H(Y)=3.762 active=50/50 pairs=14858 sameclass=0.9178 NMI=0.9147 ACC=0.7952
+2026-08-16 03:32:55,437 - INFO - [pretrain r0 e9] L=-4.9367 MI=-5.2044 PW=0.2677 H(Y|X)=0.433 H(Y)=3.758 active=50/50 pairs=14858 sameclass=0.9211 NMI=0.9199 ACC=0.8380
+2026-08-16 03:32:56,117 - INFO - [pretrain r0 e10] L=-4.9336 MI=-5.2119 PW=0.2783 H(Y|X)=0.424 H(Y)=3.757 active=50/50 pairs=14858 sameclass=0.9204 NMI=0.9139 ACC=0.8083
+2026-08-16 03:32:56,850 - INFO - [round r1 e1] L=-4.9298 MI=-5.2182 PW=0.2884 H(Y|X)=0.415 H(Y)=3.756 active=50/50 pairs=14858 sameclass=0.9208 NMI=0.9096 ACC=0.7912
+2026-08-16 03:32:57,546 - INFO - [round r1 e2] L=-4.8945 MI=-5.2192 PW=0.3248 H(Y|X)=0.420 H(Y)=3.759 active=50/50 pairs=14858 sameclass=0.9182 NMI=0.9136 ACC=0.8071
+2026-08-16 03:32:58,283 - INFO - [round r2 e1] L=-4.9205 MI=-5.2315 PW=0.3110 H(Y|X)=0.407 H(Y)=3.759 active=49/50 pairs=14858 sameclass=0.9227 NMI=0.9154 ACC=0.8033
+2026-08-16 03:32:58,963 - INFO - [round r2 e2] L=-4.9566 MI=-5.2356 PW=0.2790 H(Y|X)=0.403 H(Y)=3.759 active=49/50 pairs=14858 sameclass=0.9192 NMI=0.9169 ACC=0.8211
+2026-08-16 03:32:59,701 - INFO - [round r3 e1] L=-4.9253 MI=-5.2297 PW=0.3045 H(Y|X)=0.404 H(Y)=3.756 active=50/50 pairs=14858 sameclass=0.9204 NMI=0.9152 ACC=0.8081
+2026-08-16 03:33:00,385 - INFO - [round r3 e2] L=-4.9331 MI=-5.2231 PW=0.2901 H(Y|X)=0.407 H(Y)=3.753 active=50/50 pairs=14858 sameclass=0.9178 NMI=0.9152 ACC=0.8065
+2026-08-16 03:33:01,121 - INFO - [round r4 e1] L=-4.9563 MI=-5.2427 PW=0.2864 H(Y|X)=0.393 H(Y)=3.757 active=50/50 pairs=14858 sameclass=0.9208 NMI=0.9100 ACC=0.7740
+2026-08-16 03:33:01,806 - INFO - [round r4 e2] L=-4.9664 MI=-5.2461 PW=0.2797 H(Y|X)=0.390 H(Y)=3.758 active=50/50 pairs=14858 sameclass=0.9232 NMI=0.9149 ACC=0.7913
+2026-08-16 03:33:02,542 - INFO - [round r5 e1] L=-5.0024 MI=-5.2522 PW=0.2498 H(Y|X)=0.385 H(Y)=3.758 active=49/50 pairs=14858 sameclass=0.9213 NMI=0.9161 ACC=0.8103
+2026-08-16 03:33:03,228 - INFO - [round r5 e2] L=-5.0039 MI=-5.2519 PW=0.2480 H(Y|X)=0.384 H(Y)=3.757 active=48/50 pairs=14858 sameclass=0.9213 NMI=0.9212 ACC=0.8159
+2026-08-16 03:33:03,963 - INFO - [round r6 e1] L=-5.0003 MI=-5.2485 PW=0.2482 H(Y|X)=0.386 H(Y)=3.757 active=50/50 pairs=14858 sameclass=0.9174 NMI=0.9146 ACC=0.8042
+2026-08-16 03:33:04,645 - INFO - [round r6 e2] L=-4.9895 MI=-5.2451 PW=0.2556 H(Y|X)=0.385 H(Y)=3.754 active=50/50 pairs=14858 sameclass=0.915 NMI=0.9166 ACC=0.7967
+2026-08-16 03:33:05,380 - INFO - [round r7 e1] L=-5.0249 MI=-5.2628 PW=0.2378 H(Y|X)=0.375 H(Y)=3.759 active=50/50 pairs=14858 sameclass=0.9219 NMI=0.9172 ACC=0.8075
+2026-08-16 03:33:06,066 - INFO - [round r7 e2] L=-4.9904 MI=-5.2486 PW=0.2583 H(Y|X)=0.386 H(Y)=3.756 active=48/50 pairs=14858 sameclass=0.915 NMI=0.9205 ACC=0.8199
+2026-08-16 03:33:06,803 - INFO - [round r8 e1] L=-5.0026 MI=-5.2516 PW=0.2491 H(Y|X)=0.387 H(Y)=3.759 active=50/50 pairs=14858 sameclass=0.9174 NMI=0.9182 ACC=0.7996
+2026-08-16 03:33:07,486 - INFO - [round r8 e2] L=-5.0081 MI=-5.2557 PW=0.2476 H(Y|X)=0.379 H(Y)=3.757 active=50/50 pairs=14858 sameclass=0.9189 NMI=0.9199 ACC=0.8182
+2026-08-16 03:33:08,222 - INFO - [round r9 e1] L=-4.9996 MI=-5.2500 PW=0.2504 H(Y|X)=0.382 H(Y)=3.755 active=50/50 pairs=14858 sameclass=0.9184 NMI=0.9188 ACC=0.8166
+2026-08-16 03:33:09,024 - INFO - [round r9 e2] L=-5.0099 MI=-5.2546 PW=0.2447 H(Y|X)=0.378 H(Y)=3.755 active=50/50 pairs=14858 sameclass=0.9174 NMI=0.9131 ACC=0.7815
+2026-08-16 03:33:10,270 - INFO - [round r10 e1] L=-5.0129 MI=-5.2597 PW=0.2468 H(Y|X)=0.379 H(Y)=3.759 active=50/50 pairs=14858 sameclass=0.9215 NMI=0.9213 ACC=0.8169
+2026-08-16 03:33:11,440 - INFO - [round r10 e2] L=-5.0128 MI=-5.2580 PW=0.2452 H(Y|X)=0.376 H(Y)=3.756 active=50/50 pairs=14858 sameclass=0.9207 NMI=0.9196 ACC=0.8155
+2026-08-16 03:33:12,691 - INFO - [round r11 e1] L=-5.0077 MI=-5.2529 PW=0.2452 H(Y|X)=0.381 H(Y)=3.756 active=50/50 pairs=14858 sameclass=0.9202 NMI=0.9200 ACC=0.8160
+2026-08-16 03:33:13,865 - INFO - [round r11 e2] L=-5.0137 MI=-5.2565 PW=0.2427 H(Y|X)=0.379 H(Y)=3.757 active=50/50 pairs=14858 sameclass=0.9184 NMI=0.9223 ACC=0.8344
+2026-08-16 03:33:15,112 - INFO - [round r12 e1] L=-5.0040 MI=-5.2565 PW=0.2525 H(Y|X)=0.379 H(Y)=3.757 active=50/50 pairs=14858 sameclass=0.9215 NMI=0.9229 ACC=0.8308
+2026-08-16 03:33:16,283 - INFO - [round r12 e2] L=-5.0067 MI=-5.2604 PW=0.2537 H(Y|X)=0.375 H(Y)=3.757 active=50/50 pairs=14858 sameclass=0.9198 NMI=0.9215 ACC=0.8220
+2026-08-16 03:33:17,529 - INFO - [round r13 e1] L=-4.9767 MI=-5.2614 PW=0.2848 H(Y|X)=0.373 H(Y)=3.756 active=50/50 pairs=14858 sameclass=0.9198 NMI=0.9271 ACC=0.8555
+2026-08-16 03:33:18,701 - INFO - [round r13 e2] L=-4.9808 MI=-5.2533 PW=0.2725 H(Y|X)=0.378 H(Y)=3.754 active=50/50 pairs=14858 sameclass=0.9198 NMI=0.9217 ACC=0.8229
+2026-08-16 03:33:19,955 - INFO - [round r14 e1] L=-5.0146 MI=-5.2635 PW=0.2489 H(Y|X)=0.374 H(Y)=3.758 active=50/50 pairs=14858 sameclass=0.9193 NMI=0.9266 ACC=0.8409
+2026-08-16 03:33:21,129 - INFO - [round r14 e2] L=-4.9937 MI=-5.2606 PW=0.2668 H(Y|X)=0.369 H(Y)=3.753 active=50/50 pairs=14858 sameclass=0.9227 NMI=0.9243 ACC=0.8310
+2026-08-16 03:33:22,378 - INFO - [round r15 e1] L=-4.9960 MI=-5.2616 PW=0.2656 H(Y|X)=0.367 H(Y)=3.752 active=50/50 pairs=14858 sameclass=0.9196 NMI=0.9180 ACC=0.8192
+2026-08-16 03:33:23,546 - INFO - [round r15 e2] L=-5.0289 MI=-5.2797 PW=0.2508 H(Y|X)=0.349 H(Y)=3.753 active=48/50 pairs=14858 sameclass=0.9217 NMI=0.9302 ACC=0.8632
+2026-08-16 03:33:24,794 - INFO - [round r16 e1] L=-5.0333 MI=-5.2878 PW=0.2545 H(Y|X)=0.340 H(Y)=3.752 active=50/50 pairs=14858 sameclass=0.9217 NMI=0.9258 ACC=0.8429
+2026-08-16 03:33:25,968 - INFO - [round r16 e2] L=-5.0506 MI=-5.3019 PW=0.2513 H(Y|X)=0.330 H(Y)=3.755 active=50/50 pairs=14858 sameclass=0.9218 NMI=0.9209 ACC=0.8102
+2026-08-16 03:33:27,218 - INFO - [round r17 e1] L=-5.0531 MI=-5.3003 PW=0.2471 H(Y|X)=0.331 H(Y)=3.754 active=50/50 pairs=14858 sameclass=0.9199 NMI=0.9271 ACC=0.8491
+2026-08-16 03:33:28,390 - INFO - [round r17 e2] L=-5.0489 MI=-5.3044 PW=0.2555 H(Y|X)=0.328 H(Y)=3.755 active=50/50 pairs=14858 sameclass=0.9179 NMI=0.9245 ACC=0.8248
+2026-08-16 03:33:29,633 - INFO - [round r18 e1] L=-5.0657 MI=-5.3098 PW=0.2440 H(Y|X)=0.325 H(Y)=3.757 active=50/50 pairs=14858 sameclass=0.9198 NMI=0.9269 ACC=0.8367
+2026-08-16 03:33:30,805 - INFO - [round r18 e2] L=-5.0626 MI=-5.3027 PW=0.2402 H(Y|X)=0.330 H(Y)=3.755 active=50/50 pairs=14858 sameclass=0.9189 NMI=0.9302 ACC=0.8584
+2026-08-16 03:33:32,052 - INFO - [round r19 e1] L=-5.0367 MI=-5.2993 PW=0.2626 H(Y|X)=0.325 H(Y)=3.749 active=50/50 pairs=14858 sameclass=0.92 NMI=0.9289 ACC=0.8598
+2026-08-16 03:33:33,224 - INFO - [round r19 e2] L=-5.0495 MI=-5.3050 PW=0.2554 H(Y|X)=0.321 H(Y)=3.750 active=50/50 pairs=14858 sameclass=0.9212 NMI=0.9271 ACC=0.8385
+2026-08-16 03:33:34,466 - INFO - [round r20 e1] L=-5.0609 MI=-5.3040 PW=0.2430 H(Y|X)=0.324 H(Y)=3.752 active=50/50 pairs=14858 sameclass=0.9175 NMI=0.9257 ACC=0.8384
+2026-08-16 03:33:35,638 - INFO - [round r20 e2] L=-5.0755 MI=-5.3098 PW=0.2343 H(Y|X)=0.318 H(Y)=3.752 active=50/50 pairs=14858 sameclass=0.9209 NMI=0.9215 ACC=0.8190
+2026-08-16 03:33:36,702 - INFO - Artefacts written to results_v2/ddc_phase1/awa2/full_mu15_a3_noilp_s45/
+2026-08-16 03:33:36,702 - INFO - === RESULT ===
+2026-08-16 03:33:36,702 - INFO - final  NMI=0.9215 ACC=0.8190 ARI=0.8177 active=50/50
+2026-08-16 03:33:36,702 - INFO - best   NMI=0.9302 at step 4680 (round round 15)
+2026-08-16 03:33:36,703 - INFO - TC=0.0 ITF=0.0 (nats)

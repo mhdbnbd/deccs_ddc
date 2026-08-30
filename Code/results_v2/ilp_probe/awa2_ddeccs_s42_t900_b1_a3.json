@@ -1,0 +1,48 @@
+{
+  "run_dir": "results_v2/v1_certify/awa2_ddeccs_s42",
+  "time_limit": 900,
+  "threads": 1,
+  "beta_min": 1,
+  "alpha": 3,
+  "seed": 42,
+  "k_active": 50,
+  "beta_lower_bound_arithmetic": 2,
+  "trace": [
+    {
+      "beta": 1,
+      "outcome": "infeasible_by_arithmetic",
+      "seconds": 0.0
+    },
+    {
+      "beta": 2,
+      "lp_relaxation": {
+        "status": "Optimal",
+        "objective": 236.31,
+        "seconds": 0.06
+      },
+      "outcome": "time_limit_incumbent",
+      "seconds": 900.9,
+      "lp_status": "Optimal",
+      "sol_status": "Solution Found",
+      "objective": 513.0,
+      "constraints_verified": true,
+      "n_tags": 85,
+      "tags_per_cluster": 10.26
+    }
+  ],
+  "reference": {
+    "beta": null,
+    "n_tags": 85,
+    "avg_tc": null,
+    "avg_itf": null,
+    "original_time_limit": 30
+  },
+  "accepted": {
+    "beta": 2,
+    "n_tags": 85,
+    "tags_per_cluster": 10.26,
+    "outcome": "time_limit_incumbent",
+    "avg_tc": 0.3423,
+    "avg_itf": 2.0677
+  }
+}

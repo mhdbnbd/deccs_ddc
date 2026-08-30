@@ -1,0 +1,238 @@
+\label{chap:ddc_repro}
+
+Chapter~\ref{chap:experiments} compared DDECCS against the published figures of the original DDC, under a global caveat that no row of that comparison placed the two methods on identical data. This chapter removes the caveat. We rebuild the original DDC from its published specification, run it on both datasets under the same features, splits and preprocessing as DDECCS, and report what the controlled comparison shows. We first state why the comparison in Chapter~\ref{chap:experiments} could not be controlled and what was built (Section~\ref{sec:repro_motivation}), then describe the reproduction and the judgment calls it required (Section~\ref{sec:repro_implementation}). We then report the matched-baseline results (Section~\ref{sec:repro_matched}), isolate which component of the method carries its performance (Section~\ref{sec:repro_mechanism}), measure the description-to-clustering channel directly (Section~\ref{sec:repro_channel}), and examine the feasibility of the published configuration on aPY (Section~\ref{sec:repro_feasibility}). Section~\ref{sec:repro_implications} draws the consequences for DDECCS.
+
+\section{Motivation and Scope}
+\label{sec:repro_motivation}
+
+Every comparison between DDECCS and the original DDC reported so far in this thesis rests on numbers taken from the published paper. Those numbers were obtained on a different image set (the withdrawn AwA1 rather than AwA2), at a different number of clusters, on a differently sized aPY subset, and with an unpublished implementation. Section~\ref{sec:ddc_comparison} states this plainly and asks the reader to treat the comparison as indicative of relative standing rather than as a measurement. That is an honest position, but it is a weak one: it leaves open whether the gap between the two methods reflects a difference in algorithms or a difference in evaluation conditions.
+
+No official implementation of the original DDC is available. The authors' homepage links to a paper PDF that no longer resolves and publishes no code, and the DeepClustering survey that catalogues the method lists it with an empty code column. Closing the gap therefore required rebuilding the method from the paper text. We did so, and ran it on AwA2 and on the 15-class aPY subset using the same frozen ResNet-101 features, the same 80/20 split, and the same preprocessing as the rest of this thesis, alongside k-means baselines re-run inside the same harness. This chapter reports that work.
+
+Its purpose is to place DDECCS against a like-for-like baseline, and the results serve that purpose in two ways. They quantify the gap under controlled conditions, which the published figures could not. They also characterise what produces the original DDC's reported performance, and that characterisation bears directly on the design choices DDECCS made: which parts of the original method are load-bearing, whether its clustering numbers measure what they appear to measure, and whether the description-to-clustering feedback loop that DDECCS deliberately omits would have been worth building. Section~\ref{sec:repro_implications} returns to each of these.
+
+Two boundaries should be stated at the outset. First, this chapter reports a reproduction from a published specification, not a verified replication: where a measurement here disagrees with a published claim, we report it as a failure to replicate under the conditions stated below, with no reference implementation available against which to locate the difference. Second, this work is distinct from the trained variants attempted earlier in the project and documented in Section~\ref{sec:early_experiments}. Those were abandoned before the method was correctly implemented; the mechanisms behind their failure were subsequently identified, and Appendix~\ref{app:reproduction} records them alongside the defects found in the reproduction itself.
+
+\section{The Reproduction}
+\label{sec:repro_implementation}
+
+The original DDC couples three components: a clustering objective that maximizes mutual information between inputs and cluster assignments, a symbolic objective that solves the ILP of Section~\ref{sec:ilp} to describe the current partition, and a self-generated pairwise objective that converts the ILP-filtered tag space into pairwise constraints and feeds them back into the clustering. The reproduction implements all three, with the ILP solved inside the training loop rather than once at the end, so that the description module can reshape the clustering as the paper intends. We first summarize what the paper specifies, then the points at which it does not.
+
+\subsection{The Specification as Implemented}
+\label{subsec:repro_spec}
+
+The encoder is a three-layer fully connected network on frozen 2048-dimensional ResNet-101 features, with a softmax output over $K$ clusters. The clustering loss is the mutual information objective of the paper's Equation~(1). The ILP is the formulation already given in Equations~\ref{eq:ilp_obj}--\ref{eq:ilp_orthogonal}, solved once per round on the current soft assignment, with the resulting allocation matrix $W$ reduced to a tag mask $g$ that gates which attributes contribute to constraint generation. Pairs are generated by the paper's Equation~(5): for each anchor, the partner minimizing a score that combines masked tag distance with cluster disagreement, weighted by $\gamma = 100$, with $l = 1$ partner per anchor. The pairwise loss is applied with weight $\lambda = 1$. Tag masking at ratio $r = 0.5$ simulates incomplete annotation. Attribute vectors are the binary predicate matrices distributed with each dataset.
+
+\subsection{Judgment Calls and One Deviation}
+\label{subsec:repro_judgment}
+
+Several settings that materially affect the result are not stated in the paper. We list each with the value chosen and the reason, and record the full justifications in Appendix~\ref{sec:c_judgment}.
+
+Optimization used Adam~\citep{KingmaBa2015} with default parameters, as the paper states, at a learning rate of $10^{-3}$, which is Adam's own default and the only defensible choice absent a published value. Batch size was 256, matching the archived earlier attempt so that the two are comparable. The paper trains ``until convergence'' without a budget; we fixed one at 10 pretraining epochs followed by 20 rounds of 2 epochs each, applied identically to every configuration. Features entered the network raw, without standardization, consistent with Section~\ref{subsec:standardization_ablation}. The norm in Equation~(5) was taken as $L_2$ and $f_\theta(x)$ as the softmax output. The annotation ratio $r$ was read as a ratio of annotated \emph{instances}, with the mask drawn once and frozen, rather than of individual entries; pair partners were correspondingly restricted to annotated instances, since under instance-level masking every unannotated instance carries the same imputed vector and would otherwise be selected indiscriminately. Inverse Tag Frequency is reported in nats throughout this thesis, whereas the paper's table is base-2.
+
+One choice is a deviation rather than an interpretation, and it is the most consequential number in this chapter. The published Equation~(1) carries no coefficient on the marginal entropy term $H(Y)$. Implemented as written, the objective leaves a large fraction of the clusters unpopulated. We therefore introduce a weight $\mu$ on that term and report both settings throughout: $\mu = 1.0$ is the paper-faithful configuration and is the headline reproduction result, while $\mu = 1.5$ is our deviation. Neither is presented without the other.
+
+A further difference concerns the attribute representation and matters for reading the description metrics. On AwA2 the reproduction uses the binary predicate matrix distributed with the dataset, at a mean density of 0.365, whereas the DDECCS pipeline of Chapter~\ref{chap:methodology} uses the continuous per-class matrix at a density of 0.217; the coverage parameter is $\alpha = 3$ in both cases, but the underlying $Q$ matrices differ. On aPY the difference is sharper: this chapter uses the per-instance annotations recovered in Appendix~\ref{sec:c_apy_tags}, while Chapter~\ref{chap:experiments} uses their per-class means, so the two are not the same attributes represented differently but different tags altogether. The mean densities there coincide at 0.087, which makes the difference invisible in that statistic. TC and ITF values in this chapter are therefore \emph{not} directly comparable with those in Chapter~\ref{chap:experiments} on either dataset. We repeat this warning wherever the two sets of figures appear close.
+
+\section{Matched-Baseline Results}
+\label{sec:repro_matched}
+
+Table~\ref{tab:repro_matched} reports the reproduction against k-means baselines computed on the same features, splits and seeds. The k-means rows vary what the baseline is given: the image features alone, the features concatenated with the masked tag block, the same concatenation with the tag block standardized, and the tag block by itself as a control. The last of these is not a competitive baseline but a diagnostic, and Section~\ref{subsec:repro_classlabels} explains what it diagnoses.
+
+\begin{table}[H]
+    \centering
+    \footnotesize
+    \setlength{\tabcolsep}{4pt}
+    \caption[Matched comparison of the reproduced original DDC against k-means baselines]{The reproduced original DDC against matched k-means baselines, five seeds (42--46), final-epoch values, mean $\pm$ std. All rows use the same frozen ResNet-101 features, the same 80/20 split and the same tag mask at $r = 0.5$. ``Active'' counts clusters receiving at least one instance under argmax assignment; ``same-class'' is the fraction of self-generated constraint pairs that join two instances of the same true class.}
+    \label{tab:repro_matched}
+    \begin{tabular}{lccccc}
+        \hline
+        \textbf{Configuration} & \textbf{NMI} & \textbf{ACC} & \textbf{ARI} & \textbf{Active} & \textbf{Same-class} \\
+        \hline
+        \multicolumn{6}{l}{\textit{AwA2 ($N = 29{,}857$, $K = 50$, $\alpha = 3$)}} \\
+        k-means, features only & $0.8699 \pm 0.0021$ & $0.7864 \pm 0.0099$ & $0.7469$ & 50/50 & --- \\
+        k-means, features $\oplus$ raw tags & $\mathbf{0.8804 \pm 0.0028}$ & $0.8033 \pm 0.0081$ & $0.7693$ & 50/50 & --- \\
+        k-means, features $\oplus$ std.\ tags & $0.7665 \pm 0.0079$ & $0.5194$ & $0.3767$ & 50/50 & --- \\
+        k-means, tags only (control) & $0.5909 \pm 0.0000$ & $0.4976 \pm 0.0000$ & $0.0439$ & --- & --- \\
+        DDC, $\mu = 1.0$ (paper-faithful) & $0.8081 \pm 0.0237$ & $0.4861 \pm 0.0454$ & $0.4480$ & $31.0 \pm 3.7$ & $0.9215 \pm 0.0021$ \\
+        DDC, $\mu = 1.5$ (deviation) & $0.9229 \pm 0.0062$ & $0.8306 \pm 0.0259$ & $0.8276$ & $49.4 \pm 0.5$ & $0.9215 \pm 0.0021$ \\
+        DDC, $\mu = 1.5$, $\lambda = 0$ & $0.7425 \pm 0.0186$ & $0.6596 \pm 0.0318$ & $0.5639$ & $37.4 \pm 1.9$ & $0.9215 \pm 0.0021$ \\
+        DDC, $\mu = 1.5$, ILP off & $0.9255 \pm 0.0060$ & $0.8444 \pm 0.0222$ & $0.8413$ & $50.0$ & $0.9215 \pm 0.0021$ \\
+        \hline
+        \multicolumn{6}{l}{\textit{aPY-15 ($N = 5{,}189$, $K = 15$, $\alpha = 1$ unless stated)}} \\
+        k-means, features only & $0.6463 \pm 0.0196$ & $0.6012$ & $0.4298$ & 15/15 & --- \\
+        k-means, features $\oplus$ tags & $\mathbf{0.6767 \pm 0.0182}$ & $0.6166$ & $0.4700$ & 15/15 & --- \\
+        k-means, tags only (control) & $0.3778 \pm 0.0026$ & $0.3239$ & $0.0544$ & 15/15 & --- \\
+        DDC, $\mu = 1.0$ (paper-faithful) & $0.6337 \pm 0.0153$ & $0.5630$ & $0.4731$ & $11.2 \pm 1.9$ & $0.5202$ \\
+        DDC, $\mu = 1.5$ (deviation) & $0.6368 \pm 0.0108$ & $0.5610$ & $0.4785$ & $15.0$ & $0.5554$ \\
+        DDC, $\mu = 1.5$, $\alpha = 2$ & $0.6735 \pm 0.0091$ & $0.5974$ & $0.5082$ & $15.0$ & $0.6219$ \\
+        DDC, $\mu = 1.5$, $\lambda = 0$ & $0.5318 \pm 0.0216$ & $0.4751$ & $0.3215$ & $15.0$ & $0.5458$ \\
+        DDC, $\mu = 1.5$, ILP off & $\mathbf{0.6798 \pm 0.0090}$ & $0.6251$ & $0.5284$ & $15.0$ & $0.6233$ \\
+        \hline
+    \end{tabular}
+\end{table}
+
+% Source: results_v2/ddc_phase1/{awa2,apy}/*/summary.json; k-means baselines from kmeans_sanity_baseline.py
+
+The paper-faithful configuration loses to the matched baseline on both datasets. On AwA2 it reaches NMI $= 0.8081$ against $0.8804$ for k-means on features concatenated with the same masked tags. On aPY-15 it reaches $0.6337$ against $0.6767$, and falls below even the features-only baseline at $0.6463$. The margin the paper reports over its own k-means baseline does not appear here; under matched conditions the sign is reversed.
+
+The picture changes with $\mu = 1.5$, but only on AwA2, where the method reaches $0.9229$ and does beat the strongest baseline. That configuration is our deviation, not the published method, and the mechanism behind its advantage is the subject of Section~\ref{sec:repro_mechanism}. On aPY-15 the deviation buys almost nothing: $0.6368$ against $0.6337$, still below both baselines. Raising the coverage parameter to $\alpha = 2$ lifts it to $0.6735$, which is within noise of the features-plus-tags baseline and still below the same configuration with the ILP disabled.
+
+The behaviour of the paper-faithful configuration also shows up in the active-cluster count. At $\mu = 1.0$ only $31.0 \pm 3.7$ of the 50 AwA2 clusters and $11.2 \pm 1.9$ of the 15 aPY clusters receive any instances, which is why ACC collapses to $0.4861$ on AwA2 while NMI remains moderate: NMI tolerates a partition that merges classes, whereas the Hungarian matching underlying ACC does not. The weight on $H(Y)$ is what populates the remaining clusters, and its absence from the published objective is the single clearest gap between the specification and a configuration that runs well.
+
+One comparison in this table deserves a note. The aPY-15 features-only baseline here is $0.6463 \pm 0.0196$, whereas Chapter~\ref{chap:experiments} reports k-means at $0.666 \pm 0.028$ for what is nominally the same quantity. The two intervals overlap and the values are consistent, but they are different runs: the figures in this chapter come from five seeds inside the reproduction harness, chosen so that every row of Table~\ref{tab:repro_matched} shares an identical data path, while Chapter~\ref{chap:experiments} reports ten seeds of the DDECCS pipeline. The corresponding AwA2 figures need no such note, at $0.8699$ against $0.869$.
+
+\section{What Carries the Method}
+\label{sec:repro_mechanism}
+
+The configurations in Table~\ref{tab:repro_matched} isolate the contribution of each component. Removing the pairwise term is by far the most damaging single change, which locates the method's performance in its self-generated constraints rather than in its clustering objective or its descriptions. That finding then raises a question about what those constraints contain, and the answer differs sharply between the two datasets.
+
+\subsection{The Pairwise Objective}
+\label{subsec:repro_pairwise}
+
+Setting $\lambda = 0$ removes the self-generated pairwise loss and leaves the mutual information objective and the ILP in place. On AwA2 this costs 0.18 NMI, from $0.9229$ to $0.7425$. On aPY-15 it costs 0.148, from $0.6798$ to $0.5318$. In both cases the result falls below the matched k-means baseline, so without its pairwise term the method does not merely weaken but ceases to be competitive with clustering the frozen features directly.
+
+This is the clearest positive finding of the reproduction, and it is worth stating in the paper's favour: the self-generated constraint mechanism is doing real work, and it is doing nearly all of the work. The mutual information objective on its own, even with the description module attached, is not what produces the published performance.
+
+\subsection{On AwA2 the Constraints Are Effectively Class Labels}
+\label{subsec:repro_classlabels}
+
+If the pairwise constraints carry the method, what they encode determines what the reported numbers mean. On AwA2 they encode the class labels almost exactly. The fraction of generated pairs joining two instances of the same true class is $0.9215 \pm 0.0021$, and that value is identical to four decimal places across every configuration in Table~\ref{tab:repro_matched} and every seed. It is already at that level at the first pretraining epoch, before the network has learned anything, and it does not move as training proceeds.
+
+The mechanism is a property of the dataset rather than of the method. AwA2 attributes are defined per class, so two instances of the same class have a tag distance of exactly zero, and the weight $\gamma = 100$ makes that term dominate the pair-selection score of Equation~(5). Any same-class instance present among the annotated candidates is therefore selected in preference to any other, and the constraint set becomes a noisy copy of the class partition.
+
+The measured value is what a simple counting argument predicts. With batch size 256 and $r = 0.5$, roughly 128 annotated instances per batch are spread across 50 classes, giving about 2.6 same-class candidates per anchor. The probability that an anchor finds none is approximately $e^{-2.6} \approx 0.074$, predicting a same-class fraction near $92.6\%$ against the $92.15\%$ measured. The residual is accounted for by batch-sampling misses rather than by any property of the learned representation, which confirms that the fraction is fixed by the mask and the tag space and not by training.
+
+The tags-only control corroborates this independently. Clustering the masked tag matrix alone, with no image features at all, gives ACC $= 0.4976$, matching the annotated fraction $14{,}855/29{,}857 = 0.4975$ to within $10^{-4}$. At $r = 0.5$ the AwA2 tag matrix contains only 51 distinct rows, one per class plus the shared imputed row for unannotated instances, so the tag block recovers class identity perfectly for every annotated instance and carries no information about the rest. Its zero variance across seeds is structural for the same reason.
+
+\subsection{The Finding Is Dataset-Specific}
+\label{subsec:repro_scope}
+
+The preceding result must be scoped carefully: it is a property of per-class-attribute datasets, not of the method in general. Table~\ref{tab:repro_datasets} contrasts AwA2 with aPY-15 evaluated on genuine per-instance annotations, recovered from the original files as described in Appendix~\ref{sec:c_apy_tags}. Chapter~\ref{chap:experiments} notes that the shipped preprocessing averages these into per-class means; for this chapter they were reconstructed at instance level, so that the constraint mechanism could be tested where tag distances are not degenerate.
+
+\begin{table}[H]
+    \centering
+    \footnotesize
+    \caption[Dataset characterisation underlying the constraint finding]{Dataset properties governing the self-generated constraint mechanism. AwA2 attributes are defined per class; the aPY-15 figures use per-instance binary annotations recovered from the original files (Appendix~\ref{sec:c_apy_tags}).}
+    \label{tab:repro_datasets}
+    \begin{tabular}{lcc}
+        \hline
+        \textbf{Quantity} & \textbf{AwA2} & \textbf{aPY-15 (per-instance)} \\
+        \hline
+        Tag density & $0.365$ & $0.0869$ \\
+        Distinct tag rows at $r = 0.5$ & $51$ & $1{,}080$--$1{,}107$ ($1{,}703$ raw) \\
+        Within-class tag distance & $1.0$ exactly zero & $0.0332$ raw; $0.0308$--$0.0372$ annotated \\
+        Same-class pair fraction & $0.9215 \pm 0.0021$ & $0.5202$--$0.6264$ \\
+        Tags-only k-means ACC & $0.4976$ ($= 14{,}855/29{,}857$) & $0.3239$ (annotated fraction $0.5093$) \\
+        Max reachable coverage, Eq.~\ref{eq:ilp_coverage} & ${\approx}\,31$ & $5.56$ mean; $4.18$--$4.41$ worst class \\
+        \hline
+    \end{tabular}
+\end{table}
+
+% Source: build_apy_instance_tags.py verification output; results_v2/ddc_phase1/*/summary.json
+
+Every quantity that produces the AwA2 result is absent on aPY-15. There are 1,703 distinct tag rows rather than 51, and within-class tag distance is zero for only about 3\% of same-class pairs rather than all of them. The same-class fraction accordingly sits between $0.52$ and $0.63$ depending on configuration, close to what an uninformed selection over 15 classes would produce, and it moves with the configuration rather than remaining pinned. The tags-only control does not leak: at ACC $= 0.3239$ against an annotated fraction of $0.5093$, the tag block does not recover class identity even for the instances that have annotations.
+
+The claim of Section~\ref{subsec:repro_classlabels} is therefore that on datasets whose attributes are defined per class, the original DDC's self-generated constraints reduce to class supervision. It is not a claim about the method on data with genuine per-instance annotations, where the constraints are informative but imperfect, as the $\lambda = 0$ result of Section~\ref{subsec:repro_pairwise} confirms.
+
+\section{The Description Channel}
+\label{sec:repro_channel}
+
+The pairwise term carries the method; the question that remains is whether the description module contributes to the clustering through it. This is the channel DDECCS deliberately omits, so it is the measurement most directly relevant to this thesis. The ILP influences clustering only through the mask $g$, which selects the tags used in constraint generation, and disabling the ILP while holding everything else fixed therefore isolates the channel exactly. Table~\ref{tab:repro_ilp_deltas} reports the paired per-seed differences on both datasets.
+
+\begin{table}[H]
+    \centering
+    \footnotesize
+    \caption[Paired ILP on/off differences in NMI]{Paired differences in NMI between the ILP-on and ILP-off configurations at $\mu = 1.5$, $\lambda = 1$, with all other settings and the seed held fixed. A negative value means the description channel degrades clustering.}
+    \label{tab:repro_ilp_deltas}
+    \begin{tabular}{lcc}
+        \hline
+        \textbf{Seed} & \textbf{AwA2 ($\alpha = 3$)} & \textbf{aPY-15 ($\alpha = 1$)} \\
+        \hline
+        42 & $-0.0059$ & $-0.0494$ \\
+        43 & $-0.0067$ & $-0.0418$ \\
+        44 & $-0.0022$ & $-0.0423$ \\
+        45 & $+0.0042$ & $-0.0391$ \\
+        46 & $-0.0025$ & $-0.0425$ \\
+        \hline
+        \textbf{Mean} & $-0.0026$ & $\mathbf{-0.0430 \pm 0.0034}$ \\
+        \textbf{Negative} & 4 of 5 & 5 of 5 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+% Source: results_v2/ddc_phase1/{awa2,apy}/*/summary.json, paired by seed
+
+\subsection{Inert on AwA2, and Structurally So}
+\label{subsec:repro_channel_awa2}
+
+On AwA2 the channel does nothing. The mean paired difference is $-0.0026$, negative on four of five seeds, and smaller than the seed-to-seed standard deviation of NMI itself, which is about $0.006$. Enabling or disabling the description module leaves the clustering statistically unchanged.
+
+The reason is structural rather than empirical, and it follows from Section~\ref{subsec:repro_classlabels}. The mask $g$ can only remove tags from the distance computation. When two same-class instances have a tag distance of exactly zero, that distance remains exactly zero under every possible mask, because removing coordinates from a vector of zero differences cannot make it non-zero. The pair-selection score is therefore invariant to $g$ for precisely the pairs that dominate the selection. This is confirmed directly: across the five seeds the ILP mask varied between 47 and 73 selected tags, while the same-class pair fraction remained $0.9215 \pm 0.0021$ throughout, with a correlation between the two of $-0.07$. The description module changes what the clusters are described by; it cannot change which pairs are generated.
+
+\subsection{Live but Harmful on aPY-15}
+\label{subsec:repro_channel_apy}
+
+On aPY-15, where tag distances are not degenerate, the channel is live and its sign is negative. The mean paired difference is $-0.0430 \pm 0.0034$, negative on all five seeds, and roughly twelve times its own standard deviation. This is not noise, and it is an order of magnitude larger than the AwA2 effect.
+
+The mechanism is visible in the constraint statistics. Masking removes tags from the distance computation, and on per-instance annotations those tags are discriminative, so pairs selected in the masked space are less likely to join same-class instances than pairs selected in the full space: the same-class fraction drops from $0.6233$ with the ILP disabled to $0.5554$ at $\alpha = 1$. The description module degrades the supervision it is meant to refine. The two mechanisms of the method thus pull in opposite directions on this dataset: the $\lambda = 0$ comparison shows the pairwise term is worth $0.148$ NMI, while the mask costs $0.043$ of that back.
+
+\subsection{Descriptions Are Best Where Clustering Is Worst}
+\label{subsec:repro_tradeoff}
+
+Because the damage is caused by masking, its magnitude should scale with how aggressively the ILP masks, and it does. Table~\ref{tab:repro_doseresponse} varies the coverage parameter on aPY-15 and reports both the clustering cost and the description quality at each setting.
+
+\begin{table}[H]
+    \centering
+    \footnotesize
+    \caption[Dose-response of the description channel on aPY-15]{Effect of coverage parameter $\alpha$ on aPY-15, five seeds. $\Delta$NMI is the paired difference against the ILP-off configuration. At $\alpha = 4$ the ILP is infeasible in every round, so no mask is applied and no descriptions are produced. At $\alpha = 3$ the TC, ITF and tags-per-cluster figures are over the two seeds for which the ILP was feasible on the final assignment. ITF values are in nats against a ceiling of $\ln 15 \approx 2.708$.}
+    \label{tab:repro_doseresponse}
+    \begin{tabular}{lcccccc}
+        \hline
+        $\boldsymbol{\alpha}$ & \textbf{Tags kept} & \textbf{$\Delta$NMI} & \textbf{Neg.} & \textbf{TC} & \textbf{ITF} & \textbf{Tags/cluster} \\
+        \hline
+        1 & 26.4/64 (41\%) & $\mathbf{-0.0430 \pm 0.0034}$ & 5/5 & $\mathbf{0.3798}$ & $\mathbf{2.0853}$ & $3.09 \pm 0.14$ \\
+        2 & 47.8/64 (75\%) & $-0.0063 \pm 0.0056$ & 4/5 & $0.3056$ & $1.7143$ & $7.77 \pm 0.45$ \\
+        3 & 50.5/64 (79\%) & $-0.0089 \pm 0.0055$ & 5/5 & ${\sim}\,0.311$ & ${\sim}\,1.157$ & $12.13 \pm 0.60$ \\
+        4 & none (infeasible) & $-0.0031 \pm 0.0061$ & 1/5 & --- & --- & --- \\
+        \hline
+    \end{tabular}
+\end{table}
+
+% Source: results_v2/ddc_phase1/apy/apy15_mu15_a*/summary.json
+
+The dose-response is clean and it is inverted with respect to description quality. At $\alpha = 1$ the mask is most aggressive, keeping 41\% of tags, and produces both the largest clustering penalty and by some margin the best descriptions: 3.09 tags per cluster, TC $= 0.3798$, and ITF $= 2.0853$ against a ceiling of $\ln 15 \approx 2.708$. At $\alpha = 2$ the penalty all but disappears, and the descriptions become markedly worse on both metrics while more than doubling in length. At $\alpha = 4$ the ILP is infeasible in every round, no mask is applied, and the runs are effectively identical to disabling the description module, which serves as an internal control confirming that the effect is caused by masking and nothing else.
+
+The paper's own ablation asserts that the description module consistently improves clustering. That does not replicate here. On AwA2 the channel is inert for a reason that follows from the dataset's attribute structure; on aPY-15 it is active and harmful at every feasible operating point; and the settings that produce the most concise and distinctive descriptions are the settings that damage the clustering most. We report this as a failure to replicate under the conditions of Section~\ref{subsec:repro_judgment}, not as a claim about the authors' own runs, which we cannot inspect.
+
+\section{Feasibility of the Published Configuration}
+\label{sec:repro_feasibility}
+
+Two aspects of the published setup could not be reproduced as described. The first concerns the coverage parameter on aPY and is arithmetic rather than empirical. The second and third are smaller discrepancies in reported cost and in the behaviour of one of the description metrics.
+
+\subsection{The Published Coverage Parameter on aPY}
+\label{subsec:repro_alpha8}
+
+The paper states a single global coverage value, $\alpha = 8$, for both datasets, and defines $Q_{ij}$ as the fraction of cluster $i$ carrying tag $j$ under mean imputation, which is the definition implemented in Section~\ref{sec:ilp}. Under those two statements together, the coverage constraint of Equation~\ref{eq:ilp_coverage} cannot be satisfied on aPY at any $\beta$. The left-hand side is bounded above by the row sum of $Q$, which is the mean number of active attributes per cluster member. On the true aPY-15 partition that quantity is $5.56$ on average and between $4.18$ and $4.41$ for the worst class, so selecting every one of the 64 attributes still leaves the constraint unmet. Learned partitions, being less pure, reach less. In practice $\alpha = 4$ was infeasible in every round we ran, $\alpha = 3$ was feasible in about 37\% of rounds, and only $\alpha = 1$ and $\alpha = 2$ solved reliably.
+
+This is a discrepancy that we cannot resolve. Something in the paper's aPY setup must differ from what is described --- a different normalization of $Q$, a different binarization threshold, or a denser subset of the data --- but with no reference implementation available there is no way to determine which, and we report it as an unresolved difference rather than as an error. It is worth noting that the paper's own analysis of $\alpha$ observes independently that smaller values yield more concise and more orthogonal explanations, which is consistent with what Table~\ref{tab:repro_doseresponse} shows.
+
+The consequence for this thesis is direct. The adaptive rule of Section~\ref{sec:adaptive_alpha} yields $\alpha = 2$ on aPY. That value is feasible, solves to proven optimality at $\beta = 1$, and, from the dose-response, sits almost exactly at the point where the mask stops harming the clustering while descriptions remain usable. What Chapter~\ref{chap:methodology} introduced as a fix for an infeasible ILP turns out to be what makes the original method executable on this dataset at all, and it lands close to the best available operating point rather than merely a feasible one.
+
+\subsection{Two Further Discrepancies}
+\label{subsec:repro_discrepancies}
+
+The paper reports that solving the ILP accounts for roughly 1\% of training time. In the reproduction it dominated. On AwA2 at $\mu = 1.5$, a complete run took 529 seconds with the ILP enabled and 58 seconds with it disabled and everything else unchanged, so the description module accounted for about 89\% of wall-clock time. The gap is large enough that it is unlikely to be explained by hardware or solver version alone, though we cannot rule those out; the per-configuration runtimes are in Appendix~\ref{sec:c_runtimes}. The practical consequence is that the description module is the expensive component of the method, which is relevant to DDECCS given that it solves the same ILP once rather than once per round.
+
+The second concerns Tag Coverage as a measure. On AwA2 the $\mu = 1.5$ configuration reaches TC $= 0.7538$ at NMI $= 0.9229$, while removing the pairwise term drops NMI to $0.7425$ but leaves TC at $0.7503$ --- a difference of $0.0035$ for a difference of $0.18$ in clustering quality. Both figures come from the same solver budget and are therefore directly comparable. A description-quality metric that cannot distinguish a $0.92$ clustering from a $0.74$ one is measuring something close to the marginal attribute statistics of the dataset rather than the fit between a description and its cluster, and TC values should be read with that limitation in mind, in this chapter and in Chapter~\ref{chap:experiments} alike. ITF separates the two configurations only slightly better, at $2.4563$ against $2.4087$. Neither metric is comparable with Chapter~\ref{chap:experiments} in any case, for the reasons given in Section~\ref{subsec:repro_judgment}.
+
+\section{Implications for DDECCS}
+\label{sec:repro_implications}
+
+The purpose of this chapter was to supply the controlled comparison Chapter~\ref{chap:experiments} could not. Three consequences follow for the method this thesis proposes, and each concerns a design choice DDECCS had already made for other reasons.
+
+The first concerns what the clustering numbers on either side actually measure. DDECCS applies the ILP once, after clustering, so the semantic attributes never enter the partition; its NMI, ACC and ARI are produced by frozen features and unsupervised algorithms alone. On AwA2 the original DDC's are not, because its self-generated constraints reproduce the class partition at $92.15\%$ before training begins. The two sets of figures are therefore not measuring the same thing on per-class-attribute data, and the comparison in Table~\ref{tab:ddc_comparison} should be read in that light. Chapter~\ref{chap:experiments} presents the post-hoc design as a limitation, in that the ILP cannot influence cluster assignments. On this evidence the same property is better described as a correctness guarantee: it is what makes the reported clustering quality attributable to the clustering.
+
+The second concerns the explanation for the remaining gap. Chapter~\ref{chap:discussion} attributes it to the original DDC's task-specific feature training. That account is now too simple. On AwA2 a substantial part of the margin comes from class information entering through the pairwise term rather than from better features, and the paper-faithful configuration in fact loses to a matched k-means baseline. On aPY the faithful method does not reach the published figure at any feasible coverage value, and the reproduction sits below the frozen-feature baseline throughout. Feature adaptation may still contribute, but it is not the whole of the difference, and on aPY it is not demonstrated at all under matched conditions.
+
+The third concerns the integration the title of this thesis proposes. DDECCS pairs the two methods post-hoc; a fully trained integration would run the description module's output back into the clustering, through exactly the mask $g$ measured in Section~\ref{sec:repro_channel}. That channel was built and measured on both datasets. It is inert on one, for reasons that follow from the attribute structure rather than from any implementation choice, and it is reliably harmful on the other, with the settings producing the best descriptions being the ones that damage the clustering most. Building the trained integration on that channel was therefore not pursued, and the reason is a measurement rather than a limitation of effort or scope. This is what the reproduction contributes to the thesis's central question: the description-to-clustering feedback loop, on these two datasets, does not carry value, and the post-hoc design forgoes nothing that was demonstrably there to gain. Chapter~\ref{chap:discussion} revisits the research questions in light of this.

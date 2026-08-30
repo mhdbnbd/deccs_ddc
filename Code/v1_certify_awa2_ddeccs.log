@@ -1,0 +1,20 @@
+2026-08-23 21:30:57,426 - INFO - === v1 reconstruction | awa2_ddeccs_s42 ===
+2026-08-23 23:03:27,266 - INFO - === v1 reconstruction | awa2_ddeccs_s42 ===
+2026-08-23 23:03:27,308 - INFO - Predicate matrix: 50 classes × 85 attributes
+2026-08-23 23:03:27,352 - INFO - Train split: 29857 samples, 50 classes, 85 attributes
+2026-08-23 23:03:28,406 - INFO - features (29857, 2048) from cache/resnet101_awa2_full.npz; tags (29857, 85) (mean 0.2174); K=50
+2026-08-23 23:03:31,331 - INFO - [DECCS] GMM uses PCA-reduced features: 2048 → 256
+2026-08-23 23:03:40,235 - INFO - [DECCS] Classical base clustering 'KMeans' completed.
+2026-08-23 23:03:40,235 - INFO - Base clustering 'KMeans' completed in 8.90s
+2026-08-23 23:11:06,166 - INFO - [DECCS] Classical base clustering 'Spectral' completed.
+2026-08-23 23:11:06,167 - INFO - Base clustering 'Spectral' completed in 445.93s
+2026-08-23 23:14:49,886 - INFO - [DECCS] Classical base clustering 'GMM' completed.
+2026-08-23 23:14:49,886 - INFO - Base clustering 'GMM' completed in 223.72s
+2026-08-23 23:25:00,954 - INFO - [DECCS] Classical base clustering 'Agglomerative' completed.
+2026-08-23 23:25:00,955 - INFO - Base clustering 'Agglomerative' completed in 611.07s
+2026-08-23 23:25:00,955 - INFO - [DECCS] 4 base clusterings successful. Shape=(4, 29857)
+2026-08-23 23:27:36,381 - INFO - VERIFIED: all 50 cluster sizes match ilp_descriptions.json cluster-for-cluster
+2026-08-23 23:27:36,382 - INFO - cluster_sizes shipped {'min': 24, 'max': 2412, 'mean': 597.1} vs ours {'min': 24, 'max': 2412, 'mean': 597.1} -> match
+2026-08-23 23:27:36,412 - INFO - seed-42 metrics shipped {'nmi': 0.8712, 'acc': 0.8069, 'ari': 0.7362} vs ours {'nmi': 0.8712, 'acc': 0.8069, 'ari': 0.7362} -> match
+2026-08-23 23:27:36,417 - INFO - v1 alpha rule: density 0.217 -> alpha=3
+2026-08-23 23:27:36,432 - INFO - Wrote results_v2/v1_certify/awa2_ddeccs_s42/ (assignments.npy, tags.npy, summary.json)

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.4.12)  2 AUG 2026 19:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.4.12)  31 AUG 2026 00:05
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1370,7 +1370,7 @@ Package microtype Info: No adjustment of character kerning.
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
 )
-<figs/Uni_Logo_2016.png, id=399, 481.8pt x 240.9pt>
+<figs/Uni_Logo_2016.png, id=508, 481.8pt x 240.9pt>
 File: figs/Uni_Logo_2016.png Graphic file (type png)
 <use figs/Uni_Logo_2016.png>
 Package pdftex.def Info: figs/Uni_Logo_2016.png  used on input line 127.
@@ -1444,12 +1444,12 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `lmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
- [2])
+ [2]
+[3])
 \tf@toc=\write5
 \openout5 = `main.toc'.
 
-
-[3]
+ [4]
 Chapter 1.
 (./chapters/introduction.tex [1
 
@@ -1471,14 +1471,14 @@ s. Im-proved DEC (IDEC) [[]Guo
 [3
 
 ]
-<figs/deccs.png, id=596, 597.73312pt x 171.64125pt>
+<figs/deccs.png, id=735, 597.73312pt x 171.64125pt>
 File: figs/deccs.png Graphic file (type png)
 <use figs/deccs.png>
 Package pdftex.def Info: figs/deccs.png  used on input line 25.
 (pdftex.def)             Requested size: 441.01773pt x 126.64061pt.
  [4{/usr/local/texlive/2026basic/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc} <
 ./figs/deccs.png (PNG copy)>]
-<figs/ddc.png, id=625, 502.12593pt x 235.63031pt>
+<figs/ddc.png, id=764, 502.12593pt x 235.63031pt>
 File: figs/ddc.png Graphic file (type png)
 <use figs/ddc.png>
 Package pdftex.def Info: figs/ddc.png  used on input line 43.
@@ -1524,33 +1524,33 @@ Overfull \hbox (4.95662pt too wide) in paragraph at lines 382--394
  []
 
 [22]
-<figs/awa2_kmeans_tsne.png, id=843, 722.7pt x 578.16pt>
+<figs/awa2_kmeans_tsne.png, id=986, 722.7pt x 578.16pt>
 File: figs/awa2_kmeans_tsne.png Graphic file (type png)
 <use figs/awa2_kmeans_tsne.png>
 Package pdftex.def Info: figs/awa2_kmeans_tsne.png  used on input line 437.
 (pdftex.def)             Requested size: 211.68661pt x 169.3471pt.
-<figs/awa2_deccs_tsne.png, id=844, 722.7pt x 578.16pt>
+<figs/awa2_deccs_tsne.png, id=987, 722.7pt x 578.16pt>
 File: figs/awa2_deccs_tsne.png Graphic file (type png)
 <use figs/awa2_deccs_tsne.png>
 Package pdftex.def Info: figs/awa2_deccs_tsne.png  used on input line 442.
 (pdftex.def)             Requested size: 211.68661pt x 169.3471pt.
-<figs/apy_kmeans_tsne.png, id=846, 722.7pt x 578.16pt>
+<figs/apy_kmeans_tsne.png, id=989, 722.7pt x 578.16pt>
 File: figs/apy_kmeans_tsne.png Graphic file (type png)
 <use figs/apy_kmeans_tsne.png>
 Package pdftex.def Info: figs/apy_kmeans_tsne.png  used on input line 456.
 (pdftex.def)             Requested size: 211.68661pt x 169.3471pt.
-<figs/apy_deccs_tsne.png, id=847, 722.7pt x 578.16pt>
+<figs/apy_deccs_tsne.png, id=990, 722.7pt x 578.16pt>
 File: figs/apy_deccs_tsne.png Graphic file (type png)
 <use figs/apy_deccs_tsne.png>
 Package pdftex.def Info: figs/apy_deccs_tsne.png  used on input line 461.
 (pdftex.def)             Requested size: 211.68661pt x 169.3471pt.
  [23 <./figs/awa2_kmeans_tsne.png> <./figs/awa2_deccs_tsne.png>]
-<figs/apy15_kmeans_tsne.png, id=860, 722.7pt x 578.16pt>
+<figs/apy15_kmeans_tsne.png, id=1003, 722.7pt x 578.16pt>
 File: figs/apy15_kmeans_tsne.png Graphic file (type png)
 <use figs/apy15_kmeans_tsne.png>
 Package pdftex.def Info: figs/apy15_kmeans_tsne.png  used on input line 475.
 (pdftex.def)             Requested size: 211.68661pt x 169.3471pt.
-<figs/apy15_deccs_tsne.png, id=861, 722.7pt x 578.16pt>
+<figs/apy15_deccs_tsne.png, id=1004, 722.7pt x 578.16pt>
 File: figs/apy15_deccs_tsne.png Graphic file (type png)
 <use figs/apy15_deccs_tsne.png>
 Package pdftex.def Info: figs/apy15_deccs_tsne.png  used on input line 480.
@@ -1558,15 +1558,29 @@ Package pdftex.def Info: figs/apy15_deccs_tsne.png  used on input line 480.
 ) [24 <./figs/apy_kmeans_tsne.png> <./figs/apy_deccs_tsne.png> <./figs/apy15_km
 eans_tsne.png> <./figs/apy15_deccs_tsne.png>] [25]
 Chapter 5.
-(./chapters/discussion.tex [26
+(./chapters/ddc_reproduction.tex [26
 
-] [27] [28] [29]) [30]
+] [27]
+Overfull \hbox (19.97974pt too wide) in paragraph at lines 48--73
+ [][] 
+ []
+
+[28] [29] [30]
+Overfull \hbox (6.8725pt too wide) in paragraph at lines 118--130
+ [][] 
+ []
+
+[31] [32] [33] [34]) [35]
 Chapter 6.
-(./chapters/conclusion.tex [31
+(./chapters/discussion.tex [36
 
-] [32] [33]) (./main.bbl [34] [35
+] [37] [38] [39]) [40]
+Chapter 7.
+(./chapters/conclusion.tex [41
 
-] [36]) [37]
+] [42] [43]) (./main.bbl [44] [45
+
+] [46]) [47]
 (./main.lof
 Overfull \hbox (13.1423pt too wide) in paragraph at lines 15--15
  \T1/lmtt/m/n/12 results/apy_15/kmeans/tsne.png \T1/lmr/m/n/12 (-20) and \T1/lm
@@ -1577,7 +1591,7 @@ tt/m/n/12 results/apy_15/deccs/tsne.png\T1/lmr/m/n/12 (-20) .[] [][]
 \tf@lof=\write6
 \openout6 = `main.lof'.
 
- [38
+ [48
 
 ] (./main.lot
 Overfull \hbox (3.8171pt too wide) in paragraph at lines 21--21
@@ -1585,15 +1599,15 @@ Overfull \hbox (3.8171pt too wide) in paragraph at lines 21--21
 /ddeccs/ilp_descriptions.json\T1/lmr/m/n/12 (-20) .[] [][]  
  []
 
-[39
+[49
 
 ])
 \tf@lot=\write7
 \openout7 = `main.lot'.
 
- (./appendices/appendix_a.tex [40]
+ (./appendices/appendix_a.tex [50]
 Appendix A.
-[41
+[51
 
 ]
 
@@ -1603,7 +1617,7 @@ Package fancyhdr Warning: \headheight is too small (15.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-12.11652pt}.
 
-[42]
+[52]
 
 Package fancyhdr Warning: \headheight is too small (15.0pt): 
 (fancyhdr)                Make it at least 27.11652pt, for example:
@@ -1611,7 +1625,7 @@ Package fancyhdr Warning: \headheight is too small (15.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-12.11652pt}.
 
-[43]) (./appendices/appendix_b.tex
+[53]) (./appendices/appendix_b.tex
 
 Package fancyhdr Warning: \headheight is too small (15.0pt): 
 (fancyhdr)                Make it at least 27.11652pt, for example:
@@ -1619,32 +1633,46 @@ Package fancyhdr Warning: \headheight is too small (15.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-12.11652pt}.
 
-[44]
+[54]
 Appendix B.
-[45
+[55
 
-] [46] [47] [48] [49]
+] [56] [57] [58] [59]
 Underfull \hbox (badness 2253) in paragraph at lines 391--392
 []\T1/lmr/m/n/12 (+20) Elkan al-go-rithm, $\OML/lmm/m/it/12 n[]init \OT1/lmr/m/
 n/12 (+20) = []$\T1/lmr/m/n/12 (+20) ,
  []
 
-[50]) [51] (./main.aux)
+[60]) (./appendices/appendix_c.tex [61]
+Appendix C.
+
+Overfull \hbox (91.48239pt too wide) in paragraph at lines 17--34
+ [][] 
+ []
+
+
+Overfull \hbox (98.17142pt too wide) in paragraph at lines 44--62
+ [][] 
+ []
+
+[62
+
+] [63] [64] [65] [66]) [67] (./main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 434C84465A3B38BDFD9CAACAD1D51530;20017.
+(rerunfilecheck)             Checksum: 0F25F5DD497984DE275ABF1A3D812067;25665.
  ) 
 Here is how much of TeX's memory you used:
- 45406 strings out of 469006
- 1029176 string characters out of 5454813
- 1604224 words of memory out of 5000000
- 72835 multiletter control sequences out of 15000+600000
- 741192 words of font info for 262 fonts, out of 8000000 for 9000
+ 45594 strings out of 469006
+ 1032184 string characters out of 5454813
+ 1606441 words of memory out of 5000000
+ 72929 multiletter control sequences out of 15000+600000
+ 749856 words of font info for 290 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
- 84i,14n,104p,1716b,803s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,14n,104p,1928b,803s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></u
 sr/local/texlive/2026basic/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/lo
 cal/texlive/2026basic/texmf-dist/fonts/type1/public/lm/lmbx8.pfb></usr/local/te
@@ -1653,22 +1681,26 @@ xlive/2026basic/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/local/texlive
 basic/texmf-dist/fonts/type1/public/lm/lmmi12.pfb></usr/local/texlive/2026basic
 /texmf-dist/fonts/type1/public/lm/lmmi6.pfb></usr/local/texlive/2026basic/texmf
 -dist/fonts/type1/public/lm/lmmi8.pfb></usr/local/texlive/2026basic/texmf-dist/
-fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/
-type1/public/lm/lmr12.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/
-public/lm/lmr17.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public
-/lm/lmr7.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/lm/lmr
-8.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/lm/lmri12.pfb
-></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></us
-r/local/texlive/2026basic/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/loca
-l/texlive/2026basic/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/local/texl
-ive/2026basic/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></usr/local/texlive/2
-026basic/texmf-dist/fonts/type1/public/lm/lmtt12.pfb></usr/local/texlive/2026ba
-sic/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texli
-ve/2026basic/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on main.pdf (57 pages, 4480838 bytes).
+fonts/type1/public/lm/lmmib10.pfb></usr/local/texlive/2026basic/texmf-dist/font
+s/type1/public/lm/lmr10.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type
+1/public/lm/lmr12.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/publ
+ic/lm/lmr17.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/lm/
+lmr7.pfb></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/lm/lmr8.pf
+b></usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/lm/lmri10.pfb></u
+sr/local/texlive/2026basic/texmf-dist/fonts/type1/public/lm/lmri12.pfb></usr/lo
+cal/texlive/2026basic/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/t
+exlive/2026basic/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/local/texlive
+/2026basic/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/local/texlive/2026b
+asic/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></usr/local/texlive/2026basic/
+texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2026basic/texmf
+-dist/fonts/type1/public/lm/lmtt12.pfb></usr/local/texlive/2026basic/texmf-dist
+/fonts/type1/public/lm/lmtti10.pfb></usr/local/texlive/2026basic/texmf-dist/fon
+ts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2026basic/texmf
+-dist/fonts/type1/urw/zapfding/uzdr.pfb>
+Output written on main.pdf (74 pages, 4623808 bytes).
 PDF statistics:
- 1322 PDF objects out of 1440 (max. 8388607)
- 1172 compressed objects within 12 object streams
- 183 named destinations out of 1000 (max. 500000)
- 64842 words of extra memory for PDF output out of 74296 (max. 10000000)
+ 1686 PDF objects out of 1728 (max. 8388607)
+ 1503 compressed objects within 16 object streams
+ 224 named destinations out of 1000 (max. 500000)
+ 68130 words of extra memory for PDF output out of 74296 (max. 10000000)
 

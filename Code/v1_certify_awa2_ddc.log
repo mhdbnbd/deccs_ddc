@@ -1,0 +1,10 @@
+2026-08-23 21:18:00,010 - INFO - === v1 reconstruction | awa2_ddc_s42 ===
+2026-08-23 21:34:48,529 - INFO - === v1 reconstruction | awa2_ddc_s42 ===
+2026-08-23 21:34:48,570 - INFO - Predicate matrix: 50 classes × 85 attributes
+2026-08-23 21:34:48,613 - INFO - Train split: 29857 samples, 50 classes, 85 attributes
+2026-08-23 21:34:49,674 - INFO - features (29857, 2048) from cache/resnet101_awa2_full.npz; tags (29857, 85) (mean 0.2174); K=50
+2026-08-23 21:36:05,842 - INFO - VERIFIED: all 50 cluster sizes match ilp_descriptions.json cluster-for-cluster
+2026-08-23 21:36:05,843 - INFO - cluster_sizes shipped {'min': 182, 'max': 1052, 'mean': 597.1} vs ours {'min': 182, 'max': 1052, 'mean': 597.1} -> match
+2026-08-23 21:36:05,873 - INFO - seed-42 metrics shipped {'nmi': 0.8725, 'acc': 0.8038, 'ari': 0.7617} vs ours {'nmi': 0.8725, 'acc': 0.8038, 'ari': 0.7617} -> match
+2026-08-23 21:36:05,877 - INFO - v1 alpha rule: density 0.217 -> alpha=3
+2026-08-23 21:36:05,902 - INFO - Wrote results_v2/v1_certify/awa2_ddc_s42/ (assignments.npy, tags.npy, summary.json)

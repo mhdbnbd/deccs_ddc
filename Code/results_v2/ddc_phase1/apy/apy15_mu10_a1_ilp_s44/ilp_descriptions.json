@@ -1,0 +1,132 @@
+[
+  {
+    "cluster_id": 2,
+    "n_members": 632,
+    "tags": [
+      "Vert Cyl",
+      "Glass",
+      "Shiny"
+    ],
+    "tag_indices": [
+      3,
+      57,
+      61
+    ],
+    "tc": 0.3894,
+    "itf": 1.8484
+  },
+  {
+    "cluster_id": 5,
+    "n_members": 142,
+    "tags": [
+      "3D Boxy",
+      "Head",
+      "Eye",
+      "Metal"
+    ],
+    "tag_indices": [
+      1,
+      8,
+      15,
+      52
+    ],
+    "tc": 0.2652,
+    "itf": 1.1836
+  },
+  {
+    "cluster_id": 8,
+    "n_members": 92,
+    "tags": [
+      "3D Boxy",
+      "Occluded",
+      "Metal"
+    ],
+    "tag_indices": [
+      1,
+      5,
+      52
+    ],
+    "tc": 0.3342,
+    "itf": 1.116
+  },
+  {
+    "cluster_id": 9,
+    "n_members": 952,
+    "tags": [
+      "3D Boxy",
+      "Occluded",
+      "Metal",
+      "Wood"
+    ],
+    "tag_indices": [
+      1,
+      5,
+      52,
+      54
+    ],
+    "tc": 0.2903,
+    "itf": 1.1836
+  },
+  {
+    "cluster_id": 10,
+    "n_members": 754,
+    "tags": [
+      "Window",
+      "Wheel",
+      "Door"
+    ],
+    "tag_indices": [
+      24,
+      26,
+      27
+    ],
+    "tc": 0.4103,
+    "itf": 1.8484
+  },
+  {
+    "cluster_id": 11,
+    "n_members": 907,
+    "tags": [
+      "Furn. Back",
+      "Furn. Seat",
+      "Wood"
+    ],
+    "tag_indices": [
+      40,
+      41,
+      54
+    ],
+    "tc": 0.3771,
+    "itf": 1.8484
+  },
+  {
+    "cluster_id": 12,
+    "n_members": 1447,
+    "tags": [
+      "Head",
+      "Eye"
+    ],
+    "tag_indices": [
+      8,
+      15
+    ],
+    "tc": 0.5562,
+    "itf": 1.3863
+  },
+  {
+    "cluster_id": 14,
+    "n_members": 263,
+    "tags": [
+      "Wheel",
+      "Handlebars",
+      "Shiny"
+    ],
+    "tag_indices": [
+      26,
+      33,
+      61
+    ],
+    "tc": 0.4366,
+    "itf": 1.6173
+  }
+]
