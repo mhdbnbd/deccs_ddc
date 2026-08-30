@@ -1,0 +1,183 @@
+\chapter{Reproduction Details}
+\label{app:reproduction}
+
+This appendix supports Chapter~\ref{chap:ddc_repro}. It gives the per-configuration results underlying the chapter's tables, the specification extracted from the published paper, the judgment calls made where that specification is silent, the recovery and verification of the aPY per-instance annotations, the solver certification audit, the defect inventory found across both codebases, the runtimes, and the code layout. Nothing here changes any figure reported in Chapter~\ref{chap:ddc_repro}; the material is separated out so the chapter can state the findings without carrying their supporting detail.
+
+\section{Per-Configuration Results}
+\label{sec:c_perseed}
+
+Tables~\ref{tab:c_awa2_runs} and~\ref{tab:c_apy_runs} give every configuration run for Chapter~\ref{chap:ddc_repro}, including those omitted from the chapter's tables. All values are final-epoch, over five seeds (42--46). Best-epoch selection was not used anywhere: choosing the epoch by NMI requires the ground-truth labels and inflated results by $0.006$ on average on AwA2 and $0.033$ on aPY-15, and by as much as $0.086$ in a single run, so it is reported nowhere in this thesis. The individual per-run artefacts --- \texttt{history.csv}, \texttt{summary.json}, \texttt{ilp\_descriptions.json} and the cluster assignments --- are written to \texttt{results\_v2/ddc\_phase1/<dataset>/<tag>/} under the run tag given in each table.
+
+\begin{table}[H]
+    \centering
+    \footnotesize
+    \setlength{\tabcolsep}{4pt}
+    \caption[Per-configuration AwA2 reproduction results]{AwA2 reproduction, all configurations ($N = 29{,}857$, $K = 50$, $\alpha = 3$, raw features, $r = 0.5$, $\gamma = 100$, $l = 1$). Five seeds (42--46), final epoch, mean $\pm$ std.}
+    \label{tab:c_awa2_runs}
+    \begin{tabular}{llcccc}
+        \toprule
+        \textbf{Configuration} & \textbf{Run tag} & \textbf{NMI} & \textbf{ACC} & \textbf{ARI} & \textbf{Active} \\
+        \midrule
+        $\mu = 1.0$, $\lambda = 1$, ILP on & \texttt{full\_mu10\_a3\_ilp} & $0.8081 \pm 0.0237$ & $0.4861 \pm 0.0454$ & $0.4480 \pm 0.0505$ & $31.0 \pm 3.7$ \\
+        $\mu = 1.5$, $\lambda = 1$, ILP on & \texttt{full\_mu15\_a3\_ilp} & $0.9229 \pm 0.0062$ & $0.8306 \pm 0.0259$ & $0.8276 \pm 0.0251$ & $49.4 \pm 0.5$ \\
+        $\mu = 1.5$, $\lambda = 0$ & \texttt{full\_mu15\_lam0\_ilp} & $0.7425 \pm 0.0186$ & $0.6596 \pm 0.0318$ & $0.5639 \pm 0.0392$ & $37.4 \pm 1.9$ \\
+        $\mu = 1.5$, $\lambda = 1$, ILP off & \texttt{full\_mu15\_a3\_noilp} & $0.9255 \pm 0.0060$ & $0.8444 \pm 0.0222$ & $0.8413 \pm 0.0241$ & $50.0 \pm 0.0$ \\
+        $\mu = 1.5$, ILP at 120\,s & \texttt{full\_mu15\_a3\_ilp\_t120} & $0.9252 \pm 0.0032$ & $0.8446 \pm 0.0135$ & $0.8417 \pm 0.0145$ & $49.8 \pm 0.4$ \\
+        \midrule
+        \multicolumn{6}{l}{\textit{Matched k-means baselines (5 seeds, \texttt{n\_init} = 10)}} \\
+        Features only & --- & $0.8699 \pm 0.0021$ & $0.7864 \pm 0.0099$ & $0.7469 \pm 0.0098$ & 50/50 \\
+        Features $\oplus$ raw tags & --- & $0.8804 \pm 0.0028$ & $0.8033 \pm 0.0081$ & $0.7693 \pm 0.0101$ & 50/50 \\
+        Features $\oplus$ standardized tags & --- & $0.7665 \pm 0.0079$ & $0.5194$ & $0.3767$ & 50/50 \\
+        Tags only (control) & --- & $0.5909 \pm 0.0000$ & $0.4976 \pm 0.0000$ & $0.0439$ & 50/50 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+The same-class pair fraction is $0.9215 \pm 0.0021$ in every AwA2 configuration above and is therefore omitted from the table. The features-only baseline reproduces the corresponding figure of Chapter~\ref{chap:experiments} ($0.8699$ against $0.869$), which confirms that the split, the feature cache and the tag alignment used by the reproduction harness match those of the main pipeline.
+
+\begin{table}[H]
+    \centering
+    \footnotesize
+    \setlength{\tabcolsep}{4pt}
+    \caption[Per-configuration aPY-15 reproduction results]{aPY-15 reproduction, all configurations ($N = 5{,}189$, $K = 15$, per-instance binary tags, $r = 0.5$). Five seeds (42--46), final epoch, mean $\pm$ std. TC and ITF at $\alpha = 3$ are over the two seeds for which the ILP was feasible on the final assignment.}
+    \label{tab:c_apy_runs}
+    \begin{tabular}{llccccc}
+        \toprule
+        \textbf{Configuration} & \textbf{Run tag} & \textbf{NMI} & \textbf{ACC} & \textbf{ARI} & \textbf{Active} & \textbf{Same-class} \\
+        \midrule
+        $\mu = 1.0$, $\alpha = 1$ & \texttt{apy15\_mu10\_a1\_ilp} & $0.6337 \pm 0.0153$ & $0.5630 \pm 0.0251$ & $0.4731 \pm 0.0315$ & $11.2 \pm 1.9$ & $0.5202$ \\
+        $\mu = 1.5$, $\alpha = 1$ & \texttt{apy15\_mu15\_a1\_ilp} & $0.6368 \pm 0.0108$ & $0.5610 \pm 0.0200$ & $0.4785 \pm 0.0314$ & $15.0$ & $0.5554$ \\
+        $\mu = 1.5$, $\alpha = 2$ & \texttt{apy15\_mu15\_a2\_ilp} & $0.6735 \pm 0.0091$ & $0.5974 \pm 0.0362$ & $0.5082 \pm 0.0358$ & $15.0$ & $0.6219$ \\
+        $\mu = 1.5$, $\alpha = 3$ & \texttt{apy15\_mu15\_a3\_ilp} & $0.6710 \pm 0.0045$ & $0.5986 \pm 0.0211$ & $0.5120 \pm 0.0338$ & $15.0$ & $0.6264$ \\
+        $\mu = 1.5$, $\alpha = 4$ & \texttt{apy15\_mu15\_a4\_ilp} & $0.6768 \pm 0.0056$ & $0.6199 \pm 0.0160$ & $0.5263 \pm 0.0245$ & $15.0$ & $0.6240$ \\
+        $\mu = 1.5$, $\lambda = 0$ & \texttt{apy15\_mu15\_a1\_lam0} & $0.5318 \pm 0.0216$ & $0.4751 \pm 0.0269$ & $0.3215 \pm 0.0235$ & $15.0$ & $0.5458$ \\
+        $\mu = 1.5$, ILP off & \texttt{apy15\_mu15\_a1\_noilp} & $0.6798 \pm 0.0090$ & $0.6251 \pm 0.0263$ & $0.5284 \pm 0.0265$ & $15.0$ & $0.6233$ \\
+        \midrule
+        \multicolumn{7}{l}{\textit{Matched k-means baselines (5 seeds, \texttt{n\_init} = 10)}} \\
+        Features only & --- & $0.6463 \pm 0.0196$ & $0.6012$ & $0.4298$ & 15/15 & --- \\
+        Features $\oplus$ tags & --- & $0.6767 \pm 0.0182$ & $0.6166$ & $0.4700$ & 15/15 & --- \\
+        Tags only (control) & --- & $0.3778 \pm 0.0026$ & $0.3239$ & $0.0544$ & 15/15 & --- \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+The $\alpha = 4$ row is an internal control rather than an operating point: the ILP is infeasible in all 20 rounds, so $g$ is left as the identity and no descriptions are produced. On four of the five seeds these runs are bit-identical to the corresponding ILP-off runs, which confirms that the differences reported in Table~\ref{tab:repro_ilp_deltas} are caused by the mask and not by any other difference between the two code paths.
+
+\section{The Specification as Extracted from the Paper}
+\label{sec:c_spec}
+
+Table~\ref{tab:c_spec} lists each element of the original DDC as implemented, with the location in the published paper from which it was taken. Equation numbers refer to the paper's own numbering; where this thesis restates the same formulation, the corresponding equation in Chapter~\ref{chap:methodology} is given.
+
+\begin{table}[H]
+    \centering
+    \footnotesize
+    \caption[Extracted specification of the original DDC]{The original DDC as implemented, with the source of each element in the published paper~\citep{Zhang2021}.}
+    \label{tab:c_spec}
+    \begin{tabular}{p{4.6cm}p{2.4cm}p{6.0cm}}
+        \toprule
+        \textbf{Element} & \textbf{Source} & \textbf{As implemented} \\
+        \midrule
+        Backbone & Sec.\ 4.1 & Frozen ResNet-101, 2048-d, no fine-tuning \\
+        Encoder & Sec.\ 3.1 & Three fully connected layers, softmax over $K$ \\
+        Clustering objective & Eq.\ (1) & Mutual information between inputs and assignments \\
+        Symbolic objective & Eq.\ (2)--(4) & ILP as in Eq.~\ref{eq:ilp_obj}--\ref{eq:ilp_orthogonal} \\
+        Tag mask $g$ & Sec.\ 3.2 & Derived from the ILP allocation $W$ each round \\
+        Pair selection & Eq.\ (5) & Masked tag distance plus cluster disagreement, $\gamma = 100$ \\
+        Partners per anchor & Sec.\ 3.3 & $l = 1$ \\
+        Pairwise loss weight & Sec.\ 3.3 & $\lambda = 1$ \\
+        Coverage parameter & Sec.\ 4.1 & $\alpha = 8$ global (see Sec.~\ref{subsec:repro_alpha8}) \\
+        Orthogonality bound & Sec.\ 4.1 & Smallest feasible $\beta$, searched upward from 1 \\
+        Annotation ratio & Sec.\ 4.2 & $r = 0.5$ for the reported configuration \\
+        Description metrics & Eq.\ (8)--(9) & TC and ITF as in Eq.~\ref{eq:tc}--\ref{eq:itf} \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\section{Judgment Calls}
+\label{sec:c_judgment}
+
+The paper does not state every setting needed to run the method. Each gap below was resolved once, before any results were collected, and applied identically to every configuration in Chapter~\ref{chap:ddc_repro}.
+
+\textbf{Optimizer and learning rate.} Adam~\citep{KingmaBa2015} with default parameters, as the paper states, at learning rate $10^{-3}$. The paper gives no value; $10^{-3}$ is Adam's own default and the only choice that does not amount to tuning against the result.
+
+\textbf{Batch size.} 256, matching the archived earlier attempt of Section~\ref{sec:early_experiments} so that the two are directly comparable.
+
+\textbf{Epoch budget.} The paper trains ``until convergence'' without stating a budget. We fixed 10 pretraining epochs followed by 20 rounds of 2 epochs each. A fixed budget removes convergence criteria as a source of difference between configurations, at the cost of not guaranteeing that any single configuration has converged.
+
+\textbf{Preprocessing.} None: features enter raw. Section~\ref{subsec:standardization_ablation} establishes that standardization costs NMI on these features, and the reproduction is consistent with the rest of the thesis in this respect.
+
+\textbf{Norm and output in Equation~(5).} $|\cdot|$ taken as $L_2$; $f_\theta(x)$ taken as the softmax output rather than a logit or an intermediate embedding.
+
+\textbf{Interpretation of $r$.} Read as a ratio of annotated \emph{instances}, with the mask drawn once and held fixed for the whole run (\texttt{-{}-mask\_mode instance}). The alternative reading, in which individual entries are masked and re-drawn, is implemented behind \texttt{-{}-mask\_mode entry} and available for ablation. The instance-level reading is the one consistent with the paper's description of simulating incomplete annotation, and re-drawing per batch was one of the defects identified in the earlier attempt (Appendix~\ref{sec:early_results}).
+
+\textbf{Pair-partner restriction.} Partners are drawn only from annotated instances (\texttt{-{}-pairs\_from annotated}). Under instance-level masking every unannotated instance carries the identical imputed tag vector, so admitting them makes the tag-distance term of Equation~(5) uninformative for a large fraction of candidate pairs.
+
+\textbf{Tag representation.} On AwA2, binary tags from the dataset's \texttt{predicate\-matrix\-binary.txt}, with a midpoint threshold of the continuous matrix as fallback where a binary matrix is not distributed. On aPY, the per-instance annotations recovered in Section~\ref{sec:c_apy_tags}. Both differ from the DDECCS pipeline of Chapter~\ref{chap:methodology}, which uses the continuous per-class matrix throughout: on AwA2 the same attributes are binarised differently (densities $0.365$ and $0.217$), whereas on aPY the tags are different objects entirely, per-instance rather than per-class means, at effectively the same mean density ($0.0869$ against $0.087$). TC and ITF are therefore not comparable across the two chapters on either dataset, even at equal $\alpha$.
+
+\textbf{ITF base.} Reported in nats throughout this thesis. The paper's table is base-2; conversion is a factor of $\ln 2$.
+
+\textbf{ILP warm start.} The search over $\beta$ starts from $\text{last}\,\beta - 1$ with a full search as fallback. This is an optimization only and does not change the solution returned.
+
+\textbf{The one deviation.} A weight $\mu$ on the marginal entropy term $H(Y)$ of Equation~(1), which the published equation does not carry. Implemented as written, at $\mu = 1.0$, the objective leaves 15 to 24 of the 50 AwA2 clusters unpopulated. Both settings are reported together throughout Chapter~\ref{chap:ddc_repro}, with $\mu = 1.0$ as the reproduction result and $\mu = 1.5$ identified as a deviation wherever it appears.
+
+\section{Recovery of the aPY Per-Instance Annotations}
+\label{sec:c_apy_tags}
+
+Chapter~\ref{chap:experiments} notes that the preprocessing used throughout this thesis averages aPY's per-instance binary annotations into per-class means, so that both datasets enter the pipeline in the same form. Testing the constraint mechanism of Section~\ref{sec:repro_mechanism} required the annotations at instance level, since averaging them reintroduces exactly the per-class degeneracy the test is meant to avoid. They were therefore reconstructed from the original annotation files by \texttt{build\_apy\_instance\_tags.py}, which writes a sidecar at \texttt{data/aPY-data/aPY/per-instance-attributes.tsv} and leaves the existing preprocessing untouched.
+
+Because a misaligned reconstruction would silently produce plausible but wrong results, the mapping was verified at three levels. First, the object indices parsed from \texttt{labels.txt} must be exactly $0 \ldots N-1$, which fails immediately on any gap or duplicate. Second, every record must match an annotation entry, in order, on both class name and source image stem. Third, the per-class means of the recovered vectors must reproduce \texttt{predicate-matrix-continuous.txt}, an independent artefact written by the original preprocessing, so that a single misassigned row breaks the check.
+
+The third tier was tested against deliberate corruptions before use. A one-instance shift is caught; a cross-class misassignment is caught; a permutation of two instances within a single class is \emph{not}, because class means are invariant to it. That residual case can only arise between two objects of the same class in the same source image, and it does not affect any per-class or per-cluster quantity reported in this thesis. A synthetic pre-deployment test over 752 constructed instances passed at a maximum absolute deviation of $4.88 \times 10^{-7}$.
+
+On the real data, all 15{,}339 annotation entries matched all 15{,}339 processed instances with zero skipped, at a maximum absolute deviation of $4.98 \times 10^{-7}$ against the reference matrix. The recovered mapping is therefore the identity permutation. The resulting matrix has a per-instance binary density of $0.0869$, or $5.56$ active attributes per instance on average, ranging from 0 to 16; it contains 1{,}703 distinct rows before masking and between 1{,}080 and 1{,}107 at $r = 0.5$, against 51 for AwA2.
+
+\section{Solver Certification Audit}
+\label{sec:c_certification}
+
+The ILP search reports the smallest $\beta$ at which a solution is found. Whether that value is meaningful depends on the solver correctly distinguishing a proven optimum from a time-limited incumbent, and on a timeout without an incumbent not being mistaken for infeasibility. Both distinctions were found to be mishandled (Section~\ref{sec:c_defects}), so the six shipped ILP solutions underlying Chapter~\ref{chap:experiments} were re-solved at extended time limits to establish what they certify.
+
+All six are seed-42 solutions, covering both description modes on each of the three dataset configurations. Four are proven optimal at the $\beta$ reported: both modes on aPY-15, \texttt{ddeccs} on aPY-32, and \texttt{ddeccs} on AwA2. Two are time-limited incumbents rather than optima: \texttt{ddc} on aPY-32 reports objective 164 where 151 is achievable, and \texttt{ddc} on AwA2 reports 234 where 224 is achievable. On AwA2, $\beta = 2$ was shown to be feasible in both modes, but only after 900 seconds, and both incumbents sit roughly 117\% above their linear-programming bounds, so the true $\beta = 2$ optima are unknown.
+
+The convention adopted for this thesis is the smallest \emph{certified} $\beta$: the smallest value at which a solution has been proven optimal. Under that convention the $\beta$ values reported in Chapter~\ref{chap:experiments} and Appendix~\ref{app:descriptions} stand, and no figure in those tables changes. Reporting the uncertified $\beta = 2$ solutions instead would substitute one unproven incumbent for another while also yielding markedly worse descriptions by the paper's own metrics --- on AwA2, TC $= 0.3604$ at ten tags per cluster against TC $= 0.6904$ at $4.48$ --- so the certified convention is both the defensible and the more informative choice. Appendix~\ref{app:early_experiments} records the provenance of the shipped values.
+
+\section{Defect Inventory}
+\label{sec:c_defects}
+
+Six defects were identified across the two codebases: the pipeline that produced the results of Chapter~\ref{chap:experiments}, and the reproduction of Chapter~\ref{chap:ddc_repro}. They are listed here because two of them affected numbers that were at one point reported, and because the remainder bear on how the ILP results in both chapters should be read.
+
+\begin{enumerate}[itemsep=2pt]
+    \item \textbf{Hardcoded solver status.} An \texttt{"optimal"} status was recorded without being read back from the solver. Reproduction only.
+    \item \textbf{Solution status never inspected.} The solver's solution status was not read, so a time-limited incumbent could not be distinguished from a proven optimum. Both codebases. This defect produced incorrect reported figures.
+    \item \textbf{Timeout read as infeasibility.} A time limit reached without an incumbent was treated as proof of infeasibility, causing the search to advance to the next $\beta$ and report an inflated value. Both codebases. This defect produced incorrect reported figures.
+    \item \textbf{Mismatched save state.} The saved allocation matrix $W$ was paired with cluster memberships from a later point in training, so reported TC and ITF could mix two training states. Reproduction only; visible as a disagreement between the recorded active-cluster counts.
+    \item \textbf{Hidden $\alpha$-infeasibility.} Infeasibility caused by the coverage parameter was rejected per $\beta$ without being distinguished from infeasibility caused by the orthogonality bound, making an unsatisfiable $\alpha$ indistinguishable from an inert description channel. Both codebases. This is what initially masked the finding of Section~\ref{subsec:repro_alpha8}.
+    \item \textbf{Silent greedy fallback.} A heuristic allocation could be substituted for the ILP solution without the substitution being recorded. Present in the main pipeline only, and confirmed never to have triggered in any logged run.
+\end{enumerate}
+
+Defects 2 and 3 are the two that produced wrong numbers, and Section~\ref{sec:c_certification} reports what re-solving established. The defects of the earlier trained attempts are separate and remain documented in Appendix~\ref{sec:early_results}.
+
+\section{Runtimes}
+\label{sec:c_runtimes}
+
+All reproduction runs were executed on the same RTX 4090 machine used for the experiments of Chapter~\ref{chap:experiments}. Runtimes are per seed and include ILP solving.
+
+On AwA2, a run at $\mu = 1.5$ with the ILP enabled took 529 seconds, against 58 seconds with the ILP disabled; the paper-faithful $\mu = 1.0$ configuration took 615 seconds and the $\lambda = 0$ configuration 721 seconds. Raising the solver limit from 20 to 120 seconds per $\beta$ raised the total to between 50 and 61 minutes per seed. The 89\% ILP share quoted in Section~\ref{subsec:repro_discrepancies} is the difference between the first two of these figures.
+
+On aPY-15 the cost is dominated by how often the ILP is feasible. At $\alpha = 1$ a run takes 14 to 21 seconds; at $\alpha = 2$, where the problem is feasible in nearly every round but harder, 269 to 705 seconds; at $\alpha = 3$, 13 to 311 seconds, scaling with the number of rounds in which a solution exists; and at $\alpha = 4$ or with the ILP disabled, 13 to 16 seconds. The k-means baselines took approximately two minutes for four configurations across five seeds. Recovering the per-instance annotations takes about two seconds of CPU time.
+
+\section{Code Inventory}
+\label{sec:c_code}
+
+The reproduction is separate from the pipeline of Chapter~\ref{chap:methodology} and writes only to \texttt{results\_v2/}.
+
+\begin{itemize}[itemsep=2pt]
+    \item \texttt{ddc\_v2/data.py} --- dataset construction, feature caching, tag loading and masking.
+    \item \texttt{ddc\_v2/model.py} --- the three-layer encoder with softmax output.
+    \item \texttt{ddc\_v2/objectives.py} --- mutual information objective, pair generation from Equation~(5), pairwise loss, ILP solve and mask construction.
+    \item \texttt{ddc\_v2/train.py} --- pretraining and round loop, checkpointing, metric logging.
+    \item \texttt{run\_ddc\_v2.py} --- command-line entry point, configuration handling, and a write guard preventing any output under \texttt{results/}.
+    \item \texttt{kmeans\_sanity\_baseline.py} --- the matched k-means baselines of Tables~\ref{tab:c_awa2_runs} and~\ref{tab:c_apy_runs}.
+    \item \texttt{build\_apy\_instance\_tags.py} --- recovery and verification of the aPY per-instance annotations (Section~\ref{sec:c_apy_tags}).
+    \item \texttt{ilp\_probe.py} --- re-solves a stored assignment at an arbitrary time limit and records the solver's real termination reason; used for the audit of Section~\ref{sec:c_certification}.
+    \item \texttt{v1\_certify.py} --- reconstructs the shipped seed-42 clusterings from cached features, verifies them against the stored artefacts, and emits probe-compatible inputs.
+\end{itemize}
