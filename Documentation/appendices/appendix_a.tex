@@ -135,6 +135,7 @@ As the final row shows, K-means on raw features outperformed every MLP attempt, 
 The same review identified two implementation gaps in this variant. First, DDC's defining mechanism was never active: the ILP that selects informative tags was fully implemented but never invoked during training, so the pairwise constraints were always generated from the raw tag space rather than from the ILP-filtered one, leaving the model permanently in what DDC treats as a pre-training phase. Second, the constraint generation itself deviated from DDC: the class-level continuous predicates make the tag-distance term dominate DDC's pair-selection score by several orders of magnitude, disabling the intended preference for tag-similar but cluster-different pairs, and the per-batch random tag masking (re-drawn each step) replaces DDC's one-time missing-tag simulation with mean imputation, making partner selection between same-class instances depend on mask sampling rather than semantics. The early cluster collapse described in Section~\ref{sec:why_failed}---the MI objective committing the model to roughly 24 coarse clusters within one epoch---is confirmed and remains the proximate optimization failure; the gaps above explain why the pairwise term had no corrective signal to offer.
 
 \section{ILP Solver Configuration}
+\label{sec:ilp_solver_config}
 
 The ILP is solved using PuLP's CBC solver with the following configuration:
 
@@ -155,3 +156,5 @@ The ILP is solved using PuLP's CBC solver with the following configuration:
         \bottomrule
     \end{tabular}
 \end{table}
+
+These solutions were obtained under a 30-second limit per $\beta$, and the solver's termination status was not inspected, so a time-limited incumbent could not be distinguished from a proven optimum. All six seed-42 instances were subsequently re-solved at extended limits: four are proven optimal at the $\beta$ reported here---both description modes on aPY-15, \texttt{ddeccs} on aPY-32 and \texttt{ddeccs} on AwA2---while \texttt{ddc} on aPY-32 and \texttt{ddc} on AwA2 are time-limited incumbents. This thesis reports the smallest \emph{certified} $\beta$, the smallest value at which a solution has been proven optimal; under that convention the values above stand. Appendix~\ref{sec:c_certification} gives the audit in full.

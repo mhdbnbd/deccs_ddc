@@ -49,9 +49,9 @@
 \contentsline {section}{\numberline {4.5}ILP Cluster Descriptions}{20}{section.4.5}%
 \contentsline {paragraph}{These are our modes, not the DDC paper.}{20}{section.4.5}%
 \contentsline {subsection}{\numberline {4.5.1}Description Quality: \texttt {ddc} vs.\ \texttt {ddeccs}}{20}{subsection.4.5.1}%
-\contentsline {subsection}{\numberline {4.5.2}Reported Description Metrics of the Original DDC}{20}{subsection.4.5.2}%
+\contentsline {subsection}{\numberline {4.5.2}Reported Description Metrics of the Original DDC}{21}{subsection.4.5.2}%
 \contentsline {subsection}{\numberline {4.5.3}AwA2 ILP Descriptions}{21}{subsection.4.5.3}%
-\contentsline {subsection}{\numberline {4.5.4}aPY Cluster Descriptions (15-class subset)}{21}{subsection.4.5.4}%
+\contentsline {subsection}{\numberline {4.5.4}aPY Cluster Descriptions (15-class subset)}{22}{subsection.4.5.4}%
 \contentsline {subsection}{\numberline {4.5.5}aPY Cluster Descriptions (Full 32-class)}{22}{subsection.4.5.5}%
 \contentsline {section}{\numberline {4.6}Visualizations}{23}{section.4.6}%
 \contentsline {subsection}{\numberline {4.6.1}AwA2: K-means vs.\ DECCS Consensus}{23}{subsection.4.6.1}%
@@ -87,49 +87,49 @@
 \contentsline {subsection}{\numberline {6.4.1}RQ1: How can DDC's interpretability be integrated into DECCS?}{40}{subsection.6.4.1}%
 \contentsline {subsection}{\numberline {6.4.2}RQ2: What impact does the integration have on clustering performance?}{40}{subsection.6.4.2}%
 \contentsline {subsection}{\numberline {6.4.3}RQ3: How does the approach perform on AwA2 and aPY?}{40}{subsection.6.4.3}%
-\contentsline {chapter}{\numberline {7}Conclusion}{41}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Summary of Contributions}{41}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Notable Insights}{41}{section.7.2}%
-\contentsline {subsection}{\numberline {7.2.1}Pretrained Features Can Be Sufficient}{42}{subsection.7.2.1}%
-\contentsline {subsection}{\numberline {7.2.2}Loss Balancing in Deep Clustering Is Fragile}{42}{subsection.7.2.2}%
-\contentsline {subsection}{\numberline {7.2.3}Implementation Details Matter}{42}{subsection.7.2.3}%
-\contentsline {section}{\numberline {7.3}Limitations}{42}{section.7.3}%
-\contentsline {section}{\numberline {7.4}Scope and Delimitations}{43}{section.7.4}%
-\contentsline {subsection}{\numberline {7.4.1}In Scope}{43}{subsection.7.4.1}%
-\contentsline {subsection}{\numberline {7.4.2}Out of Scope}{43}{subsection.7.4.2}%
-\contentsline {section}{\numberline {7.5}Future Work}{44}{section.7.5}%
-\contentsline {subsection}{\numberline {7.5.1}Resolving the MLP Training Challenge}{44}{subsection.7.5.1}%
-\contentsline {subsection}{\numberline {7.5.2}End-to-End Consensus with Descriptions}{44}{subsection.7.5.2}%
-\contentsline {subsection}{\numberline {7.5.3}Extension to Other Domains}{44}{subsection.7.5.3}%
-\contentsline {section}{\numberline {7.6}Final Remarks}{44}{section.7.6}%
-\contentsline {chapter}{Bibliography}{45}{chapter*.27}%
-\contentsline {chapter}{List of Figures}{48}{chapter*.28}%
-\contentsline {chapter}{List of Tables}{49}{chapter*.29}%
-\contentsline {chapter}{\numberline {A}Complete Results, Early Experiments, and Solver Configuration}{51}{appendix.A}%
-\contentsline {section}{\numberline {A.1}Per-Seed Results}{51}{section.A.1}%
-\contentsline {section}{\numberline {A.2}Early Experiment Results}{52}{section.A.2}%
-\contentsline {subsection}{\numberline {A.2.1}Autoencoder-Based Approach}{52}{subsection.A.2.1}%
-\contentsline {subsection}{\numberline {A.2.2}DDC-Style MLP Training}{53}{subsection.A.2.2}%
-\contentsline {section}{\numberline {A.3}ILP Solver Configuration}{54}{section.A.3}%
-\contentsline {chapter}{\numberline {B}Cluster Descriptions and Dataset Details}{55}{appendix.B}%
-\contentsline {section}{\numberline {B.1}Complete ILP Cluster Descriptions}{55}{section.B.1}%
-\contentsline {subsection}{\numberline {B.1.1}AwA2 Cluster Descriptions (ddc mode, K = 50)}{55}{subsection.B.1.1}%
-\contentsline {subsection}{\numberline {B.1.2}aPY 15-Class Cluster Descriptions (ddc mode, K = 15)}{56}{subsection.B.1.2}%
-\contentsline {subsection}{\numberline {B.1.3}aPY Full Cluster Descriptions (ddc mode, K = 32)}{57}{subsection.B.1.3}%
-\contentsline {subsection}{\numberline {B.1.4}AwA2 Cluster Descriptions (ddeccs mode, K = 50)}{58}{subsection.B.1.4}%
-\contentsline {subsection}{\numberline {B.1.5}aPY 15-Class Cluster Descriptions (ddeccs mode, K = 15)}{58}{subsection.B.1.5}%
-\contentsline {subsection}{\numberline {B.1.6}aPY Full Cluster Descriptions (ddeccs mode, K = 32)}{59}{subsection.B.1.6}%
-\contentsline {section}{\numberline {B.2}Dataset Statistics}{60}{section.B.2}%
-\contentsline {subsection}{\numberline {B.2.1}AwA2 Dataset}{60}{subsection.B.2.1}%
-\contentsline {subsection}{\numberline {B.2.2}aPY Dataset}{60}{subsection.B.2.2}%
-\contentsline {section}{\numberline {B.3}DECCS Ensemble Details}{60}{section.B.3}%
-\contentsline {section}{\numberline {B.4}Implementation Details}{61}{section.B.4}%
-\contentsline {chapter}{\numberline {C}Reproduction Details}{62}{appendix.C}%
-\contentsline {section}{\numberline {C.1}Per-Configuration Results}{62}{section.C.1}%
-\contentsline {section}{\numberline {C.2}The Specification as Extracted from the Paper}{63}{section.C.2}%
-\contentsline {section}{\numberline {C.3}Judgment Calls}{64}{section.C.3}%
-\contentsline {section}{\numberline {C.4}Recovery of the aPY Per-Instance Annotations}{65}{section.C.4}%
-\contentsline {section}{\numberline {C.5}Solver Certification Audit}{65}{section.C.5}%
-\contentsline {section}{\numberline {C.6}Defect Inventory}{66}{section.C.6}%
-\contentsline {section}{\numberline {C.7}Runtimes}{66}{section.C.7}%
-\contentsline {section}{\numberline {C.8}Code Inventory}{67}{section.C.8}%
+\contentsline {chapter}{\numberline {7}Conclusion}{42}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Summary of Contributions}{42}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Notable Insights}{42}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Pretrained Features Can Be Sufficient}{43}{subsection.7.2.1}%
+\contentsline {subsection}{\numberline {7.2.2}Loss Balancing in Deep Clustering Is Fragile}{43}{subsection.7.2.2}%
+\contentsline {subsection}{\numberline {7.2.3}Implementation Details Matter}{43}{subsection.7.2.3}%
+\contentsline {section}{\numberline {7.3}Limitations}{43}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Scope and Delimitations}{44}{section.7.4}%
+\contentsline {subsection}{\numberline {7.4.1}In Scope}{44}{subsection.7.4.1}%
+\contentsline {subsection}{\numberline {7.4.2}Out of Scope}{44}{subsection.7.4.2}%
+\contentsline {section}{\numberline {7.5}Future Work}{45}{section.7.5}%
+\contentsline {subsection}{\numberline {7.5.1}Resolving the MLP Training Challenge}{45}{subsection.7.5.1}%
+\contentsline {subsection}{\numberline {7.5.2}End-to-End Consensus with Descriptions}{45}{subsection.7.5.2}%
+\contentsline {subsection}{\numberline {7.5.3}Extension to Other Domains}{45}{subsection.7.5.3}%
+\contentsline {section}{\numberline {7.6}Final Remarks}{45}{section.7.6}%
+\contentsline {chapter}{Bibliography}{46}{chapter*.27}%
+\contentsline {chapter}{List of Figures}{49}{chapter*.28}%
+\contentsline {chapter}{List of Tables}{50}{chapter*.29}%
+\contentsline {chapter}{\numberline {A}Complete Results, Early Experiments, and Solver Configuration}{52}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Per-Seed Results}{52}{section.A.1}%
+\contentsline {section}{\numberline {A.2}Early Experiment Results}{53}{section.A.2}%
+\contentsline {subsection}{\numberline {A.2.1}Autoencoder-Based Approach}{53}{subsection.A.2.1}%
+\contentsline {subsection}{\numberline {A.2.2}DDC-Style MLP Training}{54}{subsection.A.2.2}%
+\contentsline {section}{\numberline {A.3}ILP Solver Configuration}{55}{section.A.3}%
+\contentsline {chapter}{\numberline {B}Cluster Descriptions and Dataset Details}{56}{appendix.B}%
+\contentsline {section}{\numberline {B.1}Complete ILP Cluster Descriptions}{56}{section.B.1}%
+\contentsline {subsection}{\numberline {B.1.1}AwA2 Cluster Descriptions (ddc mode, K = 50)}{56}{subsection.B.1.1}%
+\contentsline {subsection}{\numberline {B.1.2}aPY 15-Class Cluster Descriptions (ddc mode, K = 15)}{57}{subsection.B.1.2}%
+\contentsline {subsection}{\numberline {B.1.3}aPY Full Cluster Descriptions (ddc mode, K = 32)}{58}{subsection.B.1.3}%
+\contentsline {subsection}{\numberline {B.1.4}AwA2 Cluster Descriptions (ddeccs mode, K = 50)}{59}{subsection.B.1.4}%
+\contentsline {subsection}{\numberline {B.1.5}aPY 15-Class Cluster Descriptions (ddeccs mode, K = 15)}{59}{subsection.B.1.5}%
+\contentsline {subsection}{\numberline {B.1.6}aPY Full Cluster Descriptions (ddeccs mode, K = 32)}{60}{subsection.B.1.6}%
+\contentsline {section}{\numberline {B.2}Dataset Statistics}{61}{section.B.2}%
+\contentsline {subsection}{\numberline {B.2.1}AwA2 Dataset}{61}{subsection.B.2.1}%
+\contentsline {subsection}{\numberline {B.2.2}aPY Dataset}{61}{subsection.B.2.2}%
+\contentsline {section}{\numberline {B.3}DECCS Ensemble Details}{61}{section.B.3}%
+\contentsline {section}{\numberline {B.4}Implementation Details}{62}{section.B.4}%
+\contentsline {chapter}{\numberline {C}Reproduction Details}{63}{appendix.C}%
+\contentsline {section}{\numberline {C.1}Per-Configuration Results}{63}{section.C.1}%
+\contentsline {section}{\numberline {C.2}The Specification as Extracted from the Paper}{64}{section.C.2}%
+\contentsline {section}{\numberline {C.3}Judgment Calls}{65}{section.C.3}%
+\contentsline {section}{\numberline {C.4}Recovery of the aPY Per-Instance Annotations}{66}{section.C.4}%
+\contentsline {section}{\numberline {C.5}Solver Certification Audit}{66}{section.C.5}%
+\contentsline {section}{\numberline {C.6}Defect Inventory}{67}{section.C.6}%
+\contentsline {section}{\numberline {C.7}Runtimes}{67}{section.C.7}%
+\contentsline {section}{\numberline {C.8}Code Inventory}{68}{section.C.8}%

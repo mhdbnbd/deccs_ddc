@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.4.12)  31 AUG 2026 00:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.4.12)  31 AUG 2026 00:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1516,41 +1516,42 @@ Overfull \hbox (13.90874pt too wide) in paragraph at lines 22--38
 ] [15] [16] [17] [18] [19]
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <14.4> not available
 (Font)              Font shape `T1/lmtt/b/n' tried instead on input line 268.
+ [20]
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <5> on input line 309.
- [20] [21]
+ [21]
 Overfull \hbox (4.95662pt too wide) in paragraph at lines 382--394
  [][] 
  []
 
 [22]
-<figs/awa2_kmeans_tsne.png, id=986, 722.7pt x 578.16pt>
+<figs/awa2_kmeans_tsne.png, id=989, 722.7pt x 578.16pt>
 File: figs/awa2_kmeans_tsne.png Graphic file (type png)
 <use figs/awa2_kmeans_tsne.png>
 Package pdftex.def Info: figs/awa2_kmeans_tsne.png  used on input line 437.
 (pdftex.def)             Requested size: 211.68661pt x 169.3471pt.
-<figs/awa2_deccs_tsne.png, id=987, 722.7pt x 578.16pt>
+<figs/awa2_deccs_tsne.png, id=990, 722.7pt x 578.16pt>
 File: figs/awa2_deccs_tsne.png Graphic file (type png)
 <use figs/awa2_deccs_tsne.png>
 Package pdftex.def Info: figs/awa2_deccs_tsne.png  used on input line 442.
 (pdftex.def)             Requested size: 211.68661pt x 169.3471pt.
-<figs/apy_kmeans_tsne.png, id=989, 722.7pt x 578.16pt>
+<figs/apy_kmeans_tsne.png, id=992, 722.7pt x 578.16pt>
 File: figs/apy_kmeans_tsne.png Graphic file (type png)
 <use figs/apy_kmeans_tsne.png>
 Package pdftex.def Info: figs/apy_kmeans_tsne.png  used on input line 456.
 (pdftex.def)             Requested size: 211.68661pt x 169.3471pt.
-<figs/apy_deccs_tsne.png, id=990, 722.7pt x 578.16pt>
+<figs/apy_deccs_tsne.png, id=993, 722.7pt x 578.16pt>
 File: figs/apy_deccs_tsne.png Graphic file (type png)
 <use figs/apy_deccs_tsne.png>
 Package pdftex.def Info: figs/apy_deccs_tsne.png  used on input line 461.
 (pdftex.def)             Requested size: 211.68661pt x 169.3471pt.
  [23 <./figs/awa2_kmeans_tsne.png> <./figs/awa2_deccs_tsne.png>]
-<figs/apy15_kmeans_tsne.png, id=1003, 722.7pt x 578.16pt>
+<figs/apy15_kmeans_tsne.png, id=1006, 722.7pt x 578.16pt>
 File: figs/apy15_kmeans_tsne.png Graphic file (type png)
 <use figs/apy15_kmeans_tsne.png>
 Package pdftex.def Info: figs/apy15_kmeans_tsne.png  used on input line 475.
 (pdftex.def)             Requested size: 211.68661pt x 169.3471pt.
-<figs/apy15_deccs_tsne.png, id=1004, 722.7pt x 578.16pt>
+<figs/apy15_deccs_tsne.png, id=1007, 722.7pt x 578.16pt>
 File: figs/apy15_deccs_tsne.png Graphic file (type png)
 <use figs/apy15_deccs_tsne.png>
 Package pdftex.def Info: figs/apy15_deccs_tsne.png  used on input line 480.
@@ -1574,13 +1575,13 @@ Overfull \hbox (6.8725pt too wide) in paragraph at lines 118--130
 Chapter 6.
 (./chapters/discussion.tex [36
 
-] [37] [38] [39]) [40]
+] [37] [38] [39]) [40] [41]
 Chapter 7.
-(./chapters/conclusion.tex [41
+(./chapters/conclusion.tex [42
 
-] [42] [43]) (./main.bbl [44] [45
+] [43] [44]) (./main.bbl [45] [46
 
-] [46]) [47]
+] [47]) [48]
 (./main.lof
 Overfull \hbox (13.1423pt too wide) in paragraph at lines 15--15
  \T1/lmtt/m/n/12 results/apy_15/kmeans/tsne.png \T1/lmr/m/n/12 (-20) and \T1/lm
@@ -1591,7 +1592,7 @@ tt/m/n/12 results/apy_15/deccs/tsne.png\T1/lmr/m/n/12 (-20) .[] [][]
 \tf@lof=\write6
 \openout6 = `main.lof'.
 
- [48
+ [49
 
 ] (./main.lot
 Overfull \hbox (3.8171pt too wide) in paragraph at lines 21--21
@@ -1599,15 +1600,15 @@ Overfull \hbox (3.8171pt too wide) in paragraph at lines 21--21
 /ddeccs/ilp_descriptions.json\T1/lmr/m/n/12 (-20) .[] [][]  
  []
 
-[49
+[50
 
 ])
 \tf@lot=\write7
 \openout7 = `main.lot'.
 
- (./appendices/appendix_a.tex [50]
+ (./appendices/appendix_a.tex [51]
 Appendix A.
-[51
+[52
 
 ]
 
@@ -1617,7 +1618,7 @@ Package fancyhdr Warning: \headheight is too small (15.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-12.11652pt}.
 
-[52]
+[53]
 
 Package fancyhdr Warning: \headheight is too small (15.0pt): 
 (fancyhdr)                Make it at least 27.11652pt, for example:
@@ -1625,7 +1626,7 @@ Package fancyhdr Warning: \headheight is too small (15.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-12.11652pt}.
 
-[53]) (./appendices/appendix_b.tex
+[54]) (./appendices/appendix_b.tex
 
 Package fancyhdr Warning: \headheight is too small (15.0pt): 
 (fancyhdr)                Make it at least 27.11652pt, for example:
@@ -1633,17 +1634,22 @@ Package fancyhdr Warning: \headheight is too small (15.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-12.11652pt}.
 
-[54]
+[55]
 Appendix B.
-[55
+[56
 
-] [56] [57] [58] [59]
+] [57] [58] [59] [60]
+Overfull \hbox (10.96439pt too wide) in paragraph at lines 360--375
+ [][] 
+ []
+
+
 Underfull \hbox (badness 2253) in paragraph at lines 391--392
 []\T1/lmr/m/n/12 (+20) Elkan al-go-rithm, $\OML/lmm/m/it/12 n[]init \OT1/lmr/m/
 n/12 (+20) = []$\T1/lmr/m/n/12 (+20) ,
  []
 
-[60]) (./appendices/appendix_c.tex [61]
+[61]) (./appendices/appendix_c.tex [62]
 Appendix C.
 
 Overfull \hbox (91.48239pt too wide) in paragraph at lines 17--34
@@ -1655,9 +1661,9 @@ Overfull \hbox (98.17142pt too wide) in paragraph at lines 44--62
  [][] 
  []
 
-[62
+[63
 
-] [63] [64] [65] [66]) [67] (./main.aux)
+] [64] [65] [66] [67]) [68] (./main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -1666,11 +1672,11 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 0F25F5DD497984DE275ABF1A3D812067;25665.
  ) 
 Here is how much of TeX's memory you used:
- 45594 strings out of 469006
- 1032184 string characters out of 5454813
- 1606441 words of memory out of 5000000
- 72929 multiletter control sequences out of 15000+600000
- 749856 words of font info for 290 fonts, out of 8000000 for 9000
+ 45595 strings out of 469006
+ 1032209 string characters out of 5454813
+ 1606493 words of memory out of 5000000
+ 72930 multiletter control sequences out of 15000+600000
+ 749930 words of font info for 290 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
  84i,14n,104p,1928b,803s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2026basic/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></u
@@ -1697,10 +1703,10 @@ texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2026basic/texmf
 /fonts/type1/public/lm/lmtti10.pfb></usr/local/texlive/2026basic/texmf-dist/fon
 ts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2026basic/texmf
 -dist/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on main.pdf (74 pages, 4623808 bytes).
+Output written on main.pdf (75 pages, 4626970 bytes).
 PDF statistics:
- 1686 PDF objects out of 1728 (max. 8388607)
- 1503 compressed objects within 16 object streams
+ 1700 PDF objects out of 1728 (max. 8388607)
+ 1516 compressed objects within 16 object streams
  224 named destinations out of 1000 (max. 500000)
  68130 words of extra memory for PDF output out of 74296 (max. 10000000)
 
